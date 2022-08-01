@@ -20,37 +20,49 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/EMODnetWCS)](https://CRAN.R-project.org/package=EMODnetWCS)
 <!-- badges: end -->
 
-The goal of EMODnetWCS is to ...
+
+The goal of EMODnetWCS is to allow interrogation of and access to EMODnet geographic raster data in R though the [EMODnet Web Coverage Services](https://www.emodnet.eu/en/data). [Web Coverage services (WCS)](https://www.ogc.org/standards/wcs) offer multi-dimensional coverage data for access over the Internet. This package was developed by Sheffield University as part of EMODnet Biology WP4.
+
+
+
+```{r, eval=FALSE}
+vignette("emodnetwfs")
+```
+
 
 ## Installation
 
-You can install the development version of EMODnetWCS like so:
+You can install the development version of EMODnetWCS from GitHub with:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+# install.packages("remotes")
+remotes::install_github("EMODnet/EMODnetWCS")
 ```
 
-## Example
+## Available services
 
-This is a basic example which shows you how to solve a common problem:
+All available services are contained in the tibble returned by `emodnet_wcs()`.
 
-```{r example}
+
+```{r, echo=FALSE}
 library(EMODnetWCS)
-## basic example code
+knitr::kable(emodnet_wcs())
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+To explore available services in Rstudio use:
 
-```{r cars}
-summary(cars)
+```r
+View(emodnet_wcs())
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
 
-You can also embed plots, for example:
+## Create Service Client
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+Create new WCS Client.  Specify the service using the `service` argument. 
+
+```{r}
+wcs_bio <- emodnet_init_wcs_client(service = "biology")
+
+wcs_bio$getUrl()
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
