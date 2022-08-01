@@ -21,7 +21,8 @@ emodnet_wcs <- emodnet_wcs |>
     rename( service_name = "Portal",
             service_url = "WCS.GetCapabilities") |>
     select(-Description) |>
-    mutate(service_url = stringr::str_remove(service_url, "\\?SERVICE=WCS&REQUEST.*$"))
+    mutate(service_url = stringr::str_remove(service_url, "\\?SERVICE=WCS&REQUEST.*$"),
+           service_name = stringr::str_to_lower(service_name))
 
 # write as csv to /inst directory
 readr::write_csv(emodnet_wcs, here::here("inst", "services.csv"))
