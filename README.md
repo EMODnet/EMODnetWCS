@@ -13,14 +13,11 @@ status](https://www.r-pkg.org/badges/version/EMODnetWCS)](https://CRAN.R-project
 
 The goal of EMODnetWCS is to allow interrogation of and access to
 EMODnet geographic raster data in R though the [EMODnet Web Coverage
-Services](https://www.emodnet.eu/en/data). [Web Coverage services
-(WCS)](https://www.ogc.org/standards/wcs) offer multi-dimensional
-coverage data for access over the Internet. This package was developed
-by Sheffield University as part of EMODnet Biology WP4.
-
-``` r
-vignette("emodnetwfs")
-```
+Services](https://github.com/EMODnet/Web-Service-Documentation#web-coverage-service-wcs).
+[Web Coverage services (WCS)](https://www.ogc.org/standards/wcs) offer
+multi-dimensional coverage data for access over the Internet. This
+package was developed by Sheffield University as part of EMODnet Biology
+WP4.
 
 ## Installation
 
