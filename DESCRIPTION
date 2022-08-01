@@ -18,7 +18,8 @@ Imports:
     curl,
     httr,
     memoise,
-    ows4R (>= 0.3)
+    ows4R (>= 0.3),
+    readr
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
