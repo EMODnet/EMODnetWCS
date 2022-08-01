@@ -21,4 +21,4 @@ emodnet_wcs <- emodnet_wcs |>
     mutate(service_url = stringr::str_remove(service_url, "\\?SERVICE=WCS&REQUEST.*$"))
 
 
-usethis::use_data(emodnet_wcs, overwrite = TRUE)
+readr::write_csv(emodnet_wcs, here::here("inst", "services.csv"))
