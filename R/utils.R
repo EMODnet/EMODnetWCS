@@ -56,6 +56,10 @@ get_constraint <- function(summary) {
     summary$getDescription()$rangeType$DataRecord$field$Quantity$constraint$AllowedValues$interval$value
 }
 
+error_wrap <- function(expr) {
+    tryCatch(expr, error = function(e) NA)
+}
+
 process_dimension <- function(x, format = c("character", "list", "tibble")) {
     format <- match.arg(format)
     dimensions <- x$getDimensions()
