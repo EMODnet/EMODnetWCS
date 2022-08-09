@@ -16,10 +16,14 @@ License: MIT + file LICENSE
 Imports: 
     checkmate,
     curl,
+    glue,
     httr,
     memoise,
     ows4R (>= 0.3),
-    readr
+    purrr,
+    readr,
+    rlang,
+    usethis
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
