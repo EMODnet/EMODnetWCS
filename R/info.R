@@ -1,4 +1,10 @@
-.emodnet_get_wcs_coverage_info <- function(wcs, coverages) {
+.emodnet_get_wcs_coverage_info <- function(wcs = NULL, service = NULL,
+                                           coverages,
+                                           service_version = c(
+                                               "2.0.1", "2.1.0", "2.0.0",
+                                               "1.1.1", "1.1.0"
+                                           ),
+                                           logger = c("NONE", "INFO", "DEBUG")) {
   check_wcs(wcs)
   capabilities <- wcs$getCapabilities()
 
@@ -30,8 +36,7 @@ emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info
 .emodnet_get_wcs_info <- function(wcs = NULL, service = NULL,
                                   service_version = c(
                                     "2.0.1", "2.1.0", "2.0.0",
-                                    "1.1.1", "1.1.0",
-                                    "1.0.0"
+                                    "1.1.1", "1.1.0"
                                   ),
                                   logger = c("NONE", "INFO", "DEBUG")) {
   if (is.null(wcs) & is.null(service)) {
@@ -93,10 +98,16 @@ emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info
 emodnet_get_wcs_info <- memoise::memoise(.emodnet_get_wcs_info)
 
 
-.emodnet_get_all_wcs_info <- function(logger = c("NONE", "INFO", "DEBUG")) {
+.emodnet_get_all_wcs_info <- function(service_version = c(
+                                          "2.0.1", "2.1.0", "2.0.0",
+                                          "1.1.1", "1.1.0"
+                                      ),
+                                      logger = c("NONE", "INFO", "DEBUG")) {
   purrr::map(
     emodnet_wcs()$service_name,
-    ~ suppressMessages(emodnet_get_wcs_info(service = .x, logger = logger))
+    ~ suppressMessages(emodnet_get_wcs_info(service = .x,
+                                            service_version = service_version,
+                                            logger = logger))
   ) |>
     stats::setNames(emodnet_wcs()$service_name)
 }

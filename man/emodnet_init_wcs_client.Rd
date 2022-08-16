@@ -6,14 +6,17 @@
 \usage{
 emodnet_init_wcs_client(
   service,
-  service_version = c("2.1.0", "2.0.1", "1.1.1", "1.1.0", "1.0")
+  service_version = c("2.0.1", "2.1.0", "2.0.0", "1.1.1", "1.1.0"),
+  logger = c("NONE", "INFO", "DEBUG")
 )
 }
 \arguments{
 \item{service}{the EMODnet OGC WCS service name.
 For available services, see \code{\link[=emodnet_wcs]{emodnet_wcs()}}.}
 
-\item{service_version}{the WCS service version. Defaults to "2.0.0".}
+\item{service_version}{the WCS service version. Defaults to "2.0.1".}
+
+\item{logger}{character string. Level of logger: 'NONE' for no logger, 'INFO' to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)}
 }
 \value{
 An \code{\link[ows4R:WCSClient]{ows4R::WCSClient}} R6 object with methods for interfacing an OGC Web Feature Service.

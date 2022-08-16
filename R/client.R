@@ -14,8 +14,7 @@
 #' wcs <- emodnet_init_wcs_client(service = "bathymetry")
 #' }
 emodnet_init_wcs_client <- function(service, service_version = c("2.0.1", "2.1.0", "2.0.0",
-                                                                 "1.1.1", "1.1.0",
-                                                                 "1.0.0"),
+                                                                 "1.1.1", "1.1.0"),
                                     logger = c("NONE", "INFO", "DEBUG")) {
 
     check_service_name(service)
