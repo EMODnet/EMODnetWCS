@@ -21,10 +21,7 @@ emodnet_get_wcs_info(
   logger = c("NONE", "INFO", "DEBUG")
 )
 
-emodnet_get_all_wcs_info(
-  service_version = c("2.0.1", "2.1.0", "2.0.0", "1.1.1", "1.1.0"),
-  logger = c("NONE", "INFO", "DEBUG")
-)
+emodnet_get_all_wcs_info(logger = c("NONE", "INFO", "DEBUG"))
 }
 \arguments{
 \item{wcs}{A \code{WCSClient} R6 object with methods for interfacing an OGC Web Feature Service.}

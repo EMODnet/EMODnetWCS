@@ -11,19 +11,28 @@ check_wcs <- function(wcs) {
 }
 
 check_wcs_version <- function(wcs) {
-    supported_versions <- wcs$getCapabilities()$
-        getServiceIdentification()$
-        getServiceTypeVersion()
+    if (get_service_name(wcs$getUrl()) == "human_activities" &&
+        wcs$getVersion() != "2.0.1") {
+        rlang::warn(glue::glue('Service version {usethis::ui_value(wcs$getVersion())} ',
+                               ' can result in unexpected',
+                               ' behaviour on {usethis::ui_value("human activities")} server.
+                            We strongly recommend reconnecting using {usethis::ui_code("service_version")} ',
+                               '{usethis::ui_value("2.0.1")}'))
+    } else {
+        supported_versions <- wcs$getCapabilities()$
+            getServiceIdentification()$
+            getServiceTypeVersion()
 
-    version <- wcs$getVersion()
+        version <- wcs$getVersion()
 
-    if (!checkmate::test_choice(version, supported_versions)) {
-        rlang::warn(glue::glue('Service version {usethis::ui_value(version)} not',
-                               ' supported by server and can result in unexpected',
-                               ' behaviour.
+        if (!checkmate::test_choice(version, supported_versions)) {
+            rlang::warn(glue::glue('Service version {usethis::ui_value(version)} not',
+                                   ' supported by server and can result in unexpected',
+                                   ' behaviour.
                             We strongly recommend reconnecting using one of the ',
-                               'supported versions: ',
-                               '{usethis::ui_value(supported_versions)}'))
+                                   'supported versions: ',
+                                   '{usethis::ui_value(supported_versions)}'))
+        }
     }
 }
 
