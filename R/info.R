@@ -50,7 +50,8 @@
 #' @return `emodnet_get_wcs_info` & `emodnet_get_wcs_info` return a list of service
 #' level metadata, including a tibble containing coverage level metadata for each
 #' coverage available from the service. `emodnet_get_wcs_coverage_info` returns a list
-#' containing a tibble of more detailed metadata for each coverage specified.
+#' containing a tibble of more detailed metadata for each coverage specified. See
+#' **Details** for more information.
 #' @export
 #' @describeIn emodnet_get_wcs_info Get info on all coverages from am EMODnet WCS service.
 #' @examples
