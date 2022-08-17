@@ -140,6 +140,6 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
 #' @details To minimize the number of requests sent to webservices,
 #' these functions use `memoise` to cache results inside the active R session.
 #' To clear the cache, re-start R or run `memoise::forget(emodnet_get_wcs_info)`/`memoise::forget(emodnet_get_wcs_coverage_info)`.
-# #' @export
+#' @export
 emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info)
 
