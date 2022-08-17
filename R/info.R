@@ -1,48 +1,3 @@
-.emodnet_get_wcs_coverage_info <- function(wcs = NULL, service = NULL,
-                                           coverages,
-                                           service_version = c(
-                                               "2.0.1", "2.1.0", "2.0.0",
-                                               "1.1.1", "1.1.0"
-                                           ),
-                                           logger = c("NONE", "INFO", "DEBUG")) {
-
-    if (is.null(wcs) & is.null(service)) {
-        usethis::ui_stop("Please provide a valid {usethis::ui_field('service')} name or {usethis::ui_field('wcs')} object.
-                         Both cannot be {usethis::ui_value('NULL')}")
-    }
-
-    if (is.null(wcs)) {
-        wcs <- emodnet_init_wcs_client(service, service_version, logger)
-    }
-
-    check_wcs(wcs)
-    check_wcs_version(wcs)
-
-    capabilities <- wcs$getCapabilities()
-
-    wcs_coverages <- purrr::map(validate_namespace(coverages),
-                                ~capabilities$findCoverageSummaryById(.x)) |>
-        unlist(recursive = FALSE)
-
-    tibble::tibble(
-        data_source = "emodnet_wcs",
-        service_name = wcs$getUrl(),
-        service_url = get_service_name(wcs$getUrl()),
-        coverage_name = purrr::map_chr(wcs_coverages, ~ .x$getId()),
-        title = purrr::map_chr(wcs_coverages, ~ .x$getTitle())
-    )
-}
-
-#' @describeIn emodnet_get_wcs_info Get metadata for specific coverages. Requires a
-#' `wcs` object as input.
-#' @inheritParams emodnet_get_wcs_coverages
-#' @importFrom memoise memoise
-#' @details To minimize the number of requests sent to webservices,
-#' these functions use `memoise` to cache results inside the active R session.
-#' To clear the cache, re-start R or run `memoise::forget(emodnet_get_wcs_info)`/`memoise::forget(emodnet_get_wcs_coverage_info)`.
-# #' @export
-emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info)
-
 .emodnet_get_wcs_info <- function(wcs = NULL, service = NULL,
                                   service_version = c(
                                       "2.0.1", "2.1.0", "2.0.0",
@@ -76,26 +31,30 @@ emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info
         service_type = service_id$getServiceType(),
         coverage_details =
             tibble::tibble(
-                coverage_name = error_wrap(purrr::map_chr(summaries, ~ .x$getId())),
-                coverage_dimensions = error_wrap(purrr::map_int(summaries, ~ length(.x$getDimensions()))),
-                coverage_dim_meta = error_wrap(purrr::map_chr(summaries, ~ process_dimension(.x, format = "character"))),
-                coverage_bbox = error_wrap(purrr::map_chr(summaries, ~ get_bbox(.x) |> conc_bbox())),
-                coverage_crs = error_wrap(purrr::map_chr(summaries, ~ extr_bbox_crs(.x))),
-                coverage_wgs84_bbox = error_wrap(purrr::map_chr(summaries, ~ get_WGS84bbox(.x) |> conc_bbox())),
-                coverage_subtype = error_wrap(purrr::map_chr(summaries, ~ .x$CoverageSubtype))
+                name = error_wrap(purrr::map_chr(summaries, ~ .x$getId())),
+                dimension_n = error_wrap(purrr::map_int(summaries, ~ length(.x$getDimensions()))),
+                dimension_names = error_wrap(purrr::map_chr(summaries, ~ process_dimension(.x, format = "character"))),
+                extent = error_wrap(purrr::map_chr(summaries, ~ get_bbox(.x) |> conc_bbox())),
+                crs = error_wrap(purrr::map_chr(summaries, ~ extr_bbox_crs(.x))),
+                wgs84_bbox = error_wrap(purrr::map_chr(summaries, ~ get_WGS84bbox(.x) |> conc_bbox())),
+                subtype = error_wrap(purrr::map_chr(summaries, ~ .x$CoverageSubtype))
             )
     )
 }
+
 #' Get WCS available coverage information
 #'
 #' @param wcs A `WCSClient` R6 object with methods for interfacing an OGC Web Feature Service.
 #' @inheritParams emodnet_init_wcs_client
 #' @importFrom rlang .data `%||%`
-#' @return a tibble containg metadata on each coverage available from the service.
+#' @return `emodnet_get_wcs_info` & `emodnet_get_wcs_info` return a list of service
+#' level metadata, including a tibble containing coverage level metadata for each
+#' coverage available from the service. `emodnet_get_wcs_coverage_info` returns a list
+#' containing a tibble of more detailed metadata for each coverage specified.
 #' @export
 #' @describeIn emodnet_get_wcs_info Get info on all coverages from am EMODnet WCS service.
 #' @examples
-#' emodnet_get_wcs_info(service = "bathymetry")
+#' emodnet_get_wcs_info(service = "biology")
 #' # Query a wcs object
 #' wcs <- emodnet_init_wcs_client(service = "seabed_habitats")
 #' emodnet_get_wcs_info(wcs)
@@ -117,7 +76,69 @@ emodnet_get_wcs_info <- memoise::memoise(.emodnet_get_wcs_info)
         stats::setNames(emodnet_wcs()$service_name)
 }
 
-#' @describeIn emodnet_get_wcs_info Get metadata on all coverages and all available
-#' services from server.
+#' @describeIn emodnet_get_wcs_info Get metadata on all services and all available
+#' coverages from each service.
 #' @export
 emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
+
+.emodnet_get_wcs_coverage_info <- function(wcs = NULL, service = NULL,
+                                           coverages,
+                                           service_version = c(
+                                               "2.0.1", "2.1.0", "2.0.0",
+                                               "1.1.1", "1.1.0"
+                                           ),
+                                           logger = c("NONE", "INFO", "DEBUG")) {
+
+    if (is.null(wcs) & is.null(service)) {
+        usethis::ui_stop("Please provide a valid {usethis::ui_field('service')} name or {usethis::ui_field('wcs')} object.
+                         Both cannot be {usethis::ui_value('NULL')}")
+    }
+
+    if (is.null(wcs)) {
+        wcs <- emodnet_init_wcs_client(service, service_version, logger)
+    }
+
+    check_wcs(wcs)
+    check_wcs_version(wcs)
+
+    capabilities <- wcs$getCapabilities()
+
+    summaries <- purrr::map(validate_namespace(coverages),
+                            ~capabilities$findCoverageSummaryById(.x)) |>
+        unlist(recursive = FALSE)
+
+    tibble::tibble(
+        data_source = "emodnet_wcs",
+        service_name = wcs$getUrl(),
+        service_url = get_service_name(wcs$getUrl()),
+        band_name = error_wrap(purrr::map_chr(summaries, ~ .x$getId())),
+        description = error_wrap(purrr::map_chr(summaries, ~ get_description(.x))),
+        band_uom = error_wrap(purrr::map_chr(summaries, ~ get_uom(.x))),
+        constraint = error_wrap(purrr::map_chr(summaries, ~ get_constraint(.x))),
+        nil_value = error_wrap(purrr::map_chr(summaries, ~ get_nil_value(.x))),
+        grid_size = error_wrap(purrr::map_chr(summaries, ~ get_grid_size(.x))),
+        resolution = error_wrap(purrr::map_chr(summaries, ~ get_resolution(.x))),
+        dim_n = error_wrap(purrr::map_int(summaries, ~ get_dimensions_n(.x))),
+        dim_names = error_wrap(purrr::map_chr(summaries, ~ get_dimensions_names(.x))),
+        extent = error_wrap(purrr::map_chr(summaries, ~ get_bbox(.x) |> conc_bbox())),
+        crs = error_wrap(purrr::map_chr(summaries, ~ extr_bbox_crs(.x)$input)),
+        wgs84_extent = error_wrap(purrr::map_chr(summaries, ~ get_WGS84bbox(.x) |> conc_bbox())),
+        subtype = error_wrap(purrr::map_chr(summaries, ~ .x$CoverageSubtype)),
+        fn_seq_rule = purrr::map_chr(summaries, ~ get_coverage_function(.x)),
+        fn_start_point = purrr::map_chr(summaries,
+                                        ~get_coverage_function(.x,
+                                                               param = "startPoint"))
+    )
+}
+
+#' @describeIn emodnet_get_wcs_info Get metadata for specific coverages. Requires a
+#' `wcs` object as input.
+#' @param coverages character vector of coverage IDs.
+#' @inheritParams emodnet_get_wcs_info
+#' @importFrom memoise memoise
+#' @details To minimize the number of requests sent to webservices,
+#' these functions use `memoise` to cache results inside the active R session.
+#' To clear the cache, re-start R or run `memoise::forget(emodnet_get_wcs_info)`/`memoise::forget(emodnet_get_wcs_coverage_info)`.
+# #' @export
+emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info)
+
