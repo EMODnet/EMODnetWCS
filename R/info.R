@@ -35,7 +35,7 @@
                 dimension_n = error_wrap(purrr::map_int(summaries, ~ length(.x$getDimensions()))),
                 dimension_names = error_wrap(purrr::map_chr(summaries, ~ process_dimension(.x, format = "character"))),
                 extent = error_wrap(purrr::map_chr(summaries, ~ get_bbox(.x) |> conc_bbox())),
-                crs = error_wrap(purrr::map_chr(summaries, ~ extr_bbox_crs(.x))),
+                crs = error_wrap(purrr::map_chr(summaries, ~ extr_bbox_crs(.x)$input)),
                 wgs84_bbox = error_wrap(purrr::map_chr(summaries, ~ get_WGS84bbox(.x) |> conc_bbox())),
                 subtype = error_wrap(purrr::map_chr(summaries, ~ .x$CoverageSubtype))
             )
