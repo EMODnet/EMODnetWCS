@@ -21,9 +21,11 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 
-The goal of EMODnetWCS is to allow interrogation of and access to EMODnet geographic raster data in R though the [EMODnet Web Coverage Services](https://github.com/EMODnet/Web-Service-Documentation#web-coverage-service-wcs). [Web Coverage services (WCS)](https://www.ogc.org/standards/wcs) offer multi-dimensional coverage data for access over the Internet. This package was developed by Sheffield University as part of EMODnet Biology WP4.
+The goal of EMODnetWCS is to allow interrogation of and access to EMODnet geographic raster data in R though the [EMODnet Web Coverage Services](https://github.com/EMODnet/Web-Service-Documentation#web-coverage-service-wcs). See below for available Services. This package was developed by Sheffield University as part of EMODnet Biology WP4.
 
+[Web Coverage services (WCS)](https://www.ogc.org/standards/wcs) is a standard created by the OGC that refers to the receiving of geospatial information as ‘coverages’: digital geospatial information representing space-varying phenomena. One can think of it as Web Feature Service (WFS) for raster data. It gets the ‘source code’ of the map, but in this case its not raw vectors but raw imagery.
 
+An important distinction must be made between WCS and Web Map Service (WMS). They are similar, and can return similar formats, but a WCS is able to return more information, including valuable metadata and more formats. It additionally allows more precise queries, potentially against multi-dimensional backend formats.
 
 ## Installation
 
@@ -33,14 +35,19 @@ You can install the development version of EMODnetWCS from GitHub with:
 # install.packages("remotes")
 remotes::install_github("EMODnet/EMODnetWCS")
 ```
+Load the library 
+```{r load-lib}
+library(EMODnetWCS)
+library(ows4R)
+```
 
 ## Available services
 
 All available services are contained in the tibble returned by `emodnet_wcs()`.
 
 
-```{r, echo=FALSE}
-library(EMODnetWCS)
+```{r services, echo=FALSE}
+
 knitr::kable(emodnet_wcs())
 ```
 
@@ -55,9 +62,30 @@ View(emodnet_wcs())
 
 Create new WCS Client.  Specify the service using the `service` argument. 
 
-```{r}
-wcs_bio <- emodnet_init_wcs_client(service = "biology")
+```{r wcs-init}
+wcs <- emodnet_init_wcs_client(service = "biology")
 
-wcs_bio$getUrl()
+wcs$getUrl()
+```
+
+
+## Get Information about a WCS service
+
+Get information about a WCS service by supplying a `wcs` object to `emodnet_get_wcs_info`
+
+```{r wcs-info}
+emodnet_get_wcs_info(wcs)
+```
+
+Info can also be extracted using a service name instead of a `wcs` object.
+
+```{r wcs-info-name}
+emodnet_get_wcs_info(service = "bathymetry")
+```
+
+
+```{r}
+emodnet_get_wcs_coverage_info(service = "human_activities", 
+                              coverages = "emodnet:2017_01_st_00")
 ```
 
