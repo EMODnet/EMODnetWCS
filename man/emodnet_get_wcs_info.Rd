@@ -104,7 +104,8 @@ Get EMODnet WCS service and available coverage information.
 }
 \details{
 To minimize the number of requests sent to webservices,
-these functions use \code{memoise} to cache results inside the active R session.
+these functions use \href{https://memoise.r-lib.org/}{\code{memoise}} to cache results
+inside the active R session.
 To clear the cache, re-start R or run \code{memoise::forget(emodnet_get_wcs_info)}/\code{memoise::forget(emodnet_get_wcs_coverage_info)}
 }
 \section{Functions}{

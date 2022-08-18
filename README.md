@@ -198,7 +198,9 @@ emodnet_get_wcs_coverage_info(service = "human_activities",
 #> # ℹ Use `colnames()` to see all variable names
 ```
 
-> **Note** To minimize the number of requests sent to webservices, these
-> functions use `memoise` to cache results inside the active R session.
-> To clear the cache, re-start R or run
+> **Note**
+>
+> To minimize the number of requests sent to webservices, these
+> functions use [`memoise`](https://memoise.r-lib.org/) to cache results
+> inside the active R session. To clear the cache, re-start R or run
 > `memoise::forget(emodnet_get_wcs_info)`/`memoise::forget(emodnet_get_wcs_coverage_info)`
