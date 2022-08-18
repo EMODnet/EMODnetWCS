@@ -32,8 +32,8 @@
         coverage_details =
             tibble::tibble(
                 name = error_wrap(purrr::map_chr(summaries, ~ .x$getId())),
-                dimension_n = error_wrap(purrr::map_int(summaries, ~ length(.x$getDimensions()))),
-                dimension_names = error_wrap(purrr::map_chr(summaries, ~ process_dimension(.x, format = "character"))),
+                dim_n = error_wrap(purrr::map_int(summaries, ~ length(.x$getDimensions()))),
+                dim_names = error_wrap(purrr::map_chr(summaries, ~ process_dimension(.x, format = "character"))),
                 extent = error_wrap(purrr::map_chr(summaries, ~ get_bbox(.x) |> conc_bbox())),
                 crs = error_wrap(purrr::map_chr(summaries, ~ extr_bbox_crs(.x)$input)),
                 wgs84_bbox = error_wrap(purrr::map_chr(summaries, ~ get_WGS84bbox(.x) |> conc_bbox())),
@@ -42,23 +42,75 @@
     )
 }
 
-#' Get WCS available coverage information
+#' Get EMODnet WCS service and available coverage information.
 #'
-#' @param wcs A `WCSClient` R6 object with methods for interfacing an OGC Web Feature Service.
+#' @param wcs A `WCSClient` R6 object, created with function [`emodnet_init_wcs_client`].
 #' @inheritParams emodnet_init_wcs_client
 #' @importFrom rlang .data `%||%`
 #' @return `emodnet_get_wcs_info` & `emodnet_get_wcs_info` return a list of service
 #' level metadata, including a tibble containing coverage level metadata for each
 #' coverage available from the service. `emodnet_get_wcs_coverage_info` returns a list
-#' containing a tibble of more detailed metadata for each coverage specified. See
-#' **Details** for more information.
+#' containing a tibble of more detailed metadata for each coverage specified.
+#'
+#' ## `emodnet_get_wcs_info` / `emodnet_get_all_wcs_info`
+#'
+#' `emodnet_get_wcs_info` and `emodnet_get_all_wcs_info` return a list with the
+#' following metadata:
+#' - **`data_source`:** the EMODnet source of data.
+#' - **`service_name`:** the EMODnet WCS service name.
+#' - **`service_url`:** the EMODnet WCS service URL.
+#' - **`service_title`:** the EMODnet WCS service title.
+#' - **`service_abstract`:** the EMODnet WCS service abstract.
+#' - **`service_access_constraits`:** any access constraints associated with the EMODnet WCS service.
+#' - **`service_fees`:** any access fees associated with the EMODnet WCS service.
+#' - **`service_type`:** the EMODnet WCS service type.
+#' - **`coverage_details`:** a tibble of details of each coverage available through EMODnet WCS service:
+#'   - **`name`:** the coverage name.
+#'   - **`dim_n`:** the number of coverage dimensions
+#'   - **`dim_names`:** the coverage dimension names, units (in brackets) and types.
+#'   - **`extent`:** the coverage extent (`xmin`, `ymin`, `xmax` and `ymax`).
+#'   - **`crs`:** the coverage CRS (Coordinate Reference System).
+#'   - **`wgs84_bbox`:** the coverage extent (`xmin`, `ymin`, `xmax` and `ymax`)
+#'   in WGS84 (EPSG:4326) CRS coordinates.
+#'   - **`subtype`:** the coverage subtype.
+#'
+#' ## `emodnet_get_wcs_coverage_info`
+#'
+#' `emodnet_get_wcs_coverage_info` returns a tibble with a row for each coverage
+#' specified and columns with the following details:
+#' - **`data_source`:** the EMODnet source of data.
+#' - **`service_name`:** the EMODnet WCS service name.
+#' - **`service_url`:** the EMODnet WCS service URL.
+#' - **`name`:** the name of the coverage.
+#' - **`band_description`:** the description of the data contained in the band of the coverage.
+#' - **`band_uom`:** the unit of measurement of the data contained in the band of the coverage.
+#' - **`constraint`:** the range of values of the data contained in the band of the coverage.
+#' - **`nil_value`:** the nil value of the data contained in the band of the coverage.
+#' - **`grid_size`:** the spatial size of the coverage grid (ncol x nrow).
+#' - **`resolution`:** the spatial resolution (pixel size) of the coverage grid
+#' in the CRS units of measurement (size in the `x` dimension x size in the `y` dimension).
+#' - **`dim_n`:** the number of coverage dimensions
+#' - **`dim_names`:** the coverage dimension names, units (in brackets) and types.
+#' - **`extent`:** the coverage extent (`xmin`, `ymin`, `xmax` and `ymax`).
+#' - **`crs`:** the coverage CRS (Coordinate Reference System).
+#' - **`wgs84_bbox`:** the coverage extent (`xmin`, `ymin`, `xmax` and `ymax`)
+#'   in WGS84 (EPSG:4326) CRS coordinates.
+#' - **`subtype`:** the coverage subtype.
+#' - **`fn_seq_rule`:** the function describing the sequence rule which specifies
+#' the relationship between the axes of data and coordinate system axes.
+#' - **`fn_start_point`:** the location of the origin of the data in the coordinate system.
+#'
+#' For additional details on WCS metadata, see the GDAL wiki section on
+#' [WCS Basics and GDAL](https://trac.osgeo.org/gdal/wiki/WCS%2Binteroperability)
+#'
 #' @export
 #' @describeIn emodnet_get_wcs_info Get info on all coverages from am EMODnet WCS service.
 #' @examples
-#' emodnet_get_wcs_info(service = "biology")
-#' # Query a wcs object
+#' # Get information from a wcs object.
 #' wcs <- emodnet_init_wcs_client(service = "seabed_habitats")
 #' emodnet_get_wcs_info(wcs)
+#' # Get information using a service name.
+#' emodnet_get_wcs_info(service = "biology")
 #' # Get detailed info for specific coverages from wcs object
 #' coverages <- c(
 #'   "emodnet_open_maplibrary__mediseh_cora",
@@ -112,8 +164,8 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
         data_source = "emodnet_wcs",
         service_name = wcs$getUrl(),
         service_url = get_service_name(wcs$getUrl()),
-        band_name = error_wrap(purrr::map_chr(summaries, ~ .x$getId())),
-        description = error_wrap(purrr::map_chr(summaries, ~ get_description(.x))),
+        name = error_wrap(purrr::map_chr(summaries, ~ .x$getId())),
+        band_description = error_wrap(purrr::map_chr(summaries, ~ get_description(.x))),
         band_uom = error_wrap(purrr::map_chr(summaries, ~ get_uom(.x))),
         constraint = error_wrap(purrr::map_chr(summaries, ~ get_constraint(.x))),
         nil_value = error_wrap(purrr::map_chr(summaries, ~ get_nil_value(.x))),
@@ -133,13 +185,14 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
 }
 
 #' @describeIn emodnet_get_wcs_info Get metadata for specific coverages. Requires a
-#' `wcs` object as input.
+#' `WCSClient` R6 object as input.
 #' @param coverages character vector of coverage IDs.
 #' @inheritParams emodnet_get_wcs_info
 #' @importFrom memoise memoise
 #' @details To minimize the number of requests sent to webservices,
 #' these functions use `memoise` to cache results inside the active R session.
-#' To clear the cache, re-start R or run `memoise::forget(emodnet_get_wcs_info)`/`memoise::forget(emodnet_get_wcs_coverage_info)`.
+#' To clear the cache, re-start R or run `memoise::forget(emodnet_get_wcs_info)`/`memoise::forget(emodnet_get_wcs_coverage_info)`
+#'
 #' @export
 emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info)
 

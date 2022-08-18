@@ -4,7 +4,7 @@
 \alias{emodnet_get_wcs_info}
 \alias{emodnet_get_all_wcs_info}
 \alias{emodnet_get_wcs_coverage_info}
-\title{Get WCS available coverage information}
+\title{Get EMODnet WCS service and available coverage information.}
 \usage{
 emodnet_get_wcs_info(
   wcs = NULL,
@@ -24,7 +24,7 @@ emodnet_get_wcs_coverage_info(
 )
 }
 \arguments{
-\item{wcs}{A \code{WCSClient} R6 object with methods for interfacing an OGC Web Feature Service.}
+\item{wcs}{A \code{WCSClient} R6 object, created with function \code{\link{emodnet_init_wcs_client}}.}
 
 \item{service}{the EMODnet OGC WCS service name.
 For available services, see \code{\link[=emodnet_wcs]{emodnet_wcs()}}.}
@@ -39,16 +39,73 @@ For available services, see \code{\link[=emodnet_wcs]{emodnet_wcs()}}.}
 \code{emodnet_get_wcs_info} & \code{emodnet_get_wcs_info} return a list of service
 level metadata, including a tibble containing coverage level metadata for each
 coverage available from the service. \code{emodnet_get_wcs_coverage_info} returns a list
-containing a tibble of more detailed metadata for each coverage specified. See
-\strong{Details} for more information.
+containing a tibble of more detailed metadata for each coverage specified.
+\subsection{\code{emodnet_get_wcs_info} / \code{emodnet_get_all_wcs_info}}{
+
+\code{emodnet_get_wcs_info} and \code{emodnet_get_all_wcs_info} return a list with the
+following metadata:
+\itemize{
+\item \strong{\code{data_source}:} the EMODnet source of data.
+\item \strong{\code{service_name}:} the EMODnet WCS service name.
+\item \strong{\code{service_url}:} the EMODnet WCS service URL.
+\item \strong{\code{service_title}:} the EMODnet WCS service title.
+\item \strong{\code{service_abstract}:} the EMODnet WCS service abstract.
+\item \strong{\code{service_access_constraits}:} any access constraints associated with the EMODnet WCS service.
+\item \strong{\code{service_fees}:} any access fees associated with the EMODnet WCS service.
+\item \strong{\code{service_type}:} the EMODnet WCS service type.
+\item \strong{\code{coverage_details}:} a tibble of details of each coverage available through EMODnet WCS service:
+\itemize{
+\item \strong{\code{name}:} the coverage name.
+\item \strong{\code{dim_n}:} the number of coverage dimensions
+\item \strong{\code{dim_names}:} the coverage dimension names, units (in brackets) and types.
+\item \strong{\code{extent}:} the coverage extent (\code{xmin}, \code{ymin}, \code{xmax} and \code{ymax}).
+\item \strong{\code{crs}:} the coverage CRS (Coordinate Reference System).
+\item \strong{\code{wgs84_bbox}:} the coverage extent (\code{xmin}, \code{ymin}, \code{xmax} and \code{ymax})
+in WGS84 (EPSG:4326) CRS coordinates.
+\item \strong{\code{subtype}:} the coverage subtype.
+}
+}
+}
+
+\subsection{\code{emodnet_get_wcs_coverage_info}}{
+
+\code{emodnet_get_wcs_coverage_info} returns a tibble with a row for each coverage
+specified and columns with the following details:
+\itemize{
+\item \strong{\code{data_source}:} the EMODnet source of data.
+\item \strong{\code{service_name}:} the EMODnet WCS service name.
+\item \strong{\code{service_url}:} the EMODnet WCS service URL.
+\item \strong{\code{name}:} the name of the coverage.
+\item \strong{\code{band_description}:} the description of the data contained in the band of the coverage.
+\item \strong{\code{band_uom}:} the unit of measurement of the data contained in the band of the coverage.
+\item \strong{\code{constraint}:} the range of values of the data contained in the band of the coverage.
+\item \strong{\code{nil_value}:} the nil value of the data contained in the band of the coverage.
+\item \strong{\code{grid_size}:} the spatial size of the coverage grid (ncol x nrow).
+\item \strong{\code{resolution}:} the spatial resolution (pixel size) of the coverage grid
+in the CRS units of measurement (size in the \code{x} dimension x size in the \code{y} dimension).
+\item \strong{\code{dim_n}:} the number of coverage dimensions
+\item \strong{\code{dim_names}:} the coverage dimension names, units (in brackets) and types.
+\item \strong{\code{extent}:} the coverage extent (\code{xmin}, \code{ymin}, \code{xmax} and \code{ymax}).
+\item \strong{\code{crs}:} the coverage CRS (Coordinate Reference System).
+\item \strong{\code{wgs84_bbox}:} the coverage extent (\code{xmin}, \code{ymin}, \code{xmax} and \code{ymax})
+in WGS84 (EPSG:4326) CRS coordinates.
+\item \strong{\code{subtype}:} the coverage subtype.
+\item \strong{\code{fn_seq_rule}:} the function describing the sequence rule which specifies
+the relationship between the axes of data and coordinate system axes.
+\item \strong{\code{fn_start_point}:} the location of the origin of the data in the coordinate system.
+}
+
+For additional details on WCS metadata, see the GDAL wiki section on
+\href{https://trac.osgeo.org/gdal/wiki/WCS\%2Binteroperability}{WCS Basics and GDAL}
+}
 }
 \description{
-Get WCS available coverage information
+Get EMODnet WCS service and available coverage information.
 }
 \details{
 To minimize the number of requests sent to webservices,
 these functions use \code{memoise} to cache results inside the active R session.
-To clear the cache, re-start R or run \code{memoise::forget(emodnet_get_wcs_info)}/\code{memoise::forget(emodnet_get_wcs_coverage_info)}.
+To clear the cache, re-start R or run \code{memoise::forget(emodnet_get_wcs_info)}/\code{memoise::forget(emodnet_get_wcs_coverage_info)}
 }
 \section{Functions}{
 \itemize{
@@ -58,14 +115,15 @@ To clear the cache, re-start R or run \code{memoise::forget(emodnet_get_wcs_info
 coverages from each service.
 
 \item \code{emodnet_get_wcs_coverage_info}: Get metadata for specific coverages. Requires a
-\code{wcs} object as input.
+\code{WCSClient} R6 object as input.
 }}
 
 \examples{
-emodnet_get_wcs_info(service = "biology")
-# Query a wcs object
+# Get information from a wcs object.
 wcs <- emodnet_init_wcs_client(service = "seabed_habitats")
 emodnet_get_wcs_info(wcs)
+# Get information using a service name.
+emodnet_get_wcs_info(service = "biology")
 # Get detailed info for specific coverages from wcs object
 coverages <- c(
   "emodnet_open_maplibrary__mediseh_cora",
