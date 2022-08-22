@@ -19,7 +19,6 @@ Imports:
     glue,
     httr,
     memoise,
-    ows4R (>= 0.3),
     purrr,
     readr,
     rlang,
@@ -36,5 +35,5 @@ RoxygenNote: 7.2.0
 URL: https://github.com/EMODnet/EMODnetWCS
 BugReports: https://github.com/EMODnet/EMODnetWCS/issues
 Depends: 
-    R (>= 4.1)
+    R (>= 4.1), ows4R (>= 0.3)
 LazyData: true

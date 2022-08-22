@@ -6,6 +6,7 @@
 #' @param logger character string. Level of logger: 'NONE' for no logger, 'INFO' to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)
 #'
 #' @return An [`ows4R::WCSClient`] R6 object with methods for interfacing an OGC Web Feature Service.
+#' @import ows4R
 #' @export
 #'
 #' @seealso `WCSClient` in package `ows4R`.
