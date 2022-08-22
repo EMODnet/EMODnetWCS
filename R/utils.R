@@ -30,10 +30,10 @@ get_bbox <- function(summary) {
     upper <- unlist(c(boundaries$upperCorner))
     lower <- unlist(c(boundaries$lowerCorner))
 
-    sf::st_bbox(c(xmin = lower[1],
-                xmax = upper[1],
-                ymin = lower[2],
-                ymax = upper[2]),
+    sf::st_bbox(c(xmin = lower[2],
+                xmax = upper[2],
+                ymin = lower[1],
+                ymax = upper[1]),
                 crs = extr_bbox_crs(summary))
 }
 
