@@ -135,8 +135,8 @@ process_dimension <- function(x, format = c("character", "list", "tibble")) {
 
     # internal format specific processing functions
     process_character <- function(x) {
-        purrr::imap_chr(x,
-                        ~glue::glue('dim{.y}={tolower(.x[["label"]])}',
+        purrr::map_chr(x,
+                        ~glue::glue('{tolower(.x[["label"]])}',
                                     '({tolower(.x[["uom"]])}):',
                                     '{tolower(.x[["type"]])}')) |>
             glue::glue_collapse("; ")
