@@ -31,9 +31,9 @@ get_bbox <- function(summary) {
     lower <- unlist(c(boundaries$lowerCorner))
 
     sf::st_bbox(c(xmin = lower[2],
-                xmax = upper[2],
-                ymin = lower[1],
-                ymax = upper[1]),
+                  xmax = upper[2],
+                  ymin = lower[1],
+                  ymax = upper[1]),
                 crs = extr_bbox_crs(summary))
 }
 
@@ -105,14 +105,13 @@ get_resolution <- function(summary, type = c("character", "numeric")) {
     upper_crn <- boundaries$upperCorner[1,] |> unlist()
     lower_crn <- boundaries$lowerCorner[1,]  |> unlist()
     grid_size <- get_grid_size(summary, type = "numeric")
-    uom <- boundaries$attrs$uomLabels
+    uom <- unlist(strsplit(boundaries$attrs$uomLabels, " "))[1:2]
 
     resolution <- (upper_crn - lower_crn) / grid_size
     attr(resolution, "uom") <- uom
 
     switch (type,
-            character = paste(paste0(resolution,
-                                     unlist(strsplit(uom, " "))),
+            character = paste(paste(resolution, uom),
                               collapse = " x "),
             numeric = resolution
     )
@@ -129,6 +128,26 @@ error_wrap <- function(expr) {
     tryCatch(expr, error = function(e) NA)
 }
 
+get_temporal_extent <- function(summary) {
+    dim_df <- process_dimension(summary, format = "tibble")
+
+    if (any(dim_df$type == "temporal")) {
+        dim_df$range[dim_df$type == "temporal"]
+    } else {
+        NA
+    }
+}
+
+get_vertical_extent <- function(summary) {
+    dim_df <- process_dimension(summary, format = "tibble")
+
+    if (any(dim_df$type == "vertical")) {
+        dim_df$range[dim_df$type == "vertical"]
+    } else {
+        NA
+    }
+}
+
 process_dimension <- function(x, format = c("character", "list", "tibble")) {
     format <- match.arg(format)
     dimensions <- x$getDimensions()
@@ -136,9 +155,9 @@ process_dimension <- function(x, format = c("character", "list", "tibble")) {
     # internal format specific processing functions
     process_character <- function(x) {
         purrr::map_chr(x,
-                        ~glue::glue('{tolower(.x[["label"]])}',
-                                    '({tolower(.x[["uom"]])}):',
-                                    '{tolower(.x[["type"]])}')) |>
+                       ~glue::glue('{tolower(.x[["label"]])}',
+                                   '({tolower(.x[["uom"]])}):',
+                                   '{tolower(.x[["type"]])}')) |>
             glue::glue_collapse("; ")
     }
 
@@ -148,15 +167,23 @@ process_dimension <- function(x, format = c("character", "list", "tibble")) {
     }
 
     process_tibble <- function(x) {
-        out <- purrr::map(x, ~head(.x, 3))
+
         tibble::tibble(
-            dimension = seq_along(out),
-            label = purrr::map_chr(out, ~purrr::pluck(.x, "label")) |>
+            dimension = seq_along(x),
+            label = purrr::map_chr(x, ~purrr::pluck(.x, "label")) |>
                 tolower(),
-            uom = purrr::map_chr(out, ~purrr::pluck(.x, "uom")) |>
+            uom = purrr::map_chr(x, ~purrr::pluck(.x, "uom")) |>
                 tolower(),
-            type = purrr::map_chr(out, ~purrr::pluck(.x, "type")) |>
-                tolower())
+            type = purrr::map_chr(x, ~purrr::pluck(.x, "type")) |>
+                tolower(),
+            range = purrr::map(x, ~purrr::pluck(.x, "coefficients") |>
+                                   unlist()) |>
+                purrr::map_if(function(x){!is.null(x)},
+                              ~range(.x) |>
+                                  paste(collapse = " - ")) |>
+                purrr::map_if(is.null, function(x){NA}) |>
+                unlist()
+        )
     }
 
     switch(format,

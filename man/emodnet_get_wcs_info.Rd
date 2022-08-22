@@ -62,6 +62,10 @@ following metadata:
 \item \strong{\code{crs}:} the coverage CRS (Coordinate Reference System).
 \item \strong{\code{wgs84_bbox}:} the coverage extent (\code{xmin}, \code{ymin}, \code{xmax} and \code{ymax})
 in WGS84 (EPSG:4326) CRS coordinates.
+\item \strong{\code{temporal_extent}:} the coverage temporal extent (\code{min} - \code{max}), \code{NA} if coverage
+contains no temporal dimension.
+\item \strong{\code{vertical_extent}:} the coverage vertical extent (\code{min} - \code{max}), \code{NA} if coverage
+contains no vertical dimension.
 \item \strong{\code{subtype}:} the coverage subtype.
 }
 }
@@ -89,6 +93,10 @@ in the CRS units of measurement (size in the \code{x} dimension x size in the \c
 \item \strong{\code{crs}:} the coverage CRS (Coordinate Reference System).
 \item \strong{\code{wgs84_bbox}:} the coverage extent (\code{xmin}, \code{ymin}, \code{xmax} and \code{ymax})
 in WGS84 (EPSG:4326) CRS coordinates.
+\item \strong{\code{temporal_extent}:} the coverage temporal extent (\code{min} - \code{max}), \code{NA} if coverage
+contains no temporal dimension.
+\item \strong{\code{vertical_extent}:} the coverage vertical extent (\code{min} - \code{max}), \code{NA} if coverage
+contains no vertical dimension.
 \item \strong{\code{subtype}:} the coverage subtype.
 \item \strong{\code{fn_seq_rule}:} the function describing the sequence rule which specifies
 the relationship between the axes of data and coordinate system axes.

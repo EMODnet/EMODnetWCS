@@ -37,6 +37,8 @@
                 extent = error_wrap(purrr::map_chr(summaries, ~ get_bbox(.x) |> conc_bbox())),
                 crs = error_wrap(purrr::map_chr(summaries, ~ extr_bbox_crs(.x)$input)),
                 wgs84_bbox = error_wrap(purrr::map_chr(summaries, ~ get_WGS84bbox(.x) |> conc_bbox())),
+                temporal_extent = error_wrap(purrr::map_chr(summaries, ~ get_temporal_extent(.x))),
+                vertical_extent = error_wrap(purrr::map_chr(summaries, ~ get_vertical_extent(.x))),
                 subtype = error_wrap(purrr::map_chr(summaries, ~ .x$CoverageSubtype))
             )
     )
@@ -72,6 +74,10 @@
 #'   - **`crs`:** the coverage CRS (Coordinate Reference System).
 #'   - **`wgs84_bbox`:** the coverage extent (`xmin`, `ymin`, `xmax` and `ymax`)
 #'   in WGS84 (EPSG:4326) CRS coordinates.
+#'   - **`temporal_extent`:** the coverage temporal extent (`min` - `max`), `NA` if coverage
+#'   contains no temporal dimension.
+#'   - **`vertical_extent`:** the coverage vertical extent (`min` - `max`), `NA` if coverage
+#'   contains no vertical dimension.
 #'   - **`subtype`:** the coverage subtype.
 #'
 #' ## `emodnet_get_wcs_coverage_info`
@@ -95,6 +101,10 @@
 #' - **`crs`:** the coverage CRS (Coordinate Reference System).
 #' - **`wgs84_bbox`:** the coverage extent (`xmin`, `ymin`, `xmax` and `ymax`)
 #'   in WGS84 (EPSG:4326) CRS coordinates.
+#' - **`temporal_extent`:** the coverage temporal extent (`min` - `max`), `NA` if coverage
+#'   contains no temporal dimension.
+#' - **`vertical_extent`:** the coverage vertical extent (`min` - `max`), `NA` if coverage
+#'   contains no vertical dimension.
 #' - **`subtype`:** the coverage subtype.
 #' - **`fn_seq_rule`:** the function describing the sequence rule which specifies
 #' the relationship between the axes of data and coordinate system axes.
@@ -169,13 +179,15 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
         band_uom = error_wrap(purrr::map_chr(summaries, ~ get_uom(.x))),
         constraint = error_wrap(purrr::map_chr(summaries, ~ get_constraint(.x))),
         nil_value = error_wrap(purrr::map_chr(summaries, ~ get_nil_value(.x))),
+        dim_n = error_wrap(purrr::map_int(summaries, ~ length(.x$getDimensions()))),
+        dim_names = error_wrap(purrr::map_chr(summaries, ~ process_dimension(.x, format = "character"))),
         grid_size = error_wrap(purrr::map_chr(summaries, ~ get_grid_size(.x))),
         resolution = error_wrap(purrr::map_chr(summaries, ~ get_resolution(.x))),
-        dim_n = error_wrap(purrr::map_int(summaries, ~ get_dimensions_n(.x))),
-        dim_names = error_wrap(purrr::map_chr(summaries, ~ get_dimensions_names(.x))),
         extent = error_wrap(purrr::map_chr(summaries, ~ get_bbox(.x) |> conc_bbox())),
         crs = error_wrap(purrr::map_chr(summaries, ~ extr_bbox_crs(.x)$input)),
         wgs84_extent = error_wrap(purrr::map_chr(summaries, ~ get_WGS84bbox(.x) |> conc_bbox())),
+        temporal_extent = error_wrap(purrr::map_chr(summaries, ~ get_temporal_extent(.x))),
+        vertical_extent = error_wrap(purrr::map_chr(summaries, ~ get_vertical_extent(.x))),
         subtype = error_wrap(purrr::map_chr(summaries, ~ .x$CoverageSubtype)),
         fn_seq_rule = purrr::map_chr(summaries, ~ get_coverage_function(.x)),
         fn_start_point = purrr::map_chr(summaries,
