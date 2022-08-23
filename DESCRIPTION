@@ -25,6 +25,7 @@ Imports:
     tibble,
     usethis
 Suggests: 
+    covr,
     httptest,
     testthat (>= 3.0.0),
     webmockr,
