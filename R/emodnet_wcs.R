@@ -1,5 +1,6 @@
+#' @importFrom utils read.csv
 .emodnet_wcs <- function() {
-    read.csv(
+    utils::read.csv(
         system.file(
             "services.csv",
             package = "EMODnetWCS")
