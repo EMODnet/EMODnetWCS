@@ -17,7 +17,7 @@
 
 ---
 
-    An exception has occurred. Please raise an issue in https://github.com/EMODnet/EMODnetWFS/issues
+    An exception has occurred. Please raise an issue in https://github.com/EMODnet/EMODnetWCS/issues
 
 # No internet challenge
 
