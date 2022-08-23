@@ -178,7 +178,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
         band_description = error_wrap(purrr::map_chr(summaries, ~ get_description(.x))),
         band_uom = error_wrap(purrr::map_chr(summaries, ~ get_uom(.x))),
         constraint = error_wrap(purrr::map_chr(summaries, ~ get_constraint(.x))),
-        nil_value = error_wrap(purrr::map_chr(summaries, ~ get_nil_value(.x))),
+        nil_value = error_wrap(purrr::map_dbl(summaries, ~ get_nil_value(.x))),
         dim_n = error_wrap(purrr::map_int(summaries, ~ length(.x$getDimensions()))),
         dim_names = error_wrap(purrr::map_chr(summaries, ~ process_dimension(.x, format = "character"))),
         grid_size = error_wrap(purrr::map_chr(summaries, ~ get_grid_size(.x))),

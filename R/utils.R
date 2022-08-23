@@ -64,7 +64,12 @@ get_WGS84bbox <- function(summary) {
 }
 
 get_nil_value <- function(summary) {
-    summary$getDescription()$rangeType$DataRecord$field$Quantity$nilValues$NilValues$nilValue$value
+    nil_value <- summary$getDescription()$rangeType$DataRecord$field$Quantity$nilValues$NilValues$nilValue$value
+    if (typeof(nil_value) == "character") {
+        as.numeric(nil_value)
+    } else {
+        nil_value
+    }
 }
 
 get_description <- function(summary) {
