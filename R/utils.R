@@ -130,7 +130,8 @@ get_coverage_function <- function(summary, param = c("sequenceRule", "startPoint
 
 
 error_wrap <- function(expr) {
-    tryCatch(expr, error = function(e) NA)
+    out <- tryCatch(expr, error = function(e) NA)
+    if (is.null(out)) {return(NA)} else {return(out)}
 }
 
 get_temporal_extent <- function(summary) {
