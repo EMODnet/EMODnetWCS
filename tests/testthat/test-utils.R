@@ -27,6 +27,7 @@ test_that("dimensions processed correctly", {
                       expect_equal(get_temporal_extent(summary),
                                    "1958-02-16T00:00:00.000Z - 2016-11-16T00:00:00.000Z")
                       expect_equal(get_vertical_extent(summary), NA)
+                      expect_length(process_dimension(summary, format = "list"), 3)
                   })
 
 })
@@ -45,4 +46,14 @@ test_that("rangeType processed correctly", {
                                    "0 0")
                   })
 
+})
+
+
+test_that("error wrap works", {
+    expect_equal(error_wrap(stop()), NA)
+})
+
+test_that("validate_namespace works", {
+    expect_equal(validate_namespace("emodnet:2018_st_All_avg_POSTER"),
+                 "emodnet__2018_st_All_avg_POSTER")
 })
