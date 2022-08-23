@@ -31,15 +31,15 @@
         service_type = service_id$getServiceType(),
         coverage_details =
             tibble::tibble(
-                name = error_wrap(purrr::map_chr(summaries, ~ .x$getId())),
-                dim_n = error_wrap(purrr::map_int(summaries, ~ length(.x$getDimensions()))),
-                dim_names = error_wrap(purrr::map_chr(summaries, ~ process_dimension(.x, format = "character"))),
-                extent = error_wrap(purrr::map_chr(summaries, ~ get_bbox(.x) |> conc_bbox())),
-                crs = error_wrap(purrr::map_chr(summaries, ~ extr_bbox_crs(.x)$input)),
-                wgs84_bbox = error_wrap(purrr::map_chr(summaries, ~ get_WGS84bbox(.x) |> conc_bbox())),
-                temporal_extent = error_wrap(purrr::map_chr(summaries, ~ get_temporal_extent(.x))),
-                vertical_extent = error_wrap(purrr::map_chr(summaries, ~ get_vertical_extent(.x))),
-                subtype = error_wrap(purrr::map_chr(summaries, ~ .x$CoverageSubtype))
+                name = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
+                dim_n = purrr::map_int(summaries, ~ error_wrap(length(.x$getDimensions()))),
+                dim_names = purrr::map_chr(summaries, ~ error_wrap(process_dimension(.x, format = "character"))),
+                extent = purrr::map_chr(summaries, ~ error_wrap(get_bbox(.x) |> conc_bbox())),
+                crs = purrr::map_chr(summaries, ~ error_wrap(extr_bbox_crs(.x)$input)),
+                wgs84_bbox = purrr::map_chr(summaries, ~ error_wrap(get_WGS84bbox(.x) |> conc_bbox())),
+                temporal_extent = purrr::map_chr(summaries, ~ error_wrap(get_temporal_extent(.x))),
+                vertical_extent = purrr::map_chr(summaries, ~ error_wrap(get_vertical_extent(.x))),
+                subtype = purrr::map_chr(summaries, ~ error_wrap(.x$CoverageSubtype))
             )
     )
 }
@@ -174,25 +174,25 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
         data_source = "emodnet_wcs",
         service_name = wcs$getUrl(),
         service_url = get_service_name(wcs$getUrl()),
-        name = error_wrap(purrr::map_chr(summaries, ~ .x$getId())),
-        band_description = error_wrap(purrr::map_chr(summaries, ~ get_description(.x))),
-        band_uom = error_wrap(purrr::map_chr(summaries, ~ get_uom(.x))),
-        constraint = error_wrap(purrr::map_chr(summaries, ~ get_constraint(.x))),
-        nil_value = error_wrap(purrr::map_dbl(summaries, ~ get_nil_value(.x))),
-        dim_n = error_wrap(purrr::map_int(summaries, ~ length(.x$getDimensions()))),
-        dim_names = error_wrap(purrr::map_chr(summaries, ~ process_dimension(.x, format = "character"))),
-        grid_size = error_wrap(purrr::map_chr(summaries, ~ get_grid_size(.x))),
-        resolution = error_wrap(purrr::map_chr(summaries, ~ get_resolution(.x))),
-        extent = error_wrap(purrr::map_chr(summaries, ~ get_bbox(.x) |> conc_bbox())),
-        crs = error_wrap(purrr::map_chr(summaries, ~ extr_bbox_crs(.x)$input)),
-        wgs84_extent = error_wrap(purrr::map_chr(summaries, ~ get_WGS84bbox(.x) |> conc_bbox())),
-        temporal_extent = error_wrap(purrr::map_chr(summaries, ~ get_temporal_extent(.x))),
-        vertical_extent = error_wrap(purrr::map_chr(summaries, ~ get_vertical_extent(.x))),
-        subtype = error_wrap(purrr::map_chr(summaries, ~ .x$CoverageSubtype)),
-        fn_seq_rule = purrr::map_chr(summaries, ~ get_coverage_function(.x)),
+        name = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
+        band_description = purrr::map_chr(summaries, ~ error_wrap(get_description(.x))),
+        band_uom = purrr::map_chr(summaries, ~ error_wrap(get_uom(.x))),
+        constraint = purrr::map_chr(summaries, ~ error_wrap(get_constraint(.x))),
+        nil_value = purrr::map_dbl(summaries, ~ error_wrap(get_nil_value(.x))),
+        dim_n = purrr::map_int(summaries, ~ error_wrap(length(.x$getDimensions()))),
+        dim_names = purrr::map_chr(summaries, ~ error_wrap(process_dimension(.x, format = "character"))),
+        grid_size = purrr::map_chr(summaries, ~ error_wrap(get_grid_size(.x))),
+        resolution = purrr::map_chr(summaries, ~ error_wrap(get_resolution(.x))),
+        extent = purrr::map_chr(summaries, ~ error_wrap(get_bbox(.x) |> conc_bbox())),
+        crs = purrr::map_chr(summaries, ~ error_wrap(extr_bbox_crs(.x)$input)),
+        wgs84_extent = purrr::map_chr(summaries, ~ error_wrap(get_WGS84bbox(.x) |> conc_bbox())),
+        temporal_extent = purrr::map_chr(summaries, ~ error_wrap(get_temporal_extent(.x))),
+        vertical_extent = purrr::map_chr(summaries, ~ error_wrap(get_vertical_extent(.x))),
+        subtype = purrr::map_chr(summaries, ~ error_wrap(.x$CoverageSubtype)),
+        fn_seq_rule = purrr::map_chr(summaries, ~ error_wrap(get_coverage_function(.x))),
         fn_start_point = purrr::map_chr(summaries,
-                                        ~get_coverage_function(.x,
-                                                               param = "startPoint"))
+                                        ~error_wrap(get_coverage_function(.x,
+                                                               param = "startPoint")))
     )
 }
 
