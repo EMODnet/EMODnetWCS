@@ -16,6 +16,12 @@ create_human_activities_wcs <- function() {
     })
 }
 
+create_physics_wcs <- function() {
+    with_mock_dir("wcs-physics", {
+        emodnet_init_wcs_client(service = "physics")
+    })
+}
+
 create_physics_summary <- function() {
     with_mock_dir("wcs-physics-summary", {
         emodnet_init_wcs_client(service = "physics") |>
