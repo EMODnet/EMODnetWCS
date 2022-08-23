@@ -82,7 +82,7 @@ check_service <- function(request) {
         # If no HTTP status, something else is wrong
     } else if(!httr::http_error(request)) {
         usethis::ui_info("HTTP Status: {crayon::green(httr::http_status(request)$message)}")
-        usethis::ui_stop("An exception has occurred. Please raise an issue in {packageDescription('EMODnetWFS')$BugReports}")
+        usethis::ui_stop("An exception has occurred. Please raise an issue in {packageDescription('EMODnetWCS')$BugReports}")
     }
 
 }
