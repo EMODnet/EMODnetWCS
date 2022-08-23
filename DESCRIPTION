@@ -23,9 +23,13 @@ Imports:
     readr,
     rlang,
     sf,
+    tibble,
     usethis
 Suggests: 
-    testthat (>= 3.0.0)
+    httptest,
+    testthat (>= 3.0.0),
+    webmockr,
+    withr
 Config/testthat/edition: 3
 Remotes: 
     eblondel/ows4R
