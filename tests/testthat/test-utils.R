@@ -7,7 +7,7 @@ test_that("service urls & names crossreference correctly", {
 test_that("extent & crs processed correctly", {
 
     summary <- create_physics_summary()[[1]]
-    with_mock_dir("physics-description", {
+    with_mock_dir("physics-info", {
         bbox <- get_bbox(summary)
         expect_equal(conc_bbox(bbox), "-180, -90, 180, 90")
         expect_equal(extr_bbox_crs(summary)$input, "EPSG:4326")
@@ -48,9 +48,10 @@ test_that("rangeType processed correctly", {
 
 })
 
-
 test_that("error wrap works", {
     expect_equal(error_wrap(stop()), NA)
+    expect_equal(error_wrap(NULL), NA)
+    expect_equal(error_wrap("success"), "success")
 })
 
 test_that("validate_namespace works", {
