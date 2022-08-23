@@ -1,11 +1,10 @@
 .emodnet_wcs <- function() {
-    readr::read_csv(
-        system.file("services.csv", package = "EMODnetWCS"),
-        col_types = readr::cols(
-            service_name = readr::col_character(),
-            service_url = readr::col_character()
-        )
-    )
+    read.csv(
+        system.file(
+            "services.csv",
+            package = "EMODnetWCS")
+        ) |>
+        tibble::as_tibble()
 }
 
 #' Available EMODnet Web Coverage Services

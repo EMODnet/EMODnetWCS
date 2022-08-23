@@ -1,6 +1,6 @@
 Package: EMODnetWCS
 Title: Access EMODnet Web Coverage Service data through R
-Version: 0.0.0.9005
+Version: 0.0.0.9006
 Authors@R: c(
     person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = "aut",
            comment = c(ORCID = "0000-0002-2378-4915")),
@@ -20,7 +20,6 @@ Imports:
     httr,
     memoise,
     purrr,
-    readr,
     rlang,
     sf,
     tibble,
