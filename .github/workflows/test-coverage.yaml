@@ -23,8 +23,9 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::covr
+          extra-packages: any::covr, any::XML
           needs: coverage
+          cache-version: 4
 
       - name: Test coverage
         run: covr::codecov(quiet = FALSE)
