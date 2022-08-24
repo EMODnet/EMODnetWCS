@@ -12,14 +12,14 @@ get_capabilities <- function(wcs) {
 }
 
 get_cov_summaries <- function(wcs, coverages) {
-    coverages |> purrr::map(~wcs$getCapabilities()$findCoverageSummaryById(.x, exact = TRUE))
+    coverages |> purrr::map(~get_capabilities(wcs)$findCoverageSummaryById(.x, exact = TRUE))
 }
 
 get_all_cov_summaries <- function(wcs) {
-    wcs$getCapabilities()$getCoverageSummaries()
+    get_capabilities(wcs)$getCoverageSummaries()
 }
 get_cov_ids <- function(wcs) {
-    wcs$getCapabilities()$getCoverageSummaries() |>
+    get_all_cov_summaries(wcs) |>
         purrr::map_chr(~.x$getId())
 
 }
@@ -217,4 +217,19 @@ get_dimensions_n <- function(summary) {
 
 validate_namespace <- function(coverage) {
     gsub(":", "__", coverage)
+}
+
+validate_bbox <- function(bbox) {
+    if (is.null(bbox)) {
+        return(bbox)
+    } else {
+        checkmate::assert_numeric(bbox, len = 4, any.missing = FALSE)
+        checkmate::assert_true(bbox[1] < bbox[3])
+        checkmate::assert_true(bbox[2] < bbox[4])
+
+        return(ows4R::OWSUtils$toBBOX(bbox[1],
+                                      bbox[3],
+                                      bbox[2],
+                                      bbox[4]))
+    }
 }
