@@ -163,6 +163,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
 
     check_wcs(wcs)
     check_wcs_version(wcs)
+    check_coverages(wcs, coverages)
 
     capabilities <- wcs$getCapabilities()
 
