@@ -199,7 +199,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
 
 #' @describeIn emodnet_get_wcs_info Get metadata for specific coverages. Requires a
 #' `WCSClient` R6 object as input.
-#' @param coverages character vector of coverage IDs.
+#' @param coverages character vector of coverage IDs (names).
 #' @inheritParams emodnet_get_wcs_info
 #' @importFrom memoise memoise
 #' @details To minimize the number of requests sent to webservices,
@@ -212,7 +212,7 @@ emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info
 
 #' Get temporal or vertical coefficients for a coverage
 #'
-#' @inheritParams emodnet_get_wcs_coverage
+#' @param coverages character vector of coverage IDs (names).
 #' @param type character string. The dimension type for which
 #' coefficients will be returned.
 #'

@@ -60,6 +60,10 @@ is returned.}
 \item{rangesubset}{character vector of band names to subset.}
 
 \item{filename}{the file name to write to.}
+
+\item{nil_values_as_na}{logical. Should raster nil values be converted to \code{NA}?}
+
+\item{coverages}{character vector of coverage IDs (names).}
 }
 \value{
 an object of class \code{\link[terra:SpatRaster-class]{terra::SpatRaster}}. The function also

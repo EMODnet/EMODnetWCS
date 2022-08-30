@@ -1,6 +1,7 @@
 #' Get a coverage from an EMODnet WCS Service
 #'
 #' @inheritParams emodnet_get_wcs_coverage_info
+#' @param coverages character vector of coverage IDs (names).
 #' @param bbox a named numeric vector of length 4, with names `xmin`, `ymin`,
 #' `xmax` and `ymax`. specifying the bounding box.
 #' (extent) of the raster to be returned.
@@ -25,6 +26,7 @@
 #' @param format the format of the file the coverage should be written out to.
 #' @param rangesubset character vector of band names to subset.
 #' @param filename the file name to write to.
+#' @param nil_values_as_na logical. Should raster nil values be converted to `NA`?
 #'
 #' @return an object of class [`terra::SpatRaster`]. The function also
 #' writes the coverage to a local file.
