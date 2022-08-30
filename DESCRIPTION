@@ -15,6 +15,7 @@ Description: Access and interrogate EMODnet Web Coverage Service data
 License: MIT + file LICENSE
 Imports: 
     checkmate,
+    cli,
     curl,
     glue,
     httr,
@@ -26,6 +27,7 @@ Imports:
     usethis
 Suggests: 
     covr,
+    fs,
     httptest,
     testthat (>= 3.0.0),
     webmockr,
