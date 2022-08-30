@@ -154,7 +154,10 @@ get_vertical_extent <- function(summary) {
     }
 }
 
-process_dimension <- function(x, format = c("character", "list", "tibble")) {
+process_dimension <- function(x, format = c("character",
+                                            "list",
+                                            "tibble"),
+                              include_coeffs = FALSE) {
     format <- match.arg(format)
     dimensions <- x$getDimensions()
 
@@ -167,9 +170,14 @@ process_dimension <- function(x, format = c("character", "list", "tibble")) {
             glue::glue_collapse("; ")
     }
 
-    process_list <- function(x) {
-        out <- purrr::map(x, ~head(.x, 3))
-        stats::setNames(out, glue::glue('dim{seq_along(out)}'))
+    process_list <- function(x, include_coeffs = FALSE) {
+        if (include_coeffs) {
+            out <- x
+        } else {
+            out <- purrr::map(x, ~head(.x, 3))
+        }
+
+        stats::setNames(out, glue::glue('dim_{seq_along(out)}'))
     }
 
     process_tibble <- function(x) {
@@ -194,7 +202,8 @@ process_dimension <- function(x, format = c("character", "list", "tibble")) {
 
     switch(format,
            "character" = process_character(dimensions),
-           "list" = process_list(dimensions),
+           "list" = process_list(dimensions,
+                                 include_coeffs = include_coeffs),
            "tibble" = process_tibble(dimensions))
 }
 
@@ -223,13 +232,86 @@ validate_bbox <- function(bbox) {
     if (is.null(bbox)) {
         return(bbox)
     } else {
-        checkmate::assert_numeric(bbox, len = 4, any.missing = FALSE)
-        checkmate::assert_true(bbox[1] < bbox[3])
-        checkmate::assert_true(bbox[2] < bbox[4])
+        checkmate::assert_numeric(bbox,
+                                  len = 4,
+                                  any.missing = FALSE,
+                                  names = "named")
+        checkmate::assert_subset(names(bbox),
+                                 choices = c(
+                                     "xmin",
+                                     "xmax",
+                                     "ymin",
+                                     "ymax"
+                                 ))
 
-        return(ows4R::OWSUtils$toBBOX(bbox[1],
-                                      bbox[3],
-                                      bbox[2],
-                                      bbox[4]))
+        checkmate::assert_true(bbox["ymin"]  < bbox["ymax"])
+        checkmate::assert_true(bbox["xmin"]  < bbox["xmax"])
+
+        return(ows4R::OWSUtils$toBBOX(xmin = bbox["xmin"],
+                                      xmax = bbox["xmax"],
+                                      ymin = bbox["ymin"],
+                                      ymax = bbox["ymax"]))
     }
+}
+
+validate_rangesubset <- function(summary, rangesubset) {
+    cov_range_descriptions <- get_description(summary)
+    purrr::walk(rangesubset,
+                ~checkmate::assert_choice(
+                    .x,
+                    cov_range_descriptions,
+                    .var.name = "rangesubset")
+    )
+}
+
+validate_dimension_subset <- function(
+        wcs,
+        coverage,
+        type = c("temporal",
+                 "vertical"),
+        subset) {
+
+    type <- match.arg(type)
+    coefs <- emodnet_get_coverage_ext_coefs(
+        wcs,
+        coverage,
+        type)
+
+    switch (type,
+            temporal = {purrr::walk(
+                subset,
+                ~checkmate::assert_choice(
+                    .x,
+                    coefs,
+                    .var.name = "time")
+            )},
+            vertical = {purrr::walk(
+                subset,
+                ~checkmate::assert_choice(
+                    .x,
+                    coefs,
+                    .var.name = "elevation")
+            )}
+    )
+}
+
+has_extent_type <- function(wcs, coverages,
+                            type = c("temporal", "vertical",
+                                     "geographic")) {
+    check_coverages(wcs, coverages)
+    type <- match.arg(type)
+
+    dim_dfs <- get_cov_summaries(wcs, coverages) |>
+        purrr::map(~process_dimension(.x, format = "tibble"))
+
+    dim_dfs |>
+        purrr::map_lgl(~any(.x$type == type)) |>
+        stats::setNames(coverages)
+}
+
+get_dimension_type <- function(summary) {
+    dimensions <- summary$getDimensions()
+
+    purrr::map_chr(dimensions, ~purrr::pluck(.x, "type"))
+
 }
