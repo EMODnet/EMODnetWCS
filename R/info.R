@@ -210,3 +210,54 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
 #' @export
 emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info)
 
+#' Get temporal or vertical coefficients for a coverage
+#'
+#' @inheritParams emodnet_get_wcs_coverage
+#' @param type character string. The dimension type for which
+#' coefficients will be returned.
+#'
+#' @return a vector of coefficients.
+#' @export
+#'
+#' @examples
+#' wcs <- emodnet_init_wcs_client(service =  "biology")
+#' emodnet_get_coverage_dim_coefs(wcs,
+#'                               "Emodnetbio__ratio_large_to_small_19582016_L1_err")
+emodnet_get_coverage_dim_coefs <- function(wcs,
+                                           coverage,
+                                           type = c("temporal",
+                                                    "vertical")) {
+
+    type <- match.arg(type)
+    checkmate::assert_character(coverage, len = 1)
+    check_extent_type <- has_extent_type(wcs,
+                                         coverage,
+                                         type)
+
+    if (check_extent_type) {
+        summary <- get_cov_summaries(wcs, coverage)[[1]]
+        dim_type_id <- which(get_dimension_type(summary) == type)
+
+        coefs <- summary |>
+            process_dimension(
+                format = "list",
+                include_coeffs = TRUE) |>
+            purrr::pluck(dim_type_id,
+                         "coefficients") |>
+            unlist()
+
+        attr(coefs, "type") <- glue::glue(
+            "{type}_coefficents"
+            )
+
+        return(coefs)
+
+    } else {
+        cli::cli_warn(
+            "{.field coverage} {.val {coverage}}
+            has no {.val {type}} dimension."
+        )
+
+        return(NA)
+    }
+}

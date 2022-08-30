@@ -272,7 +272,7 @@ validate_dimension_subset <- function(
         subset) {
 
     type <- match.arg(type)
-    coefs <- emodnet_get_coverage_ext_coefs(
+    coefs <- emodnet_get_coverage_dim_coefs(
         wcs,
         coverage,
         type)
