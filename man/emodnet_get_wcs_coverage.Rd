@@ -34,7 +34,8 @@ For available services, see \code{\link[=emodnet_wcs]{emodnet_wcs()}}.}
 \code{xmax} and \code{ymax}. specifying the bounding box.
 (extent) of the raster to be returned.}
 
-\item{crs}{the crs}
+\item{crs}{the CRS of the supplied bounding box. Leave as \code{NULL} (default) if
+same as coverage crs.}
 
 \item{time}{for coverages that include a temporal dimension,
 a vector of temporal coefficients specifying the
@@ -56,7 +57,7 @@ is returned.}
 
 \item{format}{the format of the file the coverage should be written out to.}
 
-\item{rangesubset}{a subset of values.}
+\item{rangesubset}{character vector of band names to subset.}
 
 \item{filename}{the file name to write to.}
 }
@@ -70,14 +71,22 @@ Get a coverage from an EMODnet WCS Service
 \examples{
 wcs <- emodnet_init_wcs_client(service = "biology")
 coverage <- "Emodnetbio__cal_fin_19582016_L1_err"
+# Subset using a bounding box
 emodnet_get_wcs_coverage(wcs,
                          coverage = coverage,
                          bbox = c(xmin = 0, ymin = 40,
                                   xmax = 5, ymax = 45))
+# Subset using a bounding box and specific timepoints
 emodnet_get_wcs_coverage(wcs,
                          coverage = coverage,
                          bbox = c(xmin = 0, ymin = 40,
                                   xmax = 5, ymax = 45),
                          time = c("1963-11-16T00:00:00.000Z",
                                   "1964-02-16T00:00:00.000Z"))
+# Subset using a bounding box and a specific band
+emodnet_get_wcs_coverage(wcs,
+                         coverage = coverage,
+                         bbox = c(xmin = 0, ymin = 40,
+                                  xmax = 5, ymax = 45),
+                                  rangesubset = "Relative abundance")
 }
