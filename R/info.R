@@ -211,7 +211,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
 emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info)
 
 #' Get temporal or vertical coefficients for a coverage
-#'
+#' @param wcs A `WCSClient` R6 object, created with function [`emodnet_init_wcs_client`].
 #' @param coverage character string. Coverage ID (name).
 #' @param type character string. The dimension type for which
 #' coefficients will be returned.
