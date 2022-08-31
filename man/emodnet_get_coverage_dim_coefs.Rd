@@ -7,10 +7,10 @@
 emodnet_get_coverage_dim_coefs(wcs, coverage, type = c("temporal", "vertical"))
 }
 \arguments{
+\item{coverage}{character string. Coverage ID (name).}
+
 \item{type}{character string. The dimension type for which
 coefficients will be returned.}
-
-\item{coverages}{character vector of coverage IDs (names).}
 }
 \value{
 a vector of coefficients.

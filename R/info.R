@@ -212,7 +212,7 @@ emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info
 
 #' Get temporal or vertical coefficients for a coverage
 #'
-#' @param coverages character vector of coverage IDs (names).
+#' @param coverage character string. Coverage ID (name).
 #' @param type character string. The dimension type for which
 #' coefficients will be returned.
 #'

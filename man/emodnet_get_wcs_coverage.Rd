@@ -26,6 +26,8 @@ emodnet_get_wcs_coverage(
 \item{service}{the EMODnet OGC WCS service name.
 For available services, see \code{\link[=emodnet_wcs]{emodnet_wcs()}}.}
 
+\item{coverage}{character string. Coverage ID (name).}
+
 \item{service_version}{the WCS service version. Defaults to "2.0.1".}
 
 \item{logger}{character string. Level of logger: 'NONE' for no logger, 'INFO' to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)}
@@ -62,8 +64,6 @@ is returned.}
 \item{filename}{the file name to write to.}
 
 \item{nil_values_as_na}{logical. Should raster nil values be converted to \code{NA}?}
-
-\item{coverages}{character vector of coverage IDs (names).}
 }
 \value{
 an object of class \code{\link[terra:SpatRaster-class]{terra::SpatRaster}}. The function also

@@ -1,7 +1,7 @@
 #' Get a coverage from an EMODnet WCS Service
 #'
 #' @inheritParams emodnet_get_wcs_coverage_info
-#' @param coverages character vector of coverage IDs (names).
+#' @param coverage character string. Coverage ID (name).
 #' @param bbox a named numeric vector of length 4, with names `xmin`, `ymin`,
 #' `xmax` and `ymax`. specifying the bounding box.
 #' (extent) of the raster to be returned.
