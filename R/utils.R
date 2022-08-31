@@ -91,7 +91,7 @@ get_constraint <- function(summary) {
 get_grid_size <- function(summary, type = c("character", "numeric")) {
     type <- match.arg(type)
 
-    grid_envelope <- summary$getDescription()$domainSet$limits$GridEnvelope
+    grid_envelope <- summary$getDescription()$domainSet$limits
     low <- grid_envelope$low$value |> strsplit(" ") |> unlist() |> as.numeric()
     high <- grid_envelope$high$value |> strsplit(" ") |> unlist() |> as.numeric()
     diff <- high - low  + 1
