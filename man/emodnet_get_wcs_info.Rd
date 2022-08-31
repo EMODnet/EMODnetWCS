@@ -33,7 +33,7 @@ For available services, see \code{\link[=emodnet_wcs]{emodnet_wcs()}}.}
 
 \item{logger}{character string. Level of logger: 'NONE' for no logger, 'INFO' to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)}
 
-\item{coverages}{character vector of coverage IDs.}
+\item{coverages}{character vector of coverage IDs (names).}
 }
 \value{
 \code{emodnet_get_wcs_info} & \code{emodnet_get_wcs_info} return a list of service
