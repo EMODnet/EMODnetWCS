@@ -73,6 +73,7 @@ writes the coverage to a local file.
 Get a coverage from an EMODnet WCS Service
 }
 \examples{
+\dontrun{
 wcs <- emodnet_init_wcs_client(service = "biology")
 coverage <- "Emodnetbio__cal_fin_19582016_L1_err"
 # Subset using a bounding box
@@ -93,4 +94,5 @@ emodnet_get_wcs_coverage(wcs,
                          bbox = c(xmin = 0, ymin = 40,
                                   xmax = 5, ymax = 45),
                                   rangesubset = "Relative abundance")
+}
 }
