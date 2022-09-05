@@ -71,8 +71,10 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
                                      nil_values_as_na = FALSE) {
 
     if (is.null(wcs) & is.null(service)) {
-        usethis::ui_stop("Please provide a valid {usethis::ui_field('service')} name or {usethis::ui_field('wcs')} object.
-                         Both cannot be {usethis::ui_value('NULL')}")
+        cli::cli_abort(c("x" =
+        "Please provide a valid {.var service}
+        name or {.cls WCSClient} object to {.var wcs}.
+        Both cannot be {.val NULL}"))
     }
 
     if (is.null(wcs)) {
@@ -85,15 +87,6 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
     checkmate::assert_character(coverage, len = 1)
     check_coverages(wcs, coverage)
     ows_bbox <- validate_bbox(bbox)
-
-    # if (is.null(filename)) {
-    #     filename <- ows4R::WCSCoverageFilenameHandler(
-    #         identifier = coverage,
-    #         time = time,
-    #         elevation = elevation,
-    #         bbox = validate_bbox(bbox),
-    #         format = format)
-    # }
 
     summary <- get_cov_summaries(wcs, coverage)[[1]]
 
@@ -136,6 +129,7 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
             rangesubset = rangesubset,
             filename = filename
         )
+        cli::cli_text()
         cli::cli_alert_success(
             "\n Coverage {.val {coverage}} downloaded succesfully as a
         {.pkg terra} {.cls SpatRaster} Stack"
@@ -153,6 +147,7 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
             rangesubset = rangesubset,
             filename = filename
         )
+        cli::cli_text()
         cli::cli_alert_success(
             "\n Coverage {.val {coverage}} downloaded succesfully as a
         {.pkg terra} {.cls SpatRaster}"
@@ -204,13 +199,13 @@ check_cov_contains_bbox <- function(summary, bbox, crs = NULL) {
         all(outlying_edges %in% c("xmax", "xmin"))
         ) {
         cli::cli_abort(
-            "{.field bbox} boundaries {.val {names(test_bbox)[test_bbox]}} lie
+            "{.var bbox} boundaries {.val {names(test_bbox)[test_bbox]}} lie
             outside coverage extent. No overlapping data to download."
         )
     }
     if (any(test_bbox)) {
         cli::cli_warn(
-            "{.field bbox} boundaries {.val {names(test_bbox)[test_bbox]}} lie
+            "{.var bbox} boundaries {.val {names(test_bbox)[test_bbox]}} lie
             outside coverage extent. No overlapping data to download."
         )
     }

@@ -13,11 +13,12 @@ check_wcs <- function(wcs) {
 check_wcs_version <- function(wcs) {
     if (get_service_name(wcs$getUrl()) == "human_activities" &&
         wcs$getVersion() != "2.0.1") {
-        rlang::warn(glue::glue('Service version {usethis::ui_value(wcs$getVersion())} ',
-                               ' can result in unexpected',
-                               ' behaviour on {usethis::ui_value("human activities")} server.
-                            We strongly recommend reconnecting using {usethis::ui_code("service_version")} ',
-                               '{usethis::ui_value("2.0.1")}'))
+
+        cli::cli_warn(c("!" = 'Service version {.val {wcs$getVersion()}}
+                        can result in unexpected  behaviour on the
+                        {.val human activities} server.
+                            We strongly recommend reconnecting using {.var service_version}
+                      {.val 2.0.1}.'))
     } else {
         supported_versions <- wcs$getCapabilities()$
             getServiceIdentification()$
@@ -26,20 +27,19 @@ check_wcs_version <- function(wcs) {
         version <- wcs$getVersion()
 
         if (!checkmate::test_choice(version, supported_versions)) {
-            rlang::warn(glue::glue('Service version {usethis::ui_value(version)} not',
-                                   ' supported by server and can result in unexpected',
-                                   ' behaviour.
-                            We strongly recommend reconnecting using one of the ',
-                                   'supported versions: ',
-                                   '{usethis::ui_value(supported_versions)}'))
+            cli::cli_warn(c("!" = 'Service version {.val {version}} not  supported by server
+                            and can result in unexpected behaviour.',
+                            'We strongly recommend reconnecting using one of the
+                            supported versions: ',
+                            '{.val {supported_versions}}'))
         }
     }
 }
 
 # Checks if there is internet and performs an HTTP GET request
 perform_http_request <- function(service_url){
-    usethis::ui_oops("WCS client creation failed.")
-    usethis::ui_info("Service: {usethis::ui_value(service_url)}")
+    cli::cli_alert_danger("WCS client creation failed.")
+    cli::cli_alert_warning("Service: {.val {service_url}}")
 
     has_internet <- function() {
         if (nzchar(Sys.getenv("NO_INTERNET_TEST_EMODNET"))) {
@@ -49,7 +49,7 @@ perform_http_request <- function(service_url){
     }
 
     if (!has_internet()) {
-        usethis::ui_info("Reason: There is no internet connection")
+        cli::cli_alert_info("Reason: There is no internet connection")
         return(NULL)
     }
 
@@ -67,22 +67,25 @@ check_service <- function(request) {
     }
 
     if (httr::http_error(request)) {
-        usethis::ui_info("HTTP Status: {crayon::red(httr::http_status(request)$message)}")
-        usethis::ui_line()
+        cli::cli_alert_info("HTTP Status: {cli::col_red(httr::http_status(request)$message)}")
+        cli::cli_text("")
 
         is_monitor_up <- !is.null(curl::nslookup("monitor.emodnet.eu", error = FALSE))
         if (interactive() && is_monitor_up) {
-            if (usethis::ui_yeah("Browse the EMODnet OGC monitor?")) {
-                utils::browseURL("https://monitor.emodnet.eu/resources?lang=en&resource_type=OGC:WCS")
-            }
+            cli::cli_ul(c(
+                "Browse the EMODnet OGC monitor for more info on
+                the status of the services by visiting
+                {.url https://monitor.emodnet.eu/resources?lang=en&resource_type=OGC:WCS}"))
         }
 
         rlang::abort("Service creation failed")
 
         # If no HTTP status, something else is wrong
     } else if(!httr::http_error(request)) {
-        usethis::ui_info("HTTP Status: {crayon::green(httr::http_status(request)$message)}")
-        usethis::ui_stop("An exception has occurred. Please raise an issue in {packageDescription('EMODnetWCS')$BugReports}")
+        cli::cli_alert_info("HTTP Status: {cli::col_green(httr::http_status(request)$message)}")
+        cli::cli_abort(
+        c("x" = "An exception has occurred. Please raise an
+          issue in {.url {packageDescription('EMODnetWCS')$BugReports}}"))
     }
 
 }
@@ -93,9 +96,7 @@ check_coverages <- function(wcs, coverages) {
 
     if (!all(test_coverages)) {
         bad_coverages <- coverages[!test_coverages]
-        rlang::abort(
-            glue::glue("{usethis::ui_value(paste(bad_coverages, collapse = ', '))}",
-                       " not valid {switch(length(bad_coverages),'1' = 'coverage', 'coverages')}",
-                       " for service {usethis::ui_path(wcs$getUrl())}"))
+        cli::cli_abort(c("x" = "{.val {bad_coverages}} not valid coverage{?s}
+                         for service {.url {wcs$getUrl()}}"))
     }
 }
