@@ -23,8 +23,7 @@ Imports:
     purrr,
     rlang,
     sf,
-    tibble,
-    usethis
+    tibble
 Suggests: 
     covr,
     fs,

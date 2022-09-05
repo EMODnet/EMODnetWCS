@@ -8,8 +8,7 @@
 
 # Warning when unsupported service version
 
-    Service version '1.1.1'  can result in unexpected behaviour on 'human activities' server.
-    We strongly recommend reconnecting using `service_version` '2.0.1'
+    ! Service version "1.1.1" can result in unexpected behaviour on the "human activities" server.  We strongly recommend reconnecting using `service_version` "2.0.1".
 
 # Services down handled
 
@@ -17,7 +16,7 @@
 
 ---
 
-    An exception has occurred. Please raise an issue in https://github.com/EMODnet/EMODnetWCS/issues
+    x An exception has occurred. Please raise an issue in <https://github.com/EMODnet/EMODnetWCS/issues>
 
 # No internet challenge
 

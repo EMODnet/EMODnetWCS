@@ -28,14 +28,6 @@ emodnet_init_wcs_client <- function(service, service_version = c("2.0.1", "2.1.0
     create_client <- function(){
 
         config <- httr::config()
-        # TODO: remove this when the geology web services are fixed
-        # is_linux <- (Sys.info()[["sysname"]] == "Linux")
-        # is_geology <- (grepl("^geology_", service))
-        # config <- if (is_linux && is_geology) {
-        #     httr::config(ssl_cipher_list = 'DEFAULT@SECLEVEL=1')
-        # } else {
-        #     httr::config()
-        # }
 
         wcs <- suppressWarnings(ows4R::WCSClient$new(
             service_url,
@@ -47,9 +39,9 @@ emodnet_init_wcs_client <- function(service, service_version = c("2.0.1", "2.1.0
 
         check_wcs(wcs)
 
-        usethis::ui_done("WCS client created succesfully")
-        usethis::ui_info("Service: {usethis::ui_value(wcs$getUrl())}")
-        usethis::ui_info("Version: {usethis::ui_value(wcs$getVersion())}")
+        cli::cli_alert_success("WCS client created succesfully")
+        cli::cli_alert_info("Service: {.url {wcs$getUrl()}}")
+        cli::cli_alert_info("Service: {.val {wcs$getVersion()}}")
 
         check_wcs_version(wcs)
 

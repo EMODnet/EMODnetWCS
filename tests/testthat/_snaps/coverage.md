@@ -11,7 +11,7 @@
 
 ---
 
-    bbox boundaries "ymax" and "ymin" lie outside coverage extent. No overlapping data to download.
+    `bbox` boundaries "ymax" and "ymin" lie outside coverage extent. No overlapping data to download.
 
 ---
 

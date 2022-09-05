@@ -5,8 +5,9 @@
                                   ),
                                   logger = c("NONE", "INFO", "DEBUG")) {
     if (is.null(wcs) & is.null(service)) {
-        usethis::ui_stop("Please provide a valid {usethis::ui_field('service')} name or {usethis::ui_field('wcs')} object.
-                         Both cannot be {usethis::ui_value('NULL')}")
+        cli::cli_abort(c("x" = "Please provide a valid {.var service}
+        name or {.cls WCSClient} object to {.var wcs}.
+        Both cannot be {.val NULL}"))
     }
 
     if (is.null(wcs)) {
@@ -153,8 +154,9 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
                                            logger = c("NONE", "INFO", "DEBUG")) {
 
     if (is.null(wcs) & is.null(service)) {
-        usethis::ui_stop("Please provide a valid {usethis::ui_field('service')} name or {usethis::ui_field('wcs')} object.
-                         Both cannot be {usethis::ui_value('NULL')}")
+        cli::cli_abort(c("x" = "Please provide a valid {.var service}
+        name or {.cls WCSClient} object to {.var wcs}.
+        Both cannot be {.val NULL}"))
     }
 
     if (is.null(wcs)) {
