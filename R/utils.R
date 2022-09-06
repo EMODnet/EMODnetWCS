@@ -130,8 +130,25 @@ get_coverage_function <- function(summary, param = c("sequenceRule", "startPoint
 
 
 error_wrap <- function(expr) {
-    out <- tryCatch(expr, error = function(e) NA)
-    if (is.null(out)) {return(NA)} else {return(out)}
+
+    out <- tryCatch(expr,
+                    error = function(e) NA)
+
+    if (is.null(out)) {
+        cli::cli_alert_warning(
+            c("Output of {.code {cli::col_cyan(rlang::enexpr(expr))}} ",
+            "is {.emph {cli::col_br_magenta('NULL')}}.",
+             " Returning {.emph {cli::col_br_magenta('NA')}}"))
+        return(NA)
+    }
+    if (is.na(out)) {
+        cli::cli_alert_warning(
+            c("Error in {.code {cli::col_cyan(rlang::enexpr(expr))}}",
+              " Returning {.emph {cli::col_br_magenta('NA')}}"))
+    }
+
+    return(out)
+
 }
 
 get_temporal_extent <- function(summary) {
