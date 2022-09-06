@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/404.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/authors.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/index.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/emodnet_get_coverage_dim_coefs.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/emodnet_get_wcs_coverage.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/emodnet_get_wcs_info.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/emodnet_init_wcs_client.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/emodnet_wcs.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/index.html</loc>
+  </url>
+</urlset>
