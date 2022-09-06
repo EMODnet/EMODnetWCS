@@ -51,7 +51,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">emodnet_get_wcs_coverage</span><span class="op">(</span></span>
 <span>  wcs <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  service <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">coverage</span>,</span>
+<span>  <span class="va">coverage_id</span>,</span>
 <span>  service_version <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2.0.1"</span>, <span class="st">"2.1.0"</span>, <span class="st">"2.0.0"</span>, <span class="st">"1.1.1"</span>, <span class="st">"1.1.0"</span><span class="op">)</span>,</span>
 <span>  logger <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NONE"</span>, <span class="st">"INFO"</span>, <span class="st">"DEBUG"</span><span class="op">)</span>,</span>
 <span>  bbox <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -76,8 +76,8 @@
 For available services, see <code><a href="emodnet_wcs.html">emodnet_wcs()</a></code>.</p></dd>
 
 
-<dt>coverage</dt>
-<dd><p>character string. Coverage ID (name).</p></dd>
+<dt>coverage_id</dt>
+<dd><p>character string. Coverage ID.</p></dd>
 
 
 <dt>service_version</dt>
@@ -149,22 +149,22 @@ writes the coverage to a local file.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">wcs</span> <span class="op">&lt;-</span> <span class="fu"><a href="emodnet_init_wcs_client.html">emodnet_init_wcs_client</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"biology"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">coverage</span> <span class="op">&lt;-</span> <span class="st">"Emodnetbio__cal_fin_19582016_L1_err"</span></span></span>
+<span class="r-in"><span><span class="va">coverage_id</span> <span class="op">&lt;-</span> <span class="st">"Emodnetbio__cal_fin_19582016_L1_err"</span></span></span>
 <span class="r-in"><span><span class="co"># Subset using a bounding box</span></span></span>
 <span class="r-in"><span><span class="fu">emodnet_get_wcs_coverage</span><span class="op">(</span><span class="va">wcs</span>,</span></span>
-<span class="r-in"><span>                         coverage <span class="op">=</span> <span class="va">coverage</span>,</span></span>
+<span class="r-in"><span>                         coverage_id <span class="op">=</span> <span class="va">coverage_id</span>,</span></span>
 <span class="r-in"><span>                         bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fl">0</span>, ymin <span class="op">=</span> <span class="fl">40</span>,</span></span>
 <span class="r-in"><span>                                  xmax <span class="op">=</span> <span class="fl">5</span>, ymax <span class="op">=</span> <span class="fl">45</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Subset using a bounding box and specific timepoints</span></span></span>
 <span class="r-in"><span><span class="fu">emodnet_get_wcs_coverage</span><span class="op">(</span><span class="va">wcs</span>,</span></span>
-<span class="r-in"><span>                         coverage <span class="op">=</span> <span class="va">coverage</span>,</span></span>
+<span class="r-in"><span>                         coverage_id <span class="op">=</span> <span class="va">coverage_id</span>,</span></span>
 <span class="r-in"><span>                         bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fl">0</span>, ymin <span class="op">=</span> <span class="fl">40</span>,</span></span>
 <span class="r-in"><span>                                  xmax <span class="op">=</span> <span class="fl">5</span>, ymax <span class="op">=</span> <span class="fl">45</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1963-11-16T00:00:00.000Z"</span>,</span></span>
 <span class="r-in"><span>                                  <span class="st">"1964-02-16T00:00:00.000Z"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Subset using a bounding box and a specific band</span></span></span>
 <span class="r-in"><span><span class="fu">emodnet_get_wcs_coverage</span><span class="op">(</span><span class="va">wcs</span>,</span></span>
-<span class="r-in"><span>                         coverage <span class="op">=</span> <span class="va">coverage</span>,</span></span>
+<span class="r-in"><span>                         coverage_id <span class="op">=</span> <span class="va">coverage_id</span>,</span></span>
 <span class="r-in"><span>                         bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fl">0</span>, ymin <span class="op">=</span> <span class="fl">40</span>,</span></span>
 <span class="r-in"><span>                                  xmax <span class="op">=</span> <span class="fl">5</span>, ymax <span class="op">=</span> <span class="fl">45</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                                  rangesubset <span class="op">=</span> <span class="st">"Relative abundance"</span><span class="op">)</span></span></span>
