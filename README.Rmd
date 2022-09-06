@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/EMODnetWCS)](https://CRAN.R-project.org/package=EMODnetWCS)
 [![R-CMD-check](https://github.com/EMODnet/EMODnetWCS/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EMODnet/EMODnetWCS/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/EMODnet/EMODnetWCS/branch/master/graph/badge.svg)](https://app.codecov.io/gh/EMODnet/EMODnetWCS?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/EMODnet/EMODnetWCS/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EMODnet/EMODnetWCS?branch=master)
 <!-- badges: end -->
 
 

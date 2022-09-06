@@ -11,7 +11,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/EMODnetWCS)](https://CRAN.R-project.org/package=EMODnetWCS)
 [![R-CMD-check](https://github.com/EMODnet/EMODnetWCS/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EMODnet/EMODnetWCS/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/EMODnet/EMODnetWCS/branch/master/graph/badge.svg)](https://app.codecov.io/gh/EMODnet/EMODnetWCS?branch=master)
+coverage](https://codecov.io/gh/EMODnet/EMODnetWCS/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EMODnet/EMODnetWCS?branch=master)
 <!-- badges: end -->
 
 The goal of EMODnetWCS is to allow interrogation of and access to
