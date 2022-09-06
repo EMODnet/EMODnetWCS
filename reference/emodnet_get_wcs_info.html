@@ -183,44 +183,19 @@ coverages from each service.</p></li>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Get information from a wcs object.</span></span></span>
 <span class="r-in"><span><span class="va">wcs</span> <span class="op">&lt;-</span> <span class="fu"><a href="emodnet_init_wcs_client.html">emodnet_init_wcs_client</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"seabed_habitats"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> WCS client created succesfully</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Service: <span style="color: #0000BB; font-style: italic;">&lt;https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open_maplibrary/wcs&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Service: <span style="color: #0000BB;">"2.0.1"</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Space required after the Public Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SystemLiteral " or ' expected</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SYSTEM or PUBLIC, the URI is missing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Opening and ending tag mismatch: hr line 0 and body</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Opening and ending tag mismatch: body line 0 and html</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> EndTag: '&lt;/' not found</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> WCS client creation failed.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Service: <span style="color: #0000BB;">"https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open_maplibrary/wcs"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> HTTP Status: <span style="color: #BB0000;">Server error: (503) Service Unavailable</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in check_service(perform_http_request(service_url)):</span> Service creation failed</span>
 <span class="r-in"><span><span class="fu">emodnet_get_wcs_info</span><span class="op">(</span><span class="va">wcs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $data_source</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "emodnet_wcs"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $service_name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "seabed_habitats"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $service_url</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open_maplibrary/wcs"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $service_title</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "EMODnet Seabed Habitats Map Library WCS Service"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $service_abstract</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "WCS end-point for individual habitat maps and models held by EMODnet Seabed Habitats.\r\n\r\nIncludes all data with access limitations of \"View and Download\" (excluding \"View only\" data)"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $service_access_constraits</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "None"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $service_fees</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "None"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $service_type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "urn:ogc:service:wcs"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $coverage_details</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name                dim_n dim_n…¹ extent crs   wgs84…² tempo…³ verti…⁴ subtype</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> emodnet_open_mapli…     2 x(m):g… 34317… EPSG… -6.56,… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      Rectif…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> emodnet_open_mapli…     2 x(m):g… 34317… EPSG… -6.56,… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      Rectif…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> emodnet_open_mapli…     2 x(m):g… 34314… EPSG… -6.56,… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      Rectif…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable names ¹​dim_names, ²​wgs84_bbox, ³​temporal_extent,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁴​vertical_extent</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in FUN(X[[i]], ...):</span> object 'wcs' not found</span>
 <span class="r-in"><span><span class="co"># Get information using a service name.</span></span></span>
 <span class="r-in"><span><span class="fu">emodnet_get_wcs_info</span><span class="op">(</span>service <span class="op">=</span> <span class="st">"biology"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> WCS client created succesfully</span>
@@ -273,17 +248,7 @@ coverages from each service.</p></li>
 <span class="r-in"><span>  <span class="st">"emodnet_open_maplibrary__mediseh_posidonia"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">emodnet_get_wcs_coverage_info</span><span class="op">(</span>wcs <span class="op">=</span> <span class="va">wcs</span>, coverages <span class="op">=</span> <span class="va">coverages</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 20</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   data_so…¹ servi…² servi…³ name  band_…⁴ band_…⁵ const…⁶ nil_va…⁷ dim_n dim_n…⁸</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> emodnet_… https:… seabed… emod… GRAY_I… W.m-2.… 0, 1    -<span style="color: #BB0000;">3.40</span><span style="color: #949494;">e</span>38     2 x(m):g…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> emodnet_… https:… seabed… emod… Probab… W.m-2.… -3.402… -<span style="color: #BB0000;">1.00</span><span style="color: #949494;">e</span> 4     2 x(m):g…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 10 more variables: grid_size &lt;chr&gt;, resolution &lt;chr&gt;, extent &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   crs &lt;chr&gt;, wgs84_extent &lt;chr&gt;, temporal_extent &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vertical_extent &lt;chr&gt;, subtype &lt;chr&gt;, fn_seq_rule &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fn_start_point &lt;chr&gt;, and abbreviated variable names ¹​data_source,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​service_name, ³​service_url, ⁴​band_description, ⁵​band_uom, ⁶​constraint,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁷​nil_value, ⁸​dim_names</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in FUN(X[[i]], ...):</span> object 'wcs' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
