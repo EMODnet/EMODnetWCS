@@ -1,7 +1,7 @@
 #' Get a coverage from an EMODnet WCS Service
 #'
 #' @inheritParams emodnet_get_wcs_coverage_info
-#' @param coverage character string. Coverage ID (name).
+#' @param coverage_id character string. Coverage ID.
 #' @param bbox a named numeric vector of length 4, with names `xmin`, `ymin`,
 #' `xmax` and `ymax`. specifying the bounding box.
 #' (extent) of the raster to be returned.
@@ -35,28 +35,28 @@
 #' @examples
 #' \dontrun{
 #' wcs <- emodnet_init_wcs_client(service = "biology")
-#' coverage <- "Emodnetbio__cal_fin_19582016_L1_err"
+#' coverage_id <- "Emodnetbio__cal_fin_19582016_L1_err"
 #' # Subset using a bounding box
 #' emodnet_get_wcs_coverage(wcs,
-#'                          coverage = coverage,
+#'                          coverage_id = coverage_id,
 #'                          bbox = c(xmin = 0, ymin = 40,
 #'                                   xmax = 5, ymax = 45))
 #' # Subset using a bounding box and specific timepoints
 #' emodnet_get_wcs_coverage(wcs,
-#'                          coverage = coverage,
+#'                          coverage_id = coverage_id,
 #'                          bbox = c(xmin = 0, ymin = 40,
 #'                                   xmax = 5, ymax = 45),
 #'                          time = c("1963-11-16T00:00:00.000Z",
 #'                                   "1964-02-16T00:00:00.000Z"))
 #' # Subset using a bounding box and a specific band
 #' emodnet_get_wcs_coverage(wcs,
-#'                          coverage = coverage,
+#'                          coverage_id = coverage_id,
 #'                          bbox = c(xmin = 0, ymin = 40,
 #'                                   xmax = 5, ymax = 45),
 #'                                   rangesubset = "Relative abundance")
 #' }
 emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
-                                     coverage,
+                                     coverage_id,
                                      service_version = c(
                                          "2.0.1", "2.1.0", "2.0.0",
                                          "1.1.1", "1.1.0"
@@ -84,11 +84,11 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
     check_wcs(wcs)
     check_wcs_version(wcs)
 
-    checkmate::assert_character(coverage, len = 1)
-    check_coverages(wcs, coverage)
+    checkmate::assert_character(coverage_id, len = 1)
+    check_coverages(wcs, coverage_id)
     ows_bbox <- validate_bbox(bbox)
 
-    summary <- get_cov_summaries(wcs, coverage)[[1]]
+    summary <- get_cov_summaries(wcs, coverage_id)[[1]]
 
     # validate request arguments
     if (!is.null(rangesubset)) {
@@ -100,28 +100,28 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
     }
     if (!is.null(time)) {
         validate_dimension_subset(wcs,
-                                  coverage,
+                                  coverage_id,
                                   type = "temporal",
                                   subset = time)
     }
     if (!is.null(elevation)) {
         validate_dimension_subset(wcs,
-                                  coverage,
+                                  coverage_id,
                                   type = "vertical",
                                   subset = elevation)
     }
     check_cov_contains_bbox(summary, bbox, crs)
 
-    cli::cli_rule(left = "Downloading coverage {.val {coverage}}")
+    cli::cli_rule(left = "Downloading coverage {.val {coverage_id}}")
 
-    coverage <- validate_namespace(coverage)
+    coverage_id <- validate_namespace(coverage_id)
 
     if(length(time) > 1 | length(elevation) > 1) {
 
         # TODO - uncomment crs when https://github.com/eblondel/ows4R/issues/90
         # is resolved
         cov_raster <- summary$getCoverageStack(
-            coverage,
+            coverage_id,
             bbox = ows_bbox,
             #crs = crs,
             time = time,
@@ -131,14 +131,14 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
         )
         cli::cli_text()
         cli::cli_alert_success(
-            "\n Coverage {.val {coverage}} downloaded succesfully as a
+            "\n Coverage {.val {coverage_id}} downloaded succesfully as a
         {.pkg terra} {.cls SpatRaster} Stack"
         )
     } else {
         # TODO - uncomment crs when https://github.com/eblondel/ows4R/issues/90
         # is resolved
         cov_raster <- summary$getCoverage(
-            coverage,
+            coverage_id,
             bbox = ows_bbox,
             #crs = crs,
             time = time,
@@ -149,7 +149,7 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
         )
         cli::cli_text()
         cli::cli_alert_success(
-            "\n Coverage {.val {coverage}} downloaded succesfully as a
+            "\n Coverage {.val {coverage_id}} downloaded succesfully as a
         {.pkg terra} {.cls SpatRaster}"
         )
     }

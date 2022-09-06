@@ -18,7 +18,7 @@ emodnet_get_all_wcs_info(logger = c("NONE", "INFO", "DEBUG"))
 emodnet_get_wcs_coverage_info(
   wcs = NULL,
   service = NULL,
-  coverages,
+  coverage_ids,
   service_version = c("2.0.1", "2.1.0", "2.0.0", "1.1.1", "1.1.0"),
   logger = c("NONE", "INFO", "DEBUG")
 )
@@ -33,7 +33,7 @@ For available services, see \code{\link[=emodnet_wcs]{emodnet_wcs()}}.}
 
 \item{logger}{character string. Level of logger: 'NONE' for no logger, 'INFO' to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)}
 
-\item{coverages}{character vector of coverage IDs (names).}
+\item{coverage_ids}{character vector of coverage IDs.}
 }
 \value{
 \code{emodnet_get_wcs_info} & \code{emodnet_get_wcs_info} return a list of service
@@ -55,7 +55,7 @@ following metadata:
 \item \strong{\code{service_type}:} the EMODnet WCS service type.
 \item \strong{\code{coverage_details}:} a tibble of details of each coverage available through EMODnet WCS service:
 \itemize{
-\item \strong{\code{name}:} the coverage name.
+\item \strong{\code{coverage_id}:} the coverage ID.
 \item \strong{\code{dim_n}:} the number of coverage dimensions
 \item \strong{\code{dim_names}:} the coverage dimension names, units (in brackets) and types.
 \item \strong{\code{extent}:} the coverage extent (\code{xmin}, \code{ymin}, \code{xmax} and \code{ymax}).
@@ -79,7 +79,7 @@ specified and columns with the following details:
 \item \strong{\code{data_source}:} the EMODnet source of data.
 \item \strong{\code{service_name}:} the EMODnet WCS service name.
 \item \strong{\code{service_url}:} the EMODnet WCS service URL.
-\item \strong{\code{name}:} the name of the coverage.
+\item \strong{\code{coverage_ids}:} the coverage ID.
 \item \strong{\code{band_description}:} the description of the data contained in the band of the coverage.
 \item \strong{\code{band_uom}:} the unit of measurement of the data contained in the band of the coverage.
 \item \strong{\code{constraint}:} the range of values of the data contained in the band of the coverage.

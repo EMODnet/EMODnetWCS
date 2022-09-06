@@ -295,18 +295,18 @@ validate_dimension_subset <- function(
     )
 }
 
-has_extent_type <- function(wcs, coverages,
+has_extent_type <- function(wcs, coverage_ids,
                             type = c("temporal", "vertical",
                                      "geographic")) {
-    check_coverages(wcs, coverages)
+    check_coverages(wcs, coverage_ids)
     type <- match.arg(type)
 
-    dim_dfs <- get_cov_summaries(wcs, coverages) |>
+    dim_dfs <- get_cov_summaries(wcs, coverage_ids) |>
         purrr::map(~process_dimension(.x, format = "tibble"))
 
     dim_dfs |>
         purrr::map_lgl(~any(.x$type == type)) |>
-        stats::setNames(coverages)
+        stats::setNames(coverage_ids)
 }
 
 get_dimension_type <- function(summary) {

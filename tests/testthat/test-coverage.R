@@ -1,6 +1,6 @@
 test_that("coverages downloaded correctly", {
     wcs <- create_biology_wcs()
-    coverage <- "Emodnetbio__cal_fin_19582016_L1_err"
+    coverage_id <- "Emodnetbio__cal_fin_19582016_L1_err"
     bbox <- c(xmin = 0,
               ymin = 40,
               xmax = 2,
@@ -9,7 +9,7 @@ test_that("coverages downloaded correctly", {
                   {
                       cov_raster <- emodnet_get_wcs_coverage(
                           wcs,
-                          coverage = coverage,
+                          coverage_id = coverage_id,
                           bbox = bbox,
                           time = c( "1963-11-16T00:00:00.000Z",
                                     "1964-02-16T00:00:00.000Z"),
@@ -28,14 +28,14 @@ test_that("coverages downloaded correctly", {
                   expect_snapshot_error(
                       emodnet_get_wcs_coverage(
                           wcs,
-                          coverage = coverage,
+                          coverage_id = coverage_id,
                           bbox = bbox,
                       )
                   )
                   expect_snapshot_error(
                       emodnet_get_wcs_coverage(
                           wcs,
-                          coverage = coverage,
+                          coverage_id = coverage_id,
                           time = "randomtime",
                       )
                   )

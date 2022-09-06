@@ -4,12 +4,16 @@
 \alias{emodnet_get_coverage_dim_coefs}
 \title{Get temporal or vertical coefficients for a coverage}
 \usage{
-emodnet_get_coverage_dim_coefs(wcs, coverage, type = c("temporal", "vertical"))
+emodnet_get_coverage_dim_coefs(
+  wcs,
+  coverage_id,
+  type = c("temporal", "vertical")
+)
 }
 \arguments{
 \item{wcs}{A \code{WCSClient} R6 object, created with function \code{\link{emodnet_init_wcs_client}}.}
 
-\item{coverage}{character string. Coverage ID (name).}
+\item{coverage_id}{character string. Coverage ID.}
 
 \item{type}{character string. The dimension type for which
 coefficients will be returned.}

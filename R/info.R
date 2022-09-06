@@ -32,7 +32,7 @@
         service_type = service_id$getServiceType(),
         coverage_details =
             tibble::tibble(
-                name = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
+                coverage_id = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
                 dim_n = purrr::map_int(summaries, ~ error_wrap(length(.x$getDimensions()))),
                 dim_names = purrr::map_chr(summaries, ~ error_wrap(process_dimension(.x, format = "character"))),
                 extent = purrr::map_chr(summaries, ~ error_wrap(get_bbox(.x) |> conc_bbox())),
@@ -68,7 +68,7 @@
 #' - **`service_fees`:** any access fees associated with the EMODnet WCS service.
 #' - **`service_type`:** the EMODnet WCS service type.
 #' - **`coverage_details`:** a tibble of details of each coverage available through EMODnet WCS service:
-#'   - **`name`:** the coverage name.
+#'   - **`coverage_id`:** the coverage ID.
 #'   - **`dim_n`:** the number of coverage dimensions
 #'   - **`dim_names`:** the coverage dimension names, units (in brackets) and types.
 #'   - **`extent`:** the coverage extent (`xmin`, `ymin`, `xmax` and `ymax`).
@@ -88,7 +88,7 @@
 #' - **`data_source`:** the EMODnet source of data.
 #' - **`service_name`:** the EMODnet WCS service name.
 #' - **`service_url`:** the EMODnet WCS service URL.
-#' - **`name`:** the name of the coverage.
+#' - **`coverage_ids`:** the coverage ID.
 #' - **`band_description`:** the description of the data contained in the band of the coverage.
 #' - **`band_uom`:** the unit of measurement of the data contained in the band of the coverage.
 #' - **`constraint`:** the range of values of the data contained in the band of the coverage.
@@ -146,7 +146,7 @@ emodnet_get_wcs_info <- memoise::memoise(.emodnet_get_wcs_info)
 emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
 
 .emodnet_get_wcs_coverage_info <- function(wcs = NULL, service = NULL,
-                                           coverages,
+                                           coverage_ids,
                                            service_version = c(
                                                "2.0.1", "2.1.0", "2.0.0",
                                                "1.1.1", "1.1.0"
@@ -165,11 +165,11 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
 
     check_wcs(wcs)
     check_wcs_version(wcs)
-    check_coverages(wcs, coverages)
+    check_coverages(wcs, coverage_ids)
 
     capabilities <- wcs$getCapabilities()
 
-    summaries <- purrr::map(validate_namespace(coverages),
+    summaries <- purrr::map(validate_namespace(coverage_ids),
                             ~capabilities$findCoverageSummaryById(.x)) |>
         unlist(recursive = FALSE)
 
@@ -177,7 +177,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
         data_source = "emodnet_wcs",
         service_name = wcs$getUrl(),
         service_url = get_service_name(wcs$getUrl()),
-        name = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
+        coverage_id = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
         band_description = purrr::map_chr(summaries, ~ error_wrap(get_description(.x))),
         band_uom = purrr::map_chr(summaries, ~ error_wrap(get_uom(.x))),
         constraint = purrr::map_chr(summaries, ~ error_wrap(get_constraint(.x))),
@@ -201,7 +201,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
 
 #' @describeIn emodnet_get_wcs_info Get metadata for specific coverages. Requires a
 #' `WCSClient` R6 object as input.
-#' @param coverages character vector of coverage IDs (names).
+#' @param coverage_ids character vector of coverage IDs.
 #' @inheritParams emodnet_get_wcs_info
 #' @importFrom memoise memoise
 #' @details To minimize the number of requests sent to webservices,
@@ -214,7 +214,7 @@ emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info
 
 #' Get temporal or vertical coefficients for a coverage
 #' @param wcs A `WCSClient` R6 object, created with function [`emodnet_init_wcs_client`].
-#' @param coverage character string. Coverage ID (name).
+#' @param coverage_id character string. Coverage ID.
 #' @param type character string. The dimension type for which
 #' coefficients will be returned.
 #'
@@ -226,18 +226,18 @@ emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info
 #' emodnet_get_coverage_dim_coefs(wcs,
 #'                               "Emodnetbio__ratio_large_to_small_19582016_L1_err")
 emodnet_get_coverage_dim_coefs <- function(wcs,
-                                           coverage,
+                                           coverage_id,
                                            type = c("temporal",
                                                     "vertical")) {
 
     type <- match.arg(type)
-    checkmate::assert_character(coverage, len = 1)
+    checkmate::assert_character(coverage_id, len = 1)
     check_extent_type <- has_extent_type(wcs,
-                                         coverage,
+                                         coverage_id,
                                          type)
 
     if (check_extent_type) {
-        summary <- get_cov_summaries(wcs, coverage)[[1]]
+        summary <- get_cov_summaries(wcs, coverage_id)[[1]]
         dim_type_id <- which(get_dimension_type(summary) == type)
 
         coefs <- summary |>
@@ -256,7 +256,7 @@ emodnet_get_coverage_dim_coefs <- function(wcs,
 
     } else {
         cli::cli_warn(
-            "{.field coverage} {.val {coverage}}
+            "{.field coverage_id} {.val {coverage_id}}
             has no {.val {type}} dimension."
         )
 

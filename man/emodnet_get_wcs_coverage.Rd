@@ -7,7 +7,7 @@
 emodnet_get_wcs_coverage(
   wcs = NULL,
   service = NULL,
-  coverage,
+  coverage_id,
   service_version = c("2.0.1", "2.1.0", "2.0.0", "1.1.1", "1.1.0"),
   logger = c("NONE", "INFO", "DEBUG"),
   bbox = NULL,
@@ -26,7 +26,7 @@ emodnet_get_wcs_coverage(
 \item{service}{the EMODnet OGC WCS service name.
 For available services, see \code{\link[=emodnet_wcs]{emodnet_wcs()}}.}
 
-\item{coverage}{character string. Coverage ID (name).}
+\item{coverage_id}{character string. Coverage ID.}
 
 \item{service_version}{the WCS service version. Defaults to "2.0.1".}
 
@@ -75,22 +75,22 @@ Get a coverage from an EMODnet WCS Service
 \examples{
 \dontrun{
 wcs <- emodnet_init_wcs_client(service = "biology")
-coverage <- "Emodnetbio__cal_fin_19582016_L1_err"
+coverage_id <- "Emodnetbio__cal_fin_19582016_L1_err"
 # Subset using a bounding box
 emodnet_get_wcs_coverage(wcs,
-                         coverage = coverage,
+                         coverage_id = coverage_id,
                          bbox = c(xmin = 0, ymin = 40,
                                   xmax = 5, ymax = 45))
 # Subset using a bounding box and specific timepoints
 emodnet_get_wcs_coverage(wcs,
-                         coverage = coverage,
+                         coverage_id = coverage_id,
                          bbox = c(xmin = 0, ymin = 40,
                                   xmax = 5, ymax = 45),
                          time = c("1963-11-16T00:00:00.000Z",
                                   "1964-02-16T00:00:00.000Z"))
 # Subset using a bounding box and a specific band
 emodnet_get_wcs_coverage(wcs,
-                         coverage = coverage,
+                         coverage_id = coverage_id,
                          bbox = c(xmin = 0, ymin = 40,
                                   xmax = 5, ymax = 45),
                                   rangesubset = "Relative abundance")
