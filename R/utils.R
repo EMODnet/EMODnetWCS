@@ -11,8 +11,8 @@ get_capabilities <- function(wcs) {
     wcs$getCapabilities()
 }
 
-get_cov_summaries <- function(wcs, coverages) {
-    coverages |> purrr::map(~get_capabilities(wcs)$findCoverageSummaryById(.x, exact = TRUE))
+get_cov_summaries <- function(wcs, coverage_ids) {
+    coverage_ids |> purrr::map(~get_capabilities(wcs)$findCoverageSummaryById(.x, exact = TRUE))
 }
 
 get_all_cov_summaries <- function(wcs) {
@@ -224,8 +224,8 @@ get_dimensions_n <- function(summary) {
 
 }
 
-validate_namespace <- function(coverage) {
-    gsub(":", "__", coverage)
+validate_namespace <- function(coverage_id) {
+    gsub(":", "__", coverage_id)
 }
 
 validate_bbox <- function(bbox) {
@@ -266,7 +266,7 @@ validate_rangesubset <- function(summary, rangesubset) {
 
 validate_dimension_subset <- function(
         wcs,
-        coverage,
+        coverage_id,
         type = c("temporal",
                  "vertical"),
         subset) {
@@ -274,7 +274,7 @@ validate_dimension_subset <- function(
     type <- match.arg(type)
     coefs <- emodnet_get_coverage_dim_coefs(
         wcs,
-        coverage,
+        coverage_id,
         type)
 
     switch (type,
@@ -295,18 +295,18 @@ validate_dimension_subset <- function(
     )
 }
 
-has_extent_type <- function(wcs, coverages,
+has_extent_type <- function(wcs, coverage_ids,
                             type = c("temporal", "vertical",
                                      "geographic")) {
-    check_coverages(wcs, coverages)
+    check_coverages(wcs, coverage_ids)
     type <- match.arg(type)
 
-    dim_dfs <- get_cov_summaries(wcs, coverages) |>
+    dim_dfs <- get_cov_summaries(wcs, coverage_ids) |>
         purrr::map(~process_dimension(.x, format = "tibble"))
 
     dim_dfs |>
         purrr::map_lgl(~any(.x$type == type)) |>
-        stats::setNames(coverages)
+        stats::setNames(coverage_ids)
 }
 
 get_dimension_type <- function(summary) {
