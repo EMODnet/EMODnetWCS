@@ -24,7 +24,7 @@ test_that("dimensions processed correctly", {
                       expect_equal(process_dimension(summary),
                                    structure("lat(deg):geographic; long(deg):geographic; time(s):temporal",
                                              class = c("glue", "character")))
-                      expect_equal(get_temporal_extent(summary),
+                      expect_equal(emdn_get_temporal_extent(summary),
                                    "1958-02-16T00:00:00.000Z - 2016-11-16T00:00:00.000Z")
                       expect_equal(get_vertical_extent(summary), NA)
                       expect_length(process_dimension(summary, format = "list"), 3)
