@@ -178,7 +178,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
         service_name = wcs$getUrl(),
         service_url = get_service_name(wcs$getUrl()),
         coverage_id = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
-        band_description = purrr::map_chr(summaries, ~ error_wrap(get_description(.x))),
+        band_description = purrr::map_chr(summaries, ~ error_wrap(emdn_get_band_name(.x))),
         band_uom = purrr::map_chr(summaries, ~ error_wrap(get_uom(.x))),
         constraint = purrr::map_chr(summaries, ~ error_wrap(get_constraint(.x))),
         nil_value = purrr::map_dbl(summaries, ~ error_wrap(emdn_get_nil_value(.x))),

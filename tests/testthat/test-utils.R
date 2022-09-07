@@ -37,7 +37,7 @@ test_that("rangeType processed correctly", {
     with_mock_dir("biology-description",
                   {
                       expect_equal(emdn_get_nil_value(summary), 9.96921e+36)
-                      expect_equal(get_description(summary), "relative_abundance")
+                      expect_equal(emdn_get_band_name(summary), "relative_abundance")
                       expect_equal(get_uom(summary), "W.m-2.Sr-1")
                       expect_equal(get_constraint(summary), "-3.4028235e+38, 3.4028235e+38")
                       expect_equal(get_coverage_function(summary), "Linear")

@@ -72,7 +72,7 @@ emdn_get_nil_value <- function(summary) {
     }
 }
 
-get_description <- function(summary) {
+emdn_get_band_name <- function(summary) {
     summary$getDescription()$rangeType$DataRecord$field$Quantity$description$value
 }
 
@@ -272,7 +272,7 @@ validate_bbox <- function(bbox) {
 }
 
 validate_rangesubset <- function(summary, rangesubset) {
-    cov_range_descriptions <- get_description(summary)
+    cov_range_descriptions <- emdn_get_band_name(summary)
     purrr::walk(rangesubset,
                 ~checkmate::assert_choice(
                     .x,
