@@ -312,7 +312,7 @@ validate_dimension_subset <- function(
     )
 }
 
-has_extent_type <- function(wcs, coverage_ids,
+emdn_has_extent_type <- function(wcs, coverage_ids,
                             type = c("temporal", "vertical",
                                      "geographic")) {
     check_coverages(wcs, coverage_ids)
