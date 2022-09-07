@@ -59,7 +59,7 @@ extr_bbox_crs <- function(summary) {
     return(bbox_crs)
 }
 
-get_WGS84bbox <- function(summary) {
+emdn_get_WGS84bbox <- function(summary) {
     summary$getWGS84BoundingBox()$WGS84BoundingBox$getBBOX()
 }
 
