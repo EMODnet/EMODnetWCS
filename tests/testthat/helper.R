@@ -33,7 +33,7 @@ create_physics_summary <- function() {
 create_biology_summary <- function() {
     with_mock_dir("wcs-biology-summary", {
         emodnet_init_wcs_client(service = "biology") |>
-            get_cov_summaries(
+            emdn_get_coverage_summaries(
                 coverage_ids = "Emodnetbio__aca_spp_19582016_L1")
     })
 }

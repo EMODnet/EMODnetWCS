@@ -88,7 +88,7 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
     check_coverages(wcs, coverage_id)
     ows_bbox <- validate_bbox(bbox)
 
-    summary <- get_cov_summaries(wcs, coverage_id)[[1]]
+    summary <- emdn_get_coverage_summaries(wcs, coverage_id)[[1]]
 
     # validate request arguments
     if (!is.null(rangesubset)) {

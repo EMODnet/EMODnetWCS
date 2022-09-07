@@ -11,7 +11,7 @@ get_capabilities <- function(wcs) {
     wcs$getCapabilities()
 }
 
-get_cov_summaries <- function(wcs, coverage_ids) {
+emdn_get_coverage_summaries <- function(wcs, coverage_ids) {
     coverage_ids |> purrr::map(~get_capabilities(wcs)$findCoverageSummaryById(.x, exact = TRUE))
 }
 
@@ -318,7 +318,7 @@ has_extent_type <- function(wcs, coverage_ids,
     check_coverages(wcs, coverage_ids)
     type <- match.arg(type)
 
-    dim_dfs <- get_cov_summaries(wcs, coverage_ids) |>
+    dim_dfs <- emdn_get_coverage_summaries(wcs, coverage_ids) |>
         purrr::map(~process_dimension(.x, format = "tibble"))
 
     dim_dfs |>
