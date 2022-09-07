@@ -1,17 +1,34 @@
-#' Title
+#' Get metadata from a `WCSClient` object.
 #'
-#' @inheritParams
+#' @inheritParams emdn_get_wcs_coverage_info
 #' @return
+#'  - `emdn_get_coverage_summaries`: returns a list of objects of class
+#'  `<WCSCoverageSummary>` for each `coverage_id` provided.
+#'  - `emdn_get_coverage_summaries_all`: returns a list of objects of class
+#'  `<WCSCoverageSummary>` for each coverage avalable through the service.
+#'  - `emdn_get_coverage_ids` returns a character vector of coverage ids.
+#' @describeIn emdn_get_coverage_summaries Get summaries for specific coverages.
 #' @export
 #'
 #' @examples
+#' wcs <- emdn_init_wcs_client(service = "biology")
+#' emdn_get_coverage_summaries_all(wcs)
+#' cov_ids <- emdn_get_coverage_ids(wcs)
+#' emdn_get_coverage_summaries(wcs, cov_ids[1:2])
 emdn_get_coverage_summaries <- function(wcs, coverage_ids) {
     coverage_ids |> purrr::map(~get_capabilities(wcs)$findCoverageSummaryById(.x, exact = TRUE))
 }
 
+#' @describeIn emdn_get_coverage_summaries Get summaries for all available
+#' coverages from a service.
+#' @export
 emdn_get_coverage_summaries_all <- function(wcs) {
     get_capabilities(wcs)$getCoverageSummaries()
 }
+
+#' @describeIn emdn_get_coverage_summaries Get coverage IDs for all available
+#' coverages from a service.
+#' @export
 emdn_get_coverage_ids <- function(wcs) {
     emdn_get_coverage_summaries_all(wcs) |>
         purrr::map_chr(~.x$getId())

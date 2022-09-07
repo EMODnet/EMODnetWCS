@@ -2,6 +2,9 @@
 
 export(emdn_get_all_wcs_info)
 export(emdn_get_coverage_dim_coefs)
+export(emdn_get_coverage_ids)
+export(emdn_get_coverage_summaries)
+export(emdn_get_coverage_summaries_all)
 export(emdn_get_wcs_coverage)
 export(emdn_get_wcs_coverage_info)
 export(emdn_get_wcs_info)
