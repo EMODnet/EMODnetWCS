@@ -39,7 +39,7 @@
                 crs = purrr::map_chr(summaries, ~ error_wrap(extr_bbox_crs(.x)$input)),
                 wgs84_bbox = purrr::map_chr(summaries, ~ error_wrap(emdn_get_WGS84bbox(.x) |> conc_bbox())),
                 temporal_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_temporal_extent(.x))),
-                vertical_extent = purrr::map_chr(summaries, ~ error_wrap(get_vertical_extent(.x))),
+                vertical_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_vertical_extent(.x))),
                 subtype = purrr::map_chr(summaries, ~ error_wrap(.x$CoverageSubtype))
             )
     )
@@ -190,7 +190,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
         crs = purrr::map_chr(summaries, ~ error_wrap(extr_bbox_crs(.x)$input)),
         wgs84_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_WGS84bbox(.x) |> conc_bbox())),
         temporal_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_temporal_extent(.x))),
-        vertical_extent = purrr::map_chr(summaries, ~ error_wrap(get_vertical_extent(.x))),
+        vertical_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_vertical_extent(.x))),
         subtype = purrr::map_chr(summaries, ~ error_wrap(.x$CoverageSubtype)),
         fn_seq_rule = purrr::map_chr(summaries, ~ error_wrap(emdn_get_coverage_function(.x))),
         fn_start_point = purrr::map_chr(summaries,

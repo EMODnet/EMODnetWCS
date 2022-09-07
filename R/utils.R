@@ -161,7 +161,7 @@ emdn_get_temporal_extent <- function(summary) {
     }
 }
 
-get_vertical_extent <- function(summary) {
+emdn_get_vertical_extent <- function(summary) {
     dim_df <- process_dimension(summary, format = "tibble")
 
     if (any(dim_df$type == "vertical")) {
