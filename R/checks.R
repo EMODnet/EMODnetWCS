@@ -92,7 +92,7 @@ check_service <- function(request) {
 
 check_coverages <- function(wcs, coverages) {
     checkmate::assert_character(coverages)
-    test_coverages <- coverages %in% get_cov_ids(wcs)
+    test_coverages <- coverages %in% emdn_get_coverage_ids(wcs)
 
     if (!all(test_coverages)) {
         bad_coverages <- coverages[!test_coverages]

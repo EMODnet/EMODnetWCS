@@ -18,7 +18,7 @@ get_cov_summaries <- function(wcs, coverage_ids) {
 get_all_cov_summaries <- function(wcs) {
     get_capabilities(wcs)$getCoverageSummaries()
 }
-get_cov_ids <- function(wcs) {
+emdn_get_coverage_ids <- function(wcs) {
     get_all_cov_summaries(wcs) |>
         purrr::map_chr(~.x$getId())
 
