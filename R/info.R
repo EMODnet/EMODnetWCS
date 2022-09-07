@@ -185,7 +185,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
         dim_n = purrr::map_int(summaries, ~ error_wrap(length(.x$getDimensions()))),
         dim_names = purrr::map_chr(summaries, ~ error_wrap(process_dimension(.x, format = "character"))),
         grid_size = purrr::map_chr(summaries, ~ error_wrap(emdn_get_grid_size(.x))),
-        resolution = purrr::map_chr(summaries, ~ error_wrap(get_resolution(.x))),
+        resolution = purrr::map_chr(summaries, ~ error_wrap(emdn_get_resolution(.x))),
         extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_bbox(.x) |> conc_bbox())),
         crs = purrr::map_chr(summaries, ~ error_wrap(extr_bbox_crs(.x)$input)),
         wgs84_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_WGS84bbox(.x) |> conc_bbox())),

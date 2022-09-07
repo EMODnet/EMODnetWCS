@@ -103,7 +103,7 @@ emdn_get_grid_size <- function(summary, type = c("character", "numeric")) {
 
 }
 
-get_resolution <- function(summary, type = c("character", "numeric")) {
+emdn_get_resolution <- function(summary, type = c("character", "numeric")) {
     type <- match.arg(type)
 
     boundaries <- summary$getDescription()$boundedBy
