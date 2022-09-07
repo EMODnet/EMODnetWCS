@@ -18,7 +18,7 @@ test_that("extent & crs processed correctly", {
 test_that("dimensions processed correctly", {
     summary <- create_biology_summary()[[1]]
     with_mock_dir("biology-description",
-                  {expect_equal(get_grid_size(summary), "950x400")
+                  {expect_equal(emdn_get_grid_size(summary), "950x400")
                       expect_equal(get_resolution(summary),
                                    "0.0422105263157895 Deg x 0.23775 Deg")
                       expect_equal(process_dimension(summary),

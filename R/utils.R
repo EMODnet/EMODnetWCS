@@ -88,7 +88,7 @@ emdn_get_constraint <- function(summary) {
 }
 
 
-get_grid_size <- function(summary, type = c("character", "numeric")) {
+emdn_get_grid_size <- function(summary, type = c("character", "numeric")) {
     type <- match.arg(type)
 
     grid_envelope <- summary$getDescription()$domainSet$limits
@@ -109,7 +109,7 @@ get_resolution <- function(summary, type = c("character", "numeric")) {
     boundaries <- summary$getDescription()$boundedBy
     upper_crn <- boundaries$upperCorner[1,] |> unlist()
     lower_crn <- boundaries$lowerCorner[1,]  |> unlist()
-    grid_size <- get_grid_size(summary, type = "numeric")
+    grid_size <- emdn_get_grid_size(summary, type = "numeric")
     uom <- unlist(strsplit(boundaries$attrs$uomLabels, " "))[1:2]
 
     resolution <- (upper_crn - lower_crn) / grid_size

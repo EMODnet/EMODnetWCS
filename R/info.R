@@ -184,7 +184,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
         nil_value = purrr::map_dbl(summaries, ~ error_wrap(emdn_get_nil_value(.x))),
         dim_n = purrr::map_int(summaries, ~ error_wrap(length(.x$getDimensions()))),
         dim_names = purrr::map_chr(summaries, ~ error_wrap(process_dimension(.x, format = "character"))),
-        grid_size = purrr::map_chr(summaries, ~ error_wrap(get_grid_size(.x))),
+        grid_size = purrr::map_chr(summaries, ~ error_wrap(emdn_get_grid_size(.x))),
         resolution = purrr::map_chr(summaries, ~ error_wrap(get_resolution(.x))),
         extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_bbox(.x) |> conc_bbox())),
         crs = purrr::map_chr(summaries, ~ error_wrap(extr_bbox_crs(.x)$input)),
