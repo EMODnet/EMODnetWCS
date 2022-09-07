@@ -63,7 +63,7 @@ emdn_get_WGS84bbox <- function(summary) {
     summary$getWGS84BoundingBox()$WGS84BoundingBox$getBBOX()
 }
 
-get_nil_value <- function(summary) {
+emdn_get_nil_value <- function(summary) {
     nil_value <- summary$getDescription()$rangeType$DataRecord$field$Quantity$nilValues$NilValues$nilValue$value
     if (typeof(nil_value) == "character") {
         as.numeric(nil_value)
