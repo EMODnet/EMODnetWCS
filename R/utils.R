@@ -24,7 +24,7 @@ emdn_get_coverage_ids <- function(wcs) {
 
 }
 
-get_bbox <- function(summary) {
+emdn_get_bbox <- function(summary) {
     #summary$getBoundingBox()$BoundingBox$getBBOX()
     boundaries <- summary$getDescription()$boundedBy
     upper <- unlist(c(boundaries$upperCorner))

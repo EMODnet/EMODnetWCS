@@ -169,7 +169,7 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
 }
 
 check_cov_contains_bbox <- function(summary, bbox, crs = NULL) {
-    cov_bbox <- get_bbox(summary)
+    cov_bbox <- emdn_get_bbox(summary)
 
     if (!is.null(crs)){
         bbox <- sf::st_bbox(bbox,
