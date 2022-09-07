@@ -25,7 +25,7 @@ create_physics_wcs <- function() {
 create_physics_summary <- function() {
     with_mock_dir("wcs-physics-summary", {
         emodnet_init_wcs_client(service = "physics") |>
-            get_all_cov_summaries()
+            emdn_get_coverage_summaries_all()
     })
 }
 

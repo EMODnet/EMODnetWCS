@@ -15,11 +15,11 @@ get_cov_summaries <- function(wcs, coverage_ids) {
     coverage_ids |> purrr::map(~get_capabilities(wcs)$findCoverageSummaryById(.x, exact = TRUE))
 }
 
-get_all_cov_summaries <- function(wcs) {
+emdn_get_coverage_summaries_all <- function(wcs) {
     get_capabilities(wcs)$getCoverageSummaries()
 }
 emdn_get_coverage_ids <- function(wcs) {
-    get_all_cov_summaries(wcs) |>
+    emdn_get_coverage_summaries_all(wcs) |>
         purrr::map_chr(~.x$getId())
 
 }
