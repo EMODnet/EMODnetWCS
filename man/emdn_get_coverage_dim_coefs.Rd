@@ -4,11 +4,7 @@
 \alias{emdn_get_coverage_dim_coefs}
 \title{Get temporal or vertical coefficients for a coverage}
 \usage{
-emdn_get_coverage_dim_coefs(
-  wcs,
-  coverage_id,
-  type = c("temporal", "vertical")
-)
+emdn_get_coverage_dim_coefs(wcs, coverage_id, type = c("temporal", "vertical"))
 }
 \arguments{
 \item{wcs}{A \code{WCSClient} R6 object, created with function \code{\link{emdn_init_wcs_client}}.}
