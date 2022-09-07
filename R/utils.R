@@ -152,7 +152,7 @@ error_wrap <- function(expr) {
 }
 
 emdn_get_temporal_extent <- function(summary) {
-    dim_df <- process_dimension(summary, format = "tibble")
+    dim_df <- emdn_get_dimensions_info(summary, format = "tibble")
 
     if (any(dim_df$type == "temporal")) {
         dim_df$range[dim_df$type == "temporal"]
@@ -162,7 +162,7 @@ emdn_get_temporal_extent <- function(summary) {
 }
 
 emdn_get_vertical_extent <- function(summary) {
-    dim_df <- process_dimension(summary, format = "tibble")
+    dim_df <- emdn_get_dimensions_info(summary, format = "tibble")
 
     if (any(dim_df$type == "vertical")) {
         dim_df$range[dim_df$type == "vertical"]
@@ -171,7 +171,7 @@ emdn_get_vertical_extent <- function(summary) {
     }
 }
 
-process_dimension <- function(x, format = c("character",
+emdn_get_dimensions_info <- function(x, format = c("character",
                                             "list",
                                             "tibble"),
                               include_coeffs = FALSE) {
@@ -319,7 +319,7 @@ has_extent_type <- function(wcs, coverage_ids,
     type <- match.arg(type)
 
     dim_dfs <- emdn_get_coverage_summaries(wcs, coverage_ids) |>
-        purrr::map(~process_dimension(.x, format = "tibble"))
+        purrr::map(~emdn_get_dimensions_info(.x, format = "tibble"))
 
     dim_dfs |>
         purrr::map_lgl(~any(.x$type == type)) |>

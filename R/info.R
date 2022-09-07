@@ -34,7 +34,7 @@
             tibble::tibble(
                 coverage_id = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
                 dim_n = purrr::map_int(summaries, ~ error_wrap(length(.x$getDimensions()))),
-                dim_names = purrr::map_chr(summaries, ~ error_wrap(process_dimension(.x, format = "character"))),
+                dim_names = purrr::map_chr(summaries, ~ error_wrap(emdn_get_dimensions_info(.x, format = "character"))),
                 extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_bbox(.x) |> conc_bbox())),
                 crs = purrr::map_chr(summaries, ~ error_wrap(extr_bbox_crs(.x)$input)),
                 wgs84_bbox = purrr::map_chr(summaries, ~ error_wrap(emdn_get_WGS84bbox(.x) |> conc_bbox())),
@@ -183,7 +183,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
         constraint = purrr::map_chr(summaries, ~ error_wrap(emdn_get_constraint(.x))),
         nil_value = purrr::map_dbl(summaries, ~ error_wrap(emdn_get_nil_value(.x))),
         dim_n = purrr::map_int(summaries, ~ error_wrap(length(.x$getDimensions()))),
-        dim_names = purrr::map_chr(summaries, ~ error_wrap(process_dimension(.x, format = "character"))),
+        dim_names = purrr::map_chr(summaries, ~ error_wrap(emdn_get_dimensions_info(.x, format = "character"))),
         grid_size = purrr::map_chr(summaries, ~ error_wrap(emdn_get_grid_size(.x))),
         resolution = purrr::map_chr(summaries, ~ error_wrap(emdn_get_resolution(.x))),
         extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_bbox(.x) |> conc_bbox())),
@@ -241,7 +241,7 @@ emodnet_get_coverage_dim_coefs <- function(wcs,
         dim_type_id <- which(get_dimension_type(summary) == type)
 
         coefs <- summary |>
-            process_dimension(
+            emdn_get_dimensions_info(
                 format = "list",
                 include_coeffs = TRUE) |>
             purrr::pluck(dim_type_id,

@@ -21,13 +21,13 @@ test_that("dimensions processed correctly", {
                   {expect_equal(emdn_get_grid_size(summary), "950x400")
                       expect_equal(emdn_get_resolution(summary),
                                    "0.0422105263157895 Deg x 0.23775 Deg")
-                      expect_equal(process_dimension(summary),
+                      expect_equal(emdn_get_dimensions_info(summary),
                                    structure("lat(deg):geographic; long(deg):geographic; time(s):temporal",
                                              class = c("glue", "character")))
                       expect_equal(emdn_get_temporal_extent(summary),
                                    "1958-02-16T00:00:00.000Z - 2016-11-16T00:00:00.000Z")
                       expect_equal(emdn_get_vertical_extent(summary), NA)
-                      expect_length(process_dimension(summary, format = "list"), 3)
+                      expect_length(emdn_get_dimensions_info(summary, format = "list"), 3)
                   })
 
 })
