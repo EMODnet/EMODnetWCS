@@ -40,8 +40,8 @@ test_that("rangeType processed correctly", {
                       expect_equal(emdn_get_band_name(summary), "relative_abundance")
                       expect_equal(emdn_get_uom(summary), "W.m-2.Sr-1")
                       expect_equal(emdn_get_constraint(summary), "-3.4028235e+38, 3.4028235e+38")
-                      expect_equal(get_coverage_function(summary), "Linear")
-                      expect_equal(get_coverage_function(summary,
+                      expect_equal(emdn_get_coverage_function(summary), "Linear")
+                      expect_equal(emdn_get_coverage_function(summary,
                                                          param = "startPoint"),
                                    "0 0")
                   })

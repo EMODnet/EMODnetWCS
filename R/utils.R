@@ -123,7 +123,7 @@ emdn_get_resolution <- function(summary, type = c("character", "numeric")) {
 
 }
 
-get_coverage_function <- function(summary, param = c("sequenceRule", "startPoint")) {
+emdn_get_coverage_function <- function(summary, param = c("sequenceRule", "startPoint")) {
     param <- match.arg(param)
     summary$getDescription()$coverageFunction[[1]][[param]]$value
 }

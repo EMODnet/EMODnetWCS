@@ -192,9 +192,9 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
         temporal_extent = purrr::map_chr(summaries, ~ error_wrap(get_temporal_extent(.x))),
         vertical_extent = purrr::map_chr(summaries, ~ error_wrap(get_vertical_extent(.x))),
         subtype = purrr::map_chr(summaries, ~ error_wrap(.x$CoverageSubtype)),
-        fn_seq_rule = purrr::map_chr(summaries, ~ error_wrap(get_coverage_function(.x))),
+        fn_seq_rule = purrr::map_chr(summaries, ~ error_wrap(emdn_get_coverage_function(.x))),
         fn_start_point = purrr::map_chr(summaries,
-                                        ~error_wrap(get_coverage_function(.x,
+                                        ~error_wrap(emdn_get_coverage_function(.x,
                                                                param = "startPoint")))
     )
 }
