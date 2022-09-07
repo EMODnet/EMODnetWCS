@@ -171,12 +171,12 @@ emdn_get_vertical_extent <- function(summary) {
     }
 }
 
-emdn_get_dimensions_info <- function(x, format = c("character",
+emdn_get_dimensions_info <- function(summary, format = c("character",
                                             "list",
                                             "tibble"),
                               include_coeffs = FALSE) {
     format <- match.arg(format)
-    dimensions <- x$getDimensions()
+    dimensions <- summary$getDimensions()
 
     # internal format specific processing functions
     process_character <- function(x) {
