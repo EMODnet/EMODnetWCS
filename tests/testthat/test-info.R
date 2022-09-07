@@ -14,7 +14,7 @@ test_that("get wcs coverage info works", {
         expect_snapshot_value(
             emdn_get_wcs_coverage_info(
                 wcs,
-                coverage_ids = "emdn__EP_GEO_NER_OTHR_NN_NN_RAS"),
+                coverage_ids = "emodnet__EP_GEO_NER_OTHR_NN_NN_RAS"),
             style = "deparse")
     })
 })

@@ -1,8 +1,8 @@
 test_that("validate_namespace works", {
     expect_equal(validate_namespace("emodnet:2018_st_All_avg_POSTER"),
-                 "emdn__2018_st_All_avg_POSTER")
-    expect_equal(validate_namespace("emdn__2018_st_All_avg_POSTER"),
-                 "emdn__2018_st_All_avg_POSTER")
+                 "emodnet__2018_st_All_avg_POSTER")
+    expect_equal(validate_namespace("emodnet__2018_st_All_avg_POSTER"),
+                 "emodnet__2018_st_All_avg_POSTER")
 })
 
 test_that("validate_bbox works", {
