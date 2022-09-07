@@ -76,7 +76,7 @@ emdn_get_band_name <- function(summary) {
     summary$getDescription()$rangeType$DataRecord$field$Quantity$description$value
 }
 
-get_uom <- function(summary) {
+emdn_get_uom <- function(summary) {
     summary$getDescription()$rangeType$DataRecord$field$Quantity$uom$attrs$code
 }
 
