@@ -224,7 +224,7 @@ emdn_get_dimensions_info <- function(summary, format = c("character",
            "tibble" = process_tibble(dimensions))
 }
 
-get_dimensions_names <- function(summary) {
+emdn_get_dimensions_names <- function(summary) {
     dimensions <- summary$getDescription()$boundedBy$attrs
 
     paste(
@@ -235,7 +235,7 @@ get_dimensions_names <- function(summary) {
         collapse = ", ")
 }
 
-get_dimensions_n <- function(summary) {
+emdn_get_dimensions_n <- function(summary) {
     summary$getDescription()$boundedBy$attrs$srsDimension |>
         as.integer()
 
