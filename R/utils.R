@@ -80,7 +80,7 @@ emdn_get_uom <- function(summary) {
     summary$getDescription()$rangeType$DataRecord$field$Quantity$uom$attrs$code
 }
 
-get_constraint <- function(summary) {
+emdn_get_constraint <- function(summary) {
     summary$getDescription()$rangeType$DataRecord$field$Quantity$constraint$
         AllowedValues$interval$value |> strsplit(" ") |> unlist() |>
         as.numeric() |> paste(collapse = ", ")
