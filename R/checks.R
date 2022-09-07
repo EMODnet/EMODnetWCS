@@ -1,4 +1,4 @@
-
+# ---- checks ----
 check_service_name <- function(service) {
     checkmate::assert_choice(service, emodnet_wcs()$service_name)
 }
@@ -99,4 +99,99 @@ check_coverages <- function(wcs, coverages) {
         cli::cli_abort(c("x" = "{.val {bad_coverages}} not valid coverage{?s}
                          for service {.url {wcs$getUrl()}}"))
     }
+}
+
+# ---- validations ----
+validate_namespace <- function(coverage_id) {
+    gsub(":", "__", coverage_id)
+}
+
+validate_bbox <- function(bbox) {
+    if (is.null(bbox)) {
+        return(bbox)
+    } else {
+        checkmate::assert_numeric(bbox,
+                                  len = 4,
+                                  any.missing = FALSE,
+                                  names = "named")
+        checkmate::assert_subset(names(bbox),
+                                 choices = c(
+                                     "xmin",
+                                     "xmax",
+                                     "ymin",
+                                     "ymax"
+                                 ))
+
+        checkmate::assert_true(bbox["ymin"]  < bbox["ymax"])
+        checkmate::assert_true(bbox["xmin"]  < bbox["xmax"])
+
+        return(ows4R::OWSUtils$toBBOX(xmin = bbox["xmin"],
+                                      xmax = bbox["xmax"],
+                                      ymin = bbox["ymin"],
+                                      ymax = bbox["ymax"]))
+    }
+}
+
+validate_rangesubset <- function(summary, rangesubset) {
+    cov_range_descriptions <- emdn_get_band_name(summary)
+    purrr::walk(rangesubset,
+                ~checkmate::assert_choice(
+                    .x,
+                    cov_range_descriptions,
+                    .var.name = "rangesubset")
+    )
+}
+
+validate_dimension_subset <- function(
+        wcs,
+        coverage_id,
+        type = c("temporal",
+                 "vertical"),
+        subset) {
+
+    type <- match.arg(type)
+    coefs <- emodnet_get_coverage_dim_coefs(
+        wcs,
+        coverage_id,
+        type)
+
+    switch (type,
+            temporal = {purrr::walk(
+                subset,
+                ~checkmate::assert_choice(
+                    .x,
+                    coefs,
+                    .var.name = "time")
+            )},
+            vertical = {purrr::walk(
+                subset,
+                ~checkmate::assert_choice(
+                    .x,
+                    coefs,
+                    .var.name = "elevation")
+            )}
+    )
+}
+
+# ---- error-handling ----
+error_wrap <- function(expr) {
+
+    out <- tryCatch(expr,
+                    error = function(e) NA)
+
+    if (is.null(out)) {
+        cli::cli_alert_warning(
+            c("Output of {.code {cli::col_cyan(rlang::enexpr(expr))}} ",
+              "is {.emph {cli::col_br_magenta('NULL')}}.",
+              " Returning {.emph {cli::col_br_magenta('NA')}}"))
+        return(NA)
+    }
+    if (is.na(out)) {
+        cli::cli_alert_warning(
+            c("Error in {.code {cli::col_cyan(rlang::enexpr(expr))}}",
+              " Returning {.emph {cli::col_br_magenta('NA')}}"))
+    }
+
+    return(out)
+
 }
