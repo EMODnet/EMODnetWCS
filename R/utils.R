@@ -1,16 +1,3 @@
-get_service_url <- function(service) {
-    emodnet_wcs()$service_url[emodnet_wcs()$service_name == service]
-}
-
-get_service_name <- function(service_url) {
-    emodnet_wcs()$service_name[emodnet_wcs()$service_url == service_url]
-}
-
-
-get_capabilities <- function(wcs) {
-    wcs$getCapabilities()
-}
-
 emdn_get_coverage_summaries <- function(wcs, coverage_ids) {
     coverage_ids |> purrr::map(~get_capabilities(wcs)$findCoverageSummaryById(.x, exact = TRUE))
 }
@@ -239,4 +226,17 @@ emdn_get_dimension_types <- function(summary) {
 
     purrr::map_chr(dimensions, ~purrr::pluck(.x, "type"))
 
+}
+
+get_service_url <- function(service) {
+    emodnet_wcs()$service_url[emodnet_wcs()$service_name == service]
+}
+
+get_service_name <- function(service_url) {
+    emodnet_wcs()$service_name[emodnet_wcs()$service_url == service_url]
+}
+
+
+get_capabilities <- function(wcs) {
+    wcs$getCapabilities()
 }
