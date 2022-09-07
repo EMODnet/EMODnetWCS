@@ -326,7 +326,7 @@ has_extent_type <- function(wcs, coverage_ids,
         stats::setNames(coverage_ids)
 }
 
-get_dimension_type <- function(summary) {
+emdn_get_dimension_types <- function(summary) {
     dimensions <- summary$getDimensions()
 
     purrr::map_chr(dimensions, ~purrr::pluck(.x, "type"))

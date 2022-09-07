@@ -238,7 +238,7 @@ emodnet_get_coverage_dim_coefs <- function(wcs,
 
     if (check_extent_type) {
         summary <- emdn_get_coverage_summaries(wcs, coverage_id)[[1]]
-        dim_type_id <- which(get_dimension_type(summary) == type)
+        dim_type_id <- which(emdn_get_dimension_types(summary) == type)
 
         coefs <- summary |>
             emdn_get_dimensions_info(
