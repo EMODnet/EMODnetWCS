@@ -1,4 +1,4 @@
-.emodnet_get_wcs_info <- function(wcs = NULL, service = NULL,
+.emdn_get_wcs_info <- function(wcs = NULL, service = NULL,
                                   service_version = c(
                                       "2.0.1", "2.1.0", "2.0.0",
                                       "1.1.1", "1.1.0"
@@ -11,7 +11,7 @@
     }
 
     if (is.null(wcs)) {
-        wcs <- emodnet_init_wcs_client(service, service_version, logger)
+        wcs <- emdn_init_wcs_client(service, service_version, logger)
     }
 
     check_wcs(wcs)
@@ -22,7 +22,7 @@
     summaries <- capabilities$getCoverageSummaries()
 
     list(
-        data_source = "emodnet_wcs",
+        data_source = "emdn_wcs",
         service_name = get_service_name(capabilities$getUrl()),
         service_url = capabilities$getUrl(),
         service_title = service_id$getTitle(),
@@ -47,17 +47,17 @@
 
 #' Get EMODnet WCS service and available coverage information.
 #'
-#' @param wcs A `WCSClient` R6 object, created with function [`emodnet_init_wcs_client`].
-#' @inheritParams emodnet_init_wcs_client
+#' @param wcs A `WCSClient` R6 object, created with function [`emdn_init_wcs_client`].
+#' @inheritParams emdn_init_wcs_client
 #' @importFrom rlang .data `%||%`
-#' @return `emodnet_get_wcs_info` & `emodnet_get_wcs_info` return a list of service
+#' @return `emdn_get_wcs_info` & `emdn_get_wcs_info` return a list of service
 #' level metadata, including a tibble containing coverage level metadata for each
-#' coverage available from the service. `emodnet_get_wcs_coverage_info` returns a list
+#' coverage available from the service. `emdn_get_wcs_coverage_info` returns a list
 #' containing a tibble of more detailed metadata for each coverage specified.
 #'
-#' ## `emodnet_get_wcs_info` / `emodnet_get_all_wcs_info`
+#' ## `emdn_get_wcs_info` / `emdn_get_all_wcs_info`
 #'
-#' `emodnet_get_wcs_info` and `emodnet_get_all_wcs_info` return a list with the
+#' `emdn_get_wcs_info` and `emdn_get_all_wcs_info` return a list with the
 #' following metadata:
 #' - **`data_source`:** the EMODnet source of data.
 #' - **`service_name`:** the EMODnet WCS service name.
@@ -81,9 +81,9 @@
 #'   contains no vertical dimension.
 #'   - **`subtype`:** the coverage subtype.
 #'
-#' ## `emodnet_get_wcs_coverage_info`
+#' ## `emdn_get_wcs_coverage_info`
 #'
-#' `emodnet_get_wcs_coverage_info` returns a tibble with a row for each coverage
+#' `emdn_get_wcs_coverage_info` returns a tibble with a row for each coverage
 #' specified and columns with the following details:
 #' - **`data_source`:** the EMODnet source of data.
 #' - **`service_name`:** the EMODnet WCS service name.
@@ -115,37 +115,37 @@
 #' [WCS Basics and GDAL](https://trac.osgeo.org/gdal/wiki/WCS%2Binteroperability)
 #'
 #' @export
-#' @describeIn emodnet_get_wcs_info Get info on all coverages from am EMODnet WCS service.
+#' @describeIn emdn_get_wcs_info Get info on all coverages from am EMODnet WCS service.
 #' @examples
 #' # Get information from a wcs object.
-#' wcs <- emodnet_init_wcs_client(service = "seabed_habitats")
-#' emodnet_get_wcs_info(wcs)
+#' wcs <- emdn_init_wcs_client(service = "seabed_habitats")
+#' emdn_get_wcs_info(wcs)
 #' # Get information using a service name.
-#' emodnet_get_wcs_info(service = "biology")
+#' emdn_get_wcs_info(service = "biology")
 #' # Get detailed info for specific coverages from wcs object
 #' coverages <- c(
-#'   "emodnet_open_maplibrary__mediseh_cora",
-#'   "emodnet_open_maplibrary__mediseh_posidonia"
+#'   "emdn_open_maplibrary__mediseh_cora",
+#'   "emdn_open_maplibrary__mediseh_posidonia"
 #' )
-#' emodnet_get_wcs_coverage_info(wcs = wcs, coverages = coverages)
-emodnet_get_wcs_info <- memoise::memoise(.emodnet_get_wcs_info)
+#' emdn_get_wcs_coverage_info(wcs = wcs, coverages = coverages)
+emdn_get_wcs_info <- memoise::memoise(.emdn_get_wcs_info)
 
 
-.emodnet_get_all_wcs_info <- function(logger = c("NONE", "INFO", "DEBUG")) {
+.emdn_get_all_wcs_info <- function(logger = c("NONE", "INFO", "DEBUG")) {
     purrr::map(
-        emodnet_wcs()$service_name,
-        ~ suppressMessages(emodnet_get_wcs_info(service = .x,
+        emdn_wcs()$service_name,
+        ~ suppressMessages(emdn_get_wcs_info(service = .x,
                                                 logger = logger))
     ) |>
-        stats::setNames(emodnet_wcs()$service_name)
+        stats::setNames(emdn_wcs()$service_name)
 }
 
-#' @describeIn emodnet_get_wcs_info Get metadata on all services and all available
+#' @describeIn emdn_get_wcs_info Get metadata on all services and all available
 #' coverages from each service.
 #' @export
-emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
+emdn_get_all_wcs_info <- memoise::memoise(.emdn_get_all_wcs_info)
 
-.emodnet_get_wcs_coverage_info <- function(wcs = NULL, service = NULL,
+.emdn_get_wcs_coverage_info <- function(wcs = NULL, service = NULL,
                                            coverage_ids,
                                            service_version = c(
                                                "2.0.1", "2.1.0", "2.0.0",
@@ -160,7 +160,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
     }
 
     if (is.null(wcs)) {
-        wcs <- emodnet_init_wcs_client(service, service_version, logger)
+        wcs <- emdn_init_wcs_client(service, service_version, logger)
     }
 
     check_wcs(wcs)
@@ -174,7 +174,7 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
         unlist(recursive = FALSE)
 
     tibble::tibble(
-        data_source = "emodnet_wcs",
+        data_source = "emdn_wcs",
         service_name = wcs$getUrl(),
         service_url = get_service_name(wcs$getUrl()),
         coverage_id = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
@@ -199,21 +199,21 @@ emodnet_get_all_wcs_info <- memoise::memoise(.emodnet_get_all_wcs_info)
     )
 }
 
-#' @describeIn emodnet_get_wcs_info Get metadata for specific coverages. Requires a
+#' @describeIn emdn_get_wcs_info Get metadata for specific coverages. Requires a
 #' `WCSClient` R6 object as input.
 #' @param coverage_ids character vector of coverage IDs.
-#' @inheritParams emodnet_get_wcs_info
+#' @inheritParams emdn_get_wcs_info
 #' @importFrom memoise memoise
 #' @details To minimize the number of requests sent to webservices,
 #' these functions use [`memoise`](https://memoise.r-lib.org/) to cache results
 #' inside the active R session.
-#' To clear the cache, re-start R or run `memoise::forget(emodnet_get_wcs_info)`/`memoise::forget(emodnet_get_wcs_coverage_info)`
+#' To clear the cache, re-start R or run `memoise::forget(emdn_get_wcs_info)`/`memoise::forget(emdn_get_wcs_coverage_info)`
 #'
 #' @export
-emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info)
+emdn_get_wcs_coverage_info <- memoise::memoise(.emdn_get_wcs_coverage_info)
 
 #' Get temporal or vertical coefficients for a coverage
-#' @param wcs A `WCSClient` R6 object, created with function [`emodnet_init_wcs_client`].
+#' @param wcs A `WCSClient` R6 object, created with function [`emdn_init_wcs_client`].
 #' @param coverage_id character string. Coverage ID.
 #' @param type character string. The dimension type for which
 #' coefficients will be returned.
@@ -222,10 +222,10 @@ emodnet_get_wcs_coverage_info <- memoise::memoise(.emodnet_get_wcs_coverage_info
 #' @export
 #'
 #' @examples
-#' wcs <- emodnet_init_wcs_client(service =  "biology")
-#' emodnet_get_coverage_dim_coefs(wcs,
+#' wcs <- emdn_init_wcs_client(service =  "biology")
+#' emdn_get_coverage_dim_coefs(wcs,
 #'                               "Emodnetbio__ratio_large_to_small_19582016_L1_err")
-emodnet_get_coverage_dim_coefs <- function(wcs,
+emdn_get_coverage_dim_coefs <- function(wcs,
                                            coverage_id,
                                            type = c("temporal",
                                                     "vertical")) {

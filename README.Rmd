@@ -45,18 +45,18 @@ library(ows4R)
 
 ## Available services
 
-All available services are contained in the tibble returned by `emodnet_wcs()`.
+All available services are contained in the tibble returned by `emdn_wcs()`.
 
 
 ```{r services, echo=FALSE}
 
-knitr::kable(emodnet_wcs())
+knitr::kable(emdn_wcs())
 ```
 
 To explore available services in Rstudio use:
 
 ```r
-View(emodnet_wcs())
+View(emdn_wcs())
 ```
 
 
@@ -65,7 +65,7 @@ View(emodnet_wcs())
 Create new WCS Client.  Specify the service using the `service` argument. 
 
 ```{r wcs-init}
-wcs <- emodnet_init_wcs_client(service = "biology")
+wcs <- emdn_init_wcs_client(service = "biology")
 
 wcs$getUrl()
 ```
@@ -73,21 +73,21 @@ wcs$getUrl()
 
 ## Get Information about a WCS service
 
-Get information about a WCS service by supplying a `wcs` object to `emodnet_get_wcs_info`
+Get information about a WCS service by supplying a `wcs` object to `emdn_get_wcs_info`
 
 ```{r wcs-info}
-emodnet_get_wcs_info(wcs)
+emdn_get_wcs_info(wcs)
 ```
 
 Info can also be extracted using a service name instead of a `wcs` object.
 
 ```{r wcs-info-name}
-emodnet_get_wcs_info(service = "bathymetry")
+emdn_get_wcs_info(service = "bathymetry")
 ```
 
 
 ```{r wcs-info-coverage}
-emodnet_get_wcs_coverage_info(service = "human_activities", 
+emdn_get_wcs_coverage_info(service = "human_activities", 
                               coverages = "emodnet:2017_01_st_00")
 ```
 
@@ -95,4 +95,4 @@ emodnet_get_wcs_coverage_info(service = "human_activities",
 > **Note** 
 >
 > To minimize the number of requests sent to webservices, these functions use [`memoise`](https://memoise.r-lib.org/) to cache results inside the active R session.
-> To clear the cache, re-start R or run `memoise::forget(emodnet_get_wcs_info)`/`memoise::forget(emodnet_get_wcs_coverage_info)`
+> To clear the cache, re-start R or run `memoise::forget(emdn_get_wcs_info)`/`memoise::forget(emdn_get_wcs_coverage_info)`

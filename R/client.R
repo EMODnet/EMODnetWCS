@@ -1,7 +1,7 @@
 #' Initialise an EMODnet WCS client
 #'
 #' @param service the EMODnet OGC WCS service name.
-#' For available services, see [`emodnet_wcs()`].
+#' For available services, see [`emdn_wcs()`].
 #' @param service_version the WCS service version. Defaults to "2.0.1".
 #' @param logger character string. Level of logger: 'NONE' for no logger, 'INFO' to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)
 #'
@@ -12,9 +12,9 @@
 #' @seealso `WCSClient` in package `ows4R`.
 #' @examples
 #' \dontrun{
-#' wcs <- emodnet_init_wcs_client(service = "bathymetry")
+#' wcs <- emdn_init_wcs_client(service = "bathymetry")
 #' }
-emodnet_init_wcs_client <- function(service, service_version = c("2.0.1", "2.1.0", "2.0.0",
+emdn_init_wcs_client <- function(service, service_version = c("2.0.1", "2.1.0", "2.0.0",
                                                                  "1.1.1", "1.1.0"),
                                     logger = c("NONE", "INFO", "DEBUG")) {
 

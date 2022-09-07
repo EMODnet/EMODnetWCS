@@ -59,7 +59,7 @@ library(ows4R)
 ## Available services
 
 All available services are contained in the tibble returned by
-`emodnet_wcs()`.
+`emdn_wcs()`.
 
 | service_name     | service_url                                                                   |
 |:-----------------|:------------------------------------------------------------------------------|
@@ -67,12 +67,12 @@ All available services are contained in the tibble returned by
 | biology          | <https://geo.vliz.be/geoserver/Emodnetbio/wcs>                                |
 | human_activities | <https://ows.emodnet-humanactivities.eu/wcs>                                  |
 | physics          | <https://geoserver.emodnet-physics.eu/geoserver/wcs>                          |
-| seabed_habitats  | <https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open_maplibrary/wcs> |
+| seabed_habitats  | <https://ows.emodnet-seabedhabitats.eu/geoserver/emdn_open_maplibrary/wcs> |
 
 To explore available services in Rstudio use:
 
 ``` r
-View(emodnet_wcs())
+View(emdn_wcs())
 ```
 
 ## Create Service Client
@@ -80,7 +80,7 @@ View(emodnet_wcs())
 Create new WCS Client. Specify the service using the `service` argument.
 
 ``` r
-wcs <- emodnet_init_wcs_client(service = "biology")
+wcs <- emdn_init_wcs_client(service = "biology")
 #> ✔ WCS client created succesfully
 #> ℹ Service: 'https://geo.vliz.be/geoserver/Emodnetbio/wcs'
 #> ℹ Version: '2.0.1'
@@ -92,14 +92,14 @@ wcs$getUrl()
 ## Get Information about a WCS service
 
 Get information about a WCS service by supplying a `wcs` object to
-`emodnet_get_wcs_info`
+`emdn_get_wcs_info`
 
 ``` r
-emodnet_get_wcs_info(wcs)
+emdn_get_wcs_info(wcs)
 #> Loading required package: sf
 #> Linking to GEOS 3.9.1, GDAL 3.4.0, PROJ 8.1.1; sf_use_s2() is TRUE
 #> $data_source
-#> [1] "emodnet_wcs"
+#> [1] "emdn_wcs"
 #> 
 #> $service_name
 #> [1] "biology"
@@ -144,12 +144,12 @@ Info can also be extracted using a service name instead of a `wcs`
 object.
 
 ``` r
-emodnet_get_wcs_info(service = "bathymetry")
+emdn_get_wcs_info(service = "bathymetry")
 #> ✔ WCS client created succesfully
 #> ℹ Service: 'https://ows.emodnet-bathymetry.eu/wcs'
 #> ℹ Version: '2.0.1'
 #> $data_source
-#> [1] "emodnet_wcs"
+#> [1] "emdn_wcs"
 #> 
 #> $service_name
 #> [1] "bathymetry"
@@ -176,18 +176,18 @@ emodnet_get_wcs_info(service = "bathymetry")
 #> # A tibble: 6 × 9
 #>   name                dim_n dim_n…¹ extent crs   wgs84…² tempo…³ verti…⁴ subtype
 #>   <chr>               <int> <chr>   <chr>  <chr> <chr>   <chr>   <chr>   <chr>  
-#> 1 emodnet__mean           2 lat(de… -36, … EPSG… -36, 1… <NA>    <NA>    Rectif…
-#> 2 emodnet__mean_2016      2 lat(de… -36, … EPSG… -36, 2… <NA>    <NA>    Rectif…
-#> 3 emodnet__mean_2018      2 lat(de… -36, … EPSG… -36, 1… <NA>    <NA>    Rectif…
-#> 4 emodnet__mean_atla…     2 lat(de… -36, … EPSG… -36, 1… <NA>    <NA>    Rectif…
-#> 5 emodnet__mean_mult…     2 lat(de… -36, … EPSG… -36, 1… <NA>    <NA>    Rectif…
-#> 6 emodnet__mean_rain…     2 lat(de… -36, … EPSG… -36, 1… <NA>    <NA>    Rectif…
+#> 1 emdn__mean           2 lat(de… -36, … EPSG… -36, 1… <NA>    <NA>    Rectif…
+#> 2 emdn__mean_2016      2 lat(de… -36, … EPSG… -36, 2… <NA>    <NA>    Rectif…
+#> 3 emdn__mean_2018      2 lat(de… -36, … EPSG… -36, 1… <NA>    <NA>    Rectif…
+#> 4 emdn__mean_atla…     2 lat(de… -36, … EPSG… -36, 1… <NA>    <NA>    Rectif…
+#> 5 emdn__mean_mult…     2 lat(de… -36, … EPSG… -36, 1… <NA>    <NA>    Rectif…
+#> 6 emdn__mean_rain…     2 lat(de… -36, … EPSG… -36, 1… <NA>    <NA>    Rectif…
 #> # … with abbreviated variable names ¹​dim_names, ²​wgs84_bbox, ³​temporal_extent,
 #> #   ⁴​vertical_extent
 ```
 
 ``` r
-emodnet_get_wcs_coverage_info(service = "human_activities", 
+emdn_get_wcs_coverage_info(service = "human_activities", 
                               coverages = "emodnet:2017_01_st_00")
 #> ✔ WCS client created succesfully
 #> ℹ Service: 'https://ows.emodnet-humanactivities.eu/wcs'
@@ -195,7 +195,7 @@ emodnet_get_wcs_coverage_info(service = "human_activities",
 #> # A tibble: 1 × 20
 #>   data_sou…¹ servi…² servi…³ name  band_…⁴ band_…⁵ const…⁶ nil_v…⁷ dim_n dim_n…⁸
 #>   <chr>      <chr>   <chr>   <chr> <chr>   <chr>   <chr>     <dbl> <int> <chr>  
-#> 1 emodnet_w… https:… human_… emod… GRAY_I… W.m-2.… -3.402…   -9999     2 x(m):g…
+#> 1 emdn_w… https:… human_… emod… GRAY_I… W.m-2.… -3.402…   -9999     2 x(m):g…
 #> # … with 10 more variables: grid_size <chr>, resolution <chr>, extent <chr>,
 #> #   crs <chr>, wgs84_extent <chr>, temporal_extent <chr>,
 #> #   vertical_extent <chr>, subtype <chr>, fn_seq_rule <chr>,
@@ -210,4 +210,4 @@ emodnet_get_wcs_coverage_info(service = "human_activities",
 > To minimize the number of requests sent to webservices, these
 > functions use [`memoise`](https://memoise.r-lib.org/) to cache results
 > inside the active R session. To clear the cache, re-start R or run
-> `memoise::forget(emodnet_get_wcs_info)`/`memoise::forget(emodnet_get_wcs_coverage_info)`
+> `memoise::forget(emdn_get_wcs_info)`/`memoise::forget(emdn_get_wcs_coverage_info)`

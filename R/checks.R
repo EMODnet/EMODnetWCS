@@ -1,6 +1,6 @@
 # ---- checks ----
 check_service_name <- function(service) {
-    checkmate::assert_choice(service, emodnet_wcs()$service_name)
+    checkmate::assert_choice(service, emdn_wcs()$service_name)
 }
 
 check_wcs <- function(wcs) {
@@ -150,7 +150,7 @@ validate_dimension_subset <- function(
         subset) {
 
     type <- match.arg(type)
-    coefs <- emodnet_get_coverage_dim_coefs(
+    coefs <- emdn_get_coverage_dim_coefs(
         wcs,
         coverage_id,
         type)

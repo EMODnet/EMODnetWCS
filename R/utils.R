@@ -1,3 +1,10 @@
+#' Title
+#'
+#' @inheritParams
+#' @return
+#' @export
+#'
+#' @examples
 emdn_get_coverage_summaries <- function(wcs, coverage_ids) {
     coverage_ids |> purrr::map(~get_capabilities(wcs)$findCoverageSummaryById(.x, exact = TRUE))
 }
@@ -229,11 +236,11 @@ emdn_get_dimension_types <- function(summary) {
 }
 
 get_service_url <- function(service) {
-    emodnet_wcs()$service_url[emodnet_wcs()$service_name == service]
+    emdn_wcs()$service_url[emdn_wcs()$service_name == service]
 }
 
 get_service_name <- function(service_url) {
-    emodnet_wcs()$service_name[emodnet_wcs()$service_url == service_url]
+    emdn_wcs()$service_name[emdn_wcs()$service_url == service_url]
 }
 
 
