@@ -54,6 +54,13 @@ emdn_get_dimension_types(summary)
 }
 \arguments{
 \item{summary}{a \verb{<WCSCoverageSummary>} object.}
+
+\item{format}{character string. Coverage dimension info output format.
+One of \code{"character"} (default), \code{"list"} or \code{"tibble"}.}
+
+\item{include_coeffs}{whether to include a vector of temporal or vertical
+dimension coefficients (if applicable) in the coverage dimension info
+\code{"list"} output format. Defaults to \code{FALSE}. Ignored for other formats.}
 }
 \value{
 \itemize{

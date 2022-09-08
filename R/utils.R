@@ -64,6 +64,11 @@ emdn_has_extent_type <- function(wcs, coverage_ids,
 #' Get coverage metadata from a `<WCSCoverageSummary>` object.
 #'
 #' @param summary a `<WCSCoverageSummary>` object.
+#' @param format character string. Coverage dimension info output format.
+#' One of `"character"` (default), `"list"` or `"tibble"`.
+#' @param include_coeffs whether to include a vector of temporal or vertical
+#' dimension coefficients (if applicable) in the coverage dimension info
+#' `"list"` output format. Defaults to `FALSE`. Ignored for other formats.
 #'
 #' @return
 #' - `emdn_get_bbox`: an object of class `bbox` of length 4 expressing the
