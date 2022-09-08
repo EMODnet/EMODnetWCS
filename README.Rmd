@@ -87,7 +87,7 @@ emdn_get_wcs_info(service = "bathymetry")
 
 ```{r wcs-info-coverage}
 emdn_get_coverage_info(service = "human_activities", 
-                              coverage_ids = "emodnet:2017_01_st_00")
+                              coverage_ids = "emodnet__2017_01_st_00")
 ```
 
 
