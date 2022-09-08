@@ -49,8 +49,7 @@
 #'                          time = c("1963-11-16T00:00:00.000Z",
 #'                                   "1964-02-16T00:00:00.000Z"))
 #' # Subset using a bounding box and a specific band
-#' emdn_get_coverage(wcs,
-#'                          coverage_id = coverage_id,
+#' emdn_get_coverage(wcs, coverage_id = coverage_id,
 #'                          bbox = c(xmin = 0, ymin = 40,
 #'                                   xmax = 5, ymax = 45),
 #'                                   rangesubset = "Relative abundance")
