@@ -1,5 +1,5 @@
 #' @importFrom utils read.csv
-.emodnet_wcs <- function() {
+.emdn_wcs <- function() {
     utils::read.csv(
         system.file(
             "services.csv",
@@ -13,4 +13,4 @@
 #' @return Tibble of available EMODnet Web Coverage Services
 #'
 #' @export
-emodnet_wcs <- memoise::memoise(.emodnet_wcs)
+emdn_wcs <- memoise::memoise(.emdn_wcs)

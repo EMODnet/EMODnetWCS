@@ -7,7 +7,7 @@ test_that("coverages downloaded correctly", {
               ymax = 42)
     with_mock_dir("biology-coverage",
                   {
-                      cov_raster <- emodnet_get_wcs_coverage(
+                      cov_raster <- emdn_get_coverage(
                           wcs,
                           coverage_id = coverage_id,
                           bbox = bbox,
@@ -26,14 +26,14 @@ test_that("coverages downloaded correctly", {
                              xmax = 5,
                              ymax = 85)
                   expect_snapshot_error(
-                      emodnet_get_wcs_coverage(
+                      emdn_get_coverage(
                           wcs,
                           coverage_id = coverage_id,
                           bbox = bbox,
                       )
                   )
                   expect_snapshot_error(
-                      emodnet_get_wcs_coverage(
+                      emdn_get_coverage(
                           wcs,
                           coverage_id = coverage_id,
                           time = "randomtime",

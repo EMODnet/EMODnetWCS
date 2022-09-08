@@ -1,6 +1,6 @@
 #' Get a coverage from an EMODnet WCS Service
 #'
-#' @inheritParams emodnet_get_wcs_coverage_info
+#' @inheritParams emdn_get_coverage_info
 #' @param coverage_id character string. Coverage ID.
 #' @param bbox a named numeric vector of length 4, with names `xmin`, `ymin`,
 #' `xmax` and `ymax`. specifying the bounding box.
@@ -12,7 +12,7 @@
 #' time points for which coverage data should be returned.
 #' If `NULL` (default), the last time point is returned.
 #' To get a list of all available temporal coefficients,
-#' see [`emodnet_get_coverage_dim_coefs`]. For a single time point, a
+#' see [`emdn_get_coverage_dim_coefs`]. For a single time point, a
 #' `SpatRaster` is returned. For more than one time points, `SpatRaster` stack
 #' is returned.
 #' @param elevation for coverages that include a vertical dimension,
@@ -20,7 +20,7 @@
 #' elevation for which coverage data should be returned.
 #' If `NULL` (default), the last elevation is returned.
 #' To get a list of all available vertical coefficients,
-#' see [`emodnet_get_coverage_dim_coefs`]. For a single elevation, a
+#' see [`emdn_get_coverage_dim_coefs`]. For a single elevation, a
 #' `SpatRaster` is returned. For more than one elevation, `SpatRaster` stack
 #' is returned.
 #' @param format the format of the file the coverage should be written out to.
@@ -34,28 +34,27 @@
 #'
 #' @examples
 #' \dontrun{
-#' wcs <- emodnet_init_wcs_client(service = "biology")
+#' wcs <- emdn_init_wcs_client(service = "biology")
 #' coverage_id <- "Emodnetbio__cal_fin_19582016_L1_err"
 #' # Subset using a bounding box
-#' emodnet_get_wcs_coverage(wcs,
+#' emdn_get_coverage(wcs,
 #'                          coverage_id = coverage_id,
 #'                          bbox = c(xmin = 0, ymin = 40,
 #'                                   xmax = 5, ymax = 45))
 #' # Subset using a bounding box and specific timepoints
-#' emodnet_get_wcs_coverage(wcs,
+#' emdn_get_coverage(wcs,
 #'                          coverage_id = coverage_id,
 #'                          bbox = c(xmin = 0, ymin = 40,
 #'                                   xmax = 5, ymax = 45),
 #'                          time = c("1963-11-16T00:00:00.000Z",
 #'                                   "1964-02-16T00:00:00.000Z"))
 #' # Subset using a bounding box and a specific band
-#' emodnet_get_wcs_coverage(wcs,
-#'                          coverage_id = coverage_id,
+#' emdn_get_coverage(wcs, coverage_id = coverage_id,
 #'                          bbox = c(xmin = 0, ymin = 40,
 #'                                   xmax = 5, ymax = 45),
 #'                                   rangesubset = "Relative abundance")
 #' }
-emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
+emdn_get_coverage <- function(wcs = NULL, service = NULL,
                                      coverage_id,
                                      service_version = c(
                                          "2.0.1", "2.1.0", "2.0.0",
@@ -78,7 +77,7 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
     }
 
     if (is.null(wcs)) {
-        wcs <- emodnet_init_wcs_client(service, service_version, logger)
+        wcs <- emdn_init_wcs_client(service, service_version, logger)
     }
 
     check_wcs(wcs)
@@ -88,7 +87,7 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
     check_coverages(wcs, coverage_id)
     ows_bbox <- validate_bbox(bbox)
 
-    summary <- get_cov_summaries(wcs, coverage_id)[[1]]
+    summary <- emdn_get_coverage_summaries(wcs, coverage_id)[[1]]
 
     # validate request arguments
     if (!is.null(rangesubset)) {
@@ -155,7 +154,7 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
     }
 
     if (nil_values_as_na) {
-        nil_value <- get_nil_value(summary)
+        nil_value <- emdn_get_nil_value(summary)
 
         if (is.numeric(nil_value)) {
             cov_raster[cov_raster == nil_value] <- NA
@@ -168,46 +167,3 @@ emodnet_get_wcs_coverage <- function(wcs = NULL, service = NULL,
     return(cov_raster)
 }
 
-check_cov_contains_bbox <- function(summary, bbox, crs = NULL) {
-    cov_bbox <- get_bbox(summary)
-
-    if (!is.null(crs)){
-        bbox <- sf::st_bbox(bbox,
-                            crs = sf::st_crs(crs))
-
-        if (sf::st_crs(cov_bbox) != sf::st_crs(bbox)){
-            bbox <- bbox |>
-                sf::st_as_sfc() |>
-                sf::st_transform(crs = sf::st_crs(cov_bbox)) |>
-                sf::st_bbox()
-        }
-    }
-    test_bbox <- !c(
-        bbox[c("xmax", "ymax")] <= cov_bbox[c("xmax", "ymax")],
-        bbox[c("xmin", "ymin")] <= cov_bbox[c("xmax", "ymax")],
-        bbox[c("xmin", "ymin")] >= cov_bbox[c("xmin", "ymin")],
-        bbox[c("xmax", "ymax")] >= cov_bbox[c("xmin", "ymin")]
-    )
-
-    outlying_edges <- unique(names(test_bbox)[test_bbox])
-    if (length(outlying_edges) == 0) {
-        outlying_edges <- ""
-    }
-
-    if (all(test_bbox) ||
-        all(outlying_edges %in% c("ymax", "ymin")) ||
-        all(outlying_edges %in% c("xmax", "xmin"))
-        ) {
-        cli::cli_abort(
-            "{.var bbox} boundaries {.val {names(test_bbox)[test_bbox]}} lie
-            outside coverage extent. No overlapping data to download."
-        )
-    }
-    if (any(test_bbox)) {
-        cli::cli_warn(
-            "{.var bbox} boundaries {.val {names(test_bbox)[test_bbox]}} lie
-            outside coverage extent. No overlapping data to download."
-        )
-    }
-
-}

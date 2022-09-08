@@ -7,8 +7,7 @@
             coverage_id = "emodnet__EP_GEO_NER_OTHR_NN_NN_RAS", dim_n = 2L, 
             dim_names = "lat(deg):geographic; long(deg):geographic", 
             extent = "-180, -90, 180, 90", crs = "EPSG:4326", wgs84_bbox = "-180, -90, 180, 90", 
-            temporal_extent = NA_character_, vertical_extent = NA_character_, 
-            subtype = "RectifiedGridCoverage"), class = c("tbl_df", 
+            temporal_extent = "NA", vertical_extent = "NA", subtype = "RectifiedGridCoverage"), class = c("tbl_df", 
         "tbl", "data.frame"), row.names = c(NA, -1L)))
 
 # get wcs coverage info works
@@ -18,10 +17,9 @@
         band_description = "BLUE_BAND", band_uom = "W.m-2.Sr-1", 
         constraint = "0, 255", nil_value = NA_real_, dim_n = 2L, 
         dim_names = "lat(deg):geographic; long(deg):geographic", 
-        grid_size = "21600x10800", resolution = "0.008333333333335 Deg x 0.03333333333334 Deg", 
+        grid_size = "21601x10801", resolution = "0.0166658950974525 Deg x 0.01666512359967 Deg", 
         extent = "-180, -90, 180, 90", crs = "EPSG:4326", wgs84_extent = "-180, -90, 180, 90", 
-        temporal_extent = NA_character_, vertical_extent = NA_character_, 
-        subtype = "RectifiedGridCoverage", fn_seq_rule = "Linear", 
-        fn_start_point = "0 0"), class = c("tbl_df", "tbl", "data.frame"
-    ), row.names = c(NA, -1L))
+        temporal_extent = "NA", vertical_extent = "NA", subtype = "RectifiedGridCoverage", 
+        fn_seq_rule = "Linear", fn_start_point = "0,0"), class = c("tbl_df", 
+    "tbl", "data.frame"), row.names = c(NA, -1L))
 

@@ -5,18 +5,18 @@ test_that("Default connection works", {
 })
 
 test_that("Error when wrong service", {
-    expect_snapshot_error(emodnet_init_wcs_client("blop"))
+    expect_snapshot_error(emdn_init_wcs_client("blop"))
 })
 
 
 test_that("Error when wrong service version", {
-    expect_snapshot_error(emodnet_init_wcs_client(
+    expect_snapshot_error(emdn_init_wcs_client(
         service = "human_activities",
         service_version = "2.2.2"))
 })
 
 test_that("Warning when unsupported service version", {
-    expect_snapshot_warning(emodnet_init_wcs_client(
+    expect_snapshot_warning(emdn_init_wcs_client(
         service = "human_activities",
         service_version = "1.1.1"))
 })
