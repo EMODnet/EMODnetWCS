@@ -135,8 +135,8 @@ emdn_get_wcs_info(wcs)
 emdn_get_wcs_info(service = "biology")
 # Get detailed info for specific coverages from wcs object
 coverage_ids <- c(
-  "emdn_open_maplibrary__mediseh_cora",
-  "emdn_open_maplibrary__mediseh_posidonia"
+  "emodnet_open_maplibrary__mediseh_cora",
+  "emodnet_open_maplibrary__mediseh_posidonia"
 )
 emdn_get_coverage_info(wcs = wcs,
                        coverage_ids = coverage_ids)
