@@ -16,19 +16,25 @@
     <loc>https://emodnet.github.io/EMODnetWCS/index.html</loc>
   </url>
   <url>
-    <loc>https://emodnet.github.io/EMODnetWCS/reference/emodnet_get_coverage_dim_coefs.html</loc>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/emdn_get_bbox.html</loc>
   </url>
   <url>
-    <loc>https://emodnet.github.io/EMODnetWCS/reference/emodnet_get_wcs_coverage.html</loc>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/emdn_get_coverage.html</loc>
   </url>
   <url>
-    <loc>https://emodnet.github.io/EMODnetWCS/reference/emodnet_get_wcs_info.html</loc>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/emdn_get_coverage_dim_coefs.html</loc>
   </url>
   <url>
-    <loc>https://emodnet.github.io/EMODnetWCS/reference/emodnet_init_wcs_client.html</loc>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/emdn_get_coverage_summaries.html</loc>
   </url>
   <url>
-    <loc>https://emodnet.github.io/EMODnetWCS/reference/emodnet_wcs.html</loc>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/emdn_get_wcs_info.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/emdn_init_wcs_client.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/reference/emdn_wcs.html</loc>
   </url>
   <url>
     <loc>https://emodnet.github.io/EMODnetWCS/reference/index.html</loc>

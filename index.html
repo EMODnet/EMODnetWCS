@@ -28,7 +28,7 @@
     
     <a class="navbar-brand me-2" href="index.html">EMODnetWCS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,17 +82,16 @@
 <span><span class="co">#&gt; Loading ISO 19115 codelists...</span></span>
 <span><span class="co">#&gt; Loading IANA mime types...</span></span>
 <span><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></span>
-<span><span class="co">#&gt; Loading required package: keyring</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/eblondel/ows4R" class="external-link">ows4R</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="co">#&gt; Loading required package: keyring</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="available-services">Available services<a class="anchor" aria-label="anchor" href="#available-services"></a>
 </h2>
-<p>All available services are contained in the tibble returned by <code><a href="reference/emodnet_wcs.html">emodnet_wcs()</a></code>.</p>
+<p>All available services are contained in the tibble returned by <code><a href="reference/emdn_wcs.html">emdn_wcs()</a></code>.</p>
 <table class="table">
 <colgroup>
-<col width="18%">
-<col width="81%">
+<col width="19%">
+<col width="80%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">service_name</th>
@@ -117,23 +116,23 @@
 </tr>
 <tr class="odd">
 <td align="left">seabed_habitats</td>
-<td align="left"><a href="https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open_maplibrary/wcs" class="external-link uri">https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open_maplibrary/wcs</a></td>
+<td align="left"><a href="https://ows.emodnet-seabedhabitats.eu/geoserver/emdn_open_maplibrary/wcs" class="external-link uri">https://ows.emodnet-seabedhabitats.eu/geoserver/emdn_open_maplibrary/wcs</a></td>
 </tr>
 </tbody>
 </table>
 <p>To explore available services in Rstudio use:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="fu"><a href="reference/emodnet_wcs.html">emodnet_wcs</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="fu"><a href="reference/emdn_wcs.html">emdn_wcs</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="create-service-client">Create Service Client<a class="anchor" aria-label="anchor" href="#create-service-client"></a>
 </h2>
 <p>Create new WCS Client. Specify the service using the <code>service</code> argument.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">wcs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/emodnet_init_wcs_client.html">emodnet_init_wcs_client</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"biology"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">wcs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/emdn_init_wcs_client.html">emdn_init_wcs_client</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"biology"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ✔ WCS client created succesfully</span></span>
-<span><span class="co">#&gt; ℹ Service: 'https://geo.vliz.be/geoserver/Emodnetbio/wcs'</span></span>
-<span><span class="co">#&gt; ℹ Version: '2.0.1'</span></span>
+<span><span class="co">#&gt; ℹ Service: &lt;https://geo.vliz.be/geoserver/Emodnetbio/wcs&gt;</span></span>
+<span><span class="co">#&gt; ℹ Service: "2.0.1"</span></span>
 <span></span>
 <span><span class="va">wcs</span><span class="op">$</span><span class="fu">getUrl</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "https://geo.vliz.be/geoserver/Emodnetbio/wcs"</span></span></code></pre></div>
@@ -141,9 +140,9 @@
 <div class="section level2">
 <h2 id="get-information-about-a-wcs-service">Get Information about a WCS service<a class="anchor" aria-label="anchor" href="#get-information-about-a-wcs-service"></a>
 </h2>
-<p>Get information about a WCS service by supplying a <code>wcs</code> object to <code>emodnet_get_wcs_info</code></p>
+<p>Get information about a WCS service by supplying a <code>wcs</code> object to <code>emdn_get_wcs_info</code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/emodnet_get_wcs_info.html">emodnet_get_wcs_info</a></span><span class="op">(</span><span class="va">wcs</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/emdn_get_wcs_info.html">emdn_get_wcs_info</a></span><span class="op">(</span><span class="va">wcs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: sf</span></span>
 <span><span class="co">#&gt; Linking to GEOS 3.9.1, GDAL 3.4.0, PROJ 8.1.1; sf_use_s2() is TRUE</span></span>
 <span><span class="co">#&gt; $data_source</span></span>
@@ -172,26 +171,26 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $coverage_details</span></span>
 <span><span class="co">#&gt; # A tibble: 10 × 9</span></span>
-<span><span class="co">#&gt;    name               dim_n dim_n…¹ extent crs   wgs84…² tempo…³ verti…⁴ subtype</span></span>
+<span><span class="co">#&gt;    coverage_id        dim_n dim_n…¹ extent crs   wgs84…² tempo…³ verti…⁴ subtype</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;              &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt;  1 Emodnetbio__ratio…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt;  2 Emodnetbio__aca_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt;  3 Emodnetbio__cal_f…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt;  4 Emodnetbio__cal_h…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt;  5 Emodnetbio__met_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt;  6 Emodnetbio__oit_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt;  7 Emodnetbio__tem_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt;  8 Emodnetbio__chli_…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt;  9 Emodnetbio__tot_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt; 10 Emodnetbio__tot_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… &lt;NA&gt;    Rectif…</span></span>
+<span><span class="co">#&gt;  1 Emodnetbio__ratio…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  2 Emodnetbio__aca_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  3 Emodnetbio__cal_f…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  4 Emodnetbio__cal_h…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  5 Emodnetbio__met_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  6 Emodnetbio__oit_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  7 Emodnetbio__tem_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  8 Emodnetbio__chli_…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  9 Emodnetbio__tot_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt; 10 Emodnetbio__tot_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
 <span><span class="co">#&gt; # … with abbreviated variable names ¹​dim_names, ²​wgs84_bbox, ³​temporal_extent,</span></span>
 <span><span class="co">#&gt; #   ⁴​vertical_extent</span></span></code></pre></div>
 <p>Info can also be extracted using a service name instead of a <code>wcs</code> object.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/emodnet_get_wcs_info.html">emodnet_get_wcs_info</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"bathymetry"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/emdn_get_wcs_info.html">emdn_get_wcs_info</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"bathymetry"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ✔ WCS client created succesfully</span></span>
-<span><span class="co">#&gt; ℹ Service: 'https://ows.emodnet-bathymetry.eu/wcs'</span></span>
-<span><span class="co">#&gt; ℹ Version: '2.0.1'</span></span>
+<span><span class="co">#&gt; ℹ Service: &lt;https://ows.emodnet-bathymetry.eu/wcs&gt;</span></span>
+<span><span class="co">#&gt; ℹ Service: "2.0.1"</span></span>
 <span><span class="co">#&gt; $data_source</span></span>
 <span><span class="co">#&gt; [1] "emodnet_wcs"</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -218,36 +217,35 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $coverage_details</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 9</span></span>
-<span><span class="co">#&gt;   name                dim_n dim_n…¹ extent crs   wgs84…² tempo…³ verti…⁴ subtype</span></span>
+<span><span class="co">#&gt;   coverage_id         dim_n dim_n…¹ extent crs   wgs84…² tempo…³ verti…⁴ subtype</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;               &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 emodnet__mean           2 lat(de… -36, … EPSG… -36, 1… &lt;NA&gt;    &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt; 2 emodnet__mean_2016      2 lat(de… -36, … EPSG… -36, 2… &lt;NA&gt;    &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt; 3 emodnet__mean_2018      2 lat(de… -36, … EPSG… -36, 1… &lt;NA&gt;    &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt; 4 emodnet__mean_atla…     2 lat(de… -36, … EPSG… -36, 1… &lt;NA&gt;    &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt; 5 emodnet__mean_mult…     2 lat(de… -36, … EPSG… -36, 1… &lt;NA&gt;    &lt;NA&gt;    Rectif…</span></span>
-<span><span class="co">#&gt; 6 emodnet__mean_rain…     2 lat(de… -36, … EPSG… -36, 1… &lt;NA&gt;    &lt;NA&gt;    Rectif…</span></span>
+<span><span class="co">#&gt; 1 emodnet__mean           2 lat(de… -36, … EPSG… -36, 1… NA      NA      Rectif…</span></span>
+<span><span class="co">#&gt; 2 emodnet__mean_2016      2 lat(de… -36, … EPSG… -36, 2… NA      NA      Rectif…</span></span>
+<span><span class="co">#&gt; 3 emodnet__mean_2018      2 lat(de… -36, … EPSG… -36, 1… NA      NA      Rectif…</span></span>
+<span><span class="co">#&gt; 4 emodnet__mean_atla…     2 lat(de… -36, … EPSG… -36, 1… NA      NA      Rectif…</span></span>
+<span><span class="co">#&gt; 5 emodnet__mean_mult…     2 lat(de… -36, … EPSG… -36, 1… NA      NA      Rectif…</span></span>
+<span><span class="co">#&gt; 6 emodnet__mean_rain…     2 lat(de… -36, … EPSG… -36, 1… NA      NA      Rectif…</span></span>
 <span><span class="co">#&gt; # … with abbreviated variable names ¹​dim_names, ²​wgs84_bbox, ³​temporal_extent,</span></span>
 <span><span class="co">#&gt; #   ⁴​vertical_extent</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/emodnet_get_wcs_info.html">emodnet_get_wcs_coverage_info</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"human_activities"</span>, </span>
-<span>                              coverages <span class="op">=</span> <span class="st">"emodnet:2017_01_st_00"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/emdn_get_wcs_info.html">emdn_get_coverage_info</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"human_activities"</span>, </span>
+<span>                              coverage_ids <span class="op">=</span> <span class="st">"emodnet__2017_01_st_00"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ✔ WCS client created succesfully</span></span>
-<span><span class="co">#&gt; ℹ Service: 'https://ows.emodnet-humanactivities.eu/wcs'</span></span>
-<span><span class="co">#&gt; ℹ Version: '2.0.1'</span></span>
+<span><span class="co">#&gt; ℹ Service: &lt;https://ows.emodnet-humanactivities.eu/wcs&gt;</span></span>
+<span><span class="co">#&gt; ℹ Service: "2.0.1"</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 20</span></span>
-<span><span class="co">#&gt;   data_sou…¹ servi…² servi…³ name  band_…⁴ band_…⁵ const…⁶ nil_v…⁷ dim_n dim_n…⁸</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 emodnet_w… https:… human_… emod… GRAY_I… W.m-2.… -3.402…   -9999     2 x(m):g…</span></span>
+<span><span class="co">#&gt;   data_s…¹ servi…² servi…³ cover…⁴ band_…⁵ band_…⁶ const…⁷ nil_v…⁸ dim_n dim_n…⁹</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 emodnet… https:… human_… emodne… GRAY_I… W.m-2.… -3.402…   -9999     2 x(m):g…</span></span>
 <span><span class="co">#&gt; # … with 10 more variables: grid_size &lt;chr&gt;, resolution &lt;chr&gt;, extent &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   crs &lt;chr&gt;, wgs84_extent &lt;chr&gt;, temporal_extent &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   vertical_extent &lt;chr&gt;, subtype &lt;chr&gt;, fn_seq_rule &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   fn_start_point &lt;chr&gt;, and abbreviated variable names ¹​data_source,</span></span>
-<span><span class="co">#&gt; #   ²​service_name, ³​service_url, ⁴​band_description, ⁵​band_uom, ⁶​constraint,</span></span>
-<span><span class="co">#&gt; #   ⁷​nil_value, ⁸​dim_names</span></span>
-<span><span class="co">#&gt; # ℹ Use `colnames()` to see all variable names</span></span></code></pre></div>
+<span><span class="co">#&gt; #   ²​service_name, ³​service_url, ⁴​coverage_id, ⁵​band_description, ⁶​band_uom,</span></span>
+<span><span class="co">#&gt; #   ⁷​constraint, ⁸​nil_value, ⁹​dim_names</span></span></code></pre></div>
 <blockquote>
 <p><strong>Note</strong></p>
-<p>To minimize the number of requests sent to webservices, these functions use <a href="https://memoise.r-lib.org/" class="external-link"><code>memoise</code></a> to cache results inside the active R session. To clear the cache, re-start R or run <code>memoise::forget(emodnet_get_wcs_info)</code>/<code>memoise::forget(emodnet_get_wcs_coverage_info)</code></p>
+<p>To minimize the number of requests sent to webservices, these functions use <a href="https://memoise.r-lib.org/" class="external-link"><code>memoise</code></a> to cache results inside the active R session. To clear the cache, re-start R or run <code>memoise::forget(emdn_get_wcs_info)</code>/<code>memoise::forget(emdn_get_coverage_info)</code></p>
 </blockquote>
 </div>
 </div>
