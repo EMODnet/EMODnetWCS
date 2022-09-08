@@ -3,7 +3,7 @@
 \name{emdn_get_wcs_info}
 \alias{emdn_get_wcs_info}
 \alias{emdn_get_all_wcs_info}
-\alias{emdn_get_wcs_coverage_info}
+\alias{emdn_get_coverage_info}
 \title{Get EMODnet WCS service and available coverage information.}
 \usage{
 emdn_get_wcs_info(
@@ -15,7 +15,7 @@ emdn_get_wcs_info(
 
 emdn_get_all_wcs_info(logger = c("NONE", "INFO", "DEBUG"))
 
-emdn_get_wcs_coverage_info(
+emdn_get_coverage_info(
   wcs = NULL,
   service = NULL,
   coverage_ids,
@@ -38,7 +38,7 @@ For available services, see \code{\link[=emdn_wcs]{emdn_wcs()}}.}
 \value{
 \code{emdn_get_wcs_info} & \code{emdn_get_wcs_info} return a list of service
 level metadata, including a tibble containing coverage level metadata for each
-coverage available from the service. \code{emdn_get_wcs_coverage_info} returns a list
+coverage available from the service. \code{emdn_get_coverage_info} returns a list
 containing a tibble of more detailed metadata for each coverage specified.
 \subsection{\code{emdn_get_wcs_info} / \code{emdn_get_all_wcs_info}}{
 
@@ -71,9 +71,9 @@ contains no vertical dimension.
 }
 }
 
-\subsection{\code{emdn_get_wcs_coverage_info}}{
+\subsection{\code{emdn_get_coverage_info}}{
 
-\code{emdn_get_wcs_coverage_info} returns a tibble with a row for each coverage
+\code{emdn_get_coverage_info} returns a tibble with a row for each coverage
 specified and columns with the following details:
 \itemize{
 \item \strong{\code{data_source}:} the EMODnet source of data.
@@ -114,7 +114,7 @@ Get EMODnet WCS service and available coverage information.
 To minimize the number of requests sent to webservices,
 these functions use \href{https://memoise.r-lib.org/}{\code{memoise}} to cache results
 inside the active R session.
-To clear the cache, re-start R or run \code{memoise::forget(emdn_get_wcs_info)}/\code{memoise::forget(emdn_get_wcs_coverage_info)}
+To clear the cache, re-start R or run \code{memoise::forget(emdn_get_wcs_info)}/\code{memoise::forget(emdn_get_coverage_info)}
 }
 \section{Functions}{
 \itemize{
@@ -123,7 +123,7 @@ To clear the cache, re-start R or run \code{memoise::forget(emdn_get_wcs_info)}/
 \item \code{emdn_get_all_wcs_info}: Get metadata on all services and all available
 coverages from each service.
 
-\item \code{emdn_get_wcs_coverage_info}: Get metadata for specific coverages. Requires a
+\item \code{emdn_get_coverage_info}: Get metadata for specific coverages. Requires a
 \code{WCSClient} R6 object as input.
 }}
 
@@ -138,5 +138,5 @@ coverages <- c(
   "emdn_open_maplibrary__mediseh_cora",
   "emdn_open_maplibrary__mediseh_posidonia"
 )
-emdn_get_wcs_coverage_info(wcs = wcs, coverages = coverages)
+emdn_get_coverage_info(wcs = wcs, coverages = coverages)
 }

@@ -1,6 +1,6 @@
 #' Get a coverage from an EMODnet WCS Service
 #'
-#' @inheritParams emdn_get_wcs_coverage_info
+#' @inheritParams emdn_get_coverage_info
 #' @param coverage_id character string. Coverage ID.
 #' @param bbox a named numeric vector of length 4, with names `xmin`, `ymin`,
 #' `xmax` and `ymax`. specifying the bounding box.

@@ -22,7 +22,7 @@
     summaries <- capabilities$getCoverageSummaries()
 
     list(
-        data_source = "emdn_wcs",
+        data_source = "emodnet_wcs",
         service_name = get_service_name(capabilities$getUrl()),
         service_url = capabilities$getUrl(),
         service_title = service_id$getTitle(),
@@ -38,8 +38,10 @@
                 extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_bbox(.x) |> conc_bbox())),
                 crs = purrr::map_chr(summaries, ~ error_wrap(extr_bbox_crs(.x)$input)),
                 wgs84_bbox = purrr::map_chr(summaries, ~ error_wrap(emdn_get_WGS84bbox(.x) |> conc_bbox())),
-                temporal_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_temporal_extent(.x))),
-                vertical_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_vertical_extent(.x))),
+                temporal_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_temporal_extent(.x) |>
+                                                                             paste(collapse = " - "))),
+                vertical_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_vertical_extent(.x) |>
+                                                                             paste(collapse = " - "))),
                 subtype = purrr::map_chr(summaries, ~ error_wrap(.x$CoverageSubtype))
             )
     )
@@ -52,7 +54,7 @@
 #' @importFrom rlang .data `%||%`
 #' @return `emdn_get_wcs_info` & `emdn_get_wcs_info` return a list of service
 #' level metadata, including a tibble containing coverage level metadata for each
-#' coverage available from the service. `emdn_get_wcs_coverage_info` returns a list
+#' coverage available from the service. `emdn_get_coverage_info` returns a list
 #' containing a tibble of more detailed metadata for each coverage specified.
 #'
 #' ## `emdn_get_wcs_info` / `emdn_get_all_wcs_info`
@@ -81,9 +83,9 @@
 #'   contains no vertical dimension.
 #'   - **`subtype`:** the coverage subtype.
 #'
-#' ## `emdn_get_wcs_coverage_info`
+#' ## `emdn_get_coverage_info`
 #'
-#' `emdn_get_wcs_coverage_info` returns a tibble with a row for each coverage
+#' `emdn_get_coverage_info` returns a tibble with a row for each coverage
 #' specified and columns with the following details:
 #' - **`data_source`:** the EMODnet source of data.
 #' - **`service_name`:** the EMODnet WCS service name.
@@ -127,7 +129,7 @@
 #'   "emdn_open_maplibrary__mediseh_cora",
 #'   "emdn_open_maplibrary__mediseh_posidonia"
 #' )
-#' emdn_get_wcs_coverage_info(wcs = wcs, coverages = coverages)
+#' emdn_get_coverage_info(wcs = wcs, coverages = coverages)
 emdn_get_wcs_info <- memoise::memoise(.emdn_get_wcs_info)
 
 
@@ -145,7 +147,7 @@ emdn_get_wcs_info <- memoise::memoise(.emdn_get_wcs_info)
 #' @export
 emdn_get_all_wcs_info <- memoise::memoise(.emdn_get_all_wcs_info)
 
-.emdn_get_wcs_coverage_info <- function(wcs = NULL, service = NULL,
+.emdn_get_coverage_info <- function(wcs = NULL, service = NULL,
                                            coverage_ids,
                                            service_version = c(
                                                "2.0.1", "2.1.0", "2.0.0",
@@ -174,7 +176,7 @@ emdn_get_all_wcs_info <- memoise::memoise(.emdn_get_all_wcs_info)
         unlist(recursive = FALSE)
 
     tibble::tibble(
-        data_source = "emdn_wcs",
+        data_source = "emodnet_wcs",
         service_name = wcs$getUrl(),
         service_url = get_service_name(wcs$getUrl()),
         coverage_id = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
@@ -214,10 +216,10 @@ emdn_get_all_wcs_info <- memoise::memoise(.emdn_get_all_wcs_info)
 #' @details To minimize the number of requests sent to webservices,
 #' these functions use [`memoise`](https://memoise.r-lib.org/) to cache results
 #' inside the active R session.
-#' To clear the cache, re-start R or run `memoise::forget(emdn_get_wcs_info)`/`memoise::forget(emdn_get_wcs_coverage_info)`
+#' To clear the cache, re-start R or run `memoise::forget(emdn_get_wcs_info)`/`memoise::forget(emdn_get_coverage_info)`
 #'
 #' @export
-emdn_get_wcs_coverage_info <- memoise::memoise(.emdn_get_wcs_coverage_info)
+emdn_get_coverage_info <- memoise::memoise(.emdn_get_coverage_info)
 
 #' Get temporal or vertical coefficients for a coverage
 #' @param wcs A `WCSClient` R6 object, created with function [`emdn_init_wcs_client`].

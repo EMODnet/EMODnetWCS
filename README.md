@@ -187,7 +187,7 @@ emdn_get_wcs_info(service = "bathymetry")
 ```
 
 ``` r
-emdn_get_wcs_coverage_info(service = "human_activities", 
+emdn_get_coverage_info(service = "human_activities", 
                               coverages = "emodnet:2017_01_st_00")
 #> ✔ WCS client created succesfully
 #> ℹ Service: 'https://ows.emodnet-humanactivities.eu/wcs'
@@ -210,4 +210,4 @@ emdn_get_wcs_coverage_info(service = "human_activities",
 > To minimize the number of requests sent to webservices, these
 > functions use [`memoise`](https://memoise.r-lib.org/) to cache results
 > inside the active R session. To clear the cache, re-start R or run
-> `memoise::forget(emdn_get_wcs_info)`/`memoise::forget(emdn_get_wcs_coverage_info)`
+> `memoise::forget(emdn_get_wcs_info)`/`memoise::forget(emdn_get_coverage_info)`

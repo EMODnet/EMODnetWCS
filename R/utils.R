@@ -6,7 +6,7 @@
 #' in particular can be used to extract further metadata about individual
 #' coverages.
 #'
-#' @inheritParams emdn_get_wcs_coverage_info
+#' @inheritParams emdn_get_coverage_info
 #' @param type a coverage dimension type. One of `"temporal"`, `"vertical"` or
 #' `"geographic"`.
 #' @return

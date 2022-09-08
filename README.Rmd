@@ -40,7 +40,6 @@ remotes::install_github("EMODnet/EMODnetWCS")
 Load the library 
 ```{r load-lib}
 library(EMODnetWCS)
-library(ows4R)
 ```
 
 ## Available services
@@ -87,12 +86,12 @@ emdn_get_wcs_info(service = "bathymetry")
 
 
 ```{r wcs-info-coverage}
-emdn_get_wcs_coverage_info(service = "human_activities", 
-                              coverages = "emodnet:2017_01_st_00")
+emdn_get_coverage_info(service = "human_activities", 
+                              coverage_ids = "emodnet:2017_01_st_00")
 ```
 
 
 > **Note** 
 >
 > To minimize the number of requests sent to webservices, these functions use [`memoise`](https://memoise.r-lib.org/) to cache results inside the active R session.
-> To clear the cache, re-start R or run `memoise::forget(emdn_get_wcs_info)`/`memoise::forget(emdn_get_wcs_coverage_info)`
+> To clear the cache, re-start R or run `memoise::forget(emdn_get_wcs_info)`/`memoise::forget(emdn_get_coverage_info)`
