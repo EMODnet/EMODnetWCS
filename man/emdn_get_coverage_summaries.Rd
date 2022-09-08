@@ -4,18 +4,28 @@
 \alias{emdn_get_coverage_summaries}
 \alias{emdn_get_coverage_summaries_all}
 \alias{emdn_get_coverage_ids}
-\title{Get metadata from a \code{WCSClient} object.}
+\alias{emdn_has_extent_type}
+\title{Get metadata objects from a \code{WCSClient} object.}
 \usage{
 emdn_get_coverage_summaries(wcs, coverage_ids)
 
 emdn_get_coverage_summaries_all(wcs)
 
 emdn_get_coverage_ids(wcs)
+
+emdn_has_extent_type(
+  wcs,
+  coverage_ids,
+  type = c("temporal", "vertical", "geographic")
+)
 }
 \arguments{
 \item{wcs}{A \code{WCSClient} R6 object, created with function \code{\link{emdn_init_wcs_client}}.}
 
 \item{coverage_ids}{character vector of coverage IDs.}
+
+\item{type}{a coverage dimension type. One of \code{"temporal"}, \code{"vertical"} or
+\code{"geographic"}.}
 }
 \value{
 \itemize{
@@ -27,7 +37,9 @@ emdn_get_coverage_ids(wcs)
 }
 }
 \description{
-Get metadata from a \code{WCSClient} object.
+Get metadata objects from a \code{WCSClient} object. \verb{<WCSCoverageSummary>}
+in particular can be used to extract further metadata about individual
+coverages.
 }
 \section{Functions}{
 \itemize{
@@ -38,6 +50,9 @@ coverages from a service.
 
 \item \code{emdn_get_coverage_ids}: Get coverage IDs for all available
 coverages from a service.
+
+\item \code{emdn_has_extent_type}: check whether a coverage has a
+particular dimension.
 }}
 
 \examples{

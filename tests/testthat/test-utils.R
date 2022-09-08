@@ -18,16 +18,23 @@ test_that("extent & crs processed correctly", {
 test_that("dimensions processed correctly", {
     summary <- create_biology_summary()[[1]]
     with_mock_dir("biology-description",
-                  {expect_equal(emdn_get_grid_size(summary), "950x400")
+                  {expect_equal(emdn_get_grid_size(summary),
+                                c(ncol_x = 951, nrow_y = 401))
                       expect_equal(emdn_get_resolution(summary),
-                                   "0.0422105263157895 Deg x 0.23775 Deg")
+                                   structure(
+                                       c(x = 0.1,
+                                         y = 0.1),
+                                       uom = c("Deg", "Deg")
+                                       )
+                      )
                       expect_equal(emdn_get_dimensions_info(summary),
                                    structure("lat(deg):geographic; long(deg):geographic; time(s):temporal",
                                              class = c("glue", "character")))
                       expect_equal(emdn_get_temporal_extent(summary),
-                                   "1958-02-16T00:00:00.000Z - 2016-11-16T00:00:00.000Z")
+                                   c("1958-02-16T00:00:00.000Z", "2016-11-16T00:00:00.000Z"))
                       expect_equal(emdn_get_vertical_extent(summary), NA)
                       expect_length(emdn_get_dimensions_info(summary, format = "list"), 3)
+                      expect_snapshot(emdn_get_dimensions_info(summary, format = "tibble"))
                   })
 
 })
@@ -39,11 +46,11 @@ test_that("rangeType processed correctly", {
                       expect_equal(emdn_get_nil_value(summary), 9.96921e+36)
                       expect_equal(emdn_get_band_name(summary), "relative_abundance")
                       expect_equal(emdn_get_uom(summary), "W.m-2.Sr-1")
-                      expect_equal(emdn_get_constraint(summary), "-3.4028235e+38, 3.4028235e+38")
-                      expect_equal(emdn_get_coverage_function(summary), "Linear")
-                      expect_equal(emdn_get_coverage_function(summary,
-                                                         param = "startPoint"),
-                                   "0 0")
+                      expect_equal(emdn_get_constraint(summary),
+                                   c(-3.4028235e+38, 3.4028235e+38))
+                      expect_equal(emdn_get_coverage_function(summary),
+                                   list(sequence_rule = "Linear",
+                                        start_point = c(0, 0)))
                   })
 
 })
