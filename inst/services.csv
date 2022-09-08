@@ -3,4 +3,4 @@ bathymetry,https://ows.emodnet-bathymetry.eu/wcs
 biology,https://geo.vliz.be/geoserver/Emodnetbio/wcs
 human_activities,https://ows.emodnet-humanactivities.eu/wcs
 physics,https://geoserver.emodnet-physics.eu/geoserver/wcs
-seabed_habitats,https://ows.emodnet-seabedhabitats.eu/geoserver/emdn_open_maplibrary/wcs
+seabed_habitats,https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open_maplibrary/wcs
