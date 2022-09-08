@@ -37,25 +37,25 @@
 #' wcs <- emdn_init_wcs_client(service = "biology")
 #' coverage_id <- "Emodnetbio__cal_fin_19582016_L1_err"
 #' # Subset using a bounding box
-#' emdn_get_wcs_coverage(wcs,
+#' emdn_get_coverage(wcs,
 #'                          coverage_id = coverage_id,
 #'                          bbox = c(xmin = 0, ymin = 40,
 #'                                   xmax = 5, ymax = 45))
 #' # Subset using a bounding box and specific timepoints
-#' emdn_get_wcs_coverage(wcs,
+#' emdn_get_coverage(wcs,
 #'                          coverage_id = coverage_id,
 #'                          bbox = c(xmin = 0, ymin = 40,
 #'                                   xmax = 5, ymax = 45),
 #'                          time = c("1963-11-16T00:00:00.000Z",
 #'                                   "1964-02-16T00:00:00.000Z"))
 #' # Subset using a bounding box and a specific band
-#' emdn_get_wcs_coverage(wcs,
+#' emdn_get_coverage(wcs,
 #'                          coverage_id = coverage_id,
 #'                          bbox = c(xmin = 0, ymin = 40,
 #'                                   xmax = 5, ymax = 45),
 #'                                   rangesubset = "Relative abundance")
 #' }
-emdn_get_wcs_coverage <- function(wcs = NULL, service = NULL,
+emdn_get_coverage <- function(wcs = NULL, service = NULL,
                                      coverage_id,
                                      service_version = c(
                                          "2.0.1", "2.1.0", "2.0.0",
