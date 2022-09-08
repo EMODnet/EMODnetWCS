@@ -22,6 +22,13 @@ create_physics_wcs <- function() {
     })
 }
 
+create_seabed_wcs <- function() {
+    with_mock_dir("wcs-seabed", {
+        emdn_init_wcs_client(service = "seabed_habitats")
+    })
+}
+
+
 create_physics_summary <- function() {
     with_mock_dir("wcs-physics-summary", {
         emdn_init_wcs_client(service = "physics") |>
