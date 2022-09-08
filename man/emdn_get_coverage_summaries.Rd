@@ -57,7 +57,14 @@ particular dimension.
 
 \examples{
 wcs <- emdn_init_wcs_client(service = "biology")
-emdn_get_coverage_summaries_all(wcs)
 cov_ids <- emdn_get_coverage_ids(wcs)
+cov_ids
+emdn_has_extent_type(wcs,
+                     coverage_ids,
+                     type = "temporal")
+emdn_has_extent_type(wcs,
+                     coverage_ids,
+                     type = "vertical")
 emdn_get_coverage_summaries(wcs, cov_ids[1:2])
+emdn_get_coverage_summaries_all(wcs)
 }
