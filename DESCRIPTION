@@ -28,6 +28,8 @@ Suggests:
     covr,
     fs,
     httptest,
+    huxtable,
+    rmarkdown,
     testthat (>= 3.0.0),
     webmockr,
     withr

@@ -1,4 +1,59 @@
 url: https://emodnet.github.io/EMODnetWCS/
 template:
   bootstrap: 5
+  bslib:
+    primary: "#3471B4"
+    secondary: "#F5B333"
 
+navbar:
+  bg: primary
+
+reference:
+- title: "Connecting to EMODnet WCS Services"
+  desc: >
+    Get details of available EMODnet WCS services and create `<WCSClient>`
+    class objects to connect to them.
+  contents:
+  - emdn_wcs
+  - emdn_init_wcs_client
+- title: "Compile metadata about EMODnet WCS Services and the coverages they serve"
+  desc: >
+    Functions for compiling metadata on services and available coverages for easy
+    review.
+  contents:
+  - emdn_get_wcs_info
+  - emdn_get_wcs_info_all
+  - emdn_get_coverage_info
+- title: "Extract metadata & metadata objects from a `<WCSClient>` object"
+  desc: >
+    Functions for extracting a variety of both service and coverage level metadata
+    including `<WCSCoverageSummary>` objects from a `<WCSClient>` object.
+  contents:
+  - emdn_get_coverage_summaries
+  - emdn_get_coverage_summaries_all
+  - emdn_get_coverage_ids
+  - emdn_has_extent_type
+  - emdn_get_coverage_dim_coefs
+- title: "Extract individual coverage level metadata from a `<WCSCoverageSummary>` object"
+  desc: >
+    Functions for extracting individual metadata for specific coverages from
+    a `<WCSCoverageSummary>` object.
+  contents:
+  - emdn_get_bbox
+  - emdn_get_WGS84bbox
+  - emdn_get_nil_value
+  - emdn_get_band_name
+  - emdn_get_uom
+  - emdn_get_constraint
+  - emdn_get_grid_size
+  - emdn_get_resolution
+  - emdn_get_coverage_function
+  - emdn_get_temporal_extent
+  - emdn_get_vertical_extent
+  - emdn_get_dimensions_info
+  - emdn_get_dimensions_names
+  - emdn_get_dimensions_n
+  - emdn_get_dimension_types
+- title: "Download a coverage from a EMODnet WCS service"
+  contents:
+  - emdn_get_coverage
