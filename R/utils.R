@@ -125,8 +125,7 @@ emdn_has_dimension <- function(wcs, coverage_ids,
 #' # get band units of measurement
 #' emdn_get_uom(summary)
 #' # get range of band values
-#' # emdn_get_constraint(summary)
-#' emdn_get_coverage_function(summary)
+#' emdn_get_constraint(summary)
 #' # get coverage grid size
 #' emdn_get_grid_size(summary)
 #' # get coverage resolution
@@ -149,7 +148,7 @@ emdn_has_dimension <- function(wcs, coverage_ids,
 #' emdn_get_dimension_types(summary)
 #' @describeIn emdn_get_bbox Get the bounding box (geographic extent) of a
 #' coverage. Coordinates are given in the same Coordinate Reference System
-#' of the the coverage.
+#' as the coverage.
 #' @export
 emdn_get_bbox <- function(summary) {
     #summary$getBoundingBox()$BoundingBox$getBBOX()
@@ -356,8 +355,7 @@ emdn_get_dimensions_names <- function(summary) {
 #' @describeIn emdn_get_bbox Get number of coverage dimensions.
 #' @export
 emdn_get_dimensions_n <- function(summary) {
-    summary$getDescription()$boundedBy$attrs$srsDimension |>
-        as.integer()
+    summary$getDimensions() |> length()
 
 }
 

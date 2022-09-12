@@ -109,7 +109,7 @@ Get coverage metadata from a \verb{<WCSCoverageSummary>} object.
 \itemize{
 \item \code{emdn_get_bbox}: Get the bounding box (geographic extent) of a
 coverage. Coordinates are given in the same Coordinate Reference System
-of the the coverage.
+as the coverage.
 
 \item \code{emdn_get_WGS84bbox}: Get the bounding box (geographic extent) of a
 coverage in World Geodetic System 1984 (WGS84) Coordinate Reference System
@@ -162,8 +162,7 @@ emdn_get_band_name(summary)
 # get band units of measurement
 emdn_get_uom(summary)
 # get range of band values
-# emdn_get_constraint(summary)
-emdn_get_coverage_function(summary)
+emdn_get_constraint(summary)
 # get coverage grid size
 emdn_get_grid_size(summary)
 # get coverage resolution

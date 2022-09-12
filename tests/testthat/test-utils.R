@@ -30,8 +30,13 @@ test_that("dimensions processed correctly", {
                       expect_equal(emdn_get_dimensions_info(summary),
                                    structure("lat(deg):geographic; long(deg):geographic; time(s):temporal",
                                              class = c("glue", "character")))
+                      expect_equal(emdn_get_dimensions_n(summary), 3)
                       expect_equal(emdn_get_temporal_extent(summary),
                                    c("1958-02-16T00:00:00.000Z", "2016-11-16T00:00:00.000Z"))
+                      expect_equal(emdn_get_dimension_types(summary),
+                                   c("geographic", "geographic", "temporal"))
+                      expect_equal(emdn_get_dimensions_names(summary),
+                                   "Lat (Deg), Long (Deg), time (s)")
                       expect_equal(emdn_get_vertical_extent(summary), NA)
                       expect_length(emdn_get_dimensions_info(summary, format = "list"), 3)
                       expect_snapshot(emdn_get_dimensions_info(summary, format = "tibble"))
