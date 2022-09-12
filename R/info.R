@@ -57,9 +57,9 @@
 #' coverage available from the service. `emdn_get_coverage_info` returns a list
 #' containing a tibble of more detailed metadata for each coverage specified.
 #'
-#' ## `emdn_get_wcs_info` / `emdn_get_all_wcs_info`
+#' ## `emdn_get_wcs_info` / `emdn_get_wcs_info_all`
 #'
-#' `emdn_get_wcs_info` and `emdn_get_all_wcs_info` return a list with the
+#' `emdn_get_wcs_info` and `emdn_get_wcs_info_all` return a list with the
 #' following metadata:
 #' - **`data_source`:** the EMODnet source of data.
 #' - **`service_name`:** the EMODnet WCS service name.
@@ -134,7 +134,7 @@
 emdn_get_wcs_info <- memoise::memoise(.emdn_get_wcs_info)
 
 
-.emdn_get_all_wcs_info <- function(logger = c("NONE", "INFO", "DEBUG")) {
+.emdn_get_wcs_info_all <- function(logger = c("NONE", "INFO", "DEBUG")) {
     purrr::map(
         emdn_wcs()$service_name,
         ~ suppressMessages(emdn_get_wcs_info(service = .x,
@@ -146,7 +146,7 @@ emdn_get_wcs_info <- memoise::memoise(.emdn_get_wcs_info)
 #' @describeIn emdn_get_wcs_info Get metadata on all services and all available
 #' coverages from each service.
 #' @export
-emdn_get_all_wcs_info <- memoise::memoise(.emdn_get_all_wcs_info)
+emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
 
 .emdn_get_coverage_info <- function(wcs = NULL, service = NULL,
                                            coverage_ids,
