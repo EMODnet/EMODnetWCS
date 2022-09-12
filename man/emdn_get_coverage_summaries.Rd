@@ -4,7 +4,7 @@
 \alias{emdn_get_coverage_summaries}
 \alias{emdn_get_coverage_summaries_all}
 \alias{emdn_get_coverage_ids}
-\alias{emdn_has_extent_type}
+\alias{emdn_has_dimension}
 \title{Get metadata objects from a \code{WCSClient} object.}
 \usage{
 emdn_get_coverage_summaries(wcs, coverage_ids)
@@ -13,7 +13,7 @@ emdn_get_coverage_summaries_all(wcs)
 
 emdn_get_coverage_ids(wcs)
 
-emdn_has_extent_type(
+emdn_has_dimension(
   wcs,
   coverage_ids,
   type = c("temporal", "vertical", "geographic")
@@ -51,7 +51,7 @@ coverages from a service.
 \item \code{emdn_get_coverage_ids}: Get coverage IDs for all available
 coverages from a service.
 
-\item \code{emdn_has_extent_type}: check whether a coverage has a
+\item \code{emdn_has_dimension}: check whether a coverage has a
 particular dimension.
 }}
 
@@ -59,10 +59,10 @@ particular dimension.
 wcs <- emdn_init_wcs_client(service = "biology")
 cov_ids <- emdn_get_coverage_ids(wcs)
 cov_ids
-emdn_has_extent_type(wcs,
+emdn_has_dimension(wcs,
                      coverage_ids,
                      type = "temporal")
-emdn_has_extent_type(wcs,
+emdn_has_dimension(wcs,
                      coverage_ids,
                      type = "vertical")
 emdn_get_coverage_summaries(wcs, cov_ids[1:2])

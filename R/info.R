@@ -242,7 +242,7 @@ emdn_get_coverage_dim_coefs <- function(wcs,
 
     type <- match.arg(type)
     checkmate::assert_character(coverage_id, len = 1)
-    check_extent_type <- emdn_has_extent_type(wcs,
+    check_extent_type <- emdn_has_dimension(wcs,
                                          coverage_id,
                                          type)
 

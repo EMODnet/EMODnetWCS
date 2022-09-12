@@ -32,7 +32,7 @@ reference:
   - emdn_get_coverage_summaries
   - emdn_get_coverage_summaries_all
   - emdn_get_coverage_ids
-  - emdn_has_extent_type
+  - emdn_has_dimension
   - emdn_get_coverage_dim_coefs
 - title: "Extract individual coverage level metadata from a `<WCSCoverageSummary>` object"
   desc: >

@@ -22,10 +22,10 @@
 #' wcs <- emdn_init_wcs_client(service = "biology")
 #' cov_ids <- emdn_get_coverage_ids(wcs)
 #' cov_ids
-#' emdn_has_extent_type(wcs,
+#' emdn_has_dimension(wcs,
 #'                      coverage_ids,
 #'                      type = "temporal")
-#' emdn_has_extent_type(wcs,
+#' emdn_has_dimension(wcs,
 #'                      coverage_ids,
 #'                      type = "vertical")
 #' emdn_get_coverage_summaries(wcs, cov_ids[1:2])
@@ -53,7 +53,7 @@ emdn_get_coverage_ids <- function(wcs) {
 #' @describeIn emdn_get_coverage_summaries check whether a coverage has a
 #' particular dimension.
 #' @export
-emdn_has_extent_type <- function(wcs, coverage_ids,
+emdn_has_dimension <- function(wcs, coverage_ids,
                                  type = c("temporal", "vertical",
                                           "geographic")) {
     check_coverages(wcs, coverage_ids)
