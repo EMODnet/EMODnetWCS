@@ -112,6 +112,12 @@
 #' - **`fn_seq_rule`:** the function describing the sequence rule which specifies
 #' the relationship between the axes of data and coordinate system axes.
 #' - **`fn_start_point`:** the location of the origin of the data in the coordinate system.
+#' - **`fn_axis_order`:** the axis order and
+#'   direction of mapping of values onto the grid, beginning at the starting point. For
+#'   example, `"+2 +1"` indicates the value range is ordered from the bottom
+#'   left to the top right of the grid envelope - lowest to highest in the x-axis
+#'   direction first (`+2`), then lowest to highest in the y-axis direction (`+1`)
+#'   from the `starting_point`.
 #'
 #' For additional details on WCS metadata, see the GDAL wiki section on
 #' [WCS Basics and GDAL](https://trac.osgeo.org/gdal/wiki/WCS%2Binteroperability)
@@ -205,6 +211,10 @@ emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
         fn_start_point = purrr::map_chr(summaries,
                                         ~error_wrap(
                                             emdn_get_coverage_function(.x)$start_point |>
+                                                paste(collapse = ","))),
+        fn_axis_order = purrr::map_chr(summaries,
+                                        ~error_wrap(
+                                            emdn_get_coverage_function(.x)$axis_order |>
                                                 paste(collapse = ",")))
     )
 }

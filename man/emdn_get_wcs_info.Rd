@@ -101,6 +101,12 @@ contains no vertical dimension.
 \item \strong{\code{fn_seq_rule}:} the function describing the sequence rule which specifies
 the relationship between the axes of data and coordinate system axes.
 \item \strong{\code{fn_start_point}:} the location of the origin of the data in the coordinate system.
+\item \strong{\code{fn_axis_order}:} the axis order and
+direction of mapping of values onto the grid, beginning at the starting point. For
+example, \code{"+2 +1"} indicates the value range is ordered from the bottom
+left to the top right of the grid envelope - lowest to highest in the x-axis
+direction first (\code{+2}), then lowest to highest in the y-axis direction (\code{+1})
+from the \code{starting_point}.
 }
 
 For additional details on WCS metadata, see the GDAL wiki section on
