@@ -216,30 +216,57 @@ emdn_get_constraint <- function(summary) {
 #' @export
 emdn_get_grid_size <- function(summary) {
 
-    grid_envelope <- summary$getDescription()$domainSet$limits
-    low <- grid_envelope$low$value |> strsplit(" ") |> unlist() |> as.numeric()
-    high <- grid_envelope$high$value |> strsplit(" ") |> unlist() |> as.numeric()
-    diff <- high - low  + 2
-    names(diff) <- c("ncol_x", "nrow_y")
+    resolution <- emdn_get_resolution(summary)
+    bbox <- summary$BoundingBox$BoundingBox$getBBOX()
 
-    return(diff)
+    c(ncol = (bbox[["xmax"]] - bbox[["xmin"]]) / resolution[["x"]],
+      nrow = (bbox[["ymax"]] - bbox[["ymin"]]) / resolution[["y"]]) |>
+        round()
 }
 
 #' @describeIn emdn_get_bbox Get the resolution of a coverage.
 #' @export
 emdn_get_resolution <- function(summary) {
 
-    boundaries <- summary$getDescription()$boundedBy
-    upper_crn <- boundaries$upperCorner[1,] |> unlist() |>
-        stats::setNames(c("ymax", "xmax")) |> rev()
-    lower_crn <- boundaries$lowerCorner[1,]  |> unlist() |>
-        stats::setNames(c("ymin", "xmin")) |> rev()
-    grid_size <- emdn_get_grid_size(summary)
-    uom <- unlist(strsplit(boundaries$attrs$uomLabels, " "))[1:2] |>
-        rev()
+    offset_vector <- summary$getDescription()$domainSet$offsetVector
 
-    resolution <- (upper_crn - lower_crn) / grid_size
-    names(resolution) <- c("x", "y")
+    if (length(offset_vector) == 1L) {
+        resolution <- offset_vector$value |>
+            strsplit(" ") |>
+            unlist() |>
+            as.numeric() |>
+            abs()
+    } else {
+        resolution <- purrr::map_dbl(offset_vector,
+                                    ~.x$value |>
+                                        strsplit(" ") |>
+                                        unlist() |>
+                                        as.numeric() |>
+                                        sum() |>
+                                        abs())
+    }
+
+    axis_order <- emdn_get_coverage_function(summary)$axis_order
+
+    is_x_axis <- purrr::map_lgl(axis_order,
+                   ~grepl(.x, "x|2"))
+
+    if (sum(is_x_axis) != 1L) {
+        cli::cli_warn(
+            c("!" = "Unable to detecting axis order. Defaulting to {.val x}, {.val y}"))
+        names(resolution) <- c("x", "y")
+    } else {
+        res_names <- c("y", "y")
+        res_names[is_x_axis] <- "x"
+        names(resolution) <- res_names
+    }
+
+    uom <- summary$getDescription()$boundedBy$attrs$uomLabels |>
+        strsplit(" ") |>
+        unlist()
+
+    uom <- uom[emdn_get_dimension_types(summary) == "geographic"]
+
     attr(resolution, "uom") <- uom
 
     return(resolution)

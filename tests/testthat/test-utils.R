@@ -19,7 +19,7 @@ test_that("dimensions processed correctly", {
     summary <- create_biology_summary()[[1]]
     with_mock_dir("biology-description",
                   {expect_equal(emdn_get_grid_size(summary),
-                                c(ncol_x = 951, nrow_y = 401))
+                                c(ncol = 951, nrow = 401))
                       expect_equal(emdn_get_resolution(summary),
                                    structure(
                                        c(x = 0.1,
