@@ -60,10 +60,10 @@ wcs <- emdn_init_wcs_client(service = "biology")
 cov_ids <- emdn_get_coverage_ids(wcs)
 cov_ids
 emdn_has_dimension(wcs,
-                     coverage_ids,
+                     cov_ids,
                      type = "temporal")
 emdn_has_dimension(wcs,
-                     coverage_ids,
+                     cov_ids,
                      type = "vertical")
 emdn_get_coverage_summaries(wcs, cov_ids[1:2])
 emdn_get_coverage_summaries_all(wcs)
