@@ -86,6 +86,12 @@ rule, i.e. the relationship between the axes of data and coordinate system
 axes.
 \item \code{starting_point} a numeric vector of length 2, the location of the origin
 of the data in the coordinate system.
+\item \code{axis_order} a character vector of length 2 specifying the axis order and
+direction of mapping of values onto the grid, beginning at the starting point. For
+example, \code{"+2 +1"} indicates the value range is ordered from the bottom
+left to the top right of the grid envelope - lowest to highest in the x-axis
+direction first (\code{+2}), then lowest to highest in the y-axis direction (\code{+1})
+from the \code{starting_point}.
 }
 \item \code{emdn_get_temporal_extent} if the coverage has a temporal dimension, a numeric
 vector of length 2 giving the min and max values of the dimension.
@@ -126,13 +132,13 @@ the bands values of a coverage.
 \item \code{emdn_get_constraint}: Get the range of values of the data contained in
 the bands of the coverage.
 
-\item \code{emdn_get_grid_size}: Get the grid sizes of a coverage
+\item \code{emdn_get_grid_size}: Get the grid size of a coverage.
 
-\item \code{emdn_get_resolution}: Get the resolution of a coverage
+\item \code{emdn_get_resolution}: Get the resolution of a coverage.
 
 \item \code{emdn_get_coverage_function}: Get the grid function of a coverage.
 
-\item \code{emdn_get_temporal_extent}: Get the grid function of a coverage.
+\item \code{emdn_get_temporal_extent}: Get the temporal extent of a coverage.
 
 \item \code{emdn_get_vertical_extent}: Get the vertical (elevation) extent of a coverage.
 
@@ -140,7 +146,7 @@ the bands of the coverage.
 various formats. Information includes dimension label, type, unit and
 range (in tibble format).
 
-\item \code{emdn_get_dimensions_names}: Get coverage dimension names (labels).
+\item \code{emdn_get_dimensions_names}: Get coverage dimension names (labels) and units.
 
 \item \code{emdn_get_dimensions_n}: Get number of coverage dimensions.
 

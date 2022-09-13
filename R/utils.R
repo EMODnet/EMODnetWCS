@@ -99,6 +99,12 @@ emdn_has_dimension <- function(wcs, coverage_ids,
 #'   axes.
 #'   - `starting_point` a numeric vector of length 2, the location of the origin
 #'   of the data in the coordinate system.
+#'   - `axis_order` a character vector of length 2 specifying the axis order and
+#'   direction of mapping of values onto the grid, beginning at the starting point. For
+#'   example, `"+2 +1"` indicates the value range is ordered from the bottom
+#'   left to the top right of the grid envelope - lowest to highest in the x-axis
+#'   direction first (`+2`), then lowest to highest in the y-axis direction (`+1`)
+#'   from the `starting_point`.
 #' - `emdn_get_temporal_extent` if the coverage has a temporal dimension, a numeric
 #' vector of length 2 giving the min and max values of the dimension.
 #' Otherwise, NA.
@@ -206,7 +212,7 @@ emdn_get_constraint <- function(summary) {
 
 }
 
-#' @describeIn emdn_get_bbox Get the grid sizes of a coverage
+#' @describeIn emdn_get_bbox Get the grid size of a coverage.
 #' @export
 emdn_get_grid_size <- function(summary) {
 
@@ -219,7 +225,7 @@ emdn_get_grid_size <- function(summary) {
     return(diff)
 }
 
-#' @describeIn emdn_get_bbox Get the resolution of a coverage
+#' @describeIn emdn_get_bbox Get the resolution of a coverage.
 #' @export
 emdn_get_resolution <- function(summary) {
 
@@ -246,15 +252,19 @@ emdn_get_coverage_function <- function(summary) {
 
     grid_function <- summary$getDescription()$coverageFunction[[1]]
 
-    list(sequence_rule = grid_function[["sequenceRule"]]$value,
+    list(
+        sequence_rule = grid_function[["sequenceRule"]]$value,
       start_point = grid_function[["startPoint"]]$value |>
           strsplit(" ") |>
           unlist() |>
-          as.numeric()
+          as.numeric(),
+      axis_order = grid_function[["sequenceRule"]]$attrs$axisOrder |>
+          strsplit(" ") |>
+          unlist()
       )
 }
 
-#' @describeIn emdn_get_bbox Get the grid function of a coverage.
+#' @describeIn emdn_get_bbox Get the temporal extent of a coverage.
 #' @export
 emdn_get_temporal_extent <- function(summary) {
     dim_df <- emdn_get_dimensions_info(summary, format = "tibble")
@@ -339,7 +349,7 @@ emdn_get_dimensions_info <- function(summary, format = c("character",
            "tibble" = process_tibble(dimensions))
 }
 
-#' @describeIn emdn_get_bbox Get coverage dimension names (labels).
+#' @describeIn emdn_get_bbox Get coverage dimension names (labels) and units.
 #' @export
 emdn_get_dimensions_names <- function(summary) {
     dimensions <- summary$getDescription()$boundedBy$attrs

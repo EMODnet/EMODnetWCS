@@ -55,7 +55,8 @@ test_that("rangeType processed correctly", {
                                    c(-3.4028235e+38, 3.4028235e+38))
                       expect_equal(emdn_get_coverage_function(summary),
                                    list(sequence_rule = "Linear",
-                                        start_point = c(0, 0)))
+                                        start_point = c(0, 0),
+                                        axis_order = c("+2", "+1")))
                   })
 
 })
