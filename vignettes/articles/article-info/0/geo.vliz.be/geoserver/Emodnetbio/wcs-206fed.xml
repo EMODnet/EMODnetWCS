@@ -1,0 +1,781 @@
+<?xml version="1.0" encoding="UTF-8"?><wcs:CoverageDescriptions xmlns:wcs="http://www.opengis.net/wcs/2.0" xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gmlcov="http://www.opengis.net/gmlcov/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:wcsgs="http://www.geoserver.org/wcsgs/2.0" xsi:schemaLocation=" http://www.opengis.net/wcs/2.0 http://schemas.opengis.net/wcs/2.0/wcsDescribeCoverage.xsd">
+  <wcs:CoverageDescription gml:id="Emodnetbio__aca_spp_19582016_L1">
+    <gml:boundedBy>
+      <gml:EnvelopeWithTimePeriod srsName="http://www.opengis.net/def/crs/EPSG/0/4326" axisLabels="Lat Long time" uomLabels="Deg Deg s" srsDimension="2">
+        <gml:lowerCorner>34.95 -75.05</gml:lowerCorner>
+        <gml:upperCorner>75.05 20.05</gml:upperCorner>
+        <gml:beginPosition>1958-02-16T00:00:00.000Z</gml:beginPosition>
+        <gml:endPosition>2016-11-16T00:00:00.000Z</gml:endPosition>
+      </gml:EnvelopeWithTimePeriod>
+    </gml:boundedBy>
+    <wcs:CoverageId>Emodnetbio__aca_spp_19582016_L1</wcs:CoverageId>
+    <gml:coverageFunction>
+      <gml:GridFunction>
+        <gml:sequenceRule axisOrder="+2 +1">Linear</gml:sequenceRule>
+        <gml:startPoint>0 0</gml:startPoint>
+      </gml:GridFunction>
+    </gml:coverageFunction>
+    <gmlcov:metadata>
+      <gmlcov:Extension>
+        <wcsgs:TimeDomain default="2016-11-16T00:00:00.000Z">
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_0">
+            <gml:timePosition>1958-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_1">
+            <gml:timePosition>1958-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_2">
+            <gml:timePosition>1958-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_3">
+            <gml:timePosition>1958-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_4">
+            <gml:timePosition>1959-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_5">
+            <gml:timePosition>1959-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_6">
+            <gml:timePosition>1959-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_7">
+            <gml:timePosition>1959-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_8">
+            <gml:timePosition>1960-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_9">
+            <gml:timePosition>1960-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_10">
+            <gml:timePosition>1960-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_11">
+            <gml:timePosition>1960-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_12">
+            <gml:timePosition>1961-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_13">
+            <gml:timePosition>1961-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_14">
+            <gml:timePosition>1961-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_15">
+            <gml:timePosition>1961-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_16">
+            <gml:timePosition>1962-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_17">
+            <gml:timePosition>1962-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_18">
+            <gml:timePosition>1962-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_19">
+            <gml:timePosition>1962-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_20">
+            <gml:timePosition>1963-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_21">
+            <gml:timePosition>1963-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_22">
+            <gml:timePosition>1963-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_23">
+            <gml:timePosition>1963-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_24">
+            <gml:timePosition>1964-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_25">
+            <gml:timePosition>1964-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_26">
+            <gml:timePosition>1964-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_27">
+            <gml:timePosition>1964-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_28">
+            <gml:timePosition>1965-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_29">
+            <gml:timePosition>1965-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_30">
+            <gml:timePosition>1965-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_31">
+            <gml:timePosition>1965-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_32">
+            <gml:timePosition>1966-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_33">
+            <gml:timePosition>1966-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_34">
+            <gml:timePosition>1966-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_35">
+            <gml:timePosition>1966-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_36">
+            <gml:timePosition>1967-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_37">
+            <gml:timePosition>1967-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_38">
+            <gml:timePosition>1967-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_39">
+            <gml:timePosition>1967-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_40">
+            <gml:timePosition>1968-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_41">
+            <gml:timePosition>1968-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_42">
+            <gml:timePosition>1968-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_43">
+            <gml:timePosition>1968-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_44">
+            <gml:timePosition>1969-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_45">
+            <gml:timePosition>1969-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_46">
+            <gml:timePosition>1969-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_47">
+            <gml:timePosition>1969-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_48">
+            <gml:timePosition>1970-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_49">
+            <gml:timePosition>1970-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_50">
+            <gml:timePosition>1970-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_51">
+            <gml:timePosition>1970-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_52">
+            <gml:timePosition>1971-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_53">
+            <gml:timePosition>1971-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_54">
+            <gml:timePosition>1971-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_55">
+            <gml:timePosition>1971-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_56">
+            <gml:timePosition>1972-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_57">
+            <gml:timePosition>1972-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_58">
+            <gml:timePosition>1972-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_59">
+            <gml:timePosition>1972-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_60">
+            <gml:timePosition>1973-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_61">
+            <gml:timePosition>1973-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_62">
+            <gml:timePosition>1973-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_63">
+            <gml:timePosition>1973-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_64">
+            <gml:timePosition>1974-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_65">
+            <gml:timePosition>1974-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_66">
+            <gml:timePosition>1974-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_67">
+            <gml:timePosition>1974-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_68">
+            <gml:timePosition>1975-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_69">
+            <gml:timePosition>1975-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_70">
+            <gml:timePosition>1975-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_71">
+            <gml:timePosition>1975-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_72">
+            <gml:timePosition>1976-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_73">
+            <gml:timePosition>1976-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_74">
+            <gml:timePosition>1976-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_75">
+            <gml:timePosition>1976-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_76">
+            <gml:timePosition>1977-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_77">
+            <gml:timePosition>1977-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_78">
+            <gml:timePosition>1977-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_79">
+            <gml:timePosition>1977-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_80">
+            <gml:timePosition>1978-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_81">
+            <gml:timePosition>1978-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_82">
+            <gml:timePosition>1978-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_83">
+            <gml:timePosition>1978-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_84">
+            <gml:timePosition>1979-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_85">
+            <gml:timePosition>1979-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_86">
+            <gml:timePosition>1979-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_87">
+            <gml:timePosition>1979-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_88">
+            <gml:timePosition>1980-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_89">
+            <gml:timePosition>1980-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_90">
+            <gml:timePosition>1980-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_91">
+            <gml:timePosition>1980-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_92">
+            <gml:timePosition>1981-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_93">
+            <gml:timePosition>1981-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_94">
+            <gml:timePosition>1981-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_95">
+            <gml:timePosition>1981-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_96">
+            <gml:timePosition>1982-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_97">
+            <gml:timePosition>1982-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_98">
+            <gml:timePosition>1982-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_99">
+            <gml:timePosition>1982-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_100">
+            <gml:timePosition>1983-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_101">
+            <gml:timePosition>1983-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_102">
+            <gml:timePosition>1983-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_103">
+            <gml:timePosition>1983-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_104">
+            <gml:timePosition>1984-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_105">
+            <gml:timePosition>1984-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_106">
+            <gml:timePosition>1984-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_107">
+            <gml:timePosition>1984-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_108">
+            <gml:timePosition>1985-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_109">
+            <gml:timePosition>1985-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_110">
+            <gml:timePosition>1985-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_111">
+            <gml:timePosition>1985-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_112">
+            <gml:timePosition>1986-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_113">
+            <gml:timePosition>1986-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_114">
+            <gml:timePosition>1986-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_115">
+            <gml:timePosition>1986-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_116">
+            <gml:timePosition>1987-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_117">
+            <gml:timePosition>1987-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_118">
+            <gml:timePosition>1987-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_119">
+            <gml:timePosition>1987-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_120">
+            <gml:timePosition>1988-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_121">
+            <gml:timePosition>1988-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_122">
+            <gml:timePosition>1988-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_123">
+            <gml:timePosition>1988-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_124">
+            <gml:timePosition>1989-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_125">
+            <gml:timePosition>1989-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_126">
+            <gml:timePosition>1989-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_127">
+            <gml:timePosition>1989-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_128">
+            <gml:timePosition>1990-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_129">
+            <gml:timePosition>1990-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_130">
+            <gml:timePosition>1990-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_131">
+            <gml:timePosition>1990-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_132">
+            <gml:timePosition>1991-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_133">
+            <gml:timePosition>1991-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_134">
+            <gml:timePosition>1991-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_135">
+            <gml:timePosition>1991-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_136">
+            <gml:timePosition>1992-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_137">
+            <gml:timePosition>1992-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_138">
+            <gml:timePosition>1992-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_139">
+            <gml:timePosition>1992-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_140">
+            <gml:timePosition>1993-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_141">
+            <gml:timePosition>1993-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_142">
+            <gml:timePosition>1993-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_143">
+            <gml:timePosition>1993-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_144">
+            <gml:timePosition>1994-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_145">
+            <gml:timePosition>1994-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_146">
+            <gml:timePosition>1994-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_147">
+            <gml:timePosition>1994-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_148">
+            <gml:timePosition>1995-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_149">
+            <gml:timePosition>1995-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_150">
+            <gml:timePosition>1995-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_151">
+            <gml:timePosition>1995-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_152">
+            <gml:timePosition>1996-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_153">
+            <gml:timePosition>1996-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_154">
+            <gml:timePosition>1996-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_155">
+            <gml:timePosition>1996-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_156">
+            <gml:timePosition>1997-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_157">
+            <gml:timePosition>1997-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_158">
+            <gml:timePosition>1997-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_159">
+            <gml:timePosition>1997-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_160">
+            <gml:timePosition>1998-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_161">
+            <gml:timePosition>1998-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_162">
+            <gml:timePosition>1998-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_163">
+            <gml:timePosition>1998-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_164">
+            <gml:timePosition>1999-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_165">
+            <gml:timePosition>1999-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_166">
+            <gml:timePosition>1999-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_167">
+            <gml:timePosition>1999-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_168">
+            <gml:timePosition>2000-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_169">
+            <gml:timePosition>2000-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_170">
+            <gml:timePosition>2000-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_171">
+            <gml:timePosition>2000-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_172">
+            <gml:timePosition>2001-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_173">
+            <gml:timePosition>2001-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_174">
+            <gml:timePosition>2001-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_175">
+            <gml:timePosition>2001-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_176">
+            <gml:timePosition>2002-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_177">
+            <gml:timePosition>2002-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_178">
+            <gml:timePosition>2002-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_179">
+            <gml:timePosition>2002-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_180">
+            <gml:timePosition>2003-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_181">
+            <gml:timePosition>2003-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_182">
+            <gml:timePosition>2003-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_183">
+            <gml:timePosition>2003-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_184">
+            <gml:timePosition>2004-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_185">
+            <gml:timePosition>2004-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_186">
+            <gml:timePosition>2004-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_187">
+            <gml:timePosition>2004-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_188">
+            <gml:timePosition>2005-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_189">
+            <gml:timePosition>2005-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_190">
+            <gml:timePosition>2005-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_191">
+            <gml:timePosition>2005-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_192">
+            <gml:timePosition>2006-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_193">
+            <gml:timePosition>2006-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_194">
+            <gml:timePosition>2006-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_195">
+            <gml:timePosition>2006-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_196">
+            <gml:timePosition>2007-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_197">
+            <gml:timePosition>2007-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_198">
+            <gml:timePosition>2007-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_199">
+            <gml:timePosition>2007-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_200">
+            <gml:timePosition>2008-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_201">
+            <gml:timePosition>2008-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_202">
+            <gml:timePosition>2008-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_203">
+            <gml:timePosition>2008-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_204">
+            <gml:timePosition>2009-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_205">
+            <gml:timePosition>2009-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_206">
+            <gml:timePosition>2009-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_207">
+            <gml:timePosition>2009-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_208">
+            <gml:timePosition>2010-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_209">
+            <gml:timePosition>2010-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_210">
+            <gml:timePosition>2010-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_211">
+            <gml:timePosition>2010-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_212">
+            <gml:timePosition>2011-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_213">
+            <gml:timePosition>2011-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_214">
+            <gml:timePosition>2011-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_215">
+            <gml:timePosition>2011-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_216">
+            <gml:timePosition>2012-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_217">
+            <gml:timePosition>2012-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_218">
+            <gml:timePosition>2012-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_219">
+            <gml:timePosition>2012-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_220">
+            <gml:timePosition>2013-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_221">
+            <gml:timePosition>2013-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_222">
+            <gml:timePosition>2013-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_223">
+            <gml:timePosition>2013-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_224">
+            <gml:timePosition>2014-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_225">
+            <gml:timePosition>2014-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_226">
+            <gml:timePosition>2014-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_227">
+            <gml:timePosition>2014-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_228">
+            <gml:timePosition>2015-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_229">
+            <gml:timePosition>2015-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_230">
+            <gml:timePosition>2015-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_231">
+            <gml:timePosition>2015-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_232">
+            <gml:timePosition>2016-02-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_233">
+            <gml:timePosition>2016-05-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_234">
+            <gml:timePosition>2016-08-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+          <gml:TimeInstant gml:id="Emodnetbio__aca_spp_19582016_L1_td_235">
+            <gml:timePosition>2016-11-16T00:00:00.000Z</gml:timePosition>
+          </gml:TimeInstant>
+        </wcsgs:TimeDomain>
+        <wcsgs:DimensionDomain name = "SEASON" default="1">
+          <wcsgs:SingleValue>1</wcsgs:SingleValue>
+          <wcsgs:SingleValue>2</wcsgs:SingleValue>
+          <wcsgs:SingleValue>3</wcsgs:SingleValue>
+          <wcsgs:SingleValue>4</wcsgs:SingleValue>
+        </wcsgs:DimensionDomain>
+      </gmlcov:Extension>
+    </gmlcov:metadata>
+    <gml:domainSet>
+      <gml:RectifiedGrid gml:id="grid00__Emodnetbio__aca_spp_19582016_L1" dimension="2">
+        <gml:limits>
+          <gml:GridEnvelope>
+            <gml:low>0 0</gml:low>
+            <gml:high>949 399</gml:high>
+          </gml:GridEnvelope>
+        </gml:limits>
+        <gml:axisLabels>i j</gml:axisLabels>
+        <gml:origin>
+          <gml:Point gml:id="p00_Emodnetbio__aca_spp_19582016_L1" srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+            <gml:pos>75.0 -75.0</gml:pos>
+          </gml:Point>
+        </gml:origin>
+        <gml:offsetVector srsName="http://www.opengis.net/def/crs/EPSG/0/4326">0.0 0.1</gml:offsetVector>
+        <gml:offsetVector srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-0.1 0.0</gml:offsetVector>
+      </gml:RectifiedGrid>
+    </gml:domainSet>
+    <gmlcov:rangeType>
+      <swe:DataRecord>
+        <swe:field name="relative_abundance">
+          <swe:Quantity>
+            <swe:description>relative_abundance</swe:description>
+            <swe:nilValues>
+              <swe:NilValues>
+                <swe:nilValue reason="http://www.opengis.net/def/nil/OGC/0/unknown">9.969209968386869E36</swe:nilValue>
+              </swe:NilValues>
+            </swe:nilValues>
+            <swe:uom code="W.m-2.Sr-1"/>
+            <swe:constraint>
+              <swe:AllowedValues>
+                <swe:interval>-3.4028235E38 3.4028235E38</swe:interval>
+              </swe:AllowedValues>
+            </swe:constraint>
+          </swe:Quantity>
+        </swe:field>
+      </swe:DataRecord>
+    </gmlcov:rangeType>
+    <wcs:ServiceParameters>
+      <wcs:CoverageSubtype>RectifiedGridCoverage</wcs:CoverageSubtype>
+      <wcs:nativeFormat>image/tiff</wcs:nativeFormat>
+    </wcs:ServiceParameters>
+  </wcs:CoverageDescription>
+</wcs:CoverageDescriptions>

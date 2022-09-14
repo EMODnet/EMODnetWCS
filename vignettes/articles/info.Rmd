@@ -1,5 +1,5 @@
 ---
-title: "Getting metadata about services and available metadata"
+title: "Getting metadata about Services & Coverages"
 ---
 
 `EMODnetWCS` offers a number of functions to download and extract metadata about EMODnet WCS services and available coverages.
@@ -16,15 +16,24 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(httptest)
+start_vignette("article-info")
 ```
 
 First let's load the package and initiate a client to the `"biology"` EMODnet WCS server.
 
 ```{r setup}
 library(EMODnetWCS)
+```
 
+```{r start-recording, include = FALSE}
+#httptest::start_vignette("article-info")
+```
+
+```{r init}
 wcs <- emdn_init_wcs_client(service = "biology")
 ```
+
 
 ### Getting services level and coverage level summary metadata.
 
@@ -146,6 +155,17 @@ emdn_has_dimension(
   type = "vertical"
 )
 ```
+
+Or get the coefficients (points in a given dimension) at which data are available for specific coverages.
+```{r}
+emdn_get_coverage_dim_coefs(wcs,
+                            coverage_ids = c(
+                                "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+                                "Emodnetbio__cal_fin_19582016_L1_err" 
+                            ),
+                            type = "temporal")
+```
+
 
 More detailed metadata requires a further call to the server to a return an object of class [`<WCSCoverageSummary>`](https://eblondel.github.io/ows4R/reference/WCSCoverageSummary.html).
 
@@ -305,3 +325,8 @@ Get dimensions types of a coverage.
 emdn_get_dimension_types(summary)
 ```
 
+
+
+```{r stop-recording, include=FALSE}
+end_vignette()
+```
