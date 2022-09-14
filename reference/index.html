@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">EMODnetWCS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,8 +18,22 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/EMODnetWCS.html">Get started</a>
+</li>
+<li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/coverages.html">coverages</a>
+    <a class="dropdown-item" href="../articles/info.html">Getting metadata about Services &amp; Coverages</a>
+    <a class="dropdown-item" href="../articles/init.html">init</a>
+  </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -41,9 +55,62 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="connecting-to-emodnet-wcs-services">Connecting to EMODnet WCS Services<a class="anchor" aria-label="anchor" href="#connecting-to-emodnet-wcs-services"></a></h2>
+      
+      <p class="section-desc"></p><p>Get details of available EMODnet WCS services and create <code>&lt;WCSClient&gt;</code> class objects to connect to them.</p>
+
+      
+    </div><div id="" class="section level2">
       
       
+      
+
+      <dl><dt>
+          
+          <code><a href="emdn_wcs.html">emdn_wcs()</a></code> 
+        </dt>
+        <dd>Available EMODnet Web Coverage Services</dd>
+      </dl><dl><dt>
+          
+          <code><a href="emdn_init_wcs_client.html">emdn_init_wcs_client()</a></code> 
+        </dt>
+        <dd>Initialise an EMODnet WCS client</dd>
+      </dl></div><div class="section level2">
+      <h2 id="compile-metadata-about-emodnet-wcs-services-and-the-coverages-they-serve">Compile metadata about EMODnet WCS Services and the coverages they serve<a class="anchor" aria-label="anchor" href="#compile-metadata-about-emodnet-wcs-services-and-the-coverages-they-serve"></a></h2>
+      
+      <p class="section-desc"></p><p>Functions for compiling metadata on services and available coverages for easy review.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="emdn_get_wcs_info.html">emdn_get_wcs_info()</a></code> <code><a href="emdn_get_wcs_info.html">emdn_get_wcs_info_all()</a></code> <code><a href="emdn_get_wcs_info.html">emdn_get_coverage_info()</a></code> 
+        </dt>
+        <dd>Get EMODnet WCS service and available coverage information.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="extract-metadata-metadata-objects-from-a-object">Extract metadata &amp; metadata objects from a <code>&lt;WCSClient&gt;</code> object<a class="anchor" aria-label="anchor" href="#extract-metadata-metadata-objects-from-a-object"></a></h2>
+      
+      <p class="section-desc"></p><p>Functions for extracting a variety of both service and coverage level metadata including <code>&lt;WCSCoverageSummary&gt;</code> objects from a <code>&lt;WCSClient&gt;</code> object.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="emdn_get_coverage_summaries.html">emdn_get_coverage_summaries()</a></code> <code><a href="emdn_get_coverage_summaries.html">emdn_get_coverage_summaries_all()</a></code> <code><a href="emdn_get_coverage_summaries.html">emdn_get_coverage_ids()</a></code> <code><a href="emdn_get_coverage_summaries.html">emdn_has_dimension()</a></code> <code><a href="emdn_get_coverage_summaries.html">emdn_get_coverage_dim_coefs()</a></code> 
+        </dt>
+        <dd>Get metadata objects from a <code>WCSClient</code> object.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="extract-individual-coverage-level-metadata-from-a-object">Extract individual coverage level metadata from a <code>&lt;WCSCoverageSummary&gt;</code> object<a class="anchor" aria-label="anchor" href="#extract-individual-coverage-level-metadata-from-a-object"></a></h2>
+      
+      <p class="section-desc"></p><p>Functions for extracting individual metadata for specific coverages from a <code>&lt;WCSCoverageSummary&gt;</code> object.</p>
 
       
     </div><div id="" class="section level2">
@@ -56,38 +123,25 @@
           <code><a href="emdn_get_bbox.html">emdn_get_bbox()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_WGS84bbox()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_nil_value()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_band_name()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_uom()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_constraint()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_grid_size()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_resolution()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_coverage_function()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_temporal_extent()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_vertical_extent()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_dimensions_info()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_dimensions_names()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_dimensions_n()</a></code> <code><a href="emdn_get_bbox.html">emdn_get_dimension_types()</a></code> 
         </dt>
         <dd>Get coverage metadata from a <code>&lt;WCSCoverageSummary&gt;</code> object.</dd>
-      </dl><dl><dt>
+      </dl></div><div class="section level2">
+      <h2 id="download-a-coverage-from-a-emodnet-wcs-service">Download a coverage from a EMODnet WCS service<a class="anchor" aria-label="anchor" href="#download-a-coverage-from-a-emodnet-wcs-service"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="emdn_get_coverage.html">emdn_get_coverage()</a></code> 
         </dt>
         <dd>Get a coverage from an EMODnet WCS Service</dd>
-      </dl><dl><dt>
-          
-          <code><a href="emdn_get_coverage_dim_coefs.html">emdn_get_coverage_dim_coefs()</a></code> 
-        </dt>
-        <dd>Get temporal or vertical coefficients for a coverage</dd>
-      </dl><dl><dt>
-          
-          <code><a href="emdn_get_coverage_summaries.html">emdn_get_coverage_summaries()</a></code> <code><a href="emdn_get_coverage_summaries.html">emdn_get_coverage_summaries_all()</a></code> <code><a href="emdn_get_coverage_summaries.html">emdn_get_coverage_ids()</a></code> <code><a href="emdn_get_coverage_summaries.html">emdn_has_extent_type()</a></code> 
-        </dt>
-        <dd>Get metadata objects from a <code>WCSClient</code> object.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="emdn_get_wcs_info.html">emdn_get_wcs_info()</a></code> <code><a href="emdn_get_wcs_info.html">emdn_get_all_wcs_info()</a></code> <code><a href="emdn_get_wcs_info.html">emdn_get_coverage_info()</a></code> 
-        </dt>
-        <dd>Get EMODnet WCS service and available coverage information.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="emdn_init_wcs_client.html">emdn_init_wcs_client()</a></code> 
-        </dt>
-        <dd>Initialise an EMODnet WCS client</dd>
-      </dl><dl><dt>
-          
-          <code><a href="emdn_wcs.html">emdn_wcs()</a></code> 
-        </dt>
-        <dd>Available EMODnet Web Coverage Services</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

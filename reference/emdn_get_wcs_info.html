@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">EMODnetWCS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,8 +18,22 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/EMODnetWCS.html">Get started</a>
+</li>
+<li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/coverages.html">coverages</a>
+    <a class="dropdown-item" href="../articles/info.html">Getting metadata about Services &amp; Coverages</a>
+    <a class="dropdown-item" href="../articles/init.html">init</a>
+  </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -55,7 +69,7 @@
 <span>  logger <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NONE"</span>, <span class="st">"INFO"</span>, <span class="st">"DEBUG"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">emdn_get_all_wcs_info</span><span class="op">(</span>logger <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NONE"</span>, <span class="st">"INFO"</span>, <span class="st">"DEBUG"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">emdn_get_wcs_info_all</span><span class="op">(</span>logger <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NONE"</span>, <span class="st">"INFO"</span>, <span class="st">"DEBUG"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">emdn_get_coverage_info</span><span class="op">(</span></span>
 <span>  wcs <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -97,10 +111,10 @@ For available services, see <code><a href="emdn_wcs.html">emdn_wcs()</a></code>.
 level metadata, including a tibble containing coverage level metadata for each
 coverage available from the service. <code>emdn_get_coverage_info</code> returns a list
 containing a tibble of more detailed metadata for each coverage specified.</p><div class="section">
-<h3 id="emdn-get-wcs-info-emdn-get-all-wcs-info"><code>emdn_get_wcs_info</code> / <code>emdn_get_all_wcs_info</code><a class="anchor" aria-label="anchor" href="#emdn-get-wcs-info-emdn-get-all-wcs-info"></a></h3>
+<h3 id="emdn-get-wcs-info-emdn-get-wcs-info-all"><code>emdn_get_wcs_info</code> / <code>emdn_get_wcs_info_all</code><a class="anchor" aria-label="anchor" href="#emdn-get-wcs-info-emdn-get-wcs-info-all"></a></h3>
 
 
-<p><code>emdn_get_wcs_info</code> and <code>emdn_get_all_wcs_info</code> return a list with the
+<p><code>emdn_get_wcs_info</code> and <code>emdn_get_wcs_info_all</code> return a list with the
 following metadata:</p><ul><li><p><strong><code>data_source</code>:</strong> the EMODnet source of data.</p></li>
 <li><p><strong><code>service_name</code>:</strong> the EMODnet WCS service name.</p></li>
 <li><p><strong><code>service_url</code>:</strong> the EMODnet WCS service URL.</p></li>
@@ -156,6 +170,12 @@ contains no vertical dimension.</p></li>
 <li><p><strong><code>fn_seq_rule</code>:</strong> the function describing the sequence rule which specifies
 the relationship between the axes of data and coordinate system axes.</p></li>
 <li><p><strong><code>fn_start_point</code>:</strong> the location of the origin of the data in the coordinate system.</p></li>
+<li><p><strong><code>fn_axis_order</code>:</strong> the axis order and
+direction of mapping of values onto the grid, beginning at the starting point. For
+example, <code>"+2 +1"</code> indicates the value range is ordered from the bottom
+left to the top right of the grid envelope - lowest to highest in the x-axis
+direction first (<code>+2</code>), then lowest to highest in the y-axis direction (<code>+1</code>)
+from the <code>starting_point</code>.</p></li>
 </ul><p>For additional details on WCS metadata, see the GDAL wiki section on
 <a href="https://trac.osgeo.org/gdal/wiki/WCS%2Binteroperability" class="external-link">WCS Basics and GDAL</a></p>
 </div>
@@ -173,7 +193,7 @@ To clear the cache, re-start R or run <code>memoise::forget(emdn_get_wcs_info)</
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
     
 <ul><li><p><code>emdn_get_wcs_info</code>: Get info on all coverages from am EMODnet WCS service.</p></li>
-<li><p><code>emdn_get_all_wcs_info</code>: Get metadata on all services and all available
+<li><p><code>emdn_get_wcs_info_all</code>: Get metadata on all services and all available
 coverages from each service.</p></li>
 <li><p><code>emdn_get_coverage_info</code>: Get metadata for specific coverages. Requires a
 <code>WCSClient</code> R6 object as input.</p></li>
@@ -212,12 +232,16 @@ coverages from each service.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "urn:ogc:service:wcs"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $coverage_details</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   coverage_id         dim_n dim_n…¹ extent crs   wgs84…² tempo…³ verti…⁴ subtype</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> emodnet_open_mapli…     2 x(m):g… 34317… EPSG… -6.56,… NA      NA      Rectif…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> emodnet_open_mapli…     2 x(m):g… 34317… EPSG… -6.56,… NA      NA      Rectif…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> emodnet_open_mapli…     2 x(m):g… 34314… EPSG… -6.56,… NA      NA      Rectif…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> emodnet_open_mapli…     2 lat(de… -10.0… EPSG… -10.03… NA      NA      Rectif…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> emodnet_open_mapli…     2 lat(de… -10.0… EPSG… -10.01… NA      NA      Rectif…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> emodnet_open_mapli…     2 lat(de… -9.97… EPSG… -9.97,… NA      NA      Rectif…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> emodnet_open_mapli…     2 lat(de… -10.0… EPSG… -10.03… NA      NA      Rectif…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable names ¹​dim_names, ²​wgs84_bbox, ³​temporal_extent,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁴​vertical_extent</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -274,17 +298,17 @@ coverages from each service.</p></li>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">emdn_get_coverage_info</span><span class="op">(</span>wcs <span class="op">=</span> <span class="va">wcs</span>,</span></span>
 <span class="r-in"><span>                       coverage_ids <span class="op">=</span> <span class="va">coverage_ids</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 20</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 21</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   data_…¹ servi…² servi…³ cover…⁴ band_…⁵ band_…⁶ const…⁷ nil_va…⁸ dim_n dim_n…⁹</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> emodne… https:… seabed… emodne… GRAY_I… W.m-2.… 0, 1    -<span style="color: #BB0000;">3.40</span><span style="color: #949494;">e</span>38     2 x(m):g…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> emodne… https:… seabed… emodne… Probab… W.m-2.… -3.402… -<span style="color: #BB0000;">1.00</span><span style="color: #949494;">e</span> 4     2 x(m):g…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 10 more variables: grid_size &lt;chr&gt;, resolution &lt;chr&gt;, extent &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 11 more variables: grid_size &lt;chr&gt;, resolution &lt;chr&gt;, extent &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   crs &lt;chr&gt;, wgs84_extent &lt;chr&gt;, temporal_extent &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vertical_extent &lt;chr&gt;, subtype &lt;chr&gt;, fn_seq_rule &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fn_start_point &lt;chr&gt;, and abbreviated variable names ¹​data_source,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​service_name, ³​service_url, ⁴​coverage_id, ⁵​band_description, ⁶​band_uom,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁷​constraint, ⁸​nil_value, ⁹​dim_names</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fn_start_point &lt;chr&gt;, fn_axis_order &lt;chr&gt;, and abbreviated variable names</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​data_source, ²​service_name, ³​service_url, ⁴​coverage_id, ⁵​band_description,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁶​band_uom, ⁷​constraint, ⁸​nil_value, ⁹​dim_names</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

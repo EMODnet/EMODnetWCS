@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">EMODnetWCS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,8 +18,22 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/EMODnetWCS.html">Get started</a>
+</li>
+<li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/coverages.html">coverages</a>
+    <a class="dropdown-item" href="../articles/info.html">Getting metadata about Services &amp; Coverages</a>
+    <a class="dropdown-item" href="../articles/init.html">init</a>
+  </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -105,7 +119,7 @@ a vector of temporal coefficients specifying the
 time points for which coverage data should be returned.
 If <code>NULL</code> (default), the last time point is returned.
 To get a list of all available temporal coefficients,
-see <code><a href="emdn_get_coverage_dim_coefs.html">emdn_get_coverage_dim_coefs</a></code>. For a single time point, a
+see <code><a href="emdn_get_coverage_summaries.html">emdn_get_coverage_dim_coefs</a></code>. For a single time point, a
 <code>SpatRaster</code> is returned. For more than one time points, <code>SpatRaster</code> stack
 is returned.</p></dd>
 
@@ -116,7 +130,7 @@ a vector of vertical coefficients specifying the
 elevation for which coverage data should be returned.
 If <code>NULL</code> (default), the last elevation is returned.
 To get a list of all available vertical coefficients,
-see <code><a href="emdn_get_coverage_dim_coefs.html">emdn_get_coverage_dim_coefs</a></code>. For a single elevation, a
+see <code><a href="emdn_get_coverage_summaries.html">emdn_get_coverage_dim_coefs</a></code>. For a single elevation, a
 <code>SpatRaster</code> is returned. For more than one elevation, <code>SpatRaster</code> stack
 is returned.</p></dd>
 

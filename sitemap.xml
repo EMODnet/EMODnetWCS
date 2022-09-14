@@ -10,19 +10,34 @@
     <loc>https://emodnet.github.io/EMODnetWCS/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/articles/EMODnetWCS.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/articles/coverages.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/articles/info.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/articles/init.html</loc>
+  </url>
+  <url>
     <loc>https://emodnet.github.io/EMODnetWCS/authors.html</loc>
   </url>
   <url>
     <loc>https://emodnet.github.io/EMODnetWCS/index.html</loc>
   </url>
   <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/news/index.html</loc>
+  </url>
+  <url>
     <loc>https://emodnet.github.io/EMODnetWCS/reference/emdn_get_bbox.html</loc>
   </url>
   <url>
     <loc>https://emodnet.github.io/EMODnetWCS/reference/emdn_get_coverage.html</loc>
-  </url>
-  <url>
-    <loc>https://emodnet.github.io/EMODnetWCS/reference/emdn_get_coverage_dim_coefs.html</loc>
   </url>
   <url>
     <loc>https://emodnet.github.io/EMODnetWCS/reference/emdn_get_coverage_summaries.html</loc>
