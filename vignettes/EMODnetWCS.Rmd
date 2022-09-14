@@ -1,0 +1,70 @@
+---
+title: "Get Started with EMODnetWCS"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## WCS Basics
+
+
+The [Web Coverage Service (WCS)](https://www.ogc.org/standards/wcs) is a standard issued by the Open Geospatial Consortium (OGC). It is designed to simplify remote access to coverages, commonly known as raster maps in GIS. WCS functions over the HTTP protocol, setting out how to obtain data and meta-data using the requests available in the protocol. In practice it allows metadata and raster maps to be obtained from a web browser or from any other programme that uses the protocol.
+
+The standard is composed by three core requests, each with a particular purpose:
+
+1. `GetCapabilities`: This request provides information on a particular service.
+2. `DescribeCoverage`: This request To provides more detailed information about a particular coverage.
+3. `GetCoverage`: This request that actually obtains coverage data.
+
+WCS requests are handled in `EMODnetWCS` through package [`ows4R`](https://eblondel.github.io/ows4R/). `ows4R` uses [`R6` classes](https://r6.r-lib.org/articles/Introduction.html) and implements an encapsulated object-oriented programming paradigm which may be unfamiliar to some R users. `EMODnetWCS` wraps `ows4R` and aims to provide more familiar workflows and return more familiar, usable and easy to review outputs. It also provides checks and validations to ensure smooth and easy interaction with EMODnet WCS services. You can however use `ows4R` with any of the EMODnet WCS endpoints if you prefer.
+
+## EMODnet WCS Services
+
+The EMODnet portals provide a number Web Coverage Services (WCS) to support requests for coverage data (rasters) or gridded data products.
+
+
+```{r setup}
+library(EMODnetWCS)
+```
+
+### Available services
+
+```{r}
+emdn_wcs()
+```
+
+
+```{r}
+wcs <- emdn_init_wcs_client("biology")
+
+wcs
+```
+
+This returns an R6 object of class [`<WCSClient>`]. You can use any of the methods provided within the class should you wish (see `ows4R` for details).  `EMODnetWCS` however provides a host of functions for extracting/compiling useful metadata in a variety of forms as well downloading raster data from EMODnetWCS service.
+
+
+
+```{r}
+wcs <- emdn_init_wcs_client("biology", logger = "INFO")
+```
+
+
+```{r}
+wcs <- emdn_init_wcs_client("biology", logger = "DEBUG")
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+wcs <- emdn_init_wcs_client("biology")
+```
+
+
+

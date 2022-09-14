@@ -2,7 +2,7 @@
 % Please edit documentation in R/info.R
 \name{emdn_get_wcs_info}
 \alias{emdn_get_wcs_info}
-\alias{emdn_get_all_wcs_info}
+\alias{emdn_get_wcs_info_all}
 \alias{emdn_get_coverage_info}
 \title{Get EMODnet WCS service and available coverage information.}
 \usage{
@@ -13,7 +13,7 @@ emdn_get_wcs_info(
   logger = c("NONE", "INFO", "DEBUG")
 )
 
-emdn_get_all_wcs_info(logger = c("NONE", "INFO", "DEBUG"))
+emdn_get_wcs_info_all(logger = c("NONE", "INFO", "DEBUG"))
 
 emdn_get_coverage_info(
   wcs = NULL,
@@ -40,9 +40,9 @@ For available services, see \code{\link[=emdn_wcs]{emdn_wcs()}}.}
 level metadata, including a tibble containing coverage level metadata for each
 coverage available from the service. \code{emdn_get_coverage_info} returns a list
 containing a tibble of more detailed metadata for each coverage specified.
-\subsection{\code{emdn_get_wcs_info} / \code{emdn_get_all_wcs_info}}{
+\subsection{\code{emdn_get_wcs_info} / \code{emdn_get_wcs_info_all}}{
 
-\code{emdn_get_wcs_info} and \code{emdn_get_all_wcs_info} return a list with the
+\code{emdn_get_wcs_info} and \code{emdn_get_wcs_info_all} return a list with the
 following metadata:
 \itemize{
 \item \strong{\code{data_source}:} the EMODnet source of data.
@@ -101,6 +101,12 @@ contains no vertical dimension.
 \item \strong{\code{fn_seq_rule}:} the function describing the sequence rule which specifies
 the relationship between the axes of data and coordinate system axes.
 \item \strong{\code{fn_start_point}:} the location of the origin of the data in the coordinate system.
+\item \strong{\code{fn_axis_order}:} the axis order and
+direction of mapping of values onto the grid, beginning at the starting point. For
+example, \code{"+2 +1"} indicates the value range is ordered from the bottom
+left to the top right of the grid envelope - lowest to highest in the x-axis
+direction first (\code{+2}), then lowest to highest in the y-axis direction (\code{+1})
+from the \code{starting_point}.
 }
 
 For additional details on WCS metadata, see the GDAL wiki section on
@@ -120,7 +126,7 @@ To clear the cache, re-start R or run \code{memoise::forget(emdn_get_wcs_info)}/
 \itemize{
 \item \code{emdn_get_wcs_info}: Get info on all coverages from am EMODnet WCS service.
 
-\item \code{emdn_get_all_wcs_info}: Get metadata on all services and all available
+\item \code{emdn_get_wcs_info_all}: Get metadata on all services and all available
 coverages from each service.
 
 \item \code{emdn_get_coverage_info}: Get metadata for specific coverages. Requires a

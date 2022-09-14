@@ -16,10 +16,11 @@ test_that("extent & crs processed correctly", {
 
 
 test_that("dimensions processed correctly", {
+    wcs <- create_biology_wcs()
     summary <- create_biology_summary()[[1]]
     with_mock_dir("biology-description",
                   {expect_equal(emdn_get_grid_size(summary),
-                                c(ncol_x = 951, nrow_y = 401))
+                                c(ncol = 951, nrow = 401))
                       expect_equal(emdn_get_resolution(summary),
                                    structure(
                                        c(x = 0.1,
@@ -30,11 +31,23 @@ test_that("dimensions processed correctly", {
                       expect_equal(emdn_get_dimensions_info(summary),
                                    structure("lat(deg):geographic; long(deg):geographic; time(s):temporal",
                                              class = c("glue", "character")))
+                      expect_equal(emdn_get_dimensions_n(summary), 3)
                       expect_equal(emdn_get_temporal_extent(summary),
                                    c("1958-02-16T00:00:00.000Z", "2016-11-16T00:00:00.000Z"))
+                      expect_equal(emdn_get_dimension_types(summary),
+                                   c("geographic", "geographic", "temporal"))
+                      expect_equal(emdn_get_dimensions_names(summary),
+                                   "Lat (Deg), Long (Deg), time (s)")
                       expect_equal(emdn_get_vertical_extent(summary), NA)
                       expect_length(emdn_get_dimensions_info(summary, format = "list"), 3)
                       expect_snapshot(emdn_get_dimensions_info(summary, format = "tibble"))
+                      expect_snapshot(
+                          emdn_get_coverage_dim_coefs(
+                              wcs,
+                              coverage_id = "Emodnetbio__aca_spp_19582016_L1")
+                      )
+
+
                   })
 
 })
@@ -50,7 +63,8 @@ test_that("rangeType processed correctly", {
                                    c(-3.4028235e+38, 3.4028235e+38))
                       expect_equal(emdn_get_coverage_function(summary),
                                    list(sequence_rule = "Linear",
-                                        start_point = c(0, 0)))
+                                        start_point = c(0, 0),
+                                        axis_order = c("+2", "+1")))
                   })
 
 })

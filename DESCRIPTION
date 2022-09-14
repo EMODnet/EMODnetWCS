@@ -1,6 +1,6 @@
 Package: EMODnetWCS
 Title: Access EMODnet Web Coverage Service data through R
-Version: 0.0.0.9009
+Version: 0.0.0.9010
 Authors@R: c(
     person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = "aut",
            comment = c(ORCID = "0000-0002-2378-4915")),
@@ -28,6 +28,9 @@ Suggests:
     covr,
     fs,
     httptest,
+    huxtable,
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0),
     webmockr,
     withr
@@ -43,3 +46,4 @@ BugReports: https://github.com/EMODnet/EMODnetWCS/issues
 Depends: 
     R (>= 4.1), ows4R (>= 0.3-1)
 LazyData: true
+VignetteBuilder: knitr

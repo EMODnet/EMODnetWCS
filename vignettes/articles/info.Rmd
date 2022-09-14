@@ -1,0 +1,332 @@
+---
+title: "Getting metadata about Services & Coverages"
+---
+
+`EMODnetWCS` offers a number of functions to download and extract metadata about EMODnet WCS services and available coverages.
+
+Metadata include information about each service, the coverages served by the server and information about individual coverages including the geographic, temporal and elevation extents, grid sizes and resolution, coverage coordinate reference systems and how grid coordinates relate to geographic coordinates as well as the names, units and ranges of bands contained in a coverage.
+
+There are functions for downloading compiled metadata for easy review as well as for extracting individual metadata in more usable forms.
+
+## Downloading & extracting compiled metadata on services and coverages.
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(httptest)
+start_vignette("article-info")
+```
+
+First let's load the package and initiate a client to the `"biology"` EMODnet WCS server.
+
+```{r setup}
+library(EMODnetWCS)
+```
+
+```{r start-recording, include = FALSE}
+#httptest::start_vignette("article-info")
+```
+
+```{r init}
+wcs <- emdn_init_wcs_client(service = "biology")
+```
+
+
+### Getting services level and coverage level summary metadata.
+
+To get service level and a subset of coverage level compiled metadata, we can use function `emdn_get_wcs_info()`.
+
+We can supply a [`<WCSClient>`](https://eblondel.github.io/ows4R/reference/WCSClient.html) object through argument `wcs` to get compiled metadata from the server.
+
+```{r wcs-info}
+wcs_info <- emdn_get_wcs_info(wcs = wcs)
+
+wcs_info
+```
+
+
+You can get the same informationby supplying a service name to argument `service` instead of a `<WCSClient>` object to argument `wcs`.
+
+```{r wcs-info-name}
+emdn_get_wcs_info(service = "biology")
+```
+
+
+The function returns a list of service level metadata which includes a tibble of summaries of coverage level metadata in the `coverage_details` element.
+
+Let's take a closer look at the metadata in `coverage_details`. For details on these metadata, have a look at the `emdn_get_wcs_info()` help page (or use `?emdn_get_wcs_info` in R or Rstudio). 
+
+
+```{r coverage_details, echo=FALSE}
+library(huxtable)
+hux(wcs_info$coverage_details) |>
+    style_cells(1, everywhere, bold = TRUE) |>
+    style_cells(everywhere, 1, bold = TRUE) |>
+    set_font_size(everywhere, everywhere, 10)
+    
+```
+
+You can get metadata for all EMODnet WCS services using `emdn_get_wcs_info_all()`. Note however that this can take a long time to execute.
+
+
+```{r all-info, eval=FALSE}
+emdn_get_wcs_info_all()
+```
+
+### Getting coverage level detailed metadata
+
+You can get more detailed coverage metadata about specific coverage using function `emdn_get_coverage_info()` and supplying a character vector of `coverage_ids`. Again, you can get the same information by supplying a service name to argument `service` instead of a `<WCSClient>` object to argument `wcs`.
+
+```{r cov-info}
+cov_info <- emdn_get_coverage_info(wcs, 
+                                   coverage_ids = c(
+                                       "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+                                       "Emodnetbio__aca_spp_19582016_L1"
+                                   )
+)
+
+cov_info
+```
+
+The function returns a tibble of detailed coverage level metadata. Let's take a closer look. 
+
+For details on these metadata, have a look at the `emdn_get_coverage_info()` help page (or use `?emdn_get_coverage_info` in R or Rstudio). 
+
+
+
+```{r coverage_info-table, echo=FALSE}
+library(huxtable)
+hux(cov_info) |>
+    style_cells(1, everywhere, bold = TRUE) |>
+    style_cells(everywhere, 1, bold = TRUE) |>
+    set_font_size(everywhere, everywhere, 10)
+    
+```
+
+
+
+<div class="alert alert-info" role="alert">
+
+> <i class="fa-solid fa-info"></i> **Note** 
+>
+> To minimize the number of requests sent to webservices, these functions use [`memoise`](https://memoise.r-lib.org/) to cache results inside the active R session.
+> To clear the cache, re-start R or run `memoise::forget(emdn_get_wcs_info)`/`memoise::forget(emdn_get_coverage_info)`
+
+</div>
+
+### Getting individual coverage level metadata
+
+The above functions compile and concatenate metadata into primarily tabular form for easier review. However the package offers a number of functions for extracting individual metadata in more usable forms.
+
+#### Getting metadata from a `<WCSClient>` object.
+
+Some metadata can be retrieved directly from a `<WCSClient>` object.
+
+##### Get coverage_ids
+
+You can extract a character vector of available coverage IDs from a service with function `emdn_get_coverage_ids()`
+
+```{r}
+emdn_get_coverage_ids(wcs)
+```
+
+You can also check whether a coverage has a given type of dimension.
+```{r}
+# Check for temporal dimension
+emdn_has_dimension(
+  wcs,
+  coverage_ids = c(
+      "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+      "Emodnetbio__cal_fin_19582016_L1_err" 
+  ),
+  type = "temporal"
+)
+
+# Check for vertical dimension
+emdn_has_dimension(
+  wcs,
+  coverage_ids = c(
+      "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+      "Emodnetbio__cal_fin_19582016_L1_err" 
+  ),
+  type = "vertical"
+)
+```
+
+Or get the coefficients (points in a given dimension) at which data are available for specific coverages.
+```{r}
+emdn_get_coverage_dim_coefs(wcs,
+                            coverage_ids = c(
+                                "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+                                "Emodnetbio__cal_fin_19582016_L1_err" 
+                            ),
+                            type = "temporal")
+```
+
+
+More detailed metadata requires a further call to the server to a return an object of class [`<WCSCoverageSummary>`](https://eblondel.github.io/ows4R/reference/WCSCoverageSummary.html).
+
+
+You can use `emdn_get_coverage_summaries()` to get `<WCSCoverageSummary>` objects for specific coverages.
+```{r}
+summaries <- emdn_get_coverage_summaries(wcs,
+                                         coverage_ids = c(
+                                             "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+                                             "Emodnetbio__cal_fin_19582016_L1_err" 
+                                         )
+)
+
+summaries
+```
+
+Alternativelly you can request `<WCSCoverageSummary>` objects for all coverages available from a service.
+
+```{r get-sums-all, eval=FALSE}
+emdn_get_coverage_summaries_all(wcs)
+```
+
+Both functions return a list of objects of class `<WCSCoverageSummary>`, one for each coverage requested / available through the service.
+
+**These objects can then be used to extract individual metadata.**
+
+#### Getting metadata from a `<WCSCoverageSummary>` object.
+
+Once you have obtained a `<WCSCoverageSummary>` object for a coverage you are interested in, you can extract a number of metadata in more usable forms.
+
+Let's work with a single `<WCSCoverageSummary>` object returned in the previous step for coverage `"Emodnetbio__ratio_large_to_small_19582016_L1_err"`.
+
+```{r}
+summary <- summaries[[1]]
+```
+
+
+##### `emdn_get_bbox()`
+
+Get the bounding box (geographic extent) of a coverage. Coordinates are given in the same Coordinate Reference System as the coverage.
+
+##### Get bbox
+
+Get the bounding box (geographic extent) of a coverage. Coordinates are given in the same Coordinate Reference System of the the coverage.
+```{r}
+emdn_get_bbox(summary)
+```
+
+##### Get WGS84 bbox
+
+Get the bounding box (geographic extent) of a coverage in World Geodetic System 1984 (WGS84) Coordinate Reference System (or EPSG:4326).
+```{r}
+emdn_get_WGS84bbox(summary)
+```
+
+
+##### Get the nil value of a coverage
+
+Get the value representing nil values in a coverage.
+```{r}
+emdn_get_nil_value(summary)
+```
+
+##### Get coverage band names
+
+Get the band names of a coverage.
+```{r}
+emdn_get_band_name(summary)
+```
+
+
+##### Get band units of measurement
+
+Get the units of measurement of the data contained in the bands values of a coverage.
+```{r}
+emdn_get_uom(summary)
+```
+
+
+##### Get range of band values
+
+Get the range of values of the data contained in the bands of the coverage.
+```{r}
+emdn_get_constraint(summary)
+```
+
+##### Get coverage grid size
+
+Get the grid size of a coverage.
+```{r}
+emdn_get_grid_size(summary)
+```
+
+
+##### Get coverage resolution
+
+Get the resolution of a coverage.
+```{r}
+emdn_get_resolution(summary)
+```
+
+
+##### Get coverage grid function
+
+Get the grid function of a coverage.
+```{r}
+emdn_get_coverage_function(summary)
+```
+
+
+##### Get the extent of the temporal dimension
+
+Get the temporal extent of a coverage.
+```{r}
+emdn_get_temporal_extent(summary)
+```
+
+
+##### Get the extent of the vertical dimension
+
+Get the vertical (elevation) extent of a coverage.
+```{r}
+emdn_get_vertical_extent(summary)
+```
+
+##### Get information about coverage dimensions in various formats
+
+Get information on dimensions of a coverage in various formats. Information includes dimension label, type, unit and range (in tibble format).
+```{r}
+emdn_get_dimensions_info(summary)
+emdn_get_dimensions_info(summary, format = "list")
+emdn_get_dimensions_info(summary, format = "tibble")
+```
+
+
+##### Get dimension names
+
+Get coverage dimension names (labels) and units.
+```{r}
+emdn_get_dimensions_names(summary)
+```
+
+
+
+##### Get number of dimensions
+
+Get number of coverage dimensions.
+```{r}
+emdn_get_dimensions_n(summary)
+```
+
+
+##### Get dimensions types
+
+Get dimensions types of a coverage.
+```{r}
+emdn_get_dimension_types(summary)
+```
+
+
+
+```{r stop-recording, include=FALSE}
+end_vignette()
+```

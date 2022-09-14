@@ -6,3 +6,4 @@
 attic/*
 *.tif
 docs
+inst/doc

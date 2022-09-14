@@ -57,9 +57,9 @@
 #' coverage available from the service. `emdn_get_coverage_info` returns a list
 #' containing a tibble of more detailed metadata for each coverage specified.
 #'
-#' ## `emdn_get_wcs_info` / `emdn_get_all_wcs_info`
+#' ## `emdn_get_wcs_info` / `emdn_get_wcs_info_all`
 #'
-#' `emdn_get_wcs_info` and `emdn_get_all_wcs_info` return a list with the
+#' `emdn_get_wcs_info` and `emdn_get_wcs_info_all` return a list with the
 #' following metadata:
 #' - **`data_source`:** the EMODnet source of data.
 #' - **`service_name`:** the EMODnet WCS service name.
@@ -112,6 +112,12 @@
 #' - **`fn_seq_rule`:** the function describing the sequence rule which specifies
 #' the relationship between the axes of data and coordinate system axes.
 #' - **`fn_start_point`:** the location of the origin of the data in the coordinate system.
+#' - **`fn_axis_order`:** the axis order and
+#'   direction of mapping of values onto the grid, beginning at the starting point. For
+#'   example, `"+2 +1"` indicates the value range is ordered from the bottom
+#'   left to the top right of the grid envelope - lowest to highest in the x-axis
+#'   direction first (`+2`), then lowest to highest in the y-axis direction (`+1`)
+#'   from the `starting_point`.
 #'
 #' For additional details on WCS metadata, see the GDAL wiki section on
 #' [WCS Basics and GDAL](https://trac.osgeo.org/gdal/wiki/WCS%2Binteroperability)
@@ -134,7 +140,7 @@
 emdn_get_wcs_info <- memoise::memoise(.emdn_get_wcs_info)
 
 
-.emdn_get_all_wcs_info <- function(logger = c("NONE", "INFO", "DEBUG")) {
+.emdn_get_wcs_info_all <- function(logger = c("NONE", "INFO", "DEBUG")) {
     purrr::map(
         emdn_wcs()$service_name,
         ~ suppressMessages(emdn_get_wcs_info(service = .x,
@@ -146,7 +152,7 @@ emdn_get_wcs_info <- memoise::memoise(.emdn_get_wcs_info)
 #' @describeIn emdn_get_wcs_info Get metadata on all services and all available
 #' coverages from each service.
 #' @export
-emdn_get_all_wcs_info <- memoise::memoise(.emdn_get_all_wcs_info)
+emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
 
 .emdn_get_coverage_info <- function(wcs = NULL, service = NULL,
                                            coverage_ids,
@@ -205,6 +211,10 @@ emdn_get_all_wcs_info <- memoise::memoise(.emdn_get_all_wcs_info)
         fn_start_point = purrr::map_chr(summaries,
                                         ~error_wrap(
                                             emdn_get_coverage_function(.x)$start_point |>
+                                                paste(collapse = ","))),
+        fn_axis_order = purrr::map_chr(summaries,
+                                        ~error_wrap(
+                                            emdn_get_coverage_function(.x)$axis_order |>
                                                 paste(collapse = ",")))
     )
 }
@@ -222,54 +232,4 @@ emdn_get_all_wcs_info <- memoise::memoise(.emdn_get_all_wcs_info)
 #' @export
 emdn_get_coverage_info <- memoise::memoise(.emdn_get_coverage_info)
 
-#' Get temporal or vertical coefficients for a coverage
-#' @param wcs A `WCSClient` R6 object, created with function [`emdn_init_wcs_client`].
-#' @param coverage_id character string. Coverage ID.
-#' @param type character string. The dimension type for which
-#' coefficients will be returned.
-#'
-#' @return a vector of coefficients.
-#' @export
-#'
-#' @examples
-#' wcs <- emdn_init_wcs_client(service =  "biology")
-#' emdn_get_coverage_dim_coefs(wcs,
-#'                               "Emodnetbio__ratio_large_to_small_19582016_L1_err")
-emdn_get_coverage_dim_coefs <- function(wcs,
-                                           coverage_id,
-                                           type = c("temporal",
-                                                    "vertical")) {
 
-    type <- match.arg(type)
-    checkmate::assert_character(coverage_id, len = 1)
-    check_extent_type <- emdn_has_extent_type(wcs,
-                                         coverage_id,
-                                         type)
-
-    if (check_extent_type) {
-        summary <- emdn_get_coverage_summaries(wcs, coverage_id)[[1]]
-        dim_type_id <- which(emdn_get_dimension_types(summary) == type)
-
-        coefs <- summary |>
-            emdn_get_dimensions_info(
-                format = "list",
-                include_coeffs = TRUE) |>
-            purrr::pluck(dim_type_id,
-                         "coefficients") |>
-            unlist()
-
-        attr(coefs, "type") <- glue::glue(
-            "{type}_coefficents"
-            )
-
-        return(coefs)
-
-    } else {
-        cli::cli_warn(
-            "{.field coverage_id} {.val {coverage_id}}
-            has no {.val {type}} dimension."
-        )
-
-        return(NA)
-    }
-}
