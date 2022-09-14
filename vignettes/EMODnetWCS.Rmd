@@ -7,11 +7,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r gs-setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+library(httptest)
+start_vignette("get-started")
 ```
 
 ## WCS Basics
@@ -19,7 +22,9 @@ knitr::opts_chunk$set(
 
 The [Web Coverage Service (WCS)](https://www.ogc.org/standards/wcs) is a standard issued by the Open Geospatial Consortium (OGC). It is designed to simplify remote access to coverages, commonly known as raster maps in GIS. WCS functions over the HTTP protocol, setting out how to obtain data and meta-data using the requests available in the protocol. In practice it allows metadata and raster maps to be obtained from a web browser or from any other programme that uses the protocol.
 
-The standard is composed by three core requests, each with a particular purpose:
+An important distinction must be made between WCS and Web Map Service (WMS). They are similar, and can return similar formats, but a WCS is able to return more information, including valuable metadata and more formats. It additionally allows more precise queries, potentially against multi-dimensional backend formats.
+
+The WCS standard is composed by three core requests, each with a particular purpose:
 
 1. `GetCapabilities`: This request provides information on a particular service.
 2. `DescribeCoverage`: This request To provides more detailed information about a particular coverage.
@@ -29,34 +34,41 @@ WCS requests are handled in `EMODnetWCS` through package [`ows4R`](https://eblon
 
 ## EMODnet WCS Services
 
-The EMODnet portals provide a number Web Coverage Services (WCS) to support requests for coverage data (rasters) or gridded data products.
+The EMODnet portals provide a number of Web Coverage Services (WCS) to support requests for coverage data (rasters) or gridded data products.
 
+### Available services
+
+To view the available services and their endpoints, you can use `emdn_wcs()`
 
 ```{r setup}
 library(EMODnetWCS)
 ```
 
-### Available services
-
 ```{r}
 emdn_wcs()
 ```
 
+The `service_name` column contains the service names that can be used to establish connections and make requests to EMODnet WCS services.
+
+## Connecting to EMODnet WCS Services
+
+Before we can make requests to any of the services, we first need to create new WCS Client.  We specify the service we want to connect to using the `service` argument. 
 
 ```{r}
 wcs <- emdn_init_wcs_client("biology")
-
-wcs
 ```
 
-This returns an R6 object of class [`<WCSClient>`]. You can use any of the methods provided within the class should you wish (see `ows4R` for details).  `EMODnetWCS` however provides a host of functions for extracting/compiling useful metadata in a variety of forms as well downloading raster data from EMODnetWCS service.
+There are options for capturing and displaying 
 
+Level of logger: 
 
+- `'NONE'` (the default) for no logger. 
+- `'INFO'` includes `ows4R` logs.
 
 ```{r}
 wcs <- emdn_init_wcs_client("biology", logger = "INFO")
 ```
-
+- `'DEBUG'` for all internal logs (such as as Curl details)
 
 ```{r}
 wcs <- emdn_init_wcs_client("biology", logger = "DEBUG")
@@ -66,5 +78,23 @@ wcs <- emdn_init_wcs_client("biology", logger = "DEBUG")
 wcs <- emdn_init_wcs_client("biology")
 ```
 
+This returns an R6 object of class [`<WCSClient>`]. 
+
+```{r}
+wcs
+```
+
+You can use any of the methods provided within the class should you wish (see `ows4R` for details).  
+
+```{r}
+wcs$getUrl()
+
+wcs$loggerType
+```
 
 
+`EMODnetWCS` however provides a host of functions for extracting/compiling useful metadata in a variety of forms as well downloading raster data from EMODnetWCS service.
+
+```{r gs-stop-recording, include=FALSE}
+end_vignette()
+```

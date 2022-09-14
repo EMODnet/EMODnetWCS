@@ -83,9 +83,9 @@ You can get more detailed coverage metadata about specific coverage using functi
 ```{r cov-info}
 cov_info <- emdn_get_coverage_info(wcs, 
                                    coverage_ids = c(
-                                       "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-                                       "Emodnetbio__aca_spp_19582016_L1"
-                                   )
+      "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+      "Emodnetbio__cal_fin_19582016_L1_err" 
+  )
 )
 
 cov_info
@@ -160,9 +160,9 @@ Or get the coefficients (points in a given dimension) at which data are availabl
 ```{r}
 emdn_get_coverage_dim_coefs(wcs,
                             coverage_ids = c(
-                                "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-                                "Emodnetbio__cal_fin_19582016_L1_err" 
-                            ),
+      "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+      "Emodnetbio__cal_fin_19582016_L1_err" 
+  ),
                             type = "temporal")
 ```
 
@@ -174,9 +174,9 @@ You can use `emdn_get_coverage_summaries()` to get `<WCSCoverageSummary>` object
 ```{r}
 summaries <- emdn_get_coverage_summaries(wcs,
                                          coverage_ids = c(
-                                             "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-                                             "Emodnetbio__cal_fin_19582016_L1_err" 
-                                         )
+      "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+      "Emodnetbio__cal_fin_19582016_L1_err" 
+  )
 )
 
 summaries
