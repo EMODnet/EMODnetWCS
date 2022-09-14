@@ -7,14 +7,15 @@
 #' coverages.
 #'
 #' @inheritParams emdn_get_coverage_info
-#' @param type a coverage dimension type. One of `"temporal"`, `"vertical"` or
-#' `"geographic"`.
+#' @param type a coverage dimension type. One of `"temporal"` or `"vertical"`.
 #' @return
 #'  - `emdn_get_coverage_summaries`: returns a list of objects of class
 #'  `<WCSCoverageSummary>` for each `coverage_id` provided.
 #'  - `emdn_get_coverage_summaries_all`: returns a list of objects of class
 #'  `<WCSCoverageSummary>` for each coverage avalable through the service.
 #'  - `emdn_get_coverage_ids` returns a character vector of coverage ids.
+#'  - `emdn_get_coverage_dim_coefs` returns a list containing a vector of
+#'  coefficients for each coverage requested.
 #' @describeIn emdn_get_coverage_summaries Get summaries for specific coverages.
 #' @export
 #'
@@ -30,8 +31,13 @@
 #'                      type = "vertical")
 #' emdn_get_coverage_summaries(wcs, cov_ids[1:2])
 #' emdn_get_coverage_summaries_all(wcs)
+#' emdn_get_coverage_dim_coefs(wcs,
+#'                             cov_ids[1:2],
+#'                             type = "temporal")
 emdn_get_coverage_summaries <- function(wcs, coverage_ids) {
-    coverage_ids |> purrr::map(~get_capabilities(wcs)$findCoverageSummaryById(.x, exact = TRUE))
+    coverage_ids |>
+        purrr::map(~get_capabilities(wcs)$findCoverageSummaryById(.x,
+                                                                  exact = TRUE))
 }
 
 #' @describeIn emdn_get_coverage_summaries Get summaries for all available
@@ -51,11 +57,10 @@ emdn_get_coverage_ids <- function(wcs) {
 }
 
 #' @describeIn emdn_get_coverage_summaries check whether a coverage has a
-#' particular dimension.
+#' temporal or vertical dimension.
 #' @export
 emdn_has_dimension <- function(wcs, coverage_ids,
-                                 type = c("temporal", "vertical",
-                                          "geographic")) {
+                                 type = c("temporal", "vertical")) {
     check_coverages(wcs, coverage_ids)
     type <- match.arg(type)
 
@@ -66,6 +71,63 @@ emdn_has_dimension <- function(wcs, coverage_ids,
         purrr::map_lgl(~any(.x$type == type)) |>
         stats::setNames(coverage_ids)
 }
+
+#' @return a list containing a vector of coefficients for each coverage
+#' requested.
+#' @describeIn emdn_get_coverage_summaries Get temporal or
+#' vertical coefficients for a coverage.
+#' @export
+emdn_get_coverage_dim_coefs <- function(wcs,
+                                        coverage_ids,
+                                        type = c("temporal",
+                                                 "vertical")) {
+
+    type <- match.arg(type)
+    validate_coverage_ids(wcs, coverage_ids)
+
+
+    get_cov_coefs <- function(coverage_id, wcs, type) {
+        check_extent_type <- emdn_has_dimension(wcs,
+                                                coverage_id,
+                                                type)
+        if (check_extent_type) {
+            summary <- emdn_get_coverage_summaries(wcs,
+                                                   coverage_id)[[1]]
+            dim_type_id <- which(
+                emdn_get_dimension_types(summary) == type
+                )
+
+            coefs <- summary |>
+                emdn_get_dimensions_info(
+                    format = "list",
+                    include_coeffs = TRUE) |>
+                purrr::pluck(dim_type_id,
+                             "coefficients") |>
+                unlist()
+
+            attr(coefs, "type") <- glue::glue(
+                "{type}_coefficents"
+            )
+
+            return(coefs)
+
+        } else {
+            cli::cli_warn(
+                "{.field coverage_id} {.val {coverage_id}}
+            has no {.val {type}} dimension."
+            )
+
+            return(NA)
+        }
+    }
+
+    purrr::map(coverage_ids,
+               ~get_cov_coefs(.x,
+                              wcs = wcs,
+                              type = type)) |>
+        stats::setNames(coverage_ids)
+}
+
 # ---- summary utils ----
 
 #' Get coverage metadata from a `<WCSCoverageSummary>` object.

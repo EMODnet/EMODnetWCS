@@ -5,6 +5,7 @@
 \alias{emdn_get_coverage_summaries_all}
 \alias{emdn_get_coverage_ids}
 \alias{emdn_has_dimension}
+\alias{emdn_get_coverage_dim_coefs}
 \title{Get metadata objects from a \code{WCSClient} object.}
 \usage{
 emdn_get_coverage_summaries(wcs, coverage_ids)
@@ -13,10 +14,12 @@ emdn_get_coverage_summaries_all(wcs)
 
 emdn_get_coverage_ids(wcs)
 
-emdn_has_dimension(
+emdn_has_dimension(wcs, coverage_ids, type = c("temporal", "vertical"))
+
+emdn_get_coverage_dim_coefs(
   wcs,
   coverage_ids,
-  type = c("temporal", "vertical", "geographic")
+  type = c("temporal", "vertical")
 )
 }
 \arguments{
@@ -24,8 +27,7 @@ emdn_has_dimension(
 
 \item{coverage_ids}{character vector of coverage IDs.}
 
-\item{type}{a coverage dimension type. One of \code{"temporal"}, \code{"vertical"} or
-\code{"geographic"}.}
+\item{type}{a coverage dimension type. One of \code{"temporal"} or \code{"vertical"}.}
 }
 \value{
 \itemize{
@@ -34,7 +36,12 @@ emdn_has_dimension(
 \item \code{emdn_get_coverage_summaries_all}: returns a list of objects of class
 \verb{<WCSCoverageSummary>} for each coverage avalable through the service.
 \item \code{emdn_get_coverage_ids} returns a character vector of coverage ids.
+\item \code{emdn_get_coverage_dim_coefs} returns a list containing a vector of
+coefficients for each coverage requested.
 }
+
+a list containing a vector of coefficients for each coverage
+requested.
 }
 \description{
 Get metadata objects from a \code{WCSClient} object. \verb{<WCSCoverageSummary>}
@@ -52,7 +59,10 @@ coverages from a service.
 coverages from a service.
 
 \item \code{emdn_has_dimension}: check whether a coverage has a
-particular dimension.
+temporal or vertical dimension.
+
+\item \code{emdn_get_coverage_dim_coefs}: Get temporal or
+vertical coefficients for a coverage.
 }}
 
 \examples{
@@ -67,4 +77,7 @@ emdn_has_dimension(wcs,
                      type = "vertical")
 emdn_get_coverage_summaries(wcs, cov_ids[1:2])
 emdn_get_coverage_summaries_all(wcs)
+emdn_get_coverage_dim_coefs(wcs,
+                            cov_ids[1:2],
+                            type = "temporal")
 }

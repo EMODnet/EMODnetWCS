@@ -16,6 +16,7 @@ test_that("extent & crs processed correctly", {
 
 
 test_that("dimensions processed correctly", {
+    wcs <- create_biology_wcs()
     summary <- create_biology_summary()[[1]]
     with_mock_dir("biology-description",
                   {expect_equal(emdn_get_grid_size(summary),
@@ -40,6 +41,13 @@ test_that("dimensions processed correctly", {
                       expect_equal(emdn_get_vertical_extent(summary), NA)
                       expect_length(emdn_get_dimensions_info(summary, format = "list"), 3)
                       expect_snapshot(emdn_get_dimensions_info(summary, format = "tibble"))
+                      expect_snapshot(
+                          emdn_get_coverage_dim_coefs(
+                              wcs,
+                              coverage_id = "Emodnetbio__aca_spp_19582016_L1")
+                      )
+
+
                   })
 
 })
