@@ -11,6 +11,8 @@
 #' Available EMODnet Web Coverage Services
 #'
 #' @return Tibble of available EMODnet Web Coverage Services
+#' @examples
+#' emdn_wcs()
 #'
 #' @export
 emdn_wcs <- memoise::memoise(.emdn_wcs)

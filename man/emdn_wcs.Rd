@@ -12,3 +12,7 @@ Tibble of available EMODnet Web Coverage Services
 \description{
 Available EMODnet Web Coverage Services
 }
+\examples{
+emdn_wcs()
+
+}
