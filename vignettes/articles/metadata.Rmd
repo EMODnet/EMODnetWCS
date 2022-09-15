@@ -48,7 +48,7 @@ wcs_info
 ```
 
 
-You can get the same informationby supplying a service name to argument `service` instead of a `<WCSClient>` object to argument `wcs`.
+You can get the same information by supplying a service name to argument `service` instead of a `<WCSClient>` object to argument `wcs`.
 
 ```{r wcs-info-name}
 emdn_get_wcs_info(service = "biology")
@@ -88,13 +88,13 @@ cov_info <- emdn_get_coverage_info(wcs,
   )
 )
 
-cov_info
 ```
 
 The function returns a tibble of detailed coverage level metadata. Let's take a closer look. 
 
-For details on these metadata, have a look at the `emdn_get_coverage_info()` help page (or use `?emdn_get_coverage_info` in R or Rstudio). 
-
+```{r, eval=FALSE}
+cov_info
+```
 
 
 ```{r coverage_info-table, echo=FALSE}
@@ -107,6 +107,7 @@ hux(cov_info) |>
 ```
 
 
+For details on these metadata, have a look at the `emdn_get_coverage_info()` help page (or use `?emdn_get_coverage_info` in R or Rstudio). 
 
 <div class="alert alert-info" role="alert">
 
