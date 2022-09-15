@@ -58,33 +58,28 @@ Before we can make requests to any of the services, we first need to create new 
 wcs <- emdn_init_wcs_client("biology")
 ```
 
-There are options for capturing and displaying 
+There are options for logging additional messages arising from `ows4R` and the underlying `libculrl`/`curl` library through argument `logger`. These can be useful in trouble shooting issues. 
 
-Level of logger: 
+There are 3 levels of potential logging: 
 
 - `'NONE'` (the default) for no logger. 
 - `'INFO'` includes `ows4R` logs.
-
-```{r}
-wcs <- emdn_init_wcs_client("biology", logger = "INFO")
-```
 - `'DEBUG'` for all internal logs (such as as Curl details)
 
+The following example sets the logger to `"DEBUG"`.
 ```{r}
 wcs <- emdn_init_wcs_client("biology", logger = "DEBUG")
 ```
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-wcs <- emdn_init_wcs_client("biology")
-```
 
-This returns an R6 object of class [`<WCSClient>`]. 
+The `emdn_init_wcs_client()` functions returns an R6 object of class [`<WCSClient>`](https://eblondel.github.io/ows4R/reference/WCSClient.html). 
 
 ```{r}
 wcs
 ```
 
-You can use any of the methods provided within the class should you wish (see `ows4R` for details).  
+You can use any of the methods provided within the class should you wish (see [`ows4R` documentation](https://eblondel.github.io/ows4R/articles/wcs.html) for details).  
+
 
 ```{r}
 wcs$getUrl()
@@ -92,8 +87,72 @@ wcs$getUrl()
 wcs$loggerType
 ```
 
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+rm(wcs)
+wcs <- emdn_init_wcs_client("biology")
+```
 
-`EMODnetWCS` however provides a host of functions for extracting/compiling useful metadata in a variety of forms as well downloading raster data from EMODnetWCS service.
+However `EMODnetWCS` provides a host of functions for extracting/compiling useful metadata in a variety of forms as well downloading raster data from EMODnetWCS service which you will likely find easier to work with.
+
+Here are some examples of functionality provided by `EMODnetWCS`. For more details see the relevant vignette.
+
+## Getting Metadata
+
+Get service level and a subset of coverage level metadata, compiled for easy review.
+
+```{r}
+emdn_get_wcs_info(wcs = wcs)
+```
+
+Get more detailed coverage metadata about specific coverage. 
+
+```{r}
+emdn_get_coverage_info(wcs, coverage_ids = c(
+      "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+      "Emodnetbio__cal_fin_19582016_L1_err" 
+  )
+)
+```
+
+The package offers a number of functions for extracting individual metadata in more usable forms. e.g.
+
+```{r}
+emdn_get_coverage_ids(wcs)
+```
+
+For more details, please refer to the [Getting metadata about Services & Coverages](https://emodnet.github.io/EMODnetWCS/articles/metadata.html) article in the `EMODnetWCS` online documentation.
+
+
+## Downloading Coverages
+
+The package also provides a function to download full or subsets of coverages from EMODnetWCS services.
+
+The following example downloads a spatial subset of a coverage using a bounding box.
+
+```{r}
+cov <- emdn_get_coverage(wcs, 
+                  coverage_id = "Emodnetbio__cal_fin_19582016_L1_err",
+                  bbox = c(xmin = 0, 
+                           ymin = 40, 
+                           xmax = 5, 
+                           ymax = 45)
+                  )
+
+cov
+```
+
+```{r}
+terra::plot(cov)
+```
+
+For more details on downloading coverages, please refer to the [Download Coverages](https://emodnet.github.io/EMODnetWCS/articles/coverages.html) article in the `EMODnetWCS` online documentation.
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+fs::dir_ls(type = "file", glob = "*.tif") |>
+    fs::file_delete()
+```
+
 
 ```{r gs-stop-recording, include=FALSE}
 end_vignette()
