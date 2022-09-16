@@ -44,7 +44,7 @@ test_that("dimensions processed correctly", {
                       expect_snapshot(
                           emdn_get_coverage_dim_coefs(
                               wcs,
-                              coverage_id = "Emodnetbio__aca_spp_19582016_L1")
+                              coverage_ids = "Emodnetbio__aca_spp_19582016_L1")
                       )
 
 
