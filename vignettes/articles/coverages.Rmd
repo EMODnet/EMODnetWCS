@@ -20,40 +20,81 @@ library(EMODnetWCS)
 
 ```{r}
 wcs <- emdn_init_wcs_client(service = "biology")
-coverage_id <- "Emodnetbio__cal_fin_19582016_L1_err"
 
+```
+
+
+```{r}
+coverage_ids <- emdn_get_coverage_ids(wcs)
+coverage_ids
+```
+
+
+```{r}
+coverage_id <- coverage_ids[3]
+coverage_id
+
+bbox <- c(xmin = 1.5, 
+          ymin = 53,
+          xmax = 6.5, 
+          ymax = 58)
 ```
 
 # Subset using a bounding box
 
 ```{r}
-emdn_get_coverage(wcs,
+cov_1 <- emdn_get_coverage(wcs,
                   coverage_id = coverage_id,
-                  bbox = c(xmin = 0, ymin = 40,
-                           xmax = 5, ymax = 45))
+                  bbox = bbox)
+
+cov_1
 ```
+
+```{r}
+terra::plot(cov_1)
+```
+
 
 
 ## Subset using a bounding box and specific timepoints
 
 
 ```{r}
-emdn_get_coverage(wcs,
-                  coverage_id = coverage_id,
-                  bbox = c(xmin = 0, ymin = 40,
-                           xmax = 5, ymax = 45),
-                  time = c("1963-11-16T00:00:00.000Z",
-                           "1964-02-16T00:00:00.000Z"))
+temp_coefs <- emdn_get_coverage_dim_coefs(wcs = wcs,
+                            coverage_ids = coverage_id,
+                            type = "temporal")
+
+timepoints <- head(temp_coefs[[1]], 3)
+timepoints
 ```
+
+
+```{r}
+cov_2 <- emdn_get_coverage(wcs,
+                  coverage_id = coverage_id,
+                  bbox = bbox,
+                  time = timepoints)
+```
+
+```{r}
+cov_2
+```
+
+
+```{r}
+terra::plot(cov_2)
+```
+
+
+
 
 ## Subset using a bounding box and a specific band
 
 ```{r}
 emdn_get_coverage(wcs, 
                   coverage_id = coverage_id,
-                  bbox = c(xmin = 0, ymin = 40,
-                           xmax = 5, ymax = 45),
-                  rangesubset = "Relative abundance")
+                  bbox = bbox,
+                  rangesubset = "Relative error") |> terra::plot()
 ```
 
 
