@@ -46,9 +46,8 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="articles/coverages.html">coverages</a>
-    <a class="dropdown-item" href="articles/info.html">Getting metadata about Services &amp; Coverages</a>
-    <a class="dropdown-item" href="articles/init.html">init</a>
+    <a class="dropdown-item" href="articles/coverages.html">Download Coverages</a>
+    <a class="dropdown-item" href="articles/metadata.html">Getting metadata about Services &amp; Coverages</a>
   </div>
 </li>
 <li class="nav-item">
@@ -104,8 +103,8 @@
 <p>All available services are contained in the tibble returned by <code><a href="reference/emdn_wcs.html">emdn_wcs()</a></code>.</p>
 <table class="table">
 <colgroup>
-<col width="19%">
-<col width="80%">
+<col width="18%">
+<col width="81%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">service_name</th>
@@ -130,7 +129,7 @@
 </tr>
 <tr class="odd">
 <td align="left">seabed_habitats</td>
-<td align="left"><a href="https://ows.emodnet-seabedhabitats.eu/geoserver/emdn_open_maplibrary/wcs" class="external-link uri">https://ows.emodnet-seabedhabitats.eu/geoserver/emdn_open_maplibrary/wcs</a></td>
+<td align="left"><a href="https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open_maplibrary/wcs" class="external-link uri">https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open_maplibrary/wcs</a></td>
 </tr>
 </tbody>
 </table>
@@ -247,20 +246,51 @@
 <span><span class="co">#&gt; ✔ WCS client created succesfully</span></span>
 <span><span class="co">#&gt; ℹ Service: &lt;https://ows.emodnet-humanactivities.eu/wcs&gt;</span></span>
 <span><span class="co">#&gt; ℹ Service: "2.0.1"</span></span>
-<span><span class="co">#&gt; # A tibble: 1 × 20</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 21</span></span>
 <span><span class="co">#&gt;   data_s…¹ servi…² servi…³ cover…⁴ band_…⁵ band_…⁶ const…⁷ nil_v…⁸ dim_n dim_n…⁹</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;  </span></span>
 <span><span class="co">#&gt; 1 emodnet… https:… human_… emodne… GRAY_I… W.m-2.… -3.402…   -9999     2 x(m):g…</span></span>
-<span><span class="co">#&gt; # … with 10 more variables: grid_size &lt;chr&gt;, resolution &lt;chr&gt;, extent &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; # … with 11 more variables: grid_size &lt;chr&gt;, resolution &lt;chr&gt;, extent &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   crs &lt;chr&gt;, wgs84_extent &lt;chr&gt;, temporal_extent &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   vertical_extent &lt;chr&gt;, subtype &lt;chr&gt;, fn_seq_rule &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   fn_start_point &lt;chr&gt;, and abbreviated variable names ¹​data_source,</span></span>
-<span><span class="co">#&gt; #   ²​service_name, ³​service_url, ⁴​coverage_id, ⁵​band_description, ⁶​band_uom,</span></span>
-<span><span class="co">#&gt; #   ⁷​constraint, ⁸​nil_value, ⁹​dim_names</span></span></code></pre></div>
+<span><span class="co">#&gt; #   fn_start_point &lt;chr&gt;, fn_axis_order &lt;chr&gt;, and abbreviated variable names</span></span>
+<span><span class="co">#&gt; #   ¹​data_source, ²​service_name, ³​service_url, ⁴​coverage_id, ⁵​band_description,</span></span>
+<span><span class="co">#&gt; #   ⁶​band_uom, ⁷​constraint, ⁸​nil_value, ⁹​dim_names</span></span></code></pre></div>
 <blockquote>
 <p><strong>Note</strong></p>
 <p>To minimize the number of requests sent to webservices, these functions use <a href="https://memoise.r-lib.org/" class="external-link"><code>memoise</code></a> to cache results inside the active R session. To clear the cache, re-start R or run <code>memoise::forget(emdn_get_wcs_info)</code>/<code>memoise::forget(emdn_get_coverage_info)</code></p>
 </blockquote>
+</div>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>To cite EMODnetWCS, please use the output from <code>citation(package = "EMODnetWCS")</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"EMODnetWCS"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in citation(package = "EMODnetWCS"): no date field in DESCRIPTION file</span></span>
+<span><span class="co">#&gt; of package 'EMODnetWCS'</span></span>
+<span><span class="co">#&gt; Warning in citation(package = "EMODnetWCS"): could not determine year for</span></span>
+<span><span class="co">#&gt; 'EMODnetWCS' from package DESCRIPTION file</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; To cite package 'EMODnetWCS' in publications use:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Anna Krystalli (NA). EMODnetWCS: Access EMODnet Web Coverage Service</span></span>
+<span><span class="co">#&gt;   data through R. https://github.com/EMODnet/EMODnetWCS,</span></span>
+<span><span class="co">#&gt;   https://emodnet.github.io/EMODnetWCS/.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   @Manual{,</span></span>
+<span><span class="co">#&gt;     title = {EMODnetWCS: Access EMODnet Web Coverage Service data through R},</span></span>
+<span><span class="co">#&gt;     author = {Anna Krystalli},</span></span>
+<span><span class="co">#&gt;     note = {https://github.com/EMODnet/EMODnetWCS,</span></span>
+<span><span class="co">#&gt; https://emodnet.github.io/EMODnetWCS/},</span></span>
+<span><span class="co">#&gt;   }</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the EMODnetWCS project is released with a <a href="https://emodnet.github.io/EMODnetWCS/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -279,6 +309,13 @@
 </ul>
 </div>
 
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
@@ -291,7 +328,7 @@
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Anna Krystalli <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2378-4915" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Salvador Fernández-Bejarano <br><small class="roles"> Contributor, maintainer </small> <a href="https://orcid.org/0000-0003-0535-7677" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Salvador Fernández-Bejarano <br><small class="roles"> Maintainer </small> <a href="https://orcid.org/0000-0003-0535-7677" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>VLIZ (VLAAMS INSTITUUT VOOR DE ZEE) <br><small class="roles"> Funder </small>  </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>

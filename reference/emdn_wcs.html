@@ -27,9 +27,8 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/coverages.html">coverages</a>
-    <a class="dropdown-item" href="../articles/info.html">Getting metadata about Services &amp; Coverages</a>
-    <a class="dropdown-item" href="../articles/init.html">init</a>
+    <a class="dropdown-item" href="../articles/coverages.html">Download Coverages</a>
+    <a class="dropdown-item" href="../articles/metadata.html">Getting metadata about Services &amp; Coverages</a>
   </div>
 </li>
 <li class="nav-item">
@@ -72,6 +71,20 @@
 <p>Tibble of available EMODnet Web Coverage Services</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">emdn_wcs</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   service_name     service_url                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> bathymetry       https://ows.emodnet-bathymetry.eu/wcs                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> biology          https://geo.vliz.be/geoserver/Emodnetbio/wcs                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> human_activities https://ows.emodnet-humanactivities.eu/wcs                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> physics          https://geoserver.emodnet-physics.eu/geoserver/wcs           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> seabed_habitats  https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open…</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

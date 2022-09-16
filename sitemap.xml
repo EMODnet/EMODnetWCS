@@ -4,6 +4,12 @@
     <loc>https://emodnet.github.io/EMODnetWCS/404.html</loc>
   </url>
   <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://emodnet.github.io/EMODnetWCS/CONTRIBUTING.html</loc>
+  </url>
+  <url>
     <loc>https://emodnet.github.io/EMODnetWCS/LICENSE-text.html</loc>
   </url>
   <url>
@@ -19,10 +25,7 @@
     <loc>https://emodnet.github.io/EMODnetWCS/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://emodnet.github.io/EMODnetWCS/articles/info.html</loc>
-  </url>
-  <url>
-    <loc>https://emodnet.github.io/EMODnetWCS/articles/init.html</loc>
+    <loc>https://emodnet.github.io/EMODnetWCS/articles/metadata.html</loc>
   </url>
   <url>
     <loc>https://emodnet.github.io/EMODnetWCS/authors.html</loc>
