@@ -10,3 +10,5 @@
 ^docs$
 ^pkgdown$
 ^vignettes/articles$
+^CODE_OF_CONDUCT\.md$
+^codemeta\.json$

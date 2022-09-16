@@ -60,13 +60,13 @@ library(EMODnetWCS)
 All available services are contained in the tibble returned by
 `emdn_wcs()`.
 
-| service_name     | service_url                                                                |
-|:-----------------|:---------------------------------------------------------------------------|
-| bathymetry       | <https://ows.emodnet-bathymetry.eu/wcs>                                    |
-| biology          | <https://geo.vliz.be/geoserver/Emodnetbio/wcs>                             |
-| human_activities | <https://ows.emodnet-humanactivities.eu/wcs>                               |
-| physics          | <https://geoserver.emodnet-physics.eu/geoserver/wcs>                       |
-| seabed_habitats  | <https://ows.emodnet-seabedhabitats.eu/geoserver/emdn_open_maplibrary/wcs> |
+| service_name     | service_url                                                                   |
+|:-----------------|:------------------------------------------------------------------------------|
+| bathymetry       | <https://ows.emodnet-bathymetry.eu/wcs>                                       |
+| biology          | <https://geo.vliz.be/geoserver/Emodnetbio/wcs>                                |
+| human_activities | <https://ows.emodnet-humanactivities.eu/wcs>                                  |
+| physics          | <https://geoserver.emodnet-physics.eu/geoserver/wcs>                          |
+| seabed_habitats  | <https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open_maplibrary/wcs> |
 
 To explore available services in Rstudio use:
 
@@ -191,16 +191,16 @@ emdn_get_coverage_info(service = "human_activities",
 #> ✔ WCS client created succesfully
 #> ℹ Service: <https://ows.emodnet-humanactivities.eu/wcs>
 #> ℹ Service: "2.0.1"
-#> # A tibble: 1 × 20
+#> # A tibble: 1 × 21
 #>   data_s…¹ servi…² servi…³ cover…⁴ band_…⁵ band_…⁶ const…⁷ nil_v…⁸ dim_n dim_n…⁹
 #>   <chr>    <chr>   <chr>   <chr>   <chr>   <chr>   <chr>     <dbl> <int> <chr>  
 #> 1 emodnet… https:… human_… emodne… GRAY_I… W.m-2.… -3.402…   -9999     2 x(m):g…
-#> # … with 10 more variables: grid_size <chr>, resolution <chr>, extent <chr>,
+#> # … with 11 more variables: grid_size <chr>, resolution <chr>, extent <chr>,
 #> #   crs <chr>, wgs84_extent <chr>, temporal_extent <chr>,
 #> #   vertical_extent <chr>, subtype <chr>, fn_seq_rule <chr>,
-#> #   fn_start_point <chr>, and abbreviated variable names ¹​data_source,
-#> #   ²​service_name, ³​service_url, ⁴​coverage_id, ⁵​band_description, ⁶​band_uom,
-#> #   ⁷​constraint, ⁸​nil_value, ⁹​dim_names
+#> #   fn_start_point <chr>, fn_axis_order <chr>, and abbreviated variable names
+#> #   ¹​data_source, ²​service_name, ³​service_url, ⁴​coverage_id, ⁵​band_description,
+#> #   ⁶​band_uom, ⁷​constraint, ⁸​nil_value, ⁹​dim_names
 ```
 
 > **Note**
@@ -209,3 +209,38 @@ emdn_get_coverage_info(service = "human_activities",
 > functions use [`memoise`](https://memoise.r-lib.org/) to cache results
 > inside the active R session. To clear the cache, re-start R or run
 > `memoise::forget(emdn_get_wcs_info)`/`memoise::forget(emdn_get_coverage_info)`
+
+## Citation
+
+To cite EMODnetWCS, please use the output from
+`citation(package = "EMODnetWCS")`.
+
+``` r
+citation(package = "EMODnetWCS")
+#> Warning in citation(package = "EMODnetWCS"): no date field in DESCRIPTION file
+#> of package 'EMODnetWCS'
+#> Warning in citation(package = "EMODnetWCS"): could not determine year for
+#> 'EMODnetWCS' from package DESCRIPTION file
+#> 
+#> To cite package 'EMODnetWCS' in publications use:
+#> 
+#>   Anna Krystalli (NA). EMODnetWCS: Access EMODnet Web Coverage Service
+#>   data through R. https://github.com/EMODnet/EMODnetWCS,
+#>   https://emodnet.github.io/EMODnetWCS/.
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {EMODnetWCS: Access EMODnet Web Coverage Service data through R},
+#>     author = {Anna Krystalli},
+#>     note = {https://github.com/EMODnet/EMODnetWCS,
+#> https://emodnet.github.io/EMODnetWCS/},
+#>   }
+```
+
+## Code of Conduct
+
+Please note that the EMODnetWCS project is released with a [Contributor
+Code of
+Conduct](https://emodnet.github.io/EMODnetWCS/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to abide by its terms.

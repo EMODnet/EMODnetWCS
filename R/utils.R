@@ -20,6 +20,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' wcs <- emdn_init_wcs_client(service = "biology")
 #' cov_ids <- emdn_get_coverage_ids(wcs)
 #' cov_ids
@@ -34,6 +35,7 @@
 #' emdn_get_coverage_dim_coefs(wcs,
 #'                             cov_ids[1:2],
 #'                             type = "temporal")
+#' }
 emdn_get_coverage_summaries <- function(wcs, coverage_ids) {
     coverage_ids |>
         purrr::map(~get_capabilities(wcs)$findCoverageSummaryById(.x,
