@@ -8,6 +8,16 @@ template:
 
 navbar:
   bg: primary
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: Getting metadata about Services & Coverages
+        href: articles/metadata.html
+      - text: -------
+      - text: Downloading Coverages
+        href: articles/coverages.html
+
 
 reference:
 - title: "Connecting to EMODnet WCS Services"

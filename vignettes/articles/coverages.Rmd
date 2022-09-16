@@ -1,5 +1,5 @@
 ---
-title: "Download Coverages"
+title: "Downloading Coverages"
 ---
 
 ```{r, include = FALSE}
@@ -12,10 +12,16 @@ library(httptest)
 start_vignette("get-cov")
 ```
 
+EMODnetWCS provides functionalitly for downloading coverage data from EMODnet WCS services as `terra` [`<spatRaster>`](https://rspatial.github.io/terra/reference/SpatRaster-class.html) class objects. It also allows subsetting along coverage dimensions as well as requesting specific bands for download.
+
+For more details on extracting metadata to inform valid subsetting of coverages, please refer to the [Getting metadata about Services & Coverages](https://emodnet.github.io/EMODnetWCS/articles/metadata.html) article in the `EMODnetWCS` online documentation.
+
+
+The first step to downloading coverages is to initiate a connection with on of the EMODnet WCS servers.
+
 ```{r setup}
 library(EMODnetWCS)
 ```
-
 
 
 ```{r}
@@ -23,24 +29,58 @@ wcs <- emdn_init_wcs_client(service = "biology")
 
 ```
 
+You can get a list of available coverages from the service with `emdn_get_coverage_ids()`
 
 ```{r}
 coverage_ids <- emdn_get_coverage_ids(wcs)
 coverage_ids
 ```
 
-
+Let's focus on the _Calanus finmarchicus_
 ```{r}
 coverage_id <- coverage_ids[3]
 coverage_id
 
+```
+
+
+## Subset using a bounding box
+
+While downloading full coverages for most services will work, it may take a long time depending on the size of the coverage so it's often a good idea to focus on areas of interest and use bounding boxes to subset requests.
+
+<div class="alert alert-warning" role="alert">
+
+<h5> **Warning!**</h5>
+
+<p>While most coverages can be downloaded in full, the coverages from the `"bathymetry"` service in particular are 100GB in size and full download will not be permitted by the server so spatial subsetting **must** be used with the services. Otherwise the request will return a `curl` error (most likely ` curl: (92) HTTP/2 stream 0 was not closed cleanly: INTERNAL_ERROR (err 2)`). Note that, in the near future, it will be possible to download larger boxes than what the WCS can currently handle, but this will still be capped at 2 GB.</p>
+
+<p>If you need to download the full [EMODnet Digital Bathymetry (DTM)](https://data.europa.eu/data/datasets/emodnet_bathymetry?locale=en), you will have to download it tile by tile from <https://portal.emodnet-bathymetry.eu/></p>
+
+</div>
+
+So let's also create a subsetting `bbox` of an area of interest, the southern North Sea. 
+
+We can first check the bounding box of the full coverage to ensure the subset bounding box lies within.
+
+```{r}
+cov_summary <- emdn_get_coverage_summaries(
+    wcs,
+    coverage_id
+)[[1]]
+    
+emdn_get_bbox(cov_summary)
+```
+
+We can then create a bounding ensuring it lies within the coverage's bounding box.
+```{r}
 bbox <- c(xmin = 1.5, 
           ymin = 53,
           xmax = 6.5, 
           ymax = 58)
 ```
 
-# Subset using a bounding box
+
+Now we are ready to download the coverage and provide the bounding box we created to the `bbox` argument.
 
 ```{r}
 cov_1 <- emdn_get_coverage(wcs,
@@ -58,17 +98,32 @@ terra::plot(cov_1)
 
 ## Subset using a bounding box and specific timepoints
 
+If a coverage has additional dimensions to the two geographic ones (x/long & y/lat) then the last point on that dimension is always returned if none are specified through the request.
+
+Coverage `r coverage_id` indeed has a temporal extent:
 
 ```{r}
-temp_coefs <- emdn_get_coverage_dim_coefs(wcs = wcs,
-                            coverage_ids = coverage_id,
-                            type = "temporal")
+emdn_get_dimension_types(cov_summary)
+```
 
+so our previous request returned only the last timepoint of the coverage:
+
+However we can request specific timepoints. First, let's get a list of all available timepoints.
+
+```{r}
+temp_coefs <- emdn_get_coverage_dim_coefs(
+    wcs = wcs,
+    coverage_ids = coverage_id,
+    type = "temporal")
+```
+
+Next, let's select the first 3 available timepoints.
+```{r}
 timepoints <- head(temp_coefs[[1]], 3)
 timepoints
 ```
 
-
+We can request the specific timepoints by supplying our vector of timepoints to the `time` argument.
 ```{r}
 cov_2 <- emdn_get_coverage(wcs,
                   coverage_id = coverage_id,
@@ -80,21 +135,47 @@ cov_2 <- emdn_get_coverage(wcs,
 cov_2
 ```
 
-
+Note that this returns a ` <SpatRaster>` Stack instead of a single `<SpatRaster>`.
 ```{r}
 terra::plot(cov_2)
 ```
 
 
+A similar approach is used for specifying points in the vertical dimension, using argument `elevation` where appropriate.
+
+## Subset a specific band
+
+We can also request specific bands from a coverage. 
+
+First let's check the available bands in our coverage.
+
+```{r}
+emdn_get_band_name(cov_summary)
+```
+
+To download a specifc band we use the argument `rangesubset`:
+```{r}
+emdn_get_coverage(wcs, 
+                  coverage_id = coverage_id,
+                  bbox = bbox,
+                  rangesubset = "Relative error") |> 
+    terra::plot()
+```
 
 
-## Subset using a bounding box and a specific band
+
+## Specify an output filename
+
+When downloading data, underlying package `ows4R` uses the in-built [`WCSCoverageFilenameHandler()`](https://eblondel.github.io/ows4R/reference/WCSCoverageFilenameHandler.html) function for generating appropriate filenames from the parameters supplied to the request.
+
+However, it is possible to override this as well as the location the file is written to by supplying a file path to argument `filename`.
 
 ```{r}
 emdn_get_coverage(wcs, 
                   coverage_id = coverage_id,
                   bbox = bbox,
-                  rangesubset = "Relative error") |> terra::plot()
+                  rangesubset = "Relative error",
+                  filename = "cal-fin_rel-error.tif")
 ```
 
 
@@ -102,6 +183,7 @@ emdn_get_coverage(wcs,
 fs::dir_ls(type = "file", glob = "*.tif") |>
     fs::file_delete()
 ```
+
 
 
 ```{r cov-stop-recording, include=FALSE}
