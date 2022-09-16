@@ -66,6 +66,7 @@ vertical coefficients for a coverage.
 }}
 
 \examples{
+\dontrun{
 wcs <- emdn_init_wcs_client(service = "biology")
 cov_ids <- emdn_get_coverage_ids(wcs)
 cov_ids
@@ -80,4 +81,5 @@ emdn_get_coverage_summaries_all(wcs)
 emdn_get_coverage_dim_coefs(wcs,
                             cov_ids[1:2],
                             type = "temporal")
+}
 }

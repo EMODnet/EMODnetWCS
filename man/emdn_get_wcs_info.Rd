@@ -134,6 +134,7 @@ coverages from each service.
 }}
 
 \examples{
+\dontrun{
 # Get information from a wcs object.
 wcs <- emdn_init_wcs_client(service = "seabed_habitats")
 emdn_get_wcs_info(wcs)
@@ -146,4 +147,5 @@ coverage_ids <- c(
 )
 emdn_get_coverage_info(wcs = wcs,
                        coverage_ids = coverage_ids)
+}
 }
