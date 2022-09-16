@@ -44,8 +44,9 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/coverages.html">Download Coverages</a>
     <a class="dropdown-item" href="../articles/metadata.html">Getting metadata about Services &amp; Coverages</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="../articles/coverages.html">Downloading Coverages</a>
   </div>
 </li>
 <li class="nav-item">
@@ -162,6 +163,11 @@
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> WCS client created succesfully</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Service: <span style="color: #0000BB; font-style: italic;">&lt;https://geo.vliz.be/geoserver/Emodnetbio/wcs&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Service: <span style="color: #0000BB;">"2.0.1"</span></span></span>
+<span><span class="co">#&gt; failed to load HTTP resource</span></span>
+<span><span class="co">#&gt; Error : 1: failed to load HTTP resource</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; failed to load HTTP resource</span></span>
+<span><span class="co">#&gt; Error : 1: failed to load HTTP resource</span></span>
 <span><span class="co">#&gt; $data_source</span></span>
 <span><span class="co">#&gt; [1] "emodnet_wcs"</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -193,8 +199,8 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Emodnetbio__ratio…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Emodnetbio__aca_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Emodnetbio__cal_f…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Emodnetbio__cal_h…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Emodnetbio__met_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Emodnetbio__cal_h…     0 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Emodnetbio__met_l…     0 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Emodnetbio__oit_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Emodnetbio__tem_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Emodnetbio__chli_…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
@@ -449,7 +455,7 @@
 <p>For details on these metadata, have a look at the <code><a href="../reference/emdn_get_wcs_info.html">emdn_get_coverage_info()</a></code> help page (or use <code><a href="../reference/emdn_get_wcs_info.html">?emdn_get_coverage_info</a></code> in R or Rstudio).</p>
 <div class="alert alert-info" role="alert">
 <blockquote>
-<p><i class="fa-solid fa-info"></i> <strong>Note</strong></p>
+<h5 id="note"><strong>Note</strong></h5>
 <p>To minimize the number of requests sent to webservices, these functions use <a href="https://memoise.r-lib.org/" class="external-link"><code>memoise</code></a> to cache results inside the active R session. To clear the cache, re-start R or run <code>memoise::forget(emdn_get_wcs_info)</code>/<code>memoise::forget(emdn_get_coverage_info)</code></p>
 </blockquote>
 </div>

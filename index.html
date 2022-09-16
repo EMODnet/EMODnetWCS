@@ -46,8 +46,9 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="articles/coverages.html">Download Coverages</a>
     <a class="dropdown-item" href="articles/metadata.html">Getting metadata about Services &amp; Coverages</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="articles/coverages.html">Downloading Coverages</a>
   </div>
 </li>
 <li class="nav-item">
@@ -145,15 +146,12 @@
 <code class="sourceCode R"><span><span class="va">wcs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/emdn_init_wcs_client.html">emdn_init_wcs_client</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"biology"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ✔ WCS client created succesfully</span></span>
 <span><span class="co">#&gt; ℹ Service: &lt;https://geo.vliz.be/geoserver/Emodnetbio/wcs&gt;</span></span>
-<span><span class="co">#&gt; ℹ Service: "2.0.1"</span></span>
-<span></span>
-<span><span class="va">wcs</span><span class="op">$</span><span class="fu">getUrl</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "https://geo.vliz.be/geoserver/Emodnetbio/wcs"</span></span></code></pre></div>
+<span><span class="co">#&gt; ℹ Service: "2.0.1"</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="get-information-about-a-wcs-service">Get Information about a WCS service<a class="anchor" aria-label="anchor" href="#get-information-about-a-wcs-service"></a>
+<h2 id="get-metadata-about-a-wcs-service-and-available-coverages">Get metadata about a WCS service and available coverages<a class="anchor" aria-label="anchor" href="#get-metadata-about-a-wcs-service-and-available-coverages"></a>
 </h2>
-<p>Get information about a WCS service by supplying a <code>wcs</code> object to <code>emdn_get_wcs_info</code></p>
+<p>Get service level and a subset of coverage level metadata, compiled for easy review by supplying a <code>WCSClient</code> object to <code>emdn_get_wcs_info</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/emdn_get_wcs_info.html">emdn_get_wcs_info</a></span><span class="op">(</span><span class="va">wcs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: sf</span></span>
@@ -198,26 +196,26 @@
 <span><span class="co">#&gt; 10 Emodnetbio__tot_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
 <span><span class="co">#&gt; # … with abbreviated variable names ¹​dim_names, ²​wgs84_bbox, ³​temporal_extent,</span></span>
 <span><span class="co">#&gt; #   ⁴​vertical_extent</span></span></code></pre></div>
-<p>Info can also be extracted using a service name instead of a <code>wcs</code> object.</p>
+<p>Info can also be extracted using a service name instead of a <code>WCSClient</code> object.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/emdn_get_wcs_info.html">emdn_get_wcs_info</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"bathymetry"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/emdn_get_wcs_info.html">emdn_get_wcs_info</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"biology"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ✔ WCS client created succesfully</span></span>
-<span><span class="co">#&gt; ℹ Service: &lt;https://ows.emodnet-bathymetry.eu/wcs&gt;</span></span>
+<span><span class="co">#&gt; ℹ Service: &lt;https://geo.vliz.be/geoserver/Emodnetbio/wcs&gt;</span></span>
 <span><span class="co">#&gt; ℹ Service: "2.0.1"</span></span>
 <span><span class="co">#&gt; $data_source</span></span>
 <span><span class="co">#&gt; [1] "emodnet_wcs"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $service_name</span></span>
-<span><span class="co">#&gt; [1] "bathymetry"</span></span>
+<span><span class="co">#&gt; [1] "biology"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $service_url</span></span>
-<span><span class="co">#&gt; [1] "https://ows.emodnet-bathymetry.eu/wcs"</span></span>
+<span><span class="co">#&gt; [1] "https://geo.vliz.be/geoserver/Emodnetbio/wcs"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $service_title</span></span>
-<span><span class="co">#&gt; [1] "EMODnet Bathymetry WCS"</span></span>
+<span><span class="co">#&gt; [1] "EMODnet Biology"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $service_abstract</span></span>
-<span><span class="co">#&gt; [1] ""</span></span>
+<span><span class="co">#&gt; [1] "The EMODnet Biology products include a set of gridded map layers showing the average abundance of marine species for different time windows (seasonal, annual) using geospatial modelling. The spatial modelling tool used to calculate the gridded abundance maps is based on DIVA. DIVA (Data-Interpolating Variational Analysis) is a tool to create gridded data sets from discrete point measurements of the ocean. For the representation of time dynamics, it was decided to produce gridded maps for sliding time windows, e.g. combining one or more years  in one gridded map, so that relatively smooth animated GIF presentations can be produced that show the essential change over time. EMODnet Biology’s data products include the Operational Ocean Products and Services (OOPS), harvested by ICES."</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $service_access_constraits</span></span>
 <span><span class="co">#&gt; [1] "NONE"</span></span>
@@ -229,27 +227,29 @@
 <span><span class="co">#&gt; [1] "urn:ogc:service:wcs"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $coverage_details</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 9</span></span>
-<span><span class="co">#&gt;   coverage_id         dim_n dim_n…¹ extent crs   wgs84…² tempo…³ verti…⁴ subtype</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;               &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 emodnet__mean           2 lat(de… -36, … EPSG… -36, 1… NA      NA      Rectif…</span></span>
-<span><span class="co">#&gt; 2 emodnet__mean_2016      2 lat(de… -36, … EPSG… -36, 2… NA      NA      Rectif…</span></span>
-<span><span class="co">#&gt; 3 emodnet__mean_2018      2 lat(de… -36, … EPSG… -36, 1… NA      NA      Rectif…</span></span>
-<span><span class="co">#&gt; 4 emodnet__mean_atla…     2 lat(de… -36, … EPSG… -36, 1… NA      NA      Rectif…</span></span>
-<span><span class="co">#&gt; 5 emodnet__mean_mult…     2 lat(de… -36, … EPSG… -36, 1… NA      NA      Rectif…</span></span>
-<span><span class="co">#&gt; 6 emodnet__mean_rain…     2 lat(de… -36, … EPSG… -36, 1… NA      NA      Rectif…</span></span>
+<span><span class="co">#&gt; # A tibble: 10 × 9</span></span>
+<span><span class="co">#&gt;    coverage_id        dim_n dim_n…¹ extent crs   wgs84…² tempo…³ verti…⁴ subtype</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;              &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt;  1 Emodnetbio__ratio…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  2 Emodnetbio__aca_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  3 Emodnetbio__cal_f…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  4 Emodnetbio__cal_h…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  5 Emodnetbio__met_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  6 Emodnetbio__oit_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  7 Emodnetbio__tem_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  8 Emodnetbio__chli_…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt;  9 Emodnetbio__tot_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
+<span><span class="co">#&gt; 10 Emodnetbio__tot_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…</span></span>
 <span><span class="co">#&gt; # … with abbreviated variable names ¹​dim_names, ²​wgs84_bbox, ³​temporal_extent,</span></span>
 <span><span class="co">#&gt; #   ⁴​vertical_extent</span></span></code></pre></div>
+<p>Get more detailed coverage metadata about specific coverage.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/emdn_get_wcs_info.html">emdn_get_coverage_info</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"human_activities"</span>, </span>
-<span>                              coverage_ids <span class="op">=</span> <span class="st">"emodnet__2017_01_st_00"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ✔ WCS client created succesfully</span></span>
-<span><span class="co">#&gt; ℹ Service: &lt;https://ows.emodnet-humanactivities.eu/wcs&gt;</span></span>
-<span><span class="co">#&gt; ℹ Service: "2.0.1"</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/emdn_get_wcs_info.html">emdn_get_coverage_info</a></span><span class="op">(</span><span class="va">wcs</span>, </span>
+<span>                       coverage_ids <span class="op">=</span> <span class="st">"Emodnetbio__cal_fin_19582016_L1_err"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 21</span></span>
 <span><span class="co">#&gt;   data_s…¹ servi…² servi…³ cover…⁴ band_…⁵ band_…⁶ const…⁷ nil_v…⁸ dim_n dim_n…⁹</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 emodnet… https:… human_… emodne… GRAY_I… W.m-2.… -3.402…   -9999     2 x(m):g…</span></span>
+<span><span class="co">#&gt; 1 emodnet… https:… biology Emodne… Relati… W.m-2.… -3.402… 9.97e36     3 lat(de…</span></span>
 <span><span class="co">#&gt; # … with 11 more variables: grid_size &lt;chr&gt;, resolution &lt;chr&gt;, extent &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   crs &lt;chr&gt;, wgs84_extent &lt;chr&gt;, temporal_extent &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   vertical_extent &lt;chr&gt;, subtype &lt;chr&gt;, fn_seq_rule &lt;chr&gt;,</span></span>
@@ -260,31 +260,81 @@
 <p><strong>Note</strong></p>
 <p>To minimize the number of requests sent to webservices, these functions use <a href="https://memoise.r-lib.org/" class="external-link"><code>memoise</code></a> to cache results inside the active R session. To clear the cache, re-start R or run <code>memoise::forget(emdn_get_wcs_info)</code>/<code>memoise::forget(emdn_get_coverage_info)</code></p>
 </blockquote>
+<p>The package also offers a number of functions for extracting individual metadata in more usable forms. e.g.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/emdn_get_coverage_summaries.html">emdn_get_coverage_ids</a></span><span class="op">(</span><span class="va">wcs</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "Emodnetbio__ratio_large_to_small_19582016_L1_err"</span></span>
+<span><span class="co">#&gt;  [2] "Emodnetbio__aca_spp_19582016_L1"                 </span></span>
+<span><span class="co">#&gt;  [3] "Emodnetbio__cal_fin_19582016_L1_err"             </span></span>
+<span><span class="co">#&gt;  [4] "Emodnetbio__cal_hel_19582016_L1_err"             </span></span>
+<span><span class="co">#&gt;  [5] "Emodnetbio__met_luc_19582016_L1_err"             </span></span>
+<span><span class="co">#&gt;  [6] "Emodnetbio__oit_spp_19582016_L1_err"             </span></span>
+<span><span class="co">#&gt;  [7] "Emodnetbio__tem_lon_19582016_L1_err"             </span></span>
+<span><span class="co">#&gt;  [8] "Emodnetbio__chli_19582016_L1_err"                </span></span>
+<span><span class="co">#&gt;  [9] "Emodnetbio__tot_lar_19582016_L1_err"             </span></span>
+<span><span class="co">#&gt; [10] "Emodnetbio__tot_sma_19582016_L1_err"</span></span></code></pre></div>
+<p>For more details, please refer to the <a href="https://emodnet.github.io/EMODnetWCS/articles/metadata.html">Getting metadata about Services &amp; Coverages</a> article in the <code>EMODnetWCS</code> online documentation.</p>
+</div>
+<div class="section level2">
+<h2 id="downloading-coverages">Downloading Coverages<a class="anchor" aria-label="anchor" href="#downloading-coverages"></a>
+</h2>
+<p>The package also provides a function to download full or subsets of coverages from EMODnetWCS services.</p>
+<p>The following example downloads a spatial subset of a coverage using a bounding box.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cov</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/emdn_get_coverage.html">emdn_get_coverage</a></span><span class="op">(</span><span class="va">wcs</span>, </span>
+<span>                  coverage_id <span class="op">=</span> <span class="st">"Emodnetbio__cal_fin_19582016_L1_err"</span>,</span>
+<span>                  bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>                           ymin <span class="op">=</span> <span class="fl">40</span>, </span>
+<span>                           xmax <span class="op">=</span> <span class="fl">5</span>, </span>
+<span>                           ymax <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span>
+<span>                  <span class="op">)</span></span>
+<span><span class="co">#&gt; ── Downloading coverage "Emodnetbio__cal_fin_19582016_L1_err" ──────────────────</span></span>
+<span><span class="co">#&gt; &lt;GMLEnvelope&gt;</span></span>
+<span><span class="co">#&gt; ....|-- lowerCorner: 40 0 "1958-02-16T00:00:00"</span></span>
+<span><span class="co">#&gt; ....|-- upperCorner: 45 5 "2016-11-16T00:00:00"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ✔ Coverage "Emodnetbio__cal_fin_19582016_L1_err" downloaded succesfully as a</span></span>
+<span><span class="co">#&gt; terra &lt;SpatRaster&gt;</span></span>
+<span></span>
+<span><span class="va">cov</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 50, 49, 2  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 0.1, 0.1  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : 0.05, 4.95, 40.05, 45.05  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">#&gt; source      : Emodnetbio__cal_fin_19582016_L1_err_2016-11-16T00_00_00.000Z_40,0,45,5.tif </span></span>
+<span><span class="co">#&gt; names       : Emodnetbio__cal~00Z_40,0,45,5_1, Emodnetbio__cal~00Z_40,0,45,5_2</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cov</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in .as.raster.classes(out, x): NAs introduced by coercion to integer</span></span>
+<span><span class="co">#&gt; range</span></span>
+<span><span class="co">#&gt; Warning in .get_breaks(Z, length(out$cols), "eqint", out$range): probable</span></span>
+<span><span class="co">#&gt; complete loss of accuracy in modulus</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
+<p>For more details on downloading coverages, please refer to the <a href="https://emodnet.github.io/EMODnetWCS/articles/coverages.html">Download Coverages</a> article in the <code>EMODnetWCS</code> online documentation.</p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>To cite EMODnetWCS, please use the output from <code>citation(package = "EMODnetWCS")</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"EMODnetWCS"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in citation(package = "EMODnetWCS"): no date field in DESCRIPTION file</span></span>
-<span><span class="co">#&gt; of package 'EMODnetWCS'</span></span>
-<span><span class="co">#&gt; Warning in citation(package = "EMODnetWCS"): could not determine year for</span></span>
-<span><span class="co">#&gt; 'EMODnetWCS' from package DESCRIPTION file</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; To cite package 'EMODnetWCS' in publications use:</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Anna Krystalli (NA). EMODnetWCS: Access EMODnet Web Coverage Service</span></span>
-<span><span class="co">#&gt;   data through R. https://github.com/EMODnet/EMODnetWCS,</span></span>
-<span><span class="co">#&gt;   https://emodnet.github.io/EMODnetWCS/.</span></span>
+<span><span class="co">#&gt; Krystalli A (????). _EMODnetWCS: Access EMODnet Web Coverage Service</span></span>
+<span><span class="co">#&gt; data through R_. R package version 0.0.0.9010. Integrated data products</span></span>
+<span><span class="co">#&gt; created under the European Marine Observation Data Network (EMODnet)</span></span>
+<span><span class="co">#&gt; Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the</span></span>
+<span><span class="co">#&gt; European Union under Regulation (EU) No 508/2014 of the European</span></span>
+<span><span class="co">#&gt; Parliament and of the Council of 15 May 2014 on the European Maritime</span></span>
+<span><span class="co">#&gt; and Fisheries Fund, &lt;URL: https://github.com/EMODnet/EMODnetWCS&gt;.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   @Manual{,</span></span>
-<span><span class="co">#&gt;     title = {EMODnetWCS: Access EMODnet Web Coverage Service data through R},</span></span>
+<span><span class="co">#&gt;     title = {{EMODnetWCS}: Access EMODnet Web Coverage Service data through R},</span></span>
 <span><span class="co">#&gt;     author = {Anna Krystalli},</span></span>
-<span><span class="co">#&gt;     note = {https://github.com/EMODnet/EMODnetWCS,</span></span>
-<span><span class="co">#&gt; https://emodnet.github.io/EMODnetWCS/},</span></span>
+<span><span class="co">#&gt;     note = {R package version 0.0.0.9010. Integrated data products created under the European Marine Observation Data Network (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the European Union under Regulation (EU) No 508/2014 of the European Parliament and of the Council of 15 May 2014 on the European Maritime and Fisheries Fund},</span></span>
+<span><span class="co">#&gt;     url = {https://github.com/EMODnet/EMODnetWCS},</span></span>
 <span><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 <div class="section level2">
