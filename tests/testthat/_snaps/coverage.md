@@ -5,9 +5,9 @@
     resolution  : 0.1, 0.1  (x, y)
     extent      : 0.05, 1.95, 40.05, 42.05  (xmin, xmax, ymin, ymax)
     coord. ref. : lon/lat WGS 84 (EPSG:4326) 
-    sources     : Emodnetbio__cal_fin_19582016_L1_err_1963-11-16T00_00_00.000Z_Emodnetbio__cal_fin_19582016_L1_err_40,0,42,2.tif  
-                  Emodnetbio__cal_fin_19582016_L1_err_1964-02-16T00_00_00.000Z_Emodnetbio__cal_fin_19582016_L1_err_40,0,42,2.tif  
-    names       : Emodnetbio__cal~1_err_40,0,42,2, Emodnetbio__cal~1_err_40,0,42,2 
+    sources     : Emodnetbio__cal_fin_19582016_L1_err_1963-11-16T00_00_00.000Z_40,0,42,2.tif  
+                  Emodnetbio__cal_fin_19582016_L1_err_1964-02-16T00_00_00.000Z_40,0,42,2.tif  
+    names       : Emodnetbio__cal~.000Z_40,0,42,2, Emodnetbio__cal~.000Z_40,0,42,2 
 
 ---
 

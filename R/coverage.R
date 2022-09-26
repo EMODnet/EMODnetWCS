@@ -120,9 +120,8 @@ emdn_get_coverage <- function(wcs = NULL, service = NULL,
         # TODO - uncomment crs when https://github.com/eblondel/ows4R/issues/90
         # is resolved
         cov_raster <- summary$getCoverageStack(
-            coverage_id,
             bbox = ows_bbox,
-            #crs = crs,
+            crs = crs,
             time = time,
             format = format,
             rangesubset = rangesubset,
@@ -134,12 +133,9 @@ emdn_get_coverage <- function(wcs = NULL, service = NULL,
         {.pkg terra} {.cls SpatRaster} Stack"
         )
     } else {
-        # TODO - uncomment crs when https://github.com/eblondel/ows4R/issues/90
-        # is resolved
         cov_raster <- summary$getCoverage(
-            coverage_id,
             bbox = ows_bbox,
-            #crs = crs,
+            crs = crs,
             time = time,
             elevation = elevation,
             format = format,
