@@ -16,7 +16,6 @@ Imports:
     checkmate,
     cli,
     curl,
-    geometa,
     glue,
     httr,
     memoise,
@@ -37,8 +36,7 @@ Suggests:
     withr
 Config/testthat/edition: 3
 Remotes: 
-    eblondel/ows4R,
-    eblondel/geometa
+    eblondel/ows4R
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
