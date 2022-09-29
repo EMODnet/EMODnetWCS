@@ -66,15 +66,20 @@ test_that("dimensions processed correctly", {
 test_that("rangeType processed correctly", {
   summary <- create_biology_summary()[[1]]
   with_mock_dir("biology-description", {
-    expect_equal(emdn_get_nil_value(summary),
-                 c(relative_abundance = 9.96920996838687e+36))
-    expect_equal(emdn_get_band_descriptions(summary),
-                 structure("relative_abundance",
-      uom = "W.m-2.Sr-1"
-    ))
-    expect_equal(emdn_get_band_uom(summary),
-                 c(relative_abundance = "W.m-2.Sr-1")
-                 )
+    expect_equal(
+      emdn_get_nil_value(summary),
+      c(relative_abundance = 9.96920996838687e+36)
+    )
+    expect_equal(
+      emdn_get_band_descriptions(summary),
+      structure("relative_abundance",
+        uom = "W.m-2.Sr-1"
+      )
+    )
+    expect_equal(
+      emdn_get_band_uom(summary),
+      c(relative_abundance = "W.m-2.Sr-1")
+    )
     expect_equal(
       emdn_get_band_constraints(summary),
       list(
@@ -120,12 +125,12 @@ test_that("rangeType processed correctly", {
       )
     )
     expect_equal(
-        emdn_get_nil_value(summary),
-        c(
-            RED_BAND = NA_real_,
-            GREEN_BAND = NA_real_,
-            BLUE_BAND = NA_real_
-        )
+      emdn_get_nil_value(summary),
+      c(
+        RED_BAND = NA_real_,
+        GREEN_BAND = NA_real_,
+        BLUE_BAND = NA_real_
+      )
     )
     expect_equal(
       emdn_get_band_constraints(summary),

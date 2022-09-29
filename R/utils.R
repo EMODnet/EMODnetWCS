@@ -261,26 +261,27 @@ emdn_get_WGS84bbox <- function(summary) {
 #' coverage.
 #' @export
 emdn_get_nil_value <- function(summary) {
-    fields <- summary$getDescription()$rangeType$field
-    nil_val <- fields |>
-        purrr::map(
-            ~.x$nilValues$nilValue)
+  fields <- summary$getDescription()$rangeType$field
+  nil_val <- fields |>
+    purrr::map(
+      ~ .x$nilValues$nilValue
+    )
 
-    nil_val <- nil_val |>
-        purrr::map_dbl(
-            ~ifelse(
-                is.null(.x),
-                NA,
-                as.numeric(.x)
-            )
-        )
+  nil_val <- nil_val |>
+    purrr::map_dbl(
+      ~ ifelse(
+        is.null(.x),
+        NA,
+        as.numeric(.x)
+      )
+    )
 
-    names(nil_val) <- fields |>
-        purrr::map_chr(
-            ~.x$description
-            )
+  names(nil_val) <- fields |>
+    purrr::map_chr(
+      ~ .x$description
+    )
 
-    return(nil_val)
+  return(nil_val)
 }
 
 #' @describeIn emdn_get_bbox Get the band descriptions of a coverage.
@@ -587,11 +588,11 @@ conc_band_uom <- function(x) {
 }
 
 conc_nil_value <- function(x) {
-    if (length(unique(x)) == 1L) {
-        return(unique(x))
-    }
+  if (length(unique(x)) == 1L) {
+    return(unique(x))
+  }
 
-    return(paste(x, collapse = ", "))
+  return(paste(x, collapse = ", "))
 }
 
 conc_constraint <- function(x) {
