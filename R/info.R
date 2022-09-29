@@ -1,50 +1,77 @@
 .emdn_get_wcs_info <- function(wcs = NULL, service = NULL,
-                                  service_version = c(
-                                      "2.0.1", "2.1.0", "2.0.0",
-                                      "1.1.1", "1.1.0"
-                                  ),
-                                  logger = c("NONE", "INFO", "DEBUG")) {
-    if (is.null(wcs) & is.null(service)) {
-        cli::cli_abort(c("x" = "Please provide a valid {.var service}
+                               service_version = c(
+                                 "2.0.1", "2.1.0", "2.0.0",
+                                 "1.1.1", "1.1.0"
+                               ),
+                               logger = c("NONE", "INFO", "DEBUG")) {
+  if (is.null(wcs) && is.null(service)) {
+    cli::cli_abort(c("x" = "Please provide a valid {.var service}
         name or {.cls WCSClient} object to {.var wcs}.
         Both cannot be {.val NULL}"))
-    }
+  }
 
-    if (is.null(wcs)) {
-        wcs <- emdn_init_wcs_client(service, service_version, logger)
-    }
+  if (is.null(wcs)) {
+    wcs <- emdn_init_wcs_client(service, service_version, logger)
+  }
 
-    check_wcs(wcs)
-    check_wcs_version(wcs)
+  check_wcs(wcs)
+  check_wcs_version(wcs)
 
-    capabilities <- wcs$getCapabilities()
-    service_id <- capabilities$getServiceIdentification()
-    summaries <- capabilities$getCoverageSummaries()
+  capabilities <- wcs$getCapabilities()
+  service_id <- capabilities$getServiceIdentification()
+  summaries <- capabilities$getCoverageSummaries()
 
-    list(
-        data_source = "emodnet_wcs",
-        service_name = get_service_name(capabilities$getUrl()),
-        service_url = capabilities$getUrl(),
-        service_title = service_id$getTitle(),
-        service_abstract = service_id$getAbstract(),
-        service_access_constraits = service_id$getAccessConstraints(),
-        service_fees = service_id$getFees(),
-        service_type = service_id$getServiceType(),
-        coverage_details =
-            tibble::tibble(
-                coverage_id = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
-                dim_n = purrr::map_int(summaries, ~ error_wrap(length(.x$getDimensions()))),
-                dim_names = purrr::map_chr(summaries, ~ error_wrap(emdn_get_dimensions_info(.x, format = "character"))),
-                extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_bbox(.x) |> conc_bbox())),
-                crs = purrr::map_chr(summaries, ~ error_wrap(extr_bbox_crs(.x)$input)),
-                wgs84_bbox = purrr::map_chr(summaries, ~ error_wrap(emdn_get_WGS84bbox(.x) |> conc_bbox())),
-                temporal_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_temporal_extent(.x) |>
-                                                                             paste(collapse = " - "))),
-                vertical_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_vertical_extent(.x) |>
-                                                                             paste(collapse = " - "))),
-                subtype = purrr::map_chr(summaries, ~ error_wrap(.x$CoverageSubtype))
-            )
-    )
+  list(
+    data_source = "emodnet_wcs",
+    service_name = get_service_name(capabilities$getUrl()),
+    service_url = capabilities$getUrl(),
+    service_title = service_id$getTitle(),
+    service_abstract = service_id$getAbstract(),
+    service_access_constraits = service_id$getAccessConstraints(),
+    service_fees = service_id$getFees(),
+    service_type = service_id$getServiceType(),
+    coverage_details =
+      tibble::tibble(
+        coverage_id = purrr::map_chr(
+          summaries,
+          ~ error_wrap(.x$getId())
+        ),
+        dim_n = purrr::map_int(
+          summaries,
+          ~ error_wrap(length(.x$getDimensions()))
+        ),
+        dim_names = purrr::map_chr(
+          summaries,
+          ~ error_wrap(emdn_get_dimensions_info(.x, format = "character"))
+        ),
+        extent = purrr::map_chr(
+          summaries,
+          ~ error_wrap(emdn_get_bbox(.x) |> conc_bbox())
+        ),
+        crs = purrr::map_chr(
+          summaries,
+          ~ error_wrap(extr_bbox_crs(.x)$input)
+        ),
+        wgs84_bbox = purrr::map_chr(
+          summaries,
+          ~ error_wrap(emdn_get_WGS84bbox(.x) |> conc_bbox())
+        ),
+        temporal_extent = purrr::map_chr(
+          summaries,
+          ~ error_wrap(emdn_get_temporal_extent(.x) |>
+            paste(collapse = " - "))
+        ),
+        vertical_extent = purrr::map_chr(
+          summaries,
+          ~ error_wrap(emdn_get_vertical_extent(.x) |>
+            paste(collapse = " - "))
+        ),
+        subtype = purrr::map_chr(
+          summaries,
+          ~ error_wrap(.x$CoverageSubtype)
+        )
+      )
+  )
 }
 
 #' Get EMODnet WCS service and available coverage information.
@@ -91,10 +118,13 @@
 #' - **`service_name`:** the EMODnet WCS service name.
 #' - **`service_url`:** the EMODnet WCS service URL.
 #' - **`coverage_ids`:** the coverage ID.
-#' - **`band_description`:** the description of the data contained in the band of the coverage.
-#' - **`band_uom`:** the unit of measurement of the data contained in the band of the coverage.
-#' - **`constraint`:** the range of values of the data contained in the band of the coverage.
-#' - **`nil_value`:** the nil value of the data contained in the band of the coverage.
+#' - **`band_description`:** the description of the data contained each band of the coverage.
+#' - **`band_uom`:** the unit of measurement of the data contained each band of the coverage.
+#' If all bands share the same unit of measurement, the single shared uom is shown.
+#' - **`constraint`:** the range of values of the data contained in each band of the coverage.
+#' If all bands share the same constraint, the single shared constraint range is shown.
+#' - **`nil_value`:** the nil values of the data contained each band of the coverage.
+#' If all bands share the same nil value, the single shared nil value is shown.
 #' - **`grid_size`:** the spatial size of the coverage grid (ncol x nrow).
 #' - **`resolution`:** the spatial resolution (pixel size) of the coverage grid
 #' in the CRS units of measurement (size in the `x` dimension x size in the `y` dimension).
@@ -136,19 +166,23 @@
 #'   "emodnet_open_maplibrary__mediseh_cora",
 #'   "emodnet_open_maplibrary__mediseh_posidonia"
 #' )
-#' emdn_get_coverage_info(wcs = wcs,
-#'                        coverage_ids = coverage_ids)
-#'}
+#' emdn_get_coverage_info(
+#'   wcs = wcs,
+#'   coverage_ids = coverage_ids
+#' )
+#' }
 emdn_get_wcs_info <- memoise::memoise(.emdn_get_wcs_info)
 
 
 .emdn_get_wcs_info_all <- function(logger = c("NONE", "INFO", "DEBUG")) {
-    purrr::map(
-        emdn_wcs()$service_name,
-        ~ suppressMessages(emdn_get_wcs_info(service = .x,
-                                                logger = logger))
-    ) |>
-        stats::setNames(emdn_wcs()$service_name)
+  purrr::map(
+    emdn_wcs()$service_name,
+    ~ suppressMessages(emdn_get_wcs_info(
+      service = .x,
+      logger = logger
+    ))
+  ) |>
+    stats::setNames(emdn_wcs()$service_name)
 }
 
 #' @describeIn emdn_get_wcs_info Get metadata on all services and all available
@@ -157,68 +191,131 @@ emdn_get_wcs_info <- memoise::memoise(.emdn_get_wcs_info)
 emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
 
 .emdn_get_coverage_info <- function(wcs = NULL, service = NULL,
-                                           coverage_ids,
-                                           service_version = c(
-                                               "2.0.1", "2.1.0", "2.0.0",
-                                               "1.1.1", "1.1.0"
-                                           ),
-                                           logger = c("NONE", "INFO", "DEBUG")) {
-
-    if (is.null(wcs) & is.null(service)) {
-        cli::cli_abort(c("x" = "Please provide a valid {.var service}
+                                    coverage_ids,
+                                    service_version = c(
+                                      "2.0.1", "2.1.0", "2.0.0",
+                                      "1.1.1", "1.1.0"
+                                    ),
+                                    logger = c("NONE", "INFO", "DEBUG")) {
+  if (is.null(wcs) && is.null(service)) {
+    cli::cli_abort(c("x" = "Please provide a valid {.var service}
         name or {.cls WCSClient} object to {.var wcs}.
         Both cannot be {.val NULL}"))
-    }
+  }
 
-    if (is.null(wcs)) {
-        wcs <- emdn_init_wcs_client(service, service_version, logger)
-    }
+  if (is.null(wcs)) {
+    wcs <- emdn_init_wcs_client(service, service_version, logger)
+  }
 
-    check_wcs(wcs)
-    check_wcs_version(wcs)
-    check_coverages(wcs, coverage_ids)
+  check_wcs(wcs)
+  check_wcs_version(wcs)
+  check_coverages(wcs, coverage_ids)
 
-    capabilities <- wcs$getCapabilities()
+  capabilities <- wcs$getCapabilities()
 
-    summaries <- purrr::map(validate_namespace(coverage_ids),
-                            ~capabilities$findCoverageSummaryById(.x)) |>
-        unlist(recursive = FALSE)
+  summaries <- purrr::map(
+    validate_namespace(coverage_ids),
+    ~ capabilities$findCoverageSummaryById(.x)
+  ) |>
+    unlist(recursive = FALSE)
 
-    tibble::tibble(
-        data_source = "emodnet_wcs",
-        service_name = wcs$getUrl(),
-        service_url = get_service_name(wcs$getUrl()),
-        coverage_id = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
-        band_description = purrr::map_chr(summaries, ~ error_wrap(emdn_get_band_name(.x))),
-        band_uom = purrr::map_chr(summaries, ~ error_wrap(emdn_get_uom(.x))),
-        constraint = purrr::map_chr(summaries, ~ error_wrap(emdn_get_constraint(.x) |>
-                                                                paste(collapse = ", "))),
-        nil_value = purrr::map_dbl(summaries, ~ error_wrap(emdn_get_nil_value(.x))),
-        dim_n = purrr::map_int(summaries, ~ error_wrap(length(.x$getDimensions()))),
-        dim_names = purrr::map_chr(summaries, ~ error_wrap(emdn_get_dimensions_info(.x, format = "character"))),
-        grid_size = purrr::map_chr(summaries, ~ error_wrap(emdn_get_grid_size(.x) |>
-                                                               paste(collapse = "x"))),
-        resolution = purrr::map_chr(summaries, ~ error_wrap(emdn_get_resolution(.x) |>
-                                                                conc_resolution())),
-        extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_bbox(.x) |> conc_bbox())),
-        crs = purrr::map_chr(summaries, ~ error_wrap(extr_bbox_crs(.x)$input)),
-        wgs84_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_WGS84bbox(.x) |> conc_bbox())),
-        temporal_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_temporal_extent(.x) |>
-                                                                     paste(collapse = " - "))),
-        vertical_extent = purrr::map_chr(summaries, ~ error_wrap(emdn_get_vertical_extent(.x) |>
-                                                                     paste(collapse = " - "))),
-        subtype = purrr::map_chr(summaries, ~ error_wrap(.x$CoverageSubtype)),
-        fn_seq_rule = purrr::map_chr(summaries, ~ error_wrap(
-            emdn_get_coverage_function(.x)$sequence_rule)),
-        fn_start_point = purrr::map_chr(summaries,
-                                        ~error_wrap(
-                                            emdn_get_coverage_function(.x)$start_point |>
-                                                paste(collapse = ","))),
-        fn_axis_order = purrr::map_chr(summaries,
-                                        ~error_wrap(
-                                            emdn_get_coverage_function(.x)$axis_order |>
-                                                paste(collapse = ",")))
+  tibble::tibble(
+    data_source = "emodnet_wcs",
+    service_name = wcs$getUrl(),
+    service_url = get_service_name(wcs$getUrl()),
+    coverage_id = purrr::map_chr(
+      summaries,
+      ~ error_wrap(.x$getId())
+    ),
+    band_description = purrr::map_chr(
+      summaries,
+      ~ error_wrap(emdn_get_band_descriptions(.x) |>
+        paste(collapse = ", "))
+    ),
+    band_uom = purrr::map_chr(
+      summaries,
+      ~ error_wrap(emdn_get_band_uom(.x) |>
+        conc_band_uom())
+    ),
+    constraint = purrr::map_chr(
+      summaries,
+      ~ error_wrap(emdn_get_band_constraints(.x) |>
+        conc_constraint())
+    ),
+    nil_value = purrr::map_dbl(
+      summaries,
+      ~ error_wrap(emdn_get_nil_values(.x) |>
+        conc_nil_value())
+    ),
+    dim_n = purrr::map_int(
+      summaries,
+      ~ error_wrap(length(.x$getDimensions()))
+    ),
+    dim_names = purrr::map_chr(
+      summaries,
+      ~ error_wrap(
+        emdn_get_dimensions_info(.x,
+          format = "character"
+        )
+      )
+    ),
+    grid_size = purrr::map_chr(
+      summaries,
+      ~ error_wrap(emdn_get_grid_size(.x) |>
+        paste(collapse = "x"))
+    ),
+    resolution = purrr::map_chr(
+      summaries,
+      ~ error_wrap(emdn_get_resolution(.x) |>
+        conc_resolution())
+    ),
+    extent = purrr::map_chr(
+      summaries,
+      ~ error_wrap(emdn_get_bbox(.x) |> conc_bbox())
+    ),
+    crs = purrr::map_chr(
+      summaries,
+      ~ error_wrap(extr_bbox_crs(.x)$input)
+    ),
+    wgs84_extent = purrr::map_chr(
+      summaries,
+      ~ error_wrap(emdn_get_WGS84bbox(.x) |> conc_bbox())
+    ),
+    temporal_extent = purrr::map_chr(
+      summaries,
+      ~ error_wrap(emdn_get_temporal_extent(.x) |>
+        paste(collapse = " - "))
+    ),
+    vertical_extent = purrr::map_chr(
+      summaries,
+      ~ error_wrap(emdn_get_vertical_extent(.x) |>
+        paste(collapse = " - "))
+    ),
+    subtype = purrr::map_chr(
+      summaries,
+      ~ error_wrap(.x$CoverageSubtype)
+    ),
+    fn_seq_rule = purrr::map_chr(
+      summaries,
+      ~ error_wrap(
+        emdn_get_coverage_function(.x)$sequence_rule
+      )
+    ),
+    fn_start_point = purrr::map_chr(
+      summaries,
+      ~ error_wrap(
+        emdn_get_coverage_function(.x)$start_point |>
+          paste(collapse = ",")
+      )
+    ),
+    fn_axis_order = purrr::map_chr(
+      summaries,
+      ~ error_wrap(
+        emdn_get_coverage_function(.x)$axis_order |>
+          paste(collapse = ",")
+      )
     )
+  )
 }
 
 #' @describeIn emdn_get_wcs_info Get metadata for specific coverages. Requires a
@@ -233,5 +330,3 @@ emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
 #'
 #' @export
 emdn_get_coverage_info <- memoise::memoise(.emdn_get_coverage_info)
-
-

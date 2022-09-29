@@ -227,14 +227,14 @@ emdn_get_WGS84bbox(summary)
 
 Get the value representing nil values in a coverage.
 ```{r}
-emdn_get_nil_value(summary)
+emdn_get_nil_values(summary)
 ```
 
-##### Get coverage band names
+##### Get coverage band descriptions
 
-Get the band names of a coverage.
+Get the band descriptions of a coverage.
 ```{r}
-emdn_get_band_name(summary)
+emdn_get_band_descriptions(summary)
 ```
 
 
@@ -242,7 +242,7 @@ emdn_get_band_name(summary)
 
 Get the units of measurement of the data contained in the bands values of a coverage.
 ```{r}
-emdn_get_uom(summary)
+emdn_get_band_uom(summary)
 ```
 
 
@@ -250,7 +250,7 @@ emdn_get_uom(summary)
 
 Get the range of values of the data contained in the bands of the coverage.
 ```{r}
-emdn_get_constraint(summary)
+emdn_get_band_constraints(summary)
 ```
 
 ##### Get coverage grid size

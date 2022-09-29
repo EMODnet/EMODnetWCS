@@ -16,10 +16,12 @@ For available services, see \code{\link[=emdn_wcs]{emdn_wcs()}}.}
 
 \item{service_version}{the WCS service version. Defaults to "2.0.1".}
 
-\item{logger}{character string. Level of logger: 'NONE' for no logger, 'INFO' to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)}
+\item{logger}{character string. Level of logger: 'NONE' for no logger, 'INFO'
+to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)}
 }
 \value{
-An \code{\link[ows4R:WCSClient]{ows4R::WCSClient}} R6 object with methods for interfacing an OGC Web Coverage Service.
+An \code{\link[ows4R:WCSClient]{ows4R::WCSClient}} R6 object with methods for interfacing an OGC
+Web Coverage Service.
 }
 \description{
 Initialise an EMODnet WCS client

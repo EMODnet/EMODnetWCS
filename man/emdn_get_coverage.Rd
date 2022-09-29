@@ -30,7 +30,8 @@ For available services, see \code{\link[=emdn_wcs]{emdn_wcs()}}.}
 
 \item{service_version}{the WCS service version. Defaults to "2.0.1".}
 
-\item{logger}{character string. Level of logger: 'NONE' for no logger, 'INFO' to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)}
+\item{logger}{character string. Level of logger: 'NONE' for no logger, 'INFO'
+to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)}
 
 \item{bbox}{a named numeric vector of length 4, with names \code{xmin}, \code{ymin},
 \code{xmax} and \code{ymax}. specifying the bounding box.
@@ -59,7 +60,7 @@ is returned.}
 
 \item{format}{the format of the file the coverage should be written out to.}
 
-\item{rangesubset}{character vector of band names to subset.}
+\item{rangesubset}{character vector of band descriptions to subset.}
 
 \item{filename}{the file name to write to.}
 
@@ -78,20 +79,32 @@ wcs <- emdn_init_wcs_client(service = "biology")
 coverage_id <- "Emodnetbio__cal_fin_19582016_L1_err"
 # Subset using a bounding box
 emdn_get_coverage(wcs,
-                         coverage_id = coverage_id,
-                         bbox = c(xmin = 0, ymin = 40,
-                                  xmax = 5, ymax = 45))
+  coverage_id = coverage_id,
+  bbox = c(
+    xmin = 0, ymin = 40,
+    xmax = 5, ymax = 45
+  )
+)
 # Subset using a bounding box and specific timepoints
 emdn_get_coverage(wcs,
-                         coverage_id = coverage_id,
-                         bbox = c(xmin = 0, ymin = 40,
-                                  xmax = 5, ymax = 45),
-                         time = c("1963-11-16T00:00:00.000Z",
-                                  "1964-02-16T00:00:00.000Z"))
+  coverage_id = coverage_id,
+  bbox = c(
+    xmin = 0, ymin = 40,
+    xmax = 5, ymax = 45
+  ),
+  time = c(
+    "1963-11-16T00:00:00.000Z",
+    "1964-02-16T00:00:00.000Z"
+  )
+)
 # Subset using a bounding box and a specific band
-emdn_get_coverage(wcs, coverage_id = coverage_id,
-                         bbox = c(xmin = 0, ymin = 40,
-                                  xmax = 5, ymax = 45),
-                                  rangesubset = "Relative abundance")
+emdn_get_coverage(wcs,
+  coverage_id = coverage_id,
+  bbox = c(
+    xmin = 0, ymin = 40,
+    xmax = 5, ymax = 45
+  ),
+  rangesubset = "Relative abundance"
+)
 }
 }

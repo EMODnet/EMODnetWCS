@@ -81,7 +81,7 @@ Create new WCS Client. Specify the service using the `service` argument.
 ``` r
 wcs <- emdn_init_wcs_client(service = "biology")
 #> ✔ WCS client created succesfully
-#> ℹ Service: <https://geo.vliz.be/geoserver/Emodnetbio/wcs>
+#> ℹ Service: <]8;;https://geo.vliz.be/geoserver/Emodnetbio/wcshttps://geo.vliz.be/geoserver/Emodnetbio/wcs]8;;>
 #> ℹ Service: "2.0.1"
 ```
 
@@ -93,7 +93,7 @@ easy review by supplying a `WCSClient` object to `emdn_get_wcs_info`.
 ``` r
 emdn_get_wcs_info(wcs)
 #> Loading required package: sf
-#> Linking to GEOS 3.9.1, GDAL 3.4.0, PROJ 8.1.1; sf_use_s2() is TRUE
+#> Linking to GEOS 3.10.2, GDAL 3.4.2, PROJ 8.2.1; sf_use_s2() is TRUE
 #> $data_source
 #> [1] "emodnet_wcs"
 #> 
@@ -142,7 +142,7 @@ object.
 ``` r
 emdn_get_wcs_info(service = "biology")
 #> ✔ WCS client created succesfully
-#> ℹ Service: <https://geo.vliz.be/geoserver/Emodnetbio/wcs>
+#> ℹ Service: <]8;;https://geo.vliz.be/geoserver/Emodnetbio/wcshttps://geo.vliz.be/geoserver/Emodnetbio/wcs]8;;>
 #> ℹ Service: "2.0.1"
 #> $data_source
 #> [1] "emodnet_wcs"
@@ -191,10 +191,11 @@ Get more detailed coverage metadata about specific coverage.
 ``` r
 emdn_get_coverage_info(wcs, 
                        coverage_ids = "Emodnetbio__cal_fin_19582016_L1_err")
+#> ! Output of  is NULL. Returning NA
 #> # A tibble: 1 × 21
 #>   data_s…¹ servi…² servi…³ cover…⁴ band_…⁵ band_…⁶ const…⁷ nil_v…⁸ dim_n dim_n…⁹
 #>   <chr>    <chr>   <chr>   <chr>   <chr>   <chr>   <chr>     <dbl> <int> <chr>  
-#> 1 emodnet… https:… biology Emodne… Relati… W.m-2.… -3.402… 9.97e36     3 lat(de…
+#> 1 emodnet… https:… biology Emodne… Relati… W.m-2.… -3.402…      NA     3 lat(de…
 #> # … with 11 more variables: grid_size <chr>, resolution <chr>, extent <chr>,
 #> #   crs <chr>, wgs84_extent <chr>, temporal_extent <chr>,
 #> #   vertical_extent <chr>, subtype <chr>, fn_seq_rule <chr>,
@@ -287,20 +288,22 @@ To cite EMODnetWCS, please use the output from
 ``` r
 citation(package = "EMODnetWCS")
 #> 
-#> Krystalli A (????). _EMODnetWCS: Access EMODnet Web Coverage Service
-#> data through R_. R package version 0.0.0.9010. Integrated data products
-#> created under the European Marine Observation Data Network (EMODnet)
-#> Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the
-#> European Union under Regulation (EU) No 508/2014 of the European
-#> Parliament and of the Council of 15 May 2014 on the European Maritime
-#> and Fisheries Fund, <URL: https://github.com/EMODnet/EMODnetWCS>.
+#> To cite package 'EMODnetWCS' in publications use:
+#> 
+#>   Krystalli A (????). _EMODnetWCS: Access EMODnet Web Coverage Service
+#>   data through R_. R package version 0.0.0.9011. Integrated data
+#>   products created under the European Marine Observation Data Network
+#>   (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013),
+#>   funded by the European Union under Regulation (EU) No 508/2014 of the
+#>   European Parliament and of the Council of 15 May 2014 on the European
+#>   Maritime and Fisheries Fund, <https://github.com/EMODnet/EMODnetWCS>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {{EMODnetWCS}: Access EMODnet Web Coverage Service data through R},
 #>     author = {Anna Krystalli},
-#>     note = {R package version 0.0.0.9010. Integrated data products created under the European Marine Observation Data Network (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the European Union under Regulation (EU) No 508/2014 of the European Parliament and of the Council of 15 May 2014 on the European Maritime and Fisheries Fund},
+#>     note = {R package version 0.0.0.9011. Integrated data products created under the European Marine Observation Data Network (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the European Union under Regulation (EU) No 508/2014 of the European Parliament and of the Council of 15 May 2014 on the European Maritime and Fisheries Fund},
 #>     url = {https://github.com/EMODnet/EMODnetWCS},
 #>   }
 ```

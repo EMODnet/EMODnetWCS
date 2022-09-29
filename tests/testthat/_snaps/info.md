@@ -14,9 +14,8 @@
 
     structure(list(data_source = "emodnet_wcs", service_name = "https://geoserver.emodnet-physics.eu/geoserver/wcs", 
         service_url = "physics", coverage_id = "emodnet__EP_GEO_NER_OTHR_NN_NN_RAS", 
-        band_description = "BLUE_BAND", band_uom = "W.m-2.Sr-1", 
-        constraint = "0, 255", nil_value = NA_real_, dim_n = 2L, 
-        dim_names = "lat(deg):geographic; long(deg):geographic", 
+        band_description = "RED_BAND, GREEN_BAND, BLUE_BAND", band_uom = "W.m-2.Sr-1", 
+        constraint = "0-255", nil_value = NA_real_, dim_n = 2L, dim_names = "lat(deg):geographic; long(deg):geographic", 
         grid_size = "21600x10800", resolution = "0.01666666666667 Deg x 0.01666666666667 Deg", 
         extent = "-180, -90, 180, 90", crs = "EPSG:4326", wgs84_extent = "-180, -90, 180, 90", 
         temporal_extent = "NA", vertical_extent = "NA", subtype = "RectifiedGridCoverage", 

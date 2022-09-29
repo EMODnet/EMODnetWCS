@@ -24,7 +24,7 @@
 #' `SpatRaster` is returned. For more than one elevation, `SpatRaster` stack
 #' is returned.
 #' @param format the format of the file the coverage should be written out to.
-#' @param rangesubset character vector of band names to subset.
+#' @param rangesubset character vector of band descriptions to subset.
 #' @param filename the file name to write to.
 #' @param nil_values_as_na logical. Should raster nil values be converted to `NA`?
 #'
@@ -38,132 +38,143 @@
 #' coverage_id <- "Emodnetbio__cal_fin_19582016_L1_err"
 #' # Subset using a bounding box
 #' emdn_get_coverage(wcs,
-#'                          coverage_id = coverage_id,
-#'                          bbox = c(xmin = 0, ymin = 40,
-#'                                   xmax = 5, ymax = 45))
+#'   coverage_id = coverage_id,
+#'   bbox = c(
+#'     xmin = 0, ymin = 40,
+#'     xmax = 5, ymax = 45
+#'   )
+#' )
 #' # Subset using a bounding box and specific timepoints
 #' emdn_get_coverage(wcs,
-#'                          coverage_id = coverage_id,
-#'                          bbox = c(xmin = 0, ymin = 40,
-#'                                   xmax = 5, ymax = 45),
-#'                          time = c("1963-11-16T00:00:00.000Z",
-#'                                   "1964-02-16T00:00:00.000Z"))
+#'   coverage_id = coverage_id,
+#'   bbox = c(
+#'     xmin = 0, ymin = 40,
+#'     xmax = 5, ymax = 45
+#'   ),
+#'   time = c(
+#'     "1963-11-16T00:00:00.000Z",
+#'     "1964-02-16T00:00:00.000Z"
+#'   )
+#' )
 #' # Subset using a bounding box and a specific band
-#' emdn_get_coverage(wcs, coverage_id = coverage_id,
-#'                          bbox = c(xmin = 0, ymin = 40,
-#'                                   xmax = 5, ymax = 45),
-#'                                   rangesubset = "Relative abundance")
+#' emdn_get_coverage(wcs,
+#'   coverage_id = coverage_id,
+#'   bbox = c(
+#'     xmin = 0, ymin = 40,
+#'     xmax = 5, ymax = 45
+#'   ),
+#'   rangesubset = "Relative abundance"
+#' )
 #' }
 emdn_get_coverage <- function(wcs = NULL, service = NULL,
-                                     coverage_id,
-                                     service_version = c(
-                                         "2.0.1", "2.1.0", "2.0.0",
-                                         "1.1.1", "1.1.0"
-                                     ),
-                                     logger = c("NONE", "INFO", "DEBUG"),
-                                     bbox = NULL, crs = NULL,
-                                     time = NULL,
-                                     elevation = NULL,
-                                     format = NULL,
-                                     rangesubset = NULL,
-                                     filename = NULL,
-                                     nil_values_as_na = FALSE) {
-
-    if (is.null(wcs) & is.null(service)) {
-        cli::cli_abort(c("x" =
+                              coverage_id,
+                              service_version = c(
+                                "2.0.1", "2.1.0", "2.0.0",
+                                "1.1.1", "1.1.0"
+                              ),
+                              logger = c("NONE", "INFO", "DEBUG"),
+                              bbox = NULL, crs = NULL,
+                              time = NULL,
+                              elevation = NULL,
+                              format = NULL,
+                              rangesubset = NULL,
+                              filename = NULL,
+                              nil_values_as_na = FALSE) {
+  if (is.null(wcs) & is.null(service)) {
+    cli::cli_abort(c(
+      "x" =
         "Please provide a valid {.var service}
         name or {.cls WCSClient} object to {.var wcs}.
-        Both cannot be {.val NULL}"))
-    }
+        Both cannot be {.val NULL}"
+    ))
+  }
 
-    if (is.null(wcs)) {
-        wcs <- emdn_init_wcs_client(service, service_version, logger)
-    }
+  if (is.null(wcs)) {
+    wcs <- emdn_init_wcs_client(service, service_version, logger)
+  }
 
-    check_wcs(wcs)
-    check_wcs_version(wcs)
+  check_wcs(wcs)
+  check_wcs_version(wcs)
 
-    checkmate::assert_character(coverage_id, len = 1)
-    check_coverages(wcs, coverage_id)
-    ows_bbox <- validate_bbox(bbox)
+  checkmate::assert_character(coverage_id, len = 1)
+  check_coverages(wcs, coverage_id)
+  ows_bbox <- validate_bbox(bbox)
 
-    summary <- emdn_get_coverage_summaries(wcs, coverage_id)[[1]]
+  summary <- emdn_get_coverage_summaries(wcs, coverage_id)[[1]]
 
-    # validate request arguments
-    if (!is.null(rangesubset)) {
-        # TODO - uncomment validate(rangesubset) when
-        # https://github.com/eblondel/ows4R/issues/80
-        # is resolved
-        # validate_rangesubset(summary, rangesubset)
-        rangesubset <- utils::URLencode(rangesubset)
-    }
-    if (!is.null(time)) {
-        validate_dimension_subset(wcs,
-                                  coverage_id,
-                                  type = "temporal",
-                                  subset = time)
-    }
-    if (!is.null(elevation)) {
-        validate_dimension_subset(wcs,
-                                  coverage_id,
-                                  type = "vertical",
-                                  subset = elevation)
-    }
-    check_cov_contains_bbox(summary, bbox, crs)
+  # validate request arguments
+  if (!is.null(rangesubset)) {
+    # TODO - uncomment validate(rangesubset) when
+    # https://github.com/eblondel/ows4R/issues/80
+    # is resolved
+    # validate_rangesubset(summary, rangesubset)
+    rangesubset <- utils::URLencode(rangesubset)
+  }
+  if (!is.null(time)) {
+    validate_dimension_subset(wcs,
+      coverage_id,
+      type = "temporal",
+      subset = time
+    )
+  }
+  if (!is.null(elevation)) {
+    validate_dimension_subset(wcs,
+      coverage_id,
+      type = "vertical",
+      subset = elevation
+    )
+  }
+  check_cov_contains_bbox(summary, bbox, crs)
 
-    cli::cli_rule(left = "Downloading coverage {.val {coverage_id}}")
+  cli::cli_rule(left = "Downloading coverage {.val {coverage_id}}")
 
-    coverage_id <- validate_namespace(coverage_id)
+  coverage_id <- validate_namespace(coverage_id)
 
-    if(length(time) > 1 | length(elevation) > 1) {
+  if (length(time) > 1 || length(elevation) > 1) {
 
-        # TODO - uncomment crs when https://github.com/eblondel/ows4R/issues/90
-        # is resolved
-        cov_raster <- summary$getCoverageStack(
-            coverage_id,
-            bbox = ows_bbox,
-            #crs = crs,
-            time = time,
-            format = format,
-            rangesubset = rangesubset,
-            filename = filename
-        )
-        cli::cli_text()
-        cli::cli_alert_success(
-            "\n Coverage {.val {coverage_id}} downloaded succesfully as a
+    # TODO - uncomment crs when https://github.com/eblondel/ows4R/issues/90
+    # is resolved
+    cov_raster <- summary$getCoverageStack(
+      bbox = ows_bbox,
+      crs = crs,
+      time = time,
+      format = format,
+      rangesubset = rangesubset,
+      filename = filename
+    )
+    cli::cli_text()
+    cli::cli_alert_success(
+      "\n Coverage {.val {coverage_id}} downloaded succesfully as a
         {.pkg terra} {.cls SpatRaster} Stack"
-        )
-    } else {
-        # TODO - uncomment crs when https://github.com/eblondel/ows4R/issues/90
-        # is resolved
-        cov_raster <- summary$getCoverage(
-            coverage_id,
-            bbox = ows_bbox,
-            #crs = crs,
-            time = time,
-            elevation = elevation,
-            format = format,
-            rangesubset = rangesubset,
-            filename = filename
-        )
-        cli::cli_text()
-        cli::cli_alert_success(
-            "\n Coverage {.val {coverage_id}} downloaded succesfully as a
+    )
+  } else {
+    cov_raster <- summary$getCoverage(
+      bbox = ows_bbox,
+      crs = crs,
+      time = time,
+      elevation = elevation,
+      format = format,
+      rangesubset = rangesubset,
+      filename = filename
+    )
+    cli::cli_text()
+    cli::cli_alert_success(
+      "\n Coverage {.val {coverage_id}} downloaded succesfully as a
         {.pkg terra} {.cls SpatRaster}"
-        )
+    )
+  }
+
+  if (nil_values_as_na) {
+    nil_value <- emdn_get_nil_values(summary)
+
+    if (is.numeric(nil_value)) {
+      cov_raster[cov_raster == nil_value] <- NA
+
+      cli::cli_alert_info(
+        "nil values {.val {nil_value}} converted to {.field NA}"
+      )
     }
+  }
 
-    if (nil_values_as_na) {
-        nil_value <- emdn_get_nil_value(summary)
-
-        if (is.numeric(nil_value)) {
-            cov_raster[cov_raster == nil_value] <- NA
-
-            cli::cli_alert_info(
-                "nil values {.val {nil_value}} converted to {.field NA}")
-        }
-    }
-
-    return(cov_raster)
+  return(cov_raster)
 }
-

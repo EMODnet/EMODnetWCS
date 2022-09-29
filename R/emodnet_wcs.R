@@ -1,11 +1,12 @@
 #' @importFrom utils read.csv
 .emdn_wcs <- function() {
-    utils::read.csv(
-        system.file(
-            "services.csv",
-            package = "EMODnetWCS")
-        ) |>
-        tibble::as_tibble()
+  utils::read.csv(
+    system.file(
+      "services.csv",
+      package = "EMODnetWCS"
+    )
+  ) |>
+    tibble::as_tibble()
 }
 
 #' Available EMODnet Web Coverage Services
