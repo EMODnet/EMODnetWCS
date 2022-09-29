@@ -193,7 +193,7 @@ emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
         coverage_id = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
         band_description = purrr::map_chr(summaries, ~ error_wrap(emdn_get_band_name(.x) |>
                                                                       paste(collapse = ", "))),
-        band_uom = purrr::map_chr(summaries, ~ error_wrap(emdn_get_uom(.x) |>
+        band_uom = purrr::map_chr(summaries, ~ error_wrap(emdn_get_band_uom(.x) |>
                                                               conc_band_uom())),
         constraint = purrr::map_chr(summaries, ~ error_wrap(emdn_get_band_constraints(.x) |>
                                                                 conc_constraint())),

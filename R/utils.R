@@ -149,7 +149,7 @@ emdn_get_coverage_dim_coefs <- function(wcs,
 #' - `emdn_get_nil_value` a numeric scalar of the value representing nil values
 #' in a coverage.
 #' - `emdn_get_band_name` a character vector of band names.
-#' - `emdn_get_uom` a character vector of band units of measurement.
+#' - `emdn_get_band_uom` a character vector of band units of measurement.
 #' - `emdn_get_band_constraints` a list of numeric vectors of length 2 indicating the min and max
 #' values of the data contained in each bands of the coverage.
 #' - `emdn_get_grid_size` a numeric vector of length 2 giving the spatial size in
@@ -193,7 +193,7 @@ emdn_get_coverage_dim_coefs <- function(wcs,
 #' # get coverage band names
 #' emdn_get_band_name(summary)
 #' # get band units of measurement
-#' emdn_get_uom(summary)
+#' emdn_get_band_uom(summary)
 #' # get range of band values
 #' emdn_get_band_constraints(summary)
 #' # get coverage grid size
@@ -269,7 +269,7 @@ emdn_get_band_name <- function(summary) {
 #' @describeIn emdn_get_bbox Get the units of measurement of the data contained in
 #' the bands values of a coverage.
 #' @export
-emdn_get_uom <- function(summary) {
+emdn_get_band_uom <- function(summary) {
     fields <- summary$getDescription()$rangeType$field
     uom <- fields |>
         purrr::map_chr(~.x$uom$attrs$code)

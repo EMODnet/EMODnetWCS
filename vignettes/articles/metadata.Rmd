@@ -242,7 +242,7 @@ emdn_get_band_name(summary)
 
 Get the units of measurement of the data contained in the bands values of a coverage.
 ```{r}
-emdn_get_uom(summary)
+emdn_get_band_uom(summary)
 ```
 
 

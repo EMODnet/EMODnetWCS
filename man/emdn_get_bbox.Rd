@@ -5,7 +5,7 @@
 \alias{emdn_get_WGS84bbox}
 \alias{emdn_get_nil_value}
 \alias{emdn_get_band_name}
-\alias{emdn_get_uom}
+\alias{emdn_get_band_uom}
 \alias{emdn_get_band_constraints}
 \alias{emdn_get_grid_size}
 \alias{emdn_get_resolution}
@@ -26,7 +26,7 @@ emdn_get_nil_value(summary)
 
 emdn_get_band_name(summary)
 
-emdn_get_uom(summary)
+emdn_get_band_uom(summary)
 
 emdn_get_band_constraints(summary)
 
@@ -71,7 +71,7 @@ boundaries coverage extent/envelope. See \code{\link[sf:st_bbox]{sf::st_bbox()}}
 \item \code{emdn_get_nil_value} a numeric scalar of the value representing nil values
 in a coverage.
 \item \code{emdn_get_band_name} a character vector of band names.
-\item \code{emdn_get_uom} a character vector of band units of measurement.
+\item \code{emdn_get_band_uom} a character vector of band units of measurement.
 \item \code{emdn_get_band_constraints} a list of numeric vectors of length 2 indicating the min and max
 values of the data contained in each bands of the coverage.
 \item \code{emdn_get_grid_size} a numeric vector of length 2 giving the spatial size in
@@ -126,7 +126,7 @@ coverage.
 
 \item \code{emdn_get_band_name()}: Get the band names of a coverage.
 
-\item \code{emdn_get_uom()}: Get the units of measurement of the data contained in
+\item \code{emdn_get_band_uom()}: Get the units of measurement of the data contained in
 the bands values of a coverage.
 
 \item \code{emdn_get_band_constraints()}: Get the range of values of the data contained in
@@ -166,7 +166,7 @@ emdn_get_nil_value(summary)
 # get coverage band names
 emdn_get_band_name(summary)
 # get band units of measurement
-emdn_get_uom(summary)
+emdn_get_band_uom(summary)
 # get range of band values
 emdn_get_band_constraints(summary)
 # get coverage grid size

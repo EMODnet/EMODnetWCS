@@ -59,7 +59,7 @@ test_that("rangeType processed correctly", {
                       expect_equal(emdn_get_nil_value(summary), 9.96921e+36)
                       expect_equal(emdn_get_band_name(summary), structure("relative_abundance",
                                                                           uom = "W.m-2.Sr-1"))
-                      expect_equal(emdn_get_uom(summary), c(relative_abundance = "W.m-2.Sr-1"))
+                      expect_equal(emdn_get_band_uom(summary), c(relative_abundance = "W.m-2.Sr-1"))
                       expect_equal(emdn_get_band_constraints(summary),
                                    list(
                                        relative_abundance = c(-3.4028235e+38,
@@ -82,7 +82,7 @@ test_that("rangeType processed correctly", {
                                  "W.m-2.Sr-1")
                      )
         )
-        expect_equal(emdn_get_uom(summary),
+        expect_equal(emdn_get_band_uom(summary),
                      c(RED_BAND = "W.m-2.Sr-1",
                        GREEN_BAND = "W.m-2.Sr-1",
                        BLUE_BAND = "W.m-2.Sr-1"
