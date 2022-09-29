@@ -49,3 +49,5 @@ Depends:
     R (>= 4.1), ows4R (>= 0.3-2)
 LazyData: true
 VignetteBuilder: knitr
+Date: 2022-09-29
+
