@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">EMODnetWCS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9011</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -230,9 +230,9 @@ If you need to download the full <a href="https://data.europa.eu/data/datasets/e
 <span><span class="co">#&gt; resolution  : 0.1, 0.1  (x, y)</span></span>
 <span><span class="co">#&gt; extent      : 1.55, 6.45, 53.05, 58.05  (xmin, xmax, ymin, ymax)</span></span>
 <span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
-<span><span class="co">#&gt; sources     : Emodnetbio__cal_fin_19582016_L1_err_1958-02-16T00_00_00.000Z_Emodnetbio__cal_fin_19582016_L1_err_53,1.5,58,6.5.tif  (2 layers) </span></span>
-<span><span class="co">#&gt;               Emodnetbio__cal_fin_19582016_L1_err_1958-05-16T00_00_00.000Z_Emodnetbio__cal_fin_19582016_L1_err_53,1.5,58,6.5.tif  (2 layers) </span></span>
-<span><span class="co">#&gt;               Emodnetbio__cal_fin_19582016_L1_err_1958-08-16T00_00_00.000Z_Emodnetbio__cal_fin_19582016_L1_err_53,1.5,58,6.5.tif  (2 layers) </span></span>
+<span><span class="co">#&gt; sources     : Emodnetbio__cal_fin_19582016_L1_err_1958-02-16T00_00_00.000Z_53,1.5,58,6.5.tif  (2 layers) </span></span>
+<span><span class="co">#&gt;               Emodnetbio__cal_fin_19582016_L1_err_1958-05-16T00_00_00.000Z_53,1.5,58,6.5.tif  (2 layers) </span></span>
+<span><span class="co">#&gt;               Emodnetbio__cal_fin_19582016_L1_err_1958-08-16T00_00_00.000Z_53,1.5,58,6.5.tif  (2 layers) </span></span>
 <span><span class="co">#&gt; names       : Emodn~6.5_1, Emodn~6.5_2, Emodn~6.5_1, Emodn~6.5_2, Emodn~6.5_1, Emodn~6.5_2</span></span></code></pre></div>
 <p>Note that this returns a <code>&lt;SpatRaster&gt;</code> Stack instead of a single <code>&lt;SpatRaster&gt;</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
@@ -263,8 +263,10 @@ If you need to download the full <a href="https://data.europa.eu/data/datasets/e
 <p>We can also request specific bands from a coverage.</p>
 <p>First let’s check the available bands in our coverage.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/emdn_get_bbox.html">emdn_get_band_name</a></span><span class="op">(</span><span class="va">cov_summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Relative error"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/emdn_get_bbox.html">emdn_get_band_descriptions</a></span><span class="op">(</span><span class="va">cov_summary</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Relative abundance" "Relative error"    </span></span>
+<span><span class="co">#&gt; attr(,"uom")</span></span>
+<span><span class="co">#&gt; [1] "W.m-2.Sr-1" "W.m-2.Sr-1"</span></span></code></pre></div>
 <p>To download a specifc band we use the argument <code>rangesubset</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/emdn_get_coverage.html">emdn_get_coverage</a></span><span class="op">(</span><span class="va">wcs</span>, </span>

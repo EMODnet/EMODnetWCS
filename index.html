@@ -28,7 +28,7 @@
     
     <a class="navbar-brand me-2" href="index.html">EMODnetWCS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9011</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,7 +145,7 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">wcs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/emdn_init_wcs_client.html">emdn_init_wcs_client</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"biology"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ✔ WCS client created succesfully</span></span>
-<span><span class="co">#&gt; ℹ Service: &lt;https://geo.vliz.be/geoserver/Emodnetbio/wcs&gt;</span></span>
+<span><span class="co">#&gt; ℹ Service: &lt;]8;;https://geo.vliz.be/geoserver/Emodnetbio/wcshttps://geo.vliz.be/geoserver/Emodnetbio/wcs]8;;&gt;</span></span>
 <span><span class="co">#&gt; ℹ Service: "2.0.1"</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -155,7 +155,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/emdn_get_wcs_info.html">emdn_get_wcs_info</a></span><span class="op">(</span><span class="va">wcs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: sf</span></span>
-<span><span class="co">#&gt; Linking to GEOS 3.9.1, GDAL 3.4.0, PROJ 8.1.1; sf_use_s2() is TRUE</span></span>
+<span><span class="co">#&gt; Linking to GEOS 3.10.2, GDAL 3.4.2, PROJ 8.2.1; sf_use_s2() is TRUE</span></span>
 <span><span class="co">#&gt; $data_source</span></span>
 <span><span class="co">#&gt; [1] "emodnet_wcs"</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -200,7 +200,7 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/emdn_get_wcs_info.html">emdn_get_wcs_info</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"biology"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ✔ WCS client created succesfully</span></span>
-<span><span class="co">#&gt; ℹ Service: &lt;https://geo.vliz.be/geoserver/Emodnetbio/wcs&gt;</span></span>
+<span><span class="co">#&gt; ℹ Service: &lt;]8;;https://geo.vliz.be/geoserver/Emodnetbio/wcshttps://geo.vliz.be/geoserver/Emodnetbio/wcs]8;;&gt;</span></span>
 <span><span class="co">#&gt; ℹ Service: "2.0.1"</span></span>
 <span><span class="co">#&gt; $data_source</span></span>
 <span><span class="co">#&gt; [1] "emodnet_wcs"</span></span>
@@ -246,10 +246,11 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/emdn_get_wcs_info.html">emdn_get_coverage_info</a></span><span class="op">(</span><span class="va">wcs</span>, </span>
 <span>                       coverage_ids <span class="op">=</span> <span class="st">"Emodnetbio__cal_fin_19582016_L1_err"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ! Output of  is NULL. Returning NA</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 21</span></span>
 <span><span class="co">#&gt;   data_s…¹ servi…² servi…³ cover…⁴ band_…⁵ band_…⁶ const…⁷ nil_v…⁸ dim_n dim_n…⁹</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 emodnet… https:… biology Emodne… Relati… W.m-2.… -3.402… 9.97e36     3 lat(de…</span></span>
+<span><span class="co">#&gt; 1 emodnet… https:… biology Emodne… Relati… W.m-2.… -3.402…      NA     3 lat(de…</span></span>
 <span><span class="co">#&gt; # … with 11 more variables: grid_size &lt;chr&gt;, resolution &lt;chr&gt;, extent &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   crs &lt;chr&gt;, wgs84_extent &lt;chr&gt;, temporal_extent &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   vertical_extent &lt;chr&gt;, subtype &lt;chr&gt;, fn_seq_rule &lt;chr&gt;,</span></span>
@@ -320,20 +321,22 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"EMODnetWCS"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Krystalli A (????). _EMODnetWCS: Access EMODnet Web Coverage Service</span></span>
-<span><span class="co">#&gt; data through R_. R package version 0.0.0.9010. Integrated data products</span></span>
-<span><span class="co">#&gt; created under the European Marine Observation Data Network (EMODnet)</span></span>
-<span><span class="co">#&gt; Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the</span></span>
-<span><span class="co">#&gt; European Union under Regulation (EU) No 508/2014 of the European</span></span>
-<span><span class="co">#&gt; Parliament and of the Council of 15 May 2014 on the European Maritime</span></span>
-<span><span class="co">#&gt; and Fisheries Fund, &lt;URL: https://github.com/EMODnet/EMODnetWCS&gt;.</span></span>
+<span><span class="co">#&gt; To cite package 'EMODnetWCS' in publications use:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Krystalli A (????). _EMODnetWCS: Access EMODnet Web Coverage Service</span></span>
+<span><span class="co">#&gt;   data through R_. R package version 0.0.0.9011. Integrated data</span></span>
+<span><span class="co">#&gt;   products created under the European Marine Observation Data Network</span></span>
+<span><span class="co">#&gt;   (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013),</span></span>
+<span><span class="co">#&gt;   funded by the European Union under Regulation (EU) No 508/2014 of the</span></span>
+<span><span class="co">#&gt;   European Parliament and of the Council of 15 May 2014 on the European</span></span>
+<span><span class="co">#&gt;   Maritime and Fisheries Fund, &lt;https://github.com/EMODnet/EMODnetWCS&gt;.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   @Manual{,</span></span>
 <span><span class="co">#&gt;     title = {{EMODnetWCS}: Access EMODnet Web Coverage Service data through R},</span></span>
 <span><span class="co">#&gt;     author = {Anna Krystalli},</span></span>
-<span><span class="co">#&gt;     note = {R package version 0.0.0.9010. Integrated data products created under the European Marine Observation Data Network (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the European Union under Regulation (EU) No 508/2014 of the European Parliament and of the Council of 15 May 2014 on the European Maritime and Fisheries Fund},</span></span>
+<span><span class="co">#&gt;     note = {R package version 0.0.0.9011. Integrated data products created under the European Marine Observation Data Network (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the European Union under Regulation (EU) No 508/2014 of the European Parliament and of the Council of 15 May 2014 on the European Maritime and Fisheries Fund},</span></span>
 <span><span class="co">#&gt;     url = {https://github.com/EMODnet/EMODnetWCS},</span></span>
 <span><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>

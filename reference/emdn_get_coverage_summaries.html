@@ -14,7 +14,7 @@ coverages."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
     
     <a class="navbar-brand me-2" href="../index.html">EMODnetWCS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9011</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,14 +114,14 @@ requested.</p>
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
     
-<ul><li><p><code>emdn_get_coverage_summaries</code>: Get summaries for specific coverages.</p></li>
-<li><p><code>emdn_get_coverage_summaries_all</code>: Get summaries for all available
+<ul><li><p><code>emdn_get_coverage_summaries()</code>: Get summaries for specific coverages.</p></li>
+<li><p><code>emdn_get_coverage_summaries_all()</code>: Get summaries for all available
 coverages from a service.</p></li>
-<li><p><code>emdn_get_coverage_ids</code>: Get coverage IDs for all available
+<li><p><code>emdn_get_coverage_ids()</code>: Get coverage IDs for all available
 coverages from a service.</p></li>
-<li><p><code>emdn_has_dimension</code>: check whether a coverage has a
+<li><p><code>emdn_has_dimension()</code>: check whether a coverage has a
 temporal or vertical dimension.</p></li>
-<li><p><code>emdn_get_coverage_dim_coefs</code>: Get temporal or
+<li><p><code>emdn_get_coverage_dim_coefs()</code>: Get temporal or
 vertical coefficients for a coverage.</p></li>
 </ul></div>
 
@@ -132,16 +132,19 @@ vertical coefficients for a coverage.</p></li>
 <span class="r-in"><span><span class="va">cov_ids</span> <span class="op">&lt;-</span> <span class="fu">emdn_get_coverage_ids</span><span class="op">(</span><span class="va">wcs</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cov_ids</span></span></span>
 <span class="r-in"><span><span class="fu">emdn_has_dimension</span><span class="op">(</span><span class="va">wcs</span>,</span></span>
-<span class="r-in"><span>                     <span class="va">cov_ids</span>,</span></span>
-<span class="r-in"><span>                     type <span class="op">=</span> <span class="st">"temporal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">cov_ids</span>,</span></span>
+<span class="r-in"><span>  type <span class="op">=</span> <span class="st">"temporal"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">emdn_has_dimension</span><span class="op">(</span><span class="va">wcs</span>,</span></span>
-<span class="r-in"><span>                     <span class="va">cov_ids</span>,</span></span>
-<span class="r-in"><span>                     type <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">cov_ids</span>,</span></span>
+<span class="r-in"><span>  type <span class="op">=</span> <span class="st">"vertical"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">emdn_get_coverage_summaries</span><span class="op">(</span><span class="va">wcs</span>, <span class="va">cov_ids</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">emdn_get_coverage_summaries_all</span><span class="op">(</span><span class="va">wcs</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">emdn_get_coverage_dim_coefs</span><span class="op">(</span><span class="va">wcs</span>,</span></span>
-<span class="r-in"><span>                            <span class="va">cov_ids</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,</span></span>
-<span class="r-in"><span>                            type <span class="op">=</span> <span class="st">"temporal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">cov_ids</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>  type <span class="op">=</span> <span class="st">"temporal"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

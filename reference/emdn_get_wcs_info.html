@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">EMODnetWCS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9011</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,7 +96,8 @@ For available services, see <code><a href="emdn_wcs.html">emdn_wcs()</a></code>.
 
 
 <dt>logger</dt>
-<dd><p>character string. Level of logger: 'NONE' for no logger, 'INFO' to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)</p></dd>
+<dd><p>character string. Level of logger: 'NONE' for no logger, 'INFO'
+to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)</p></dd>
 
 
 <dt>coverage_ids</dt>
@@ -149,10 +150,13 @@ specified and columns with the following details:</p><ul><li><p><strong><code>da
 <li><p><strong><code>service_name</code>:</strong> the EMODnet WCS service name.</p></li>
 <li><p><strong><code>service_url</code>:</strong> the EMODnet WCS service URL.</p></li>
 <li><p><strong><code>coverage_ids</code>:</strong> the coverage ID.</p></li>
-<li><p><strong><code>band_description</code>:</strong> the description of the data contained in the band of the coverage.</p></li>
-<li><p><strong><code>band_uom</code>:</strong> the unit of measurement of the data contained in the band of the coverage.</p></li>
-<li><p><strong><code>constraint</code>:</strong> the range of values of the data contained in the band of the coverage.</p></li>
-<li><p><strong><code>nil_value</code>:</strong> the nil value of the data contained in the band of the coverage.</p></li>
+<li><p><strong><code>band_description</code>:</strong> the description of the data contained each band of the coverage.</p></li>
+<li><p><strong><code>band_uom</code>:</strong> the unit of measurement of the data contained each band of the coverage.
+If all bands share the same unit of measurement, the single shared uom is shown.</p></li>
+<li><p><strong><code>constraint</code>:</strong> the range of values of the data contained in each band of the coverage.
+If all bands share the same constraint, the single shared constraint range is shown.</p></li>
+<li><p><strong><code>nil_value</code>:</strong> the nil values of the data contained each band of the coverage.
+If all bands share the same nil value, the single shared nil value is shown.</p></li>
 <li><p><strong><code>grid_size</code>:</strong> the spatial size of the coverage grid (ncol x nrow).</p></li>
 <li><p><strong><code>resolution</code>:</strong> the spatial resolution (pixel size) of the coverage grid
 in the CRS units of measurement (size in the <code>x</code> dimension x size in the <code>y</code> dimension).</p></li>
@@ -192,10 +196,10 @@ To clear the cache, re-start R or run <code>memoise::forget(emdn_get_wcs_info)</
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
     
-<ul><li><p><code>emdn_get_wcs_info</code>: Get info on all coverages from am EMODnet WCS service.</p></li>
-<li><p><code>emdn_get_wcs_info_all</code>: Get metadata on all services and all available
+<ul><li><p><code>emdn_get_wcs_info()</code>: Get info on all coverages from am EMODnet WCS service.</p></li>
+<li><p><code>emdn_get_wcs_info_all()</code>: Get metadata on all services and all available
 coverages from each service.</p></li>
-<li><p><code>emdn_get_coverage_info</code>: Get metadata for specific coverages. Requires a
+<li><p><code>emdn_get_coverage_info()</code>: Get metadata for specific coverages. Requires a
 <code>WCSClient</code> R6 object as input.</p></li>
 </ul></div>
 
@@ -212,8 +216,10 @@ coverages from each service.</p></li>
 <span class="r-in"><span>  <span class="st">"emodnet_open_maplibrary__mediseh_cora"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"emodnet_open_maplibrary__mediseh_posidonia"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">emdn_get_coverage_info</span><span class="op">(</span>wcs <span class="op">=</span> <span class="va">wcs</span>,</span></span>
-<span class="r-in"><span>                       coverage_ids <span class="op">=</span> <span class="va">coverage_ids</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">emdn_get_coverage_info</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  wcs <span class="op">=</span> <span class="va">wcs</span>,</span></span>
+<span class="r-in"><span>  coverage_ids <span class="op">=</span> <span class="va">coverage_ids</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

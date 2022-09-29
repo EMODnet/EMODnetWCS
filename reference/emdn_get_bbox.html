@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">EMODnetWCS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9011</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,13 +66,13 @@
 <span></span>
 <span><span class="fu">emdn_get_WGS84bbox</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">emdn_get_nil_value</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
+<span><span class="fu">emdn_get_nil_values</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">emdn_get_band_name</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
+<span><span class="fu">emdn_get_band_descriptions</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">emdn_get_uom</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
+<span><span class="fu">emdn_get_band_uom</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">emdn_get_constraint</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
+<span><span class="fu">emdn_get_band_constraints</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">emdn_get_grid_size</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
 <span></span>
@@ -122,12 +122,12 @@ dimension coefficients (if applicable) in the coverage dimension info
 boundaries coverage extent/envelope. See <code><a href="https://r-spatial.github.io/sf/reference/st_bbox.html" class="external-link">sf::st_bbox()</a></code> for more details.</p></li>
 <li><p><code>emdn_get_WGS84bbox</code>: an object of class <code>bbox</code> of length 4 expressing the
 boundaries coverage extent/envelope. See <code><a href="https://r-spatial.github.io/sf/reference/st_bbox.html" class="external-link">sf::st_bbox()</a></code> for more details.</p></li>
-<li><p><code>emdn_get_nil_value</code> a numeric scalar of the value representing nil values
+<li><p><code>emdn_get_nil_values</code> a numeric scalar of the value representing nil values
 in a coverage.</p></li>
-<li><p><code>emdn_get_band_name</code> a character vector of band names.</p></li>
-<li><p><code>emdn_get_uom</code> a character vector of band units of measurement.</p></li>
-<li><p><code>emdn_get_constraint</code> a numeric vector of length 2 indicating the min and max
-of the data contained in the bands of the coverage.</p></li>
+<li><p><code>emdn_get_band_descriptions</code> a character vector of band descriptions.</p></li>
+<li><p><code>emdn_get_band_uom</code> a character vector of band units of measurement.</p></li>
+<li><p><code>emdn_get_band_constraints</code> a list of numeric vectors of length 2 indicating the min and max
+values of the data contained in each bands of the coverage.</p></li>
 <li><p><code>emdn_get_grid_size</code> a numeric vector of length 2 giving the spatial size in
 grid cells (pixels) of the coverage grid (ncol x nrow)</p></li>
 <li><p><code>emdn_get_resolution</code> a numeric vector of length 2 giving the spatial resolution
@@ -160,30 +160,30 @@ information</p></li>
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
     
-<ul><li><p><code>emdn_get_bbox</code>: Get the bounding box (geographic extent) of a
+<ul><li><p><code>emdn_get_bbox()</code>: Get the bounding box (geographic extent) of a
 coverage. Coordinates are given in the same Coordinate Reference System
 as the coverage.</p></li>
-<li><p><code>emdn_get_WGS84bbox</code>: Get the bounding box (geographic extent) of a
+<li><p><code>emdn_get_WGS84bbox()</code>: Get the bounding box (geographic extent) of a
 coverage in World Geodetic System 1984 (WGS84) Coordinate Reference System
 (or <code>EPSG:4326</code>).</p></li>
-<li><p><code>emdn_get_nil_value</code>: Get the value representing nil values in a
+<li><p><code>emdn_get_nil_values()</code>: Get the value representing nil values in a
 coverage.</p></li>
-<li><p><code>emdn_get_band_name</code>: Get the band names of a coverage.</p></li>
-<li><p><code>emdn_get_uom</code>: Get the units of measurement of the data contained in
+<li><p><code>emdn_get_band_descriptions()</code>: Get the band descriptions of a coverage.</p></li>
+<li><p><code>emdn_get_band_uom()</code>: Get the units of measurement of the data contained in
 the bands values of a coverage.</p></li>
-<li><p><code>emdn_get_constraint</code>: Get the range of values of the data contained in
+<li><p><code>emdn_get_band_constraints()</code>: Get the range of values of the data contained in
 the bands of the coverage.</p></li>
-<li><p><code>emdn_get_grid_size</code>: Get the grid size of a coverage.</p></li>
-<li><p><code>emdn_get_resolution</code>: Get the resolution of a coverage.</p></li>
-<li><p><code>emdn_get_coverage_function</code>: Get the grid function of a coverage.</p></li>
-<li><p><code>emdn_get_temporal_extent</code>: Get the temporal extent of a coverage.</p></li>
-<li><p><code>emdn_get_vertical_extent</code>: Get the vertical (elevation) extent of a coverage.</p></li>
-<li><p><code>emdn_get_dimensions_info</code>: Get information on dimensions of a coverage in
+<li><p><code>emdn_get_grid_size()</code>: Get the grid size of a coverage.</p></li>
+<li><p><code>emdn_get_resolution()</code>: Get the resolution of a coverage.</p></li>
+<li><p><code>emdn_get_coverage_function()</code>: Get the grid function of a coverage.</p></li>
+<li><p><code>emdn_get_temporal_extent()</code>: Get the temporal extent of a coverage.</p></li>
+<li><p><code>emdn_get_vertical_extent()</code>: Get the vertical (elevation) extent of a coverage.</p></li>
+<li><p><code>emdn_get_dimensions_info()</code>: Get information on dimensions of a coverage in
 various formats. Information includes dimension label, type, unit and
 range (in tibble format).</p></li>
-<li><p><code>emdn_get_dimensions_names</code>: Get coverage dimension names (labels) and units.</p></li>
-<li><p><code>emdn_get_dimensions_n</code>: Get number of coverage dimensions.</p></li>
-<li><p><code>emdn_get_dimension_types</code>: Get dimensions types of a coverage.</p></li>
+<li><p><code>emdn_get_dimensions_names()</code>: Get coverage dimension names (labels) and units.</p></li>
+<li><p><code>emdn_get_dimensions_n()</code>: Get number of coverage dimensions.</p></li>
+<li><p><code>emdn_get_dimension_types()</code>: Get dimensions types of a coverage.</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -205,17 +205,26 @@ range (in tibble format).</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   xmin   ymin   xmax   ymax </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -75.05  34.95  20.05  75.05 </span>
 <span class="r-in"><span><span class="co"># get the nil value of a coverage</span></span></span>
-<span class="r-in"><span><span class="fu">emdn_get_nil_value</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9.96921e+36</span>
-<span class="r-in"><span><span class="co"># get coverage band names</span></span></span>
-<span class="r-in"><span><span class="fu">emdn_get_band_name</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Relative error"</span>
+<span class="r-in"><span><span class="fu">emdn_get_nil_values</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Relative abundance     Relative error </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        9.96921e+36        9.96921e+36 </span>
+<span class="r-in"><span><span class="co"># get coverage band descriptions</span></span></span>
+<span class="r-in"><span><span class="fu">emdn_get_band_descriptions</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Relative abundance" "Relative error"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"uom")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "W.m-2.Sr-1" "W.m-2.Sr-1"</span>
 <span class="r-in"><span><span class="co"># get band units of measurement</span></span></span>
-<span class="r-in"><span><span class="fu">emdn_get_uom</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "W.m-2.Sr-1"</span>
+<span class="r-in"><span><span class="fu">emdn_get_band_uom</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Relative abundance     Relative error </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "W.m-2.Sr-1"       "W.m-2.Sr-1" </span>
 <span class="r-in"><span><span class="co"># get range of band values</span></span></span>
-<span class="r-in"><span><span class="fu">emdn_get_constraint</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">emdn_get_band_constraints</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Relative abundance`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -3.402823e+38  3.402823e+38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Relative error`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -3.402823e+38  3.402823e+38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># get coverage grid size</span></span></span>
 <span class="r-in"><span><span class="fu">emdn_get_grid_size</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ncol nrow </span>
