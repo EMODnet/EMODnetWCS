@@ -150,8 +150,8 @@ emdn_get_coverage_dim_coefs <- function(wcs,
 #' in a coverage.
 #' - `emdn_get_band_name` a character vector of band names.
 #' - `emdn_get_uom` a character vector of band units of measurement.
-#' - `emdn_get_constraint` a numeric vector of length 2 indicating the min and max
-#' of the data contained in the bands of the coverage.
+#' - `emdn_get_constraint` a list of numeric vectors of length 2 indicating the min and max
+#' values of the data contained in each bands of the coverage.
 #' - `emdn_get_grid_size` a numeric vector of length 2 giving the spatial size in
 #' grid cells (pixels) of the coverage grid (ncol x nrow)
 #' - `emdn_get_resolution` a numeric vector of length 2 giving the spatial resolution
@@ -256,23 +256,46 @@ emdn_get_nil_value <- function(summary) {
 #' @describeIn emdn_get_bbox Get the band names of a coverage.
 #' @export
 emdn_get_band_name <- function(summary) {
-    summary$getDescription()$rangeType$DataRecord$field$Quantity$description$value
+    fields <- summary$getDescription()$rangeType$field
+    band_names <- fields |>
+        purrr::map_chr(~.x$description)
+
+    attr(band_names, "uom") <- fields |>
+        purrr::map_chr(~.x$uom$attrs$code)
+
+    return(band_names)
 }
 
 #' @describeIn emdn_get_bbox Get the units of measurement of the data contained in
 #' the bands values of a coverage.
 #' @export
 emdn_get_uom <- function(summary) {
-    summary$getDescription()$rangeType$DataRecord$field$Quantity$uom$attrs$code
+    fields <- summary$getDescription()$rangeType$field
+    uom <- fields |>
+        purrr::map_chr(~.x$uom$attrs$code)
+
+    names(uom) <- fields |>
+        purrr::map_chr(~.x$description)
+
+    return(uom)
 }
 
 #' @describeIn emdn_get_bbox Get the range of values of the data contained in
 #' the bands of the coverage.
 #' @export
 emdn_get_constraint <- function(summary) {
-    summary$getDescription()$rangeType$DataRecord$field$Quantity$constraint$
-        AllowedValues$interval$value |> strsplit(" ") |> unlist() |>
-        as.numeric()
+    fields <- summary$getDescription()$rangeType$field
+    constraints <- fields |>
+        purrr::map(
+            ~.x$constraint |>
+                strsplit(" ") |>
+                unlist() |>
+                as.numeric()
+        )
+    names(constraints) <- fields |>
+        purrr::map_chr(~.x$description)
+
+    return(constraints)
 
 }
 
@@ -508,4 +531,25 @@ get_service_name <- function(service_url) {
 
 get_capabilities <- function(wcs) {
     wcs$getCapabilities()
+}
+
+conc_band_uom <- function(x) {
+
+    if(length(unique(x)) == 1L) {
+        return(unique(x))
+    }
+
+    return(paste(x, collapse = ", "))
+}
+
+conc_constraint <- function(x) {
+
+    x <- purrr::map_chr(x,
+                   ~paste(.x, collapse = "-"))
+
+    if(length(unique(x)) == 1L) {
+        return(unique(x))
+    }
+
+    return(paste(x, collapse = ", "))
 }

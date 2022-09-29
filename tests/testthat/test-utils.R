@@ -26,7 +26,7 @@ test_that("dimensions processed correctly", {
                                        c(x = 0.1,
                                          y = 0.1),
                                        uom = c("Deg", "Deg")
-                                       )
+                                   )
                       )
                       expect_equal(emdn_get_dimensions_info(summary),
                                    structure("lat(deg):geographic; long(deg):geographic; time(s):temporal",
@@ -57,14 +57,40 @@ test_that("rangeType processed correctly", {
     with_mock_dir("biology-description",
                   {
                       expect_equal(emdn_get_nil_value(summary), 9.96921e+36)
-                      expect_equal(emdn_get_band_name(summary), "relative_abundance")
-                      expect_equal(emdn_get_uom(summary), "W.m-2.Sr-1")
+                      expect_equal(emdn_get_band_name(summary), structure("relative_abundance",
+                                                                          uom = "W.m-2.Sr-1"))
+                      expect_equal(emdn_get_uom(summary), c(relative_abundance = "W.m-2.Sr-1"))
                       expect_equal(emdn_get_constraint(summary),
-                                   c(-3.4028235e+38, 3.4028235e+38))
+                                   list(
+                                       relative_abundance = c(-3.4028235e+38,
+                                                              3.4028235e+38)))
                       expect_equal(emdn_get_coverage_function(summary),
                                    list(sequence_rule = "Linear",
                                         start_point = c(0, 0),
                                         axis_order = c("+2", "+1")))
                   })
 
+    summary <- create_physics_summary()[[1]]
+    with_mock_dir("physics-info", {
+        expect_equal(emdn_get_band_name(summary),
+                     structure(
+                         c("RED_BAND",
+                           "GREEN_BAND",
+                           "BLUE_BAND"),
+                         uom = c("W.m-2.Sr-1",
+                                 "W.m-2.Sr-1",
+                                 "W.m-2.Sr-1")
+                     )
+        )
+        expect_equal(emdn_get_uom(summary),
+                     c(RED_BAND = "W.m-2.Sr-1",
+                       GREEN_BAND = "W.m-2.Sr-1",
+                       BLUE_BAND = "W.m-2.Sr-1"
+                     )
+        )
+        expect_equal(emdn_get_constraint(summary),
+                     list(RED_BAND = c(0, 255),
+                          GREEN_BAND = c(0, 255),
+                          BLUE_BAND = c(0, 255)))
+    })
 })

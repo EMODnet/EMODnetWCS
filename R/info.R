@@ -91,9 +91,11 @@
 #' - **`service_name`:** the EMODnet WCS service name.
 #' - **`service_url`:** the EMODnet WCS service URL.
 #' - **`coverage_ids`:** the coverage ID.
-#' - **`band_description`:** the description of the data contained in the band of the coverage.
-#' - **`band_uom`:** the unit of measurement of the data contained in the band of the coverage.
-#' - **`constraint`:** the range of values of the data contained in the band of the coverage.
+#' - **`band_description`:** the description of the data contained each band of the coverage.
+#' - **`band_uom`:** the unit of measurement of the data contained each band of the coverage.
+#' If all bands share the same unit of measurement, the single shared uom is shown.
+#' - **`constraint`:** the range of values of the data contained in each band of the coverage.
+#' If all bands share the same constraint, the single shared constraint range is shown.
 #' - **`nil_value`:** the nil value of the data contained in the band of the coverage.
 #' - **`grid_size`:** the spatial size of the coverage grid (ncol x nrow).
 #' - **`resolution`:** the spatial resolution (pixel size) of the coverage grid
@@ -189,10 +191,12 @@ emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
         service_name = wcs$getUrl(),
         service_url = get_service_name(wcs$getUrl()),
         coverage_id = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
-        band_description = purrr::map_chr(summaries, ~ error_wrap(emdn_get_band_name(.x))),
-        band_uom = purrr::map_chr(summaries, ~ error_wrap(emdn_get_uom(.x))),
+        band_description = purrr::map_chr(summaries, ~ error_wrap(emdn_get_band_name(.x) |>
+                                                                      paste(collapse = ", "))),
+        band_uom = purrr::map_chr(summaries, ~ error_wrap(emdn_get_uom(.x) |>
+                                                              conc_band_uom())),
         constraint = purrr::map_chr(summaries, ~ error_wrap(emdn_get_constraint(.x) |>
-                                                                paste(collapse = ", "))),
+                                                                conc_constraint())),
         nil_value = purrr::map_dbl(summaries, ~ error_wrap(emdn_get_nil_value(.x))),
         dim_n = purrr::map_int(summaries, ~ error_wrap(length(.x$getDimensions()))),
         dim_names = purrr::map_chr(summaries, ~ error_wrap(emdn_get_dimensions_info(.x, format = "character"))),

@@ -80,9 +80,11 @@ specified and columns with the following details:
 \item \strong{\code{service_name}:} the EMODnet WCS service name.
 \item \strong{\code{service_url}:} the EMODnet WCS service URL.
 \item \strong{\code{coverage_ids}:} the coverage ID.
-\item \strong{\code{band_description}:} the description of the data contained in the band of the coverage.
-\item \strong{\code{band_uom}:} the unit of measurement of the data contained in the band of the coverage.
-\item \strong{\code{constraint}:} the range of values of the data contained in the band of the coverage.
+\item \strong{\code{band_description}:} the description of the data contained each band of the coverage.
+\item \strong{\code{band_uom}:} the unit of measurement of the data contained each band of the coverage.
+If all bands share the same unit of measurement, the single shared uom is shown.
+\item \strong{\code{constraint}:} the range of values of the data contained in each band of the coverage.
+If all bands share the same constraint, the single shared constraint range is shown.
 \item \strong{\code{nil_value}:} the nil value of the data contained in the band of the coverage.
 \item \strong{\code{grid_size}:} the spatial size of the coverage grid (ncol x nrow).
 \item \strong{\code{resolution}:} the spatial resolution (pixel size) of the coverage grid
@@ -124,15 +126,15 @@ To clear the cache, re-start R or run \code{memoise::forget(emdn_get_wcs_info)}/
 }
 \section{Functions}{
 \itemize{
-\item \code{emdn_get_wcs_info}: Get info on all coverages from am EMODnet WCS service.
+\item \code{emdn_get_wcs_info()}: Get info on all coverages from am EMODnet WCS service.
 
-\item \code{emdn_get_wcs_info_all}: Get metadata on all services and all available
+\item \code{emdn_get_wcs_info_all()}: Get metadata on all services and all available
 coverages from each service.
 
-\item \code{emdn_get_coverage_info}: Get metadata for specific coverages. Requires a
+\item \code{emdn_get_coverage_info()}: Get metadata for specific coverages. Requires a
 \code{WCSClient} R6 object as input.
-}}
 
+}}
 \examples{
 \dontrun{
 # Get information from a wcs object.

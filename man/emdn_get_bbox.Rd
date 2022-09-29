@@ -72,8 +72,8 @@ boundaries coverage extent/envelope. See \code{\link[sf:st_bbox]{sf::st_bbox()}}
 in a coverage.
 \item \code{emdn_get_band_name} a character vector of band names.
 \item \code{emdn_get_uom} a character vector of band units of measurement.
-\item \code{emdn_get_constraint} a numeric vector of length 2 indicating the min and max
-of the data contained in the bands of the coverage.
+\item \code{emdn_get_constraint} a list of numeric vectors of length 2 indicating the min and max
+values of the data contained in each bands of the coverage.
 \item \code{emdn_get_grid_size} a numeric vector of length 2 giving the spatial size in
 grid cells (pixels) of the coverage grid (ncol x nrow)
 \item \code{emdn_get_resolution} a numeric vector of length 2 giving the spatial resolution
@@ -113,46 +113,46 @@ Get coverage metadata from a \verb{<WCSCoverageSummary>} object.
 }
 \section{Functions}{
 \itemize{
-\item \code{emdn_get_bbox}: Get the bounding box (geographic extent) of a
+\item \code{emdn_get_bbox()}: Get the bounding box (geographic extent) of a
 coverage. Coordinates are given in the same Coordinate Reference System
 as the coverage.
 
-\item \code{emdn_get_WGS84bbox}: Get the bounding box (geographic extent) of a
+\item \code{emdn_get_WGS84bbox()}: Get the bounding box (geographic extent) of a
 coverage in World Geodetic System 1984 (WGS84) Coordinate Reference System
 (or \code{EPSG:4326}).
 
-\item \code{emdn_get_nil_value}: Get the value representing nil values in a
+\item \code{emdn_get_nil_value()}: Get the value representing nil values in a
 coverage.
 
-\item \code{emdn_get_band_name}: Get the band names of a coverage.
+\item \code{emdn_get_band_name()}: Get the band names of a coverage.
 
-\item \code{emdn_get_uom}: Get the units of measurement of the data contained in
+\item \code{emdn_get_uom()}: Get the units of measurement of the data contained in
 the bands values of a coverage.
 
-\item \code{emdn_get_constraint}: Get the range of values of the data contained in
+\item \code{emdn_get_constraint()}: Get the range of values of the data contained in
 the bands of the coverage.
 
-\item \code{emdn_get_grid_size}: Get the grid size of a coverage.
+\item \code{emdn_get_grid_size()}: Get the grid size of a coverage.
 
-\item \code{emdn_get_resolution}: Get the resolution of a coverage.
+\item \code{emdn_get_resolution()}: Get the resolution of a coverage.
 
-\item \code{emdn_get_coverage_function}: Get the grid function of a coverage.
+\item \code{emdn_get_coverage_function()}: Get the grid function of a coverage.
 
-\item \code{emdn_get_temporal_extent}: Get the temporal extent of a coverage.
+\item \code{emdn_get_temporal_extent()}: Get the temporal extent of a coverage.
 
-\item \code{emdn_get_vertical_extent}: Get the vertical (elevation) extent of a coverage.
+\item \code{emdn_get_vertical_extent()}: Get the vertical (elevation) extent of a coverage.
 
-\item \code{emdn_get_dimensions_info}: Get information on dimensions of a coverage in
+\item \code{emdn_get_dimensions_info()}: Get information on dimensions of a coverage in
 various formats. Information includes dimension label, type, unit and
 range (in tibble format).
 
-\item \code{emdn_get_dimensions_names}: Get coverage dimension names (labels) and units.
+\item \code{emdn_get_dimensions_names()}: Get coverage dimension names (labels) and units.
 
-\item \code{emdn_get_dimensions_n}: Get number of coverage dimensions.
+\item \code{emdn_get_dimensions_n()}: Get number of coverage dimensions.
 
-\item \code{emdn_get_dimension_types}: Get dimensions types of a coverage.
+\item \code{emdn_get_dimension_types()}: Get dimensions types of a coverage.
+
 }}
-
 \examples{
 wcs <- emdn_init_wcs_client(service = "biology")
 summaries <- emdn_get_coverage_summaries_all(wcs)
