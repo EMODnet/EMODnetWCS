@@ -3,7 +3,7 @@
 export(emdn_get_WGS84bbox)
 export(emdn_get_band_name)
 export(emdn_get_bbox)
-export(emdn_get_constraint)
+export(emdn_get_band_constraints)
 export(emdn_get_coverage)
 export(emdn_get_coverage_dim_coefs)
 export(emdn_get_coverage_function)

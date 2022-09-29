@@ -195,7 +195,7 @@ emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
                                                                       paste(collapse = ", "))),
         band_uom = purrr::map_chr(summaries, ~ error_wrap(emdn_get_uom(.x) |>
                                                               conc_band_uom())),
-        constraint = purrr::map_chr(summaries, ~ error_wrap(emdn_get_constraint(.x) |>
+        constraint = purrr::map_chr(summaries, ~ error_wrap(emdn_get_band_constraints(.x) |>
                                                                 conc_constraint())),
         nil_value = purrr::map_dbl(summaries, ~ error_wrap(emdn_get_nil_value(.x))),
         dim_n = purrr::map_int(summaries, ~ error_wrap(length(.x$getDimensions()))),

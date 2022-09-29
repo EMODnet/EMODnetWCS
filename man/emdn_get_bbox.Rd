@@ -6,7 +6,7 @@
 \alias{emdn_get_nil_value}
 \alias{emdn_get_band_name}
 \alias{emdn_get_uom}
-\alias{emdn_get_constraint}
+\alias{emdn_get_band_constraints}
 \alias{emdn_get_grid_size}
 \alias{emdn_get_resolution}
 \alias{emdn_get_coverage_function}
@@ -28,7 +28,7 @@ emdn_get_band_name(summary)
 
 emdn_get_uom(summary)
 
-emdn_get_constraint(summary)
+emdn_get_band_constraints(summary)
 
 emdn_get_grid_size(summary)
 
@@ -72,7 +72,7 @@ boundaries coverage extent/envelope. See \code{\link[sf:st_bbox]{sf::st_bbox()}}
 in a coverage.
 \item \code{emdn_get_band_name} a character vector of band names.
 \item \code{emdn_get_uom} a character vector of band units of measurement.
-\item \code{emdn_get_constraint} a list of numeric vectors of length 2 indicating the min and max
+\item \code{emdn_get_band_constraints} a list of numeric vectors of length 2 indicating the min and max
 values of the data contained in each bands of the coverage.
 \item \code{emdn_get_grid_size} a numeric vector of length 2 giving the spatial size in
 grid cells (pixels) of the coverage grid (ncol x nrow)
@@ -129,7 +129,7 @@ coverage.
 \item \code{emdn_get_uom()}: Get the units of measurement of the data contained in
 the bands values of a coverage.
 
-\item \code{emdn_get_constraint()}: Get the range of values of the data contained in
+\item \code{emdn_get_band_constraints()}: Get the range of values of the data contained in
 the bands of the coverage.
 
 \item \code{emdn_get_grid_size()}: Get the grid size of a coverage.
@@ -168,7 +168,7 @@ emdn_get_band_name(summary)
 # get band units of measurement
 emdn_get_uom(summary)
 # get range of band values
-emdn_get_constraint(summary)
+emdn_get_band_constraints(summary)
 # get coverage grid size
 emdn_get_grid_size(summary)
 # get coverage resolution

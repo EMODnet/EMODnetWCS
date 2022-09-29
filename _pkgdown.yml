@@ -55,7 +55,7 @@ reference:
   - emdn_get_nil_value
   - emdn_get_band_name
   - emdn_get_uom
-  - emdn_get_constraint
+  - emdn_get_band_constraints
   - emdn_get_grid_size
   - emdn_get_resolution
   - emdn_get_coverage_function

@@ -250,7 +250,7 @@ emdn_get_uom(summary)
 
 Get the range of values of the data contained in the bands of the coverage.
 ```{r}
-emdn_get_constraint(summary)
+emdn_get_band_constraints(summary)
 ```
 
 ##### Get coverage grid size
