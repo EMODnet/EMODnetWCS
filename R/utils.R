@@ -159,7 +159,7 @@ emdn_get_coverage_dim_coefs <- function(wcs,
 #' boundaries coverage extent/envelope. See [`sf::st_bbox()`] for more details.
 #' - `emdn_get_WGS84bbox`: an object of class `bbox` of length 4 expressing the
 #' boundaries coverage extent/envelope. See [`sf::st_bbox()`] for more details.
-#' - `emdn_get_nil_value` a numeric scalar of the value representing nil values
+#' - `emdn_get_nil_values` a numeric scalar of the value representing nil values
 #' in a coverage.
 #' - `emdn_get_band_descriptions` a character vector of band descriptions.
 #' - `emdn_get_band_uom` a character vector of band units of measurement.
@@ -202,7 +202,7 @@ emdn_get_coverage_dim_coefs <- function(wcs,
 #' # get WGS84 bbox
 #' emdn_get_WGS84bbox(summary)
 #' # get the nil value of a coverage
-#' emdn_get_nil_value(summary)
+#' emdn_get_nil_values(summary)
 #' # get coverage band descriptions
 #' emdn_get_band_descriptions(summary)
 #' # get band units of measurement
@@ -260,7 +260,7 @@ emdn_get_WGS84bbox <- function(summary) {
 #' @describeIn emdn_get_bbox Get the value representing nil values in a
 #' coverage.
 #' @export
-emdn_get_nil_value <- function(summary) {
+emdn_get_nil_values <- function(summary) {
   fields <- summary$getDescription()$rangeType$field
   nil_val <- fields |>
     purrr::map(

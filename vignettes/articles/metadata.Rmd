@@ -227,7 +227,7 @@ emdn_get_WGS84bbox(summary)
 
 Get the value representing nil values in a coverage.
 ```{r}
-emdn_get_nil_value(summary)
+emdn_get_nil_values(summary)
 ```
 
 ##### Get coverage band descriptions

@@ -67,7 +67,7 @@ test_that("rangeType processed correctly", {
   summary <- create_biology_summary()[[1]]
   with_mock_dir("biology-description", {
     expect_equal(
-      emdn_get_nil_value(summary),
+      emdn_get_nil_values(summary),
       c(relative_abundance = 9.96920996838687e+36)
     )
     expect_equal(
@@ -125,7 +125,7 @@ test_that("rangeType processed correctly", {
       )
     )
     expect_equal(
-      emdn_get_nil_value(summary),
+      emdn_get_nil_values(summary),
       c(
         RED_BAND = NA_real_,
         GREEN_BAND = NA_real_,

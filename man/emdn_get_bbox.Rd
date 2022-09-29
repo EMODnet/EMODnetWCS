@@ -3,7 +3,7 @@
 \name{emdn_get_bbox}
 \alias{emdn_get_bbox}
 \alias{emdn_get_WGS84bbox}
-\alias{emdn_get_nil_value}
+\alias{emdn_get_nil_values}
 \alias{emdn_get_band_descriptions}
 \alias{emdn_get_band_uom}
 \alias{emdn_get_band_constraints}
@@ -22,7 +22,7 @@ emdn_get_bbox(summary)
 
 emdn_get_WGS84bbox(summary)
 
-emdn_get_nil_value(summary)
+emdn_get_nil_values(summary)
 
 emdn_get_band_descriptions(summary)
 
@@ -68,7 +68,7 @@ dimension coefficients (if applicable) in the coverage dimension info
 boundaries coverage extent/envelope. See \code{\link[sf:st_bbox]{sf::st_bbox()}} for more details.
 \item \code{emdn_get_WGS84bbox}: an object of class \code{bbox} of length 4 expressing the
 boundaries coverage extent/envelope. See \code{\link[sf:st_bbox]{sf::st_bbox()}} for more details.
-\item \code{emdn_get_nil_value} a numeric scalar of the value representing nil values
+\item \code{emdn_get_nil_values} a numeric scalar of the value representing nil values
 in a coverage.
 \item \code{emdn_get_band_descriptions} a character vector of band descriptions.
 \item \code{emdn_get_band_uom} a character vector of band units of measurement.
@@ -121,7 +121,7 @@ as the coverage.
 coverage in World Geodetic System 1984 (WGS84) Coordinate Reference System
 (or \code{EPSG:4326}).
 
-\item \code{emdn_get_nil_value()}: Get the value representing nil values in a
+\item \code{emdn_get_nil_values()}: Get the value representing nil values in a
 coverage.
 
 \item \code{emdn_get_band_descriptions()}: Get the band descriptions of a coverage.
@@ -162,7 +162,7 @@ emdn_get_bbox(summary)
 # get WGS84 bbox
 emdn_get_WGS84bbox(summary)
 # get the nil value of a coverage
-emdn_get_nil_value(summary)
+emdn_get_nil_values(summary)
 # get coverage band descriptions
 emdn_get_band_descriptions(summary)
 # get band units of measurement

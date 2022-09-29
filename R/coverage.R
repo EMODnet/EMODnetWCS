@@ -165,7 +165,7 @@ emdn_get_coverage <- function(wcs = NULL, service = NULL,
   }
 
   if (nil_values_as_na) {
-    nil_value <- emdn_get_nil_value(summary)
+    nil_value <- emdn_get_nil_values(summary)
 
     if (is.numeric(nil_value)) {
       cov_raster[cov_raster == nil_value] <- NA
