@@ -59,7 +59,7 @@ is returned.}
 
 \item{format}{the format of the file the coverage should be written out to.}
 
-\item{rangesubset}{character vector of band names to subset.}
+\item{rangesubset}{character vector of band descriptions to subset.}
 
 \item{filename}{the file name to write to.}
 

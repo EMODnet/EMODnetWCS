@@ -189,7 +189,7 @@ validate_bbox <- function(bbox) {
 }
 
 validate_rangesubset <- function(summary, rangesubset) {
-    cov_range_descriptions <- emdn_get_band_name(summary)
+    cov_range_descriptions <- emdn_get_band_descriptions(summary)
     purrr::walk(rangesubset,
                 ~checkmate::assert_choice(
                     .x,

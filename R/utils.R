@@ -148,7 +148,7 @@ emdn_get_coverage_dim_coefs <- function(wcs,
 #' boundaries coverage extent/envelope. See [`sf::st_bbox()`] for more details.
 #' - `emdn_get_nil_value` a numeric scalar of the value representing nil values
 #' in a coverage.
-#' - `emdn_get_band_name` a character vector of band names.
+#' - `emdn_get_band_descriptions` a character vector of band descriptions.
 #' - `emdn_get_band_uom` a character vector of band units of measurement.
 #' - `emdn_get_band_constraints` a list of numeric vectors of length 2 indicating the min and max
 #' values of the data contained in each bands of the coverage.
@@ -190,8 +190,8 @@ emdn_get_coverage_dim_coefs <- function(wcs,
 #' emdn_get_WGS84bbox(summary)
 #' # get the nil value of a coverage
 #' emdn_get_nil_value(summary)
-#' # get coverage band names
-#' emdn_get_band_name(summary)
+#' # get coverage band descriptions
+#' emdn_get_band_descriptions(summary)
 #' # get band units of measurement
 #' emdn_get_band_uom(summary)
 #' # get range of band values
@@ -253,9 +253,9 @@ emdn_get_nil_value <- function(summary) {
     }
 }
 
-#' @describeIn emdn_get_bbox Get the band names of a coverage.
+#' @describeIn emdn_get_bbox Get the band descriptions of a coverage.
 #' @export
-emdn_get_band_name <- function(summary) {
+emdn_get_band_descriptions <- function(summary) {
     fields <- summary$getDescription()$rangeType$field
     band_names <- fields |>
         purrr::map_chr(~.x$description)

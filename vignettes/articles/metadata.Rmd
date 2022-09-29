@@ -230,11 +230,11 @@ Get the value representing nil values in a coverage.
 emdn_get_nil_value(summary)
 ```
 
-##### Get coverage band names
+##### Get coverage band descriptions
 
-Get the band names of a coverage.
+Get the band descriptions of a coverage.
 ```{r}
-emdn_get_band_name(summary)
+emdn_get_band_descriptions(summary)
 ```
 
 

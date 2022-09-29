@@ -191,7 +191,7 @@ emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
         service_name = wcs$getUrl(),
         service_url = get_service_name(wcs$getUrl()),
         coverage_id = purrr::map_chr(summaries, ~ error_wrap(.x$getId())),
-        band_description = purrr::map_chr(summaries, ~ error_wrap(emdn_get_band_name(.x) |>
+        band_description = purrr::map_chr(summaries, ~ error_wrap(emdn_get_band_descriptions(.x) |>
                                                                       paste(collapse = ", "))),
         band_uom = purrr::map_chr(summaries, ~ error_wrap(emdn_get_band_uom(.x) |>
                                                               conc_band_uom())),

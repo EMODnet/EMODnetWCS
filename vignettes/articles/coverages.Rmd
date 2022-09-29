@@ -150,7 +150,7 @@ We can also request specific bands from a coverage.
 First let's check the available bands in our coverage.
 
 ```{r}
-emdn_get_band_name(cov_summary)
+emdn_get_band_descriptions(cov_summary)
 ```
 
 To download a specifc band we use the argument `rangesubset`:

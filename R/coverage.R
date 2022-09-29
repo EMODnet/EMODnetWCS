@@ -24,7 +24,7 @@
 #' `SpatRaster` is returned. For more than one elevation, `SpatRaster` stack
 #' is returned.
 #' @param format the format of the file the coverage should be written out to.
-#' @param rangesubset character vector of band names to subset.
+#' @param rangesubset character vector of band descriptions to subset.
 #' @param filename the file name to write to.
 #' @param nil_values_as_na logical. Should raster nil values be converted to `NA`?
 #'

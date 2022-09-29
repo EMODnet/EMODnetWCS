@@ -57,7 +57,7 @@ test_that("rangeType processed correctly", {
     with_mock_dir("biology-description",
                   {
                       expect_equal(emdn_get_nil_value(summary), 9.96921e+36)
-                      expect_equal(emdn_get_band_name(summary), structure("relative_abundance",
+                      expect_equal(emdn_get_band_descriptions(summary), structure("relative_abundance",
                                                                           uom = "W.m-2.Sr-1"))
                       expect_equal(emdn_get_band_uom(summary), c(relative_abundance = "W.m-2.Sr-1"))
                       expect_equal(emdn_get_band_constraints(summary),
@@ -72,7 +72,7 @@ test_that("rangeType processed correctly", {
 
     summary <- create_physics_summary()[[1]]
     with_mock_dir("physics-info", {
-        expect_equal(emdn_get_band_name(summary),
+        expect_equal(emdn_get_band_descriptions(summary),
                      structure(
                          c("RED_BAND",
                            "GREEN_BAND",

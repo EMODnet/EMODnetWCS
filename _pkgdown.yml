@@ -53,7 +53,7 @@ reference:
   - emdn_get_bbox
   - emdn_get_WGS84bbox
   - emdn_get_nil_value
-  - emdn_get_band_name
+  - emdn_get_band_descriptions
   - emdn_get_band_uom
   - emdn_get_band_constraints
   - emdn_get_grid_size
