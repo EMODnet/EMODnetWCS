@@ -130,7 +130,7 @@ emdn_get_coverage <- function(wcs = NULL, service = NULL,
 
   coverage_id <- validate_namespace(coverage_id)
 
-  if (length(time) > 1 | length(elevation) > 1) {
+  if (length(time) > 1 || length(elevation) > 1) {
 
     # TODO - uncomment crs when https://github.com/eblondel/ows4R/issues/90
     # is resolved
