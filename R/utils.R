@@ -25,53 +25,56 @@
 #' cov_ids <- emdn_get_coverage_ids(wcs)
 #' cov_ids
 #' emdn_has_dimension(wcs,
-#'                      cov_ids,
-#'                      type = "temporal")
+#'   cov_ids,
+#'   type = "temporal"
+#' )
 #' emdn_has_dimension(wcs,
-#'                      cov_ids,
-#'                      type = "vertical")
+#'   cov_ids,
+#'   type = "vertical"
+#' )
 #' emdn_get_coverage_summaries(wcs, cov_ids[1:2])
 #' emdn_get_coverage_summaries_all(wcs)
 #' emdn_get_coverage_dim_coefs(wcs,
-#'                             cov_ids[1:2],
-#'                             type = "temporal")
+#'   cov_ids[1:2],
+#'   type = "temporal"
+#' )
 #' }
 emdn_get_coverage_summaries <- function(wcs, coverage_ids) {
-    coverage_ids |>
-        purrr::map(~get_capabilities(wcs)$findCoverageSummaryById(.x,
-                                                                  exact = TRUE))
+  coverage_ids |>
+    purrr::map(~ get_capabilities(wcs)$findCoverageSummaryById(.x,
+      exact = TRUE
+    ))
 }
 
 #' @describeIn emdn_get_coverage_summaries Get summaries for all available
 #' coverages from a service.
 #' @export
 emdn_get_coverage_summaries_all <- function(wcs) {
-    get_capabilities(wcs)$getCoverageSummaries()
+  get_capabilities(wcs)$getCoverageSummaries()
 }
 
 #' @describeIn emdn_get_coverage_summaries Get coverage IDs for all available
 #' coverages from a service.
 #' @export
 emdn_get_coverage_ids <- function(wcs) {
-    emdn_get_coverage_summaries_all(wcs) |>
-        purrr::map_chr(~.x$getId())
-
+  emdn_get_coverage_summaries_all(wcs) |>
+    purrr::map_chr(~ .x$getId())
 }
 
 #' @describeIn emdn_get_coverage_summaries check whether a coverage has a
 #' temporal or vertical dimension.
 #' @export
 emdn_has_dimension <- function(wcs, coverage_ids,
-                                 type = c("temporal", "vertical")) {
-    check_coverages(wcs, coverage_ids)
-    type <- match.arg(type)
+                               type = c("temporal", "vertical")) {
+  check_coverages(wcs, coverage_ids)
+  type <- match.arg(type)
 
-    dim_dfs <- emdn_get_coverage_summaries(wcs, coverage_ids) |>
-        purrr::map(~emdn_get_dimensions_info(.x, format = "tibble"))
+  dim_dfs <- emdn_get_coverage_summaries(wcs, coverage_ids) |>
+    purrr::map(~ emdn_get_dimensions_info(.x, format = "tibble"))
 
-    dim_dfs |>
-        purrr::map_lgl(~any(.x$type == type)) |>
-        stats::setNames(coverage_ids)
+  dim_dfs |>
+    purrr::map_lgl(~ any(.x$type == type)) |>
+    stats::setNames(coverage_ids)
 }
 
 #' @return a list containing a vector of coefficients for each coverage
@@ -81,53 +84,63 @@ emdn_has_dimension <- function(wcs, coverage_ids,
 #' @export
 emdn_get_coverage_dim_coefs <- function(wcs,
                                         coverage_ids,
-                                        type = c("temporal",
-                                                 "vertical")) {
+                                        type = c(
+                                          "temporal",
+                                          "vertical"
+                                        )) {
+  type <- match.arg(type)
+  validate_coverage_ids(wcs, coverage_ids)
 
-    type <- match.arg(type)
-    validate_coverage_ids(wcs, coverage_ids)
 
+  get_cov_coefs <- function(coverage_id, wcs, type) {
+    check_extent_type <- emdn_has_dimension(
+      wcs,
+      coverage_id,
+      type
+    )
+    if (check_extent_type) {
+      summary <- emdn_get_coverage_summaries(
+        wcs,
+        coverage_id
+      )[[1]]
+      dim_type_id <- which(
+        emdn_get_dimension_types(summary) == type
+      )
 
-    get_cov_coefs <- function(coverage_id, wcs, type) {
-        check_extent_type <- emdn_has_dimension(wcs,
-                                                coverage_id,
-                                                type)
-        if (check_extent_type) {
-            summary <- emdn_get_coverage_summaries(wcs,
-                                                   coverage_id)[[1]]
-            dim_type_id <- which(
-                emdn_get_dimension_types(summary) == type
-                )
+      coefs <- summary |>
+        emdn_get_dimensions_info(
+          format = "list",
+          include_coeffs = TRUE
+        ) |>
+        purrr::pluck(
+          dim_type_id,
+          "coefficients"
+        ) |>
+        unlist()
 
-            coefs <- summary |>
-                emdn_get_dimensions_info(
-                    format = "list",
-                    include_coeffs = TRUE) |>
-                purrr::pluck(dim_type_id,
-                             "coefficients") |>
-                unlist()
+      attr(coefs, "type") <- glue::glue(
+        "{type}_coefficents"
+      )
 
-            attr(coefs, "type") <- glue::glue(
-                "{type}_coefficents"
-            )
-
-            return(coefs)
-
-        } else {
-            cli::cli_warn(
-                "{.field coverage_id} {.val {coverage_id}}
+      return(coefs)
+    } else {
+      cli::cli_warn(
+        "{.field coverage_id} {.val {coverage_id}}
             has no {.val {type}} dimension."
-            )
+      )
 
-            return(NA)
-        }
+      return(NA)
     }
+  }
 
-    purrr::map(coverage_ids,
-               ~get_cov_coefs(.x,
-                              wcs = wcs,
-                              type = type)) |>
-        stats::setNames(coverage_ids)
+  purrr::map(
+    coverage_ids,
+    ~ get_cov_coefs(.x,
+      wcs = wcs,
+      type = type
+    )
+  ) |>
+    stats::setNames(coverage_ids)
 }
 
 # ---- summary utils ----
@@ -221,16 +234,19 @@ emdn_get_coverage_dim_coefs <- function(wcs,
 #' as the coverage.
 #' @export
 emdn_get_bbox <- function(summary) {
-    #summary$getBoundingBox()$BoundingBox$getBBOX()
-    boundaries <- summary$getDescription()$boundedBy
-    upper <- unlist(c(boundaries$upperCorner))
-    lower <- unlist(c(boundaries$lowerCorner))
+  # summary$getBoundingBox()$BoundingBox$getBBOX()
+  boundaries <- summary$getDescription()$boundedBy
+  upper <- unlist(c(boundaries$upperCorner))
+  lower <- unlist(c(boundaries$lowerCorner))
 
-    sf::st_bbox(c(xmin = lower[2],
-                  xmax = upper[2],
-                  ymin = lower[1],
-                  ymax = upper[1]),
-                crs = extr_bbox_crs(summary))
+  sf::st_bbox(c(
+    xmin = lower[2],
+    xmax = upper[2],
+    ymin = lower[1],
+    ymax = upper[1]
+  ),
+  crs = extr_bbox_crs(summary)
+  )
 }
 
 #' @describeIn emdn_get_bbox Get the bounding box (geographic extent) of a
@@ -238,318 +254,333 @@ emdn_get_bbox <- function(summary) {
 #' (or `EPSG:4326`).
 #' @export
 emdn_get_WGS84bbox <- function(summary) {
-    summary$getWGS84BoundingBox()$WGS84BoundingBox$getBBOX()
+  summary$getWGS84BoundingBox()$WGS84BoundingBox$getBBOX()
 }
 
 #' @describeIn emdn_get_bbox Get the value representing nil values in a
 #' coverage.
 #' @export
 emdn_get_nil_value <- function(summary) {
-    nil_value <- summary$getDescription()$rangeType$DataRecord$field$Quantity$nilValues$NilValues$nilValue$value
-    if (typeof(nil_value) == "character") {
-        as.numeric(nil_value)
-    } else {
-        nil_value
-    }
+  nil_value <- summary$getDescription()$rangeType$DataRecord$field$Quantity$nilValues$NilValues$nilValue$value
+  if (typeof(nil_value) == "character") {
+    as.numeric(nil_value)
+  } else {
+    nil_value
+  }
 }
 
 #' @describeIn emdn_get_bbox Get the band descriptions of a coverage.
 #' @export
 emdn_get_band_descriptions <- function(summary) {
-    fields <- summary$getDescription()$rangeType$field
-    band_names <- fields |>
-        purrr::map_chr(~.x$description)
+  fields <- summary$getDescription()$rangeType$field
+  band_names <- fields |>
+    purrr::map_chr(~ .x$description)
 
-    attr(band_names, "uom") <- fields |>
-        purrr::map_chr(~.x$uom$attrs$code)
+  attr(band_names, "uom") <- fields |>
+    purrr::map_chr(~ .x$uom$attrs$code)
 
-    return(band_names)
+  return(band_names)
 }
 
 #' @describeIn emdn_get_bbox Get the units of measurement of the data contained in
 #' the bands values of a coverage.
 #' @export
 emdn_get_band_uom <- function(summary) {
-    fields <- summary$getDescription()$rangeType$field
-    uom <- fields |>
-        purrr::map_chr(~.x$uom$attrs$code)
+  fields <- summary$getDescription()$rangeType$field
+  uom <- fields |>
+    purrr::map_chr(~ .x$uom$attrs$code)
 
-    names(uom) <- fields |>
-        purrr::map_chr(~.x$description)
+  names(uom) <- fields |>
+    purrr::map_chr(~ .x$description)
 
-    return(uom)
+  return(uom)
 }
 
 #' @describeIn emdn_get_bbox Get the range of values of the data contained in
 #' the bands of the coverage.
 #' @export
 emdn_get_band_constraints <- function(summary) {
-    fields <- summary$getDescription()$rangeType$field
-    constraints <- fields |>
-        purrr::map(
-            ~.x$constraint |>
-                strsplit(" ") |>
-                unlist() |>
-                as.numeric()
-        )
-    names(constraints) <- fields |>
-        purrr::map_chr(~.x$description)
+  fields <- summary$getDescription()$rangeType$field
+  constraints <- fields |>
+    purrr::map(
+      ~ .x$constraint |>
+        strsplit(" ") |>
+        unlist() |>
+        as.numeric()
+    )
+  names(constraints) <- fields |>
+    purrr::map_chr(~ .x$description)
 
-    return(constraints)
-
+  return(constraints)
 }
 
 #' @describeIn emdn_get_bbox Get the grid size of a coverage.
 #' @export
 emdn_get_grid_size <- function(summary) {
+  resolution <- emdn_get_resolution(summary)
+  bbox <- summary$BoundingBox$BoundingBox$getBBOX()
 
-    resolution <- emdn_get_resolution(summary)
-    bbox <- summary$BoundingBox$BoundingBox$getBBOX()
-
-    c(ncol = (bbox[["xmax"]] - bbox[["xmin"]]) / resolution[["x"]],
-      nrow = (bbox[["ymax"]] - bbox[["ymin"]]) / resolution[["y"]]) |>
-        round()
+  c(
+    ncol = (bbox[["xmax"]] - bbox[["xmin"]]) / resolution[["x"]],
+    nrow = (bbox[["ymax"]] - bbox[["ymin"]]) / resolution[["y"]]
+  ) |>
+    round()
 }
 
 #' @describeIn emdn_get_bbox Get the resolution of a coverage.
 #' @export
 emdn_get_resolution <- function(summary) {
+  offset_vector <- summary$getDescription()$domainSet$offsetVector
 
-    offset_vector <- summary$getDescription()$domainSet$offsetVector
-
-    if (length(offset_vector) == 1L) {
-        resolution <- offset_vector$value |>
-            strsplit(" ") |>
-            unlist() |>
-            as.numeric() |>
-            abs()
-    } else {
-        resolution <- purrr::map_dbl(offset_vector,
-                                    ~.x$value |>
-                                        strsplit(" ") |>
-                                        unlist() |>
-                                        as.numeric() |>
-                                        sum() |>
-                                        abs())
-    }
-
-    axis_order <- emdn_get_coverage_function(summary)$axis_order
-
-    is_x_axis <- purrr::map_lgl(axis_order,
-                   ~grepl(.x, "x|2"))
-
-    if (sum(is_x_axis) != 1L) {
-        cli::cli_warn(
-            c("!" = "Unable to detecting axis order. Defaulting to {.val x}, {.val y}"))
-        names(resolution) <- c("x", "y")
-    } else {
-        res_names <- c("y", "y")
-        res_names[is_x_axis] <- "x"
-        names(resolution) <- res_names
-    }
-
-    uom <- summary$getDescription()$boundedBy$attrs$uomLabels |>
+  if (length(offset_vector) == 1L) {
+    resolution <- offset_vector$value |>
+      strsplit(" ") |>
+      unlist() |>
+      as.numeric() |>
+      abs()
+  } else {
+    resolution <- purrr::map_dbl(
+      offset_vector,
+      ~ .x$value |>
         strsplit(" ") |>
-        unlist()
+        unlist() |>
+        as.numeric() |>
+        sum() |>
+        abs()
+    )
+  }
 
-    uom <- uom[emdn_get_dimension_types(summary) == "geographic"]
+  axis_order <- emdn_get_coverage_function(summary)$axis_order
 
-    attr(resolution, "uom") <- uom
+  is_x_axis <- purrr::map_lgl(
+    axis_order,
+    ~ grepl(.x, "x|2")
+  )
 
-    return(resolution)
+  if (sum(is_x_axis) != 1L) {
+    cli::cli_warn(
+      c("!" = "Unable to detecting axis order. Defaulting to {.val x}, {.val y}")
+    )
+    names(resolution) <- c("x", "y")
+  } else {
+    res_names <- c("y", "y")
+    res_names[is_x_axis] <- "x"
+    names(resolution) <- res_names
+  }
 
+  uom <- summary$getDescription()$boundedBy$attrs$uomLabels |>
+    strsplit(" ") |>
+    unlist()
+
+  uom <- uom[emdn_get_dimension_types(summary) == "geographic"]
+
+  attr(resolution, "uom") <- uom
+
+  return(resolution)
 }
 
 #' @describeIn emdn_get_bbox Get the grid function of a coverage.
 #' @export
 emdn_get_coverage_function <- function(summary) {
+  grid_function <- summary$getDescription()$coverageFunction[[1]]
 
-    grid_function <- summary$getDescription()$coverageFunction[[1]]
-
-    list(
-        sequence_rule = grid_function[["sequenceRule"]]$value,
-      start_point = grid_function[["startPoint"]]$value |>
-          strsplit(" ") |>
-          unlist() |>
-          as.numeric(),
-      axis_order = grid_function[["sequenceRule"]]$attrs$axisOrder |>
-          strsplit(" ") |>
-          unlist()
-      )
+  list(
+    sequence_rule = grid_function[["sequenceRule"]]$value,
+    start_point = grid_function[["startPoint"]]$value |>
+      strsplit(" ") |>
+      unlist() |>
+      as.numeric(),
+    axis_order = grid_function[["sequenceRule"]]$attrs$axisOrder |>
+      strsplit(" ") |>
+      unlist()
+  )
 }
 
 #' @describeIn emdn_get_bbox Get the temporal extent of a coverage.
 #' @export
 emdn_get_temporal_extent <- function(summary) {
-    dim_df <- emdn_get_dimensions_info(summary, format = "tibble")
+  dim_df <- emdn_get_dimensions_info(summary, format = "tibble")
 
-    if (any(dim_df$type == "temporal")) {
-        dim_df$range[dim_df$type == "temporal"] |>
-            strsplit(" - ") |>
-            unlist()
-    } else {
-        NA
-    }
+  if (any(dim_df$type == "temporal")) {
+    dim_df$range[dim_df$type == "temporal"] |>
+      strsplit(" - ") |>
+      unlist()
+  } else {
+    NA
+  }
 }
 
 #' @describeIn emdn_get_bbox Get the vertical (elevation) extent of a coverage.
 #' @export
 emdn_get_vertical_extent <- function(summary) {
-    dim_df <- emdn_get_dimensions_info(summary, format = "tibble")
+  dim_df <- emdn_get_dimensions_info(summary, format = "tibble")
 
-    if (any(dim_df$type == "vertical")) {
-        dim_df$range[dim_df$type == "vertical"] |>
-            strsplit(" - ") |>
-            unlist()
-    } else {
-        NA
-    }
+  if (any(dim_df$type == "vertical")) {
+    dim_df$range[dim_df$type == "vertical"] |>
+      strsplit(" - ") |>
+      unlist()
+  } else {
+    NA
+  }
 }
 
 #' @describeIn emdn_get_bbox Get information on dimensions of a coverage in
 #' various formats. Information includes dimension label, type, unit and
 #' range (in tibble format).
 #' @export
-emdn_get_dimensions_info <- function(summary, format = c("character",
-                                            "list",
-                                            "tibble"),
-                              include_coeffs = FALSE) {
-    format <- match.arg(format)
-    dimensions <- summary$getDimensions()
+emdn_get_dimensions_info <- function(summary, format = c(
+                                       "character",
+                                       "list",
+                                       "tibble"
+                                     ),
+                                     include_coeffs = FALSE) {
+  format <- match.arg(format)
+  dimensions <- summary$getDimensions()
 
-    # internal format specific processing functions
-    process_character <- function(x) {
-        purrr::map_chr(x,
-                       ~glue::glue('{tolower(.x[["label"]])}',
-                                   '({tolower(.x[["uom"]])}):',
-                                   '{tolower(.x[["type"]])}')) |>
-            glue::glue_collapse("; ")
+  # internal format specific processing functions
+  process_character <- function(x) {
+    purrr::map_chr(
+      x,
+      ~ glue::glue(
+        '{tolower(.x[["label"]])}',
+        '({tolower(.x[["uom"]])}):',
+        '{tolower(.x[["type"]])}'
+      )
+    ) |>
+      glue::glue_collapse("; ")
+  }
+
+  process_list <- function(x, include_coeffs = FALSE) {
+    if (include_coeffs) {
+      out <- x
+    } else {
+      out <- purrr::map(x, ~ head(.x, 3))
     }
 
-    process_list <- function(x, include_coeffs = FALSE) {
-        if (include_coeffs) {
-            out <- x
-        } else {
-            out <- purrr::map(x, ~head(.x, 3))
-        }
+    stats::setNames(out, glue::glue("dim_{seq_along(out)}"))
+  }
 
-        stats::setNames(out, glue::glue('dim_{seq_along(out)}'))
-    }
+  process_tibble <- function(x) {
+    tibble::tibble(
+      dimension = seq_along(x),
+      label = purrr::map_chr(x, ~ purrr::pluck(.x, "label")) |>
+        tolower(),
+      uom = purrr::map_chr(x, ~ purrr::pluck(.x, "uom")) |>
+        tolower(),
+      type = purrr::map_chr(x, ~ purrr::pluck(.x, "type")) |>
+        tolower(),
+      range = purrr::map(x, ~ purrr::pluck(.x, "coefficients") |>
+        unlist()) |>
+        purrr::map_if(
+          function(x) {
+            !is.null(x)
+          },
+          ~ range(.x) |>
+            paste(collapse = " - ")
+        ) |>
+        purrr::map_if(is.null, function(x) {
+          NA
+        }) |>
+        unlist()
+    )
+  }
 
-    process_tibble <- function(x) {
-
-        tibble::tibble(
-            dimension = seq_along(x),
-            label = purrr::map_chr(x, ~purrr::pluck(.x, "label")) |>
-                tolower(),
-            uom = purrr::map_chr(x, ~purrr::pluck(.x, "uom")) |>
-                tolower(),
-            type = purrr::map_chr(x, ~purrr::pluck(.x, "type")) |>
-                tolower(),
-            range = purrr::map(x, ~purrr::pluck(.x, "coefficients") |>
-                                   unlist()) |>
-                purrr::map_if(function(x){!is.null(x)},
-                              ~range(.x) |>
-                                  paste(collapse = " - ")) |>
-                purrr::map_if(is.null, function(x){NA}) |>
-                unlist()
-        )
-    }
-
-    switch(format,
-           "character" = process_character(dimensions),
-           "list" = process_list(dimensions,
-                                 include_coeffs = include_coeffs),
-           "tibble" = process_tibble(dimensions))
+  switch(format,
+    "character" = process_character(dimensions),
+    "list" = process_list(dimensions,
+      include_coeffs = include_coeffs
+    ),
+    "tibble" = process_tibble(dimensions)
+  )
 }
 
 #' @describeIn emdn_get_bbox Get coverage dimension names (labels) and units.
 #' @export
 emdn_get_dimensions_names <- function(summary) {
-    dimensions <- summary$getDescription()$boundedBy$attrs
+  dimensions <- summary$getDescription()$boundedBy$attrs
 
-    paste(
-        paste0(unlist(strsplit(dimensions$axisLabels, " ")),
-               " (",
-               unlist(strsplit(dimensions$uomLabels, " ")),
-               ")"),
-        collapse = ", ")
+  paste(
+    paste0(
+      unlist(strsplit(dimensions$axisLabels, " ")),
+      " (",
+      unlist(strsplit(dimensions$uomLabels, " ")),
+      ")"
+    ),
+    collapse = ", "
+  )
 }
 
 #' @describeIn emdn_get_bbox Get number of coverage dimensions.
 #' @export
 emdn_get_dimensions_n <- function(summary) {
-    summary$getDimensions() |> length()
-
+  summary$getDimensions() |> length()
 }
 
 #' @describeIn emdn_get_bbox Get dimensions types of a coverage.
 #' @export
 emdn_get_dimension_types <- function(summary) {
-    dimensions <- summary$getDimensions()
+  dimensions <- summary$getDimensions()
 
-    purrr::map_chr(dimensions, ~purrr::pluck(.x, "type"))
-
+  purrr::map_chr(dimensions, ~ purrr::pluck(.x, "type"))
 }
 
 # ---- unexported-utils ----
 conc_bbox <- function(bbox) {
-    paste(round(bbox, 2), collapse = ", ")
+  paste(round(bbox, 2), collapse = ", ")
 }
 
 extr_bbox_crs <- function(summary) {
+  bbox_crs <- summary$getBoundingBox()$BoundingBox$attrs$crs
 
-    bbox_crs <- summary$getBoundingBox()$BoundingBox$attrs$crs
-
-    if(!is.null(bbox_crs)){
-        crs_parts <- unlist(strsplit(bbox_crs, "EPSG:"))
-        if(length(crs_parts)==2){
-            srid <- as.integer(crs_parts[2])
-            if(!is.na(srid)) bbox_crs <- sf::st_crs(srid)
-        } else {
-            bbox_crs <- sf::st_crs(4326)
-        }
+  if (!is.null(bbox_crs)) {
+    crs_parts <- unlist(strsplit(bbox_crs, "EPSG:"))
+    if (length(crs_parts) == 2) {
+      srid <- as.integer(crs_parts[2])
+      if (!is.na(srid)) bbox_crs <- sf::st_crs(srid)
     } else {
-        bbox_crs <- sf::st_crs(4326)
+      bbox_crs <- sf::st_crs(4326)
     }
-    return(bbox_crs)
+  } else {
+    bbox_crs <- sf::st_crs(4326)
+  }
+  return(bbox_crs)
 }
 
 conc_resolution <- function(x) {
-    uom <- attr(x, "uom")
-    paste(x, uom, collapse = " x ")
+  uom <- attr(x, "uom")
+  paste(x, uom, collapse = " x ")
 }
 
 get_service_url <- function(service) {
-    emdn_wcs()$service_url[emdn_wcs()$service_name == service]
+  emdn_wcs()$service_url[emdn_wcs()$service_name == service]
 }
 
 get_service_name <- function(service_url) {
-    emdn_wcs()$service_name[emdn_wcs()$service_url == service_url]
+  emdn_wcs()$service_name[emdn_wcs()$service_url == service_url]
 }
 
 
 get_capabilities <- function(wcs) {
-    wcs$getCapabilities()
+  wcs$getCapabilities()
 }
 
 conc_band_uom <- function(x) {
+  if (length(unique(x)) == 1L) {
+    return(unique(x))
+  }
 
-    if(length(unique(x)) == 1L) {
-        return(unique(x))
-    }
-
-    return(paste(x, collapse = ", "))
+  return(paste(x, collapse = ", "))
 }
 
 conc_constraint <- function(x) {
+  x <- purrr::map_chr(
+    x,
+    ~ paste(.x, collapse = "-")
+  )
 
-    x <- purrr::map_chr(x,
-                   ~paste(.x, collapse = "-"))
+  if (length(unique(x)) == 1L) {
+    return(unique(x))
+  }
 
-    if(length(unique(x)) == 1L) {
-        return(unique(x))
-    }
-
-    return(paste(x, collapse = ", "))
+  return(paste(x, collapse = ", "))
 }
