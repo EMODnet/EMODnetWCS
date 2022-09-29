@@ -31,7 +31,8 @@ For available services, see \code{\link[=emdn_wcs]{emdn_wcs()}}.}
 
 \item{service_version}{the WCS service version. Defaults to "2.0.1".}
 
-\item{logger}{character string. Level of logger: 'NONE' for no logger, 'INFO' to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)}
+\item{logger}{character string. Level of logger: 'NONE' for no logger, 'INFO'
+to get ows4R logs, 'DEBUG' for all internal logs (such as as Curl details)}
 
 \item{coverage_ids}{character vector of coverage IDs.}
 }
@@ -85,7 +86,8 @@ specified and columns with the following details:
 If all bands share the same unit of measurement, the single shared uom is shown.
 \item \strong{\code{constraint}:} the range of values of the data contained in each band of the coverage.
 If all bands share the same constraint, the single shared constraint range is shown.
-\item \strong{\code{nil_value}:} the nil value of the data contained in the band of the coverage.
+\item \strong{\code{nil_value}:} the nil values of the data contained each band of the coverage.
+If all bands share the same nil value, the single shared nil value is shown.
 \item \strong{\code{grid_size}:} the spatial size of the coverage grid (ncol x nrow).
 \item \strong{\code{resolution}:} the spatial resolution (pixel size) of the coverage grid
 in the CRS units of measurement (size in the \code{x} dimension x size in the \code{y} dimension).
@@ -147,7 +149,9 @@ coverage_ids <- c(
   "emodnet_open_maplibrary__mediseh_cora",
   "emodnet_open_maplibrary__mediseh_posidonia"
 )
-emdn_get_coverage_info(wcs = wcs,
-                       coverage_ids = coverage_ids)
+emdn_get_coverage_info(
+  wcs = wcs,
+  coverage_ids = coverage_ids
+)
 }
 }
