@@ -123,7 +123,8 @@
 #' If all bands share the same unit of measurement, the single shared uom is shown.
 #' - **`constraint`:** the range of values of the data contained in each band of the coverage.
 #' If all bands share the same constraint, the single shared constraint range is shown.
-#' - **`nil_value`:** the nil value of the data contained in the band of the coverage.
+#' - **`nil_value`:** the nil values of the data contained each band of the coverage.
+#' If all bands share the same nil value, the single shared nil value is shown.
 #' - **`grid_size`:** the spatial size of the coverage grid (ncol x nrow).
 #' - **`resolution`:** the spatial resolution (pixel size) of the coverage grid
 #' in the CRS units of measurement (size in the `x` dimension x size in the `y` dimension).
