@@ -153,17 +153,6 @@ validate_namespace <- function(coverage_id) {
   gsub(":", "__", coverage_id)
 }
 
-validate_coverage_ids <- function(wcs, coverage_ids) {
-  purrr::walk(
-    coverage_ids,
-    ~ checkmate::assert_choice(
-      .x,
-      emdn_get_coverage_ids(wcs),
-      .var.name = "coverage_ids"
-    )
-  )
-}
-
 validate_bbox <- function(bbox) {
   if (is.null(bbox)) {
     return(bbox)

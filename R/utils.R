@@ -40,6 +40,8 @@
 #' )
 #' }
 emdn_get_coverage_summaries <- function(wcs, coverage_ids) {
+  check_coverages(wcs, coverage_ids)
+
   coverage_ids |>
     purrr::map(~ get_capabilities(wcs)$findCoverageSummaryById(.x,
       exact = TRUE
@@ -89,7 +91,7 @@ emdn_get_coverage_dim_coefs <- function(wcs,
                                           "vertical"
                                         )) {
   type <- match.arg(type)
-  validate_coverage_ids(wcs, coverage_ids)
+  check_coverages(wcs, coverage_ids)
 
 
   get_cov_coefs <- function(coverage_id, wcs, type) {
