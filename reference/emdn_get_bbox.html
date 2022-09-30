@@ -66,7 +66,7 @@
 <span></span>
 <span><span class="fu">emdn_get_WGS84bbox</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">emdn_get_nil_values</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
+<span><span class="fu">emdn_get_band_nil_values</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">emdn_get_band_descriptions</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span>
 <span></span>
@@ -122,7 +122,7 @@ dimension coefficients (if applicable) in the coverage dimension info
 boundaries coverage extent/envelope. See <code><a href="https://r-spatial.github.io/sf/reference/st_bbox.html" class="external-link">sf::st_bbox()</a></code> for more details.</p></li>
 <li><p><code>emdn_get_WGS84bbox</code>: an object of class <code>bbox</code> of length 4 expressing the
 boundaries coverage extent/envelope. See <code><a href="https://r-spatial.github.io/sf/reference/st_bbox.html" class="external-link">sf::st_bbox()</a></code> for more details.</p></li>
-<li><p><code>emdn_get_nil_values</code> a numeric scalar of the value representing nil values
+<li><p><code>emdn_get_band_nil_values</code> a numeric scalar of the value representing nil values
 in a coverage.</p></li>
 <li><p><code>emdn_get_band_descriptions</code> a character vector of band descriptions.</p></li>
 <li><p><code>emdn_get_band_uom</code> a character vector of band units of measurement.</p></li>
@@ -166,7 +166,7 @@ as the coverage.</p></li>
 <li><p><code>emdn_get_WGS84bbox()</code>: Get the bounding box (geographic extent) of a
 coverage in World Geodetic System 1984 (WGS84) Coordinate Reference System
 (or <code>EPSG:4326</code>).</p></li>
-<li><p><code>emdn_get_nil_values()</code>: Get the value representing nil values in a
+<li><p><code>emdn_get_band_nil_values()</code>: Get the value representing nil values in a
 coverage.</p></li>
 <li><p><code>emdn_get_band_descriptions()</code>: Get the band descriptions of a coverage.</p></li>
 <li><p><code>emdn_get_band_uom()</code>: Get the units of measurement of the data contained in
@@ -205,7 +205,7 @@ range (in tibble format).</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   xmin   ymin   xmax   ymax </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -75.05  34.95  20.05  75.05 </span>
 <span class="r-in"><span><span class="co"># get the nil value of a coverage</span></span></span>
-<span class="r-in"><span><span class="fu">emdn_get_nil_values</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">emdn_get_band_nil_values</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Relative abundance     Relative error </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        9.96921e+36        9.96921e+36 </span>
 <span class="r-in"><span><span class="co"># get coverage band descriptions</span></span></span>
