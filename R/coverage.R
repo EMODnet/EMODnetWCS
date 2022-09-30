@@ -104,10 +104,7 @@ emdn_get_coverage <- function(wcs = NULL, service = NULL,
 
   # validate request arguments
   if (!is.null(rangesubset)) {
-    # TODO - uncomment validate(rangesubset) when
-    # https://github.com/eblondel/ows4R/issues/80
-    # is resolved
-    # validate_rangesubset(summary, rangesubset)
+    validate_rangesubset(summary, rangesubset)
     rangesubset <- utils::URLencode(rangesubset)
   }
   if (!is.null(time)) {
