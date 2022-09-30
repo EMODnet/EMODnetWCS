@@ -244,7 +244,7 @@ emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
     ),
     nil_value = purrr::map_dbl(
       summaries,
-      ~ error_wrap(emdn_get_nil_values(.x) |>
+      ~ error_wrap(emdn_get_band_nil_values(.x) |>
         conc_nil_value())
     ),
     dim_n = purrr::map_int(
