@@ -74,3 +74,13 @@ test_that("check coverages works", {
   expect_invisible(check_coverages(wcs, coverage_ids))
   expect_error(check_coverages(wcs, "erroneous_id"))
 })
+
+test_that("validate rangesubset works", {
+    summary <- create_biology_summary()[[1]]
+    with_mock_dir("biology-description", {
+    coverage_id <- "Emodnetbio__ratio_large_to_small_19582016_L1_err"
+
+    expect_invisible(validate_rangesubset(summary, "relative_abundance"))
+    expect_error(validate_rangesubset(summary, "erroneous_rangetype"))
+    })
+})
