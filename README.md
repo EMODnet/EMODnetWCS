@@ -191,11 +191,10 @@ Get more detailed coverage metadata about specific coverage.
 ``` r
 emdn_get_coverage_info(wcs, 
                        coverage_ids = "Emodnetbio__cal_fin_19582016_L1_err")
-#> ! Output of  is NULL. Returning NA
 #> # A tibble: 1 × 21
 #>   data_s…¹ servi…² servi…³ cover…⁴ band_…⁵ band_…⁶ const…⁷ nil_v…⁸ dim_n dim_n…⁹
 #>   <chr>    <chr>   <chr>   <chr>   <chr>   <chr>   <chr>     <dbl> <int> <chr>  
-#> 1 emodnet… https:… biology Emodne… Relati… W.m-2.… -3.402…      NA     3 lat(de…
+#> 1 emodnet… https:… biology Emodne… Relati… W.m-2.… -3.402… 9.97e36     3 lat(de…
 #> # … with 11 more variables: grid_size <chr>, resolution <chr>, extent <chr>,
 #> #   crs <chr>, wgs84_extent <chr>, temporal_extent <chr>,
 #> #   vertical_extent <chr>, subtype <chr>, fn_seq_rule <chr>,
@@ -290,7 +289,7 @@ citation(package = "EMODnetWCS")
 #> 
 #> To cite package 'EMODnetWCS' in publications use:
 #> 
-#>   Krystalli A (????). _EMODnetWCS: Access EMODnet Web Coverage Service
+#>   Krystalli A (2022). _EMODnetWCS: Access EMODnet Web Coverage Service
 #>   data through R_. R package version 0.0.0.9011. Integrated data
 #>   products created under the European Marine Observation Data Network
 #>   (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013),
@@ -303,6 +302,7 @@ citation(package = "EMODnetWCS")
 #>   @Manual{,
 #>     title = {{EMODnetWCS}: Access EMODnet Web Coverage Service data through R},
 #>     author = {Anna Krystalli},
+#>     year = {2022},
 #>     note = {R package version 0.0.0.9011. Integrated data products created under the European Marine Observation Data Network (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the European Union under Regulation (EU) No 508/2014 of the European Parliament and of the Council of 15 May 2014 on the European Maritime and Fisheries Fund},
 #>     url = {https://github.com/EMODnet/EMODnetWCS},
 #>   }
