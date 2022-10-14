@@ -25,7 +25,7 @@ standard created by the OGC that refers to the receiving of geospatial
 information as ‘coverages’: digital geospatial information representing
 space-varying phenomena. One can think of it as Web Feature Service
 (WFS) for raster data. It gets the ‘source code’ of the map, but in this
-case its not raw vectors but raw imagery.
+case it's not raw vectors but raw imagery.
 
 An important distinction must be made between WCS and Web Map Service
 (WMS). They are similar, and can return similar formats, but a WCS is
