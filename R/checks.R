@@ -54,8 +54,8 @@ perform_http_request <- function(service_url) {
     return(NULL)
   }
 
-  service_url |>
-    paste0("?request=GetCapabilities") |>
+  service_url %>%
+    paste0("?request=GetCapabilities") %>%
     httr::GET()
 }
 
@@ -113,9 +113,9 @@ check_cov_contains_bbox <- function(summary, bbox, crs = NULL) {
     )
 
     if (sf::st_crs(cov_bbox) != sf::st_crs(bbox)) {
-      bbox <- bbox |>
-        sf::st_as_sfc() |>
-        sf::st_transform(crs = sf::st_crs(cov_bbox)) |>
+      bbox <- bbox %>%
+        sf::st_as_sfc() %>%
+        sf::st_transform(crs = sf::st_crs(cov_bbox)) %>%
         sf::st_bbox()
     }
   }

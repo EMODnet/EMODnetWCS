@@ -62,9 +62,9 @@ Let's take a closer look at the metadata in `coverage_details`. For details on t
 
 ```{r coverage_details, echo=FALSE}
 library(huxtable)
-hux(wcs_info$coverage_details) |>
-    style_cells(1, everywhere, bold = TRUE) |>
-    style_cells(everywhere, 1, bold = TRUE) |>
+hux(wcs_info$coverage_details) %>%
+    style_cells(1, everywhere, bold = TRUE) %>%
+    style_cells(everywhere, 1, bold = TRUE) %>%
     set_font_size(everywhere, everywhere, 10)
     
 ```
@@ -99,9 +99,9 @@ cov_info
 
 ```{r coverage_info-table, echo=FALSE}
 library(huxtable)
-hux(cov_info) |>
-    style_cells(1, everywhere, bold = TRUE) |>
-    style_cells(everywhere, 1, bold = TRUE) |>
+hux(cov_info) %>%
+    style_cells(1, everywhere, bold = TRUE) %>%
+    style_cells(everywhere, 1, bold = TRUE) %>%
     set_font_size(everywhere, everywhere, 10)
     
 ```

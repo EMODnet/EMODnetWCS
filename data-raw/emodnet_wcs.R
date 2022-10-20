@@ -17,12 +17,12 @@ emdn_wcs <- tibble::tribble(
 )
 
 # process table
-emdn_wcs <- emdn_wcs |>
+emdn_wcs <- emdn_wcs %>%
   rename(
     service_name = "Portal",
     service_url = "WCS.GetCapabilities"
-  ) |>
-  select(-Description) |>
+  ) %>%
+  select(-Description) %>%
   mutate(
     service_url = stringr::str_remove(service_url, "\\?SERVICE=WCS&REQUEST.*$"),
     service_name = janitor::make_clean_names(service_name)

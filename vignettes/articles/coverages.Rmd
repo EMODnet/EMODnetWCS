@@ -158,7 +158,7 @@ To download a specifc band we use the argument `rangesubset`:
 emdn_get_coverage(wcs, 
                   coverage_id = coverage_id,
                   bbox = bbox,
-                  rangesubset = "Relative error") |> 
+                  rangesubset = "Relative error") %>% 
     terra::plot()
 ```
 
@@ -180,7 +180,7 @@ emdn_get_coverage(wcs,
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-fs::dir_ls(type = "file", glob = "*.tif") |>
+fs::dir_ls(type = "file", glob = "*.tif") %>%
     fs::file_delete()
 ```
 

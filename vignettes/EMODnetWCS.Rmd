@@ -149,7 +149,7 @@ For more details on downloading coverages, please refer to the [Download Coverag
 
 
 ```{r, include=FALSE}
-fs::dir_ls(type = "file", glob = "*.tif") |>
+fs::dir_ls(type = "file", glob = "*.tif") %>%
    fs::file_delete()
 ```
 
