@@ -266,7 +266,7 @@ emdn_get_band_nil_values <- function(summary) {
   fields <- summary$getDescription()$rangeType$field
   nil_val <- fields |>
     purrr::map(
-      ~ .x$nilValues$nilValue
+      ~ .x$nilValues$nilValue[[1]]$value
     )
 
   nil_val <- nil_val |>
@@ -280,7 +280,7 @@ emdn_get_band_nil_values <- function(summary) {
 
   names(nil_val) <- fields |>
     purrr::map_chr(
-      ~ .x$description
+      ~ .x$description$value
     )
 
   return(nil_val)
@@ -291,7 +291,7 @@ emdn_get_band_nil_values <- function(summary) {
 emdn_get_band_descriptions <- function(summary) {
   fields <- summary$getDescription()$rangeType$field
   band_names <- fields |>
-    purrr::map_chr(~ .x$description)
+    purrr::map_chr(~ .x$description$value)
 
   attr(band_names, "uom") <- fields |>
     purrr::map_chr(~ .x$uom$attrs$code)
@@ -308,7 +308,7 @@ emdn_get_band_uom <- function(summary) {
     purrr::map_chr(~ .x$uom$attrs$code)
 
   names(uom) <- fields |>
-    purrr::map_chr(~ .x$description)
+    purrr::map_chr(~ .x$description$value)
 
   return(uom)
 }
@@ -320,13 +320,13 @@ emdn_get_band_constraints <- function(summary) {
   fields <- summary$getDescription()$rangeType$field
   constraints <- fields |>
     purrr::map(
-      ~ .x$constraint |>
+      ~ .x$constraint$AllowedValues$interval$value |>
         strsplit(" ") |>
         unlist() |>
         as.numeric()
     )
   names(constraints) <- fields |>
-    purrr::map_chr(~ .x$description)
+    purrr::map_chr(~ .x$description$value)
 
   return(constraints)
 }
