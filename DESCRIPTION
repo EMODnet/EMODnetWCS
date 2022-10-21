@@ -24,6 +24,7 @@ Imports:
     purrr,
     rlang,
     sf,
+    terra,
     tibble
 Suggests: 
     covr,
@@ -32,7 +33,6 @@ Suggests:
     huxtable,
     knitr,
     rmarkdown,
-    terra,
     testthat (>= 3.0.0),
     webmockr,
     withr
