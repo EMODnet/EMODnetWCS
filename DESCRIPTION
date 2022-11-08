@@ -1,6 +1,6 @@
 Package: EMODnetWCS
 Title: Access EMODnet Web Coverage Service data through R
-Version: 0.0.0.9011
+Version: 0.0.0.9012
 Authors@R: c(
     person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = "aut",
            comment = c(ORCID = "0000-0002-2378-4915")),
@@ -18,10 +18,13 @@ Imports:
     curl,
     glue,
     httr,
+    magrittr,
     memoise,
+    ows4R (>= 0.3-2),
     purrr,
     rlang,
     sf,
+    terra,
     tibble
 Suggests: 
     covr,
@@ -30,7 +33,6 @@ Suggests:
     huxtable,
     knitr,
     rmarkdown,
-    terra,
     testthat (>= 3.0.0),
     webmockr,
     withr
@@ -44,8 +46,7 @@ URL: https://github.com/EMODnet/EMODnetWCS,
     https://emodnet.github.io/EMODnetWCS/
 BugReports: https://github.com/EMODnet/EMODnetWCS/issues
 Depends: 
-    R (>= 4.1), ows4R (>= 0.3-2)
+    R (>= 3.3.0)
 LazyData: true
 VignetteBuilder: knitr
 Date: 2022-09-29
-

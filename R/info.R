@@ -46,7 +46,7 @@
         ),
         extent = purrr::map_chr(
           summaries,
-          ~ error_wrap(emdn_get_bbox(.x) |> conc_bbox())
+          ~ error_wrap(emdn_get_bbox(.x) %>% conc_bbox())
         ),
         crs = purrr::map_chr(
           summaries,
@@ -54,16 +54,16 @@
         ),
         wgs84_bbox = purrr::map_chr(
           summaries,
-          ~ error_wrap(emdn_get_WGS84bbox(.x) |> conc_bbox())
+          ~ error_wrap(emdn_get_WGS84bbox(.x) %>% conc_bbox())
         ),
         temporal_extent = purrr::map_chr(
           summaries,
-          ~ error_wrap(emdn_get_temporal_extent(.x) |>
+          ~ error_wrap(emdn_get_temporal_extent(.x) %>%
             paste(collapse = " - "))
         ),
         vertical_extent = purrr::map_chr(
           summaries,
-          ~ error_wrap(emdn_get_vertical_extent(.x) |>
+          ~ error_wrap(emdn_get_vertical_extent(.x) %>%
             paste(collapse = " - "))
         ),
         subtype = purrr::map_chr(
@@ -181,7 +181,7 @@ emdn_get_wcs_info <- memoise::memoise(.emdn_get_wcs_info)
       service = .x,
       logger = logger
     ))
-  ) |>
+  ) %>%
     stats::setNames(emdn_wcs()$service_name)
 }
 
@@ -216,7 +216,7 @@ emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
   summaries <- purrr::map(
     validate_namespace(coverage_ids),
     ~ capabilities$findCoverageSummaryById(.x)
-  ) |>
+  ) %>%
     unlist(recursive = FALSE)
 
   tibble::tibble(
@@ -229,22 +229,22 @@ emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
     ),
     band_description = purrr::map_chr(
       summaries,
-      ~ error_wrap(emdn_get_band_descriptions(.x) |>
+      ~ error_wrap(emdn_get_band_descriptions(.x) %>%
         paste(collapse = ", "))
     ),
     band_uom = purrr::map_chr(
       summaries,
-      ~ error_wrap(emdn_get_band_uom(.x) |>
+      ~ error_wrap(emdn_get_band_uom(.x) %>%
         conc_band_uom())
     ),
     constraint = purrr::map_chr(
       summaries,
-      ~ error_wrap(emdn_get_band_constraints(.x) |>
+      ~ error_wrap(emdn_get_band_constraints(.x) %>%
         conc_constraint())
     ),
     nil_value = purrr::map_dbl(
       summaries,
-      ~ error_wrap(emdn_get_band_nil_values(.x) |>
+      ~ error_wrap(emdn_get_band_nil_values(.x) %>%
         conc_nil_value())
     ),
     dim_n = purrr::map_int(
@@ -261,17 +261,17 @@ emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
     ),
     grid_size = purrr::map_chr(
       summaries,
-      ~ error_wrap(emdn_get_grid_size(.x) |>
+      ~ error_wrap(emdn_get_grid_size(.x) %>%
         paste(collapse = "x"))
     ),
     resolution = purrr::map_chr(
       summaries,
-      ~ error_wrap(emdn_get_resolution(.x) |>
+      ~ error_wrap(emdn_get_resolution(.x) %>%
         conc_resolution())
     ),
     extent = purrr::map_chr(
       summaries,
-      ~ error_wrap(emdn_get_bbox(.x) |> conc_bbox())
+      ~ error_wrap(emdn_get_bbox(.x) %>% conc_bbox())
     ),
     crs = purrr::map_chr(
       summaries,
@@ -279,16 +279,16 @@ emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
     ),
     wgs84_extent = purrr::map_chr(
       summaries,
-      ~ error_wrap(emdn_get_WGS84bbox(.x) |> conc_bbox())
+      ~ error_wrap(emdn_get_WGS84bbox(.x) %>% conc_bbox())
     ),
     temporal_extent = purrr::map_chr(
       summaries,
-      ~ error_wrap(emdn_get_temporal_extent(.x) |>
+      ~ error_wrap(emdn_get_temporal_extent(.x) %>%
         paste(collapse = " - "))
     ),
     vertical_extent = purrr::map_chr(
       summaries,
-      ~ error_wrap(emdn_get_vertical_extent(.x) |>
+      ~ error_wrap(emdn_get_vertical_extent(.x) %>%
         paste(collapse = " - "))
     ),
     subtype = purrr::map_chr(
@@ -304,14 +304,14 @@ emdn_get_wcs_info_all <- memoise::memoise(.emdn_get_wcs_info_all)
     fn_start_point = purrr::map_chr(
       summaries,
       ~ error_wrap(
-        emdn_get_coverage_function(.x)$start_point |>
+        emdn_get_coverage_function(.x)$start_point %>%
           paste(collapse = ",")
       )
     ),
     fn_axis_order = purrr::map_chr(
       summaries,
       ~ error_wrap(
-        emdn_get_coverage_function(.x)$axis_order |>
+        emdn_get_coverage_function(.x)$axis_order %>%
           paste(collapse = ",")
       )
     )

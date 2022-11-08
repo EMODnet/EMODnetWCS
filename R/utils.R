@@ -42,7 +42,7 @@
 emdn_get_coverage_summaries <- function(wcs, coverage_ids) {
   check_coverages(wcs, coverage_ids)
 
-  coverage_ids |>
+  coverage_ids %>%
     purrr::map(~ get_capabilities(wcs)$findCoverageSummaryById(.x,
       exact = TRUE
     ))
@@ -59,7 +59,7 @@ emdn_get_coverage_summaries_all <- function(wcs) {
 #' coverages from a service.
 #' @export
 emdn_get_coverage_ids <- function(wcs) {
-  emdn_get_coverage_summaries_all(wcs) |>
+  emdn_get_coverage_summaries_all(wcs) %>%
     purrr::map_chr(~ .x$getId())
 }
 
@@ -71,11 +71,11 @@ emdn_has_dimension <- function(wcs, coverage_ids,
   check_coverages(wcs, coverage_ids)
   type <- match.arg(type)
 
-  dim_dfs <- emdn_get_coverage_summaries(wcs, coverage_ids) |>
+  dim_dfs <- emdn_get_coverage_summaries(wcs, coverage_ids) %>%
     purrr::map(~ emdn_get_dimensions_info(.x, format = "tibble"))
 
-  dim_dfs |>
-    purrr::map_lgl(~ any(.x$type == type)) |>
+  dim_dfs %>%
+    purrr::map_lgl(~ any(.x$type == type)) %>%
     stats::setNames(coverage_ids)
 }
 
@@ -109,15 +109,15 @@ emdn_get_coverage_dim_coefs <- function(wcs,
         emdn_get_dimension_types(summary) == type
       )
 
-      coefs <- summary |>
+      coefs <- summary %>%
         emdn_get_dimensions_info(
           format = "list",
           include_coeffs = TRUE
-        ) |>
+        ) %>%
         purrr::pluck(
           dim_type_id,
           "coefficients"
-        ) |>
+        ) %>%
         unlist()
 
       attr(coefs, "type") <- glue::glue(
@@ -141,7 +141,7 @@ emdn_get_coverage_dim_coefs <- function(wcs,
       wcs = wcs,
       type = type
     )
-  ) |>
+  ) %>%
     stats::setNames(coverage_ids)
 }
 
@@ -264,12 +264,12 @@ emdn_get_WGS84bbox <- function(summary) {
 #' @export
 emdn_get_band_nil_values <- function(summary) {
   fields <- summary$getDescription()$rangeType$field
-  nil_val <- fields |>
+  nil_val <- fields %>%
     purrr::map(
-      ~ .x$nilValues$nilValue
+      ~ .x$nilValues$nilValue[[1]]$value
     )
 
-  nil_val <- nil_val |>
+  nil_val <- nil_val %>%
     purrr::map_dbl(
       ~ ifelse(
         is.null(.x),
@@ -278,9 +278,9 @@ emdn_get_band_nil_values <- function(summary) {
       )
     )
 
-  names(nil_val) <- fields |>
+  names(nil_val) <- fields %>%
     purrr::map_chr(
-      ~ .x$description
+      ~ .x$description$value
     )
 
   return(nil_val)
@@ -290,10 +290,10 @@ emdn_get_band_nil_values <- function(summary) {
 #' @export
 emdn_get_band_descriptions <- function(summary) {
   fields <- summary$getDescription()$rangeType$field
-  band_names <- fields |>
-    purrr::map_chr(~ .x$description)
+  band_names <- fields %>%
+    purrr::map_chr(~ .x$description$value)
 
-  attr(band_names, "uom") <- fields |>
+  attr(band_names, "uom") <- fields %>%
     purrr::map_chr(~ .x$uom$attrs$code)
 
   return(band_names)
@@ -304,11 +304,11 @@ emdn_get_band_descriptions <- function(summary) {
 #' @export
 emdn_get_band_uom <- function(summary) {
   fields <- summary$getDescription()$rangeType$field
-  uom <- fields |>
+  uom <- fields %>%
     purrr::map_chr(~ .x$uom$attrs$code)
 
-  names(uom) <- fields |>
-    purrr::map_chr(~ .x$description)
+  names(uom) <- fields %>%
+    purrr::map_chr(~ .x$description$value)
 
   return(uom)
 }
@@ -318,15 +318,15 @@ emdn_get_band_uom <- function(summary) {
 #' @export
 emdn_get_band_constraints <- function(summary) {
   fields <- summary$getDescription()$rangeType$field
-  constraints <- fields |>
+  constraints <- fields %>%
     purrr::map(
-      ~ .x$constraint |>
-        strsplit(" ") |>
-        unlist() |>
+      ~ .x$constraint$AllowedValues$interval$value %>%
+        strsplit(" ") %>%
+        unlist() %>%
         as.numeric()
     )
-  names(constraints) <- fields |>
-    purrr::map_chr(~ .x$description)
+  names(constraints) <- fields %>%
+    purrr::map_chr(~ .x$description$value)
 
   return(constraints)
 }
@@ -340,7 +340,7 @@ emdn_get_grid_size <- function(summary) {
   c(
     ncol = (bbox[["xmax"]] - bbox[["xmin"]]) / resolution[["x"]],
     nrow = (bbox[["ymax"]] - bbox[["ymin"]]) / resolution[["y"]]
-  ) |>
+  ) %>%
     round()
 }
 
@@ -350,19 +350,19 @@ emdn_get_resolution <- function(summary) {
   offset_vector <- summary$getDescription()$domainSet$offsetVector
 
   if (length(offset_vector) == 1L) {
-    resolution <- offset_vector$value |>
-      strsplit(" ") |>
-      unlist() |>
-      as.numeric() |>
+    resolution <- offset_vector$value %>%
+      strsplit(" ") %>%
+      unlist() %>%
+      as.numeric() %>%
       abs()
   } else {
     resolution <- purrr::map_dbl(
       offset_vector,
-      ~ .x$value |>
-        strsplit(" ") |>
-        unlist() |>
-        as.numeric() |>
-        sum() |>
+      ~ .x$value %>%
+        strsplit(" ") %>%
+        unlist() %>%
+        as.numeric() %>%
+        sum() %>%
         abs()
     )
   }
@@ -385,8 +385,8 @@ emdn_get_resolution <- function(summary) {
     names(resolution) <- res_names
   }
 
-  uom <- summary$getDescription()$boundedBy$attrs$uomLabels |>
-    strsplit(" ") |>
+  uom <- summary$getDescription()$boundedBy$attrs$uomLabels %>%
+    strsplit(" ") %>%
     unlist()
 
   uom <- uom[emdn_get_dimension_types(summary) == "geographic"]
@@ -403,12 +403,12 @@ emdn_get_coverage_function <- function(summary) {
 
   list(
     sequence_rule = grid_function[["sequenceRule"]]$value,
-    start_point = grid_function[["startPoint"]]$value |>
-      strsplit(" ") |>
-      unlist() |>
+    start_point = grid_function[["startPoint"]]$value %>%
+      strsplit(" ") %>%
+      unlist() %>%
       as.numeric(),
-    axis_order = grid_function[["sequenceRule"]]$attrs$axisOrder |>
-      strsplit(" ") |>
+    axis_order = grid_function[["sequenceRule"]]$attrs$axisOrder %>%
+      strsplit(" ") %>%
       unlist()
   )
 }
@@ -419,8 +419,8 @@ emdn_get_temporal_extent <- function(summary) {
   dim_df <- emdn_get_dimensions_info(summary, format = "tibble")
 
   if (any(dim_df$type == "temporal")) {
-    dim_df$range[dim_df$type == "temporal"] |>
-      strsplit(" - ") |>
+    dim_df$range[dim_df$type == "temporal"] %>%
+      strsplit(" - ") %>%
       unlist()
   } else {
     NA
@@ -433,8 +433,8 @@ emdn_get_vertical_extent <- function(summary) {
   dim_df <- emdn_get_dimensions_info(summary, format = "tibble")
 
   if (any(dim_df$type == "vertical")) {
-    dim_df$range[dim_df$type == "vertical"] |>
-      strsplit(" - ") |>
+    dim_df$range[dim_df$type == "vertical"] %>%
+      strsplit(" - ") %>%
       unlist()
   } else {
     NA
@@ -463,7 +463,7 @@ emdn_get_dimensions_info <- function(summary, format = c(
         '({tolower(.x[["uom"]])}):',
         '{tolower(.x[["type"]])}'
       )
-    ) |>
+    ) %>%
       glue::glue_collapse("; ")
   }
 
@@ -480,24 +480,24 @@ emdn_get_dimensions_info <- function(summary, format = c(
   process_tibble <- function(x) {
     tibble::tibble(
       dimension = seq_along(x),
-      label = purrr::map_chr(x, ~ purrr::pluck(.x, "label")) |>
+      label = purrr::map_chr(x, ~ purrr::pluck(.x, "label")) %>%
         tolower(),
-      uom = purrr::map_chr(x, ~ purrr::pluck(.x, "uom")) |>
+      uom = purrr::map_chr(x, ~ purrr::pluck(.x, "uom")) %>%
         tolower(),
-      type = purrr::map_chr(x, ~ purrr::pluck(.x, "type")) |>
+      type = purrr::map_chr(x, ~ purrr::pluck(.x, "type")) %>%
         tolower(),
-      range = purrr::map(x, ~ purrr::pluck(.x, "coefficients") |>
-        unlist()) |>
+      range = purrr::map(x, ~ purrr::pluck(.x, "coefficients") %>%
+        unlist()) %>%
         purrr::map_if(
           function(x) {
             !is.null(x)
           },
-          ~ range(.x) |>
+          ~ range(.x) %>%
             paste(collapse = " - ")
-        ) |>
+        ) %>%
         purrr::map_if(is.null, function(x) {
           NA
-        }) |>
+        }) %>%
         unlist()
     )
   }
@@ -530,7 +530,7 @@ emdn_get_dimensions_names <- function(summary) {
 #' @describeIn emdn_get_bbox Get number of coverage dimensions.
 #' @export
 emdn_get_dimensions_n <- function(summary) {
-  summary$getDimensions() |> length()
+  summary$getDimensions() %>% length()
 }
 
 #' @describeIn emdn_get_bbox Get dimensions types of a coverage.

@@ -41,7 +41,7 @@ test_that("dimensions processed correctly", {
     expect_equal(emdn_get_dimensions_n(summary), 3)
     expect_equal(
       emdn_get_temporal_extent(summary),
-      c("1958-02-16T00:00:00.000Z", "2016-11-16T00:00:00.000Z")
+      c("1958-02-16T00:00:00", "2016-11-16T00:00:00")
     )
     expect_equal(
       emdn_get_dimension_types(summary),
