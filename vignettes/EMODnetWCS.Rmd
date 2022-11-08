@@ -135,7 +135,8 @@ cov <- emdn_get_coverage(wcs,
                   bbox = c(xmin = 0, 
                            ymin = 40, 
                            xmax = 5, 
-                           ymax = 45)
+                           ymax = 45),
+                  nil_values_as_na = TRUE
                   )
 
 cov

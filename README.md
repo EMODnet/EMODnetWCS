@@ -25,7 +25,7 @@ standard created by the OGC that refers to the receiving of geospatial
 information as ‘coverages’: digital geospatial information representing
 space-varying phenomena. One can think of it as Web Feature Service
 (WFS) for raster data. It gets the ‘source code’ of the map, but in this
-case it's not raw vectors but raw imagery.
+case it’s not raw vectors but raw imagery.
 
 An important distinction must be made between WCS and Web Map Service
 (WMS). They are similar, and can return similar formats, but a WCS is
@@ -46,13 +46,8 @@ Load the library
 
 ``` r
 library(EMODnetWCS)
-#> Loading required package: ows4R
-#> Loading required package: geometa
 #> Loading ISO 19139 XML schemas...
 #> Loading ISO 19115 codelists...
-#> Loading IANA mime types...
-#> No encoding supplied: defaulting to UTF-8.
-#> Loading required package: keyring
 ```
 
 ## Available services
@@ -245,7 +240,8 @@ cov <- emdn_get_coverage(wcs,
                   bbox = c(xmin = 0, 
                            ymin = 40, 
                            xmax = 5, 
-                           ymax = 45)
+                           ymax = 45),
+                  nil_values_as_na = TRUE
                   )
 #> ── Downloading coverage "Emodnetbio__cal_fin_19582016_L1_err" ──────────────────
 #> <GMLEnvelope>
@@ -254,6 +250,7 @@ cov <- emdn_get_coverage(wcs,
 #> 
 #> ✔ Coverage "Emodnetbio__cal_fin_19582016_L1_err" downloaded succesfully as a
 #> terra <SpatRaster>
+#> ✔ nil values 9.96920996838687e+36 converted to NA on all bands.
 
 cov
 #> class       : SpatRaster 
@@ -261,16 +258,14 @@ cov
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0.05, 4.95, 40.05, 45.05  (xmin, xmax, ymin, ymax)
 #> coord. ref. : lon/lat WGS 84 (EPSG:4326) 
-#> source      : Emodnetbio__cal_fin_19582016_L1_err_2016-11-16T00_00_00.000Z_40,0,45,5.tif 
-#> names       : Emodnetbio__cal~00Z_40,0,45,5_1, Emodnetbio__cal~00Z_40,0,45,5_2
+#> source      : memory 
+#> names       : Emodnetbio__cal~_00_40,0,45,5_1, Emodnetbio__cal~_00_40,0,45,5_2 
+#> min values  :                             NaN,                       0.9999981 
+#> max values  :                             NaN,                       0.9999999
 ```
 
 ``` r
 terra::plot(cov)
-#> Warning in .as.raster.classes(out, x): NAs introduced by coercion to integer
-#> range
-#> Warning in .get_breaks(Z, length(out$cols), "eqint", out$range): probable
-#> complete loss of accuracy in modulus
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
@@ -290,7 +285,7 @@ citation(package = "EMODnetWCS")
 #> To cite package 'EMODnetWCS' in publications use:
 #> 
 #>   Krystalli A (2022). _EMODnetWCS: Access EMODnet Web Coverage Service
-#>   data through R_. R package version 0.0.0.9011. Integrated data
+#>   data through R_. R package version 0.0.0.9012. Integrated data
 #>   products created under the European Marine Observation Data Network
 #>   (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013),
 #>   funded by the European Union under Regulation (EU) No 508/2014 of the
@@ -303,7 +298,7 @@ citation(package = "EMODnetWCS")
 #>     title = {{EMODnetWCS}: Access EMODnet Web Coverage Service data through R},
 #>     author = {Anna Krystalli},
 #>     year = {2022},
-#>     note = {R package version 0.0.0.9011. Integrated data products created under the European Marine Observation Data Network (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the European Union under Regulation (EU) No 508/2014 of the European Parliament and of the Council of 15 May 2014 on the European Maritime and Fisheries Fund},
+#>     note = {R package version 0.0.0.9012. Integrated data products created under the European Marine Observation Data Network (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the European Union under Regulation (EU) No 508/2014 of the European Parliament and of the Council of 15 May 2014 on the European Maritime and Fisheries Fund},
 #>     url = {https://github.com/EMODnet/EMODnetWCS},
 #>   }
 ```

@@ -116,7 +116,8 @@ cov <- emdn_get_coverage(wcs,
                   bbox = c(xmin = 0, 
                            ymin = 40, 
                            xmax = 5, 
-                           ymax = 45)
+                           ymax = 45),
+                  nil_values_as_na = TRUE
                   )
 
 cov
@@ -130,7 +131,7 @@ For more details on downloading coverages, please refer to the [Download Coverag
 
 
 ```{r, include=FALSE}
-fs::dir_ls(type = "file", glob = "*.tif") |>
+fs::dir_ls(type = "file", glob = "*.tif") %>%
    fs::file_delete()
 ```
 
