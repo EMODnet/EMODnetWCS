@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">EMODnetWCS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9012</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,24 +85,27 @@
 
     
     
-<p>EMODnetWCS provides functionalitly for downloading coverage data from EMODnet WCS services as <code>terra</code> <a href="https://rspatial.github.io/terra/reference/SpatRaster-class.html" class="external-link"><code>&lt;spatRaster&gt;</code></a> class objects. It also allows subsetting along coverage dimensions as well as requesting specific bands for download.</p>
-<p>For more details on extracting metadata to inform valid subsetting of coverages, please refer to the <a href="https://emodnet.github.io/EMODnetWCS/articles/metadata.html">Getting metadata about Services &amp; Coverages</a> article in the <code>EMODnetWCS</code> online documentation.</p>
-<p>The first step to downloading coverages is to initiate a connection with on of the EMODnet WCS servers.</p>
+<p>EMODnetWCS provides functionalitly for downloading coverage data from
+EMODnet WCS services as <code>terra</code> <a href="https://rspatial.github.io/terra/reference/SpatRaster-class.html" class="external-link"><code>&lt;spatRaster&gt;</code></a>
+class objects. It also allows subsetting along coverage dimensions as
+well as requesting specific bands for download.</p>
+<p>For more details on extracting metadata to inform valid subsetting of
+coverages, please refer to the <a href="https://emodnet.github.io/EMODnetWCS/articles/metadata.html">Getting
+metadata about Services &amp; Coverages</a> article in the
+<code>EMODnetWCS</code> online documentation.</p>
+<p>The first step to downloading coverages is to initiate a connection
+with on of the EMODnet WCS servers.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EMODnet/EMODnetWCS" class="external-link">EMODnetWCS</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: ows4R</span></span>
-<span><span class="co">#&gt; Loading required package: geometa</span></span>
 <span><span class="co">#&gt; Loading ISO 19139 XML schemas...</span></span>
-<span><span class="co">#&gt; Loading ISO 19115 codelists...</span></span>
-<span><span class="co">#&gt; Loading IANA mime types...</span></span>
-<span><span class="co">#&gt; IANA website not reachable, skipping IANA mime types loading...</span></span>
-<span><span class="co">#&gt; Loading required package: keyring</span></span></code></pre></div>
+<span><span class="co">#&gt; Loading ISO 19115 codelists...</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">wcs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/emdn_init_wcs_client.html">emdn_init_wcs_client</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"biology"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> WCS client created succesfully</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Service: <span style="color: #0000BB; font-style: italic;">&lt;https://geo.vliz.be/geoserver/Emodnetbio/wcs&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Service: <span style="color: #0000BB;">"2.0.1"</span></span></span></code></pre></div>
-<p>You can get a list of available coverages from the service with <code><a href="../reference/emdn_get_coverage_summaries.html">emdn_get_coverage_ids()</a></code></p>
+<p>You can get a list of available coverages from the service with
+<code><a href="../reference/emdn_get_coverage_summaries.html">emdn_get_coverage_ids()</a></code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">coverage_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/emdn_get_coverage_summaries.html">emdn_get_coverage_ids</a></span><span class="op">(</span><span class="va">wcs</span><span class="op">)</span></span>
 <span><span class="va">coverage_ids</span></span>
@@ -124,20 +127,35 @@
 <div class="section level2">
 <h2 id="subset-using-a-bounding-box">Subset using a bounding box<a class="anchor" aria-label="anchor" href="#subset-using-a-bounding-box"></a>
 </h2>
-<p>While downloading full coverages for most services will work, it may take a long time depending on the size of the coverage so it’s often a good idea to focus on areas of interest and use bounding boxes to subset requests.</p>
+<p>While downloading full coverages for most services will work, it may
+take a long time depending on the size of the coverage so it’s often a
+good idea to focus on areas of interest and use bounding boxes to subset
+requests.</p>
 <div class="alert alert-warning" role="alert">
 <h5>
 <strong>Warning!</strong>
 </h5>
 <p>
-While most coverages can be downloaded in full, the coverages from the <code>"bathymetry"</code> service in particular are 100GB in size and full download will not be permitted by the server so spatial subsetting <strong>must</strong> be used with the services. Otherwise the request will return a <code>curl</code> error (most likely <code>curl: (92) HTTP/2 stream 0 was not closed cleanly: INTERNAL_ERROR (err 2)</code>). Note that, in the near future, it will be possible to download larger boxes than what the WCS can currently handle, but this will still be capped at 2 GB.
+While most coverages can be downloaded in full, the coverages from the
+<code>"bathymetry"</code> service in particular are 100GB in size and
+full download will not be permitted by the server so spatial subsetting
+<strong>must</strong> be used with the services. Otherwise the request
+will return a <code>curl</code> error (most likely
+<code>curl: (92) HTTP/2 stream 0 was not closed cleanly: INTERNAL_ERROR (err 2)</code>).
+Note that, in the near future, it will be possible to download larger
+boxes than what the WCS can currently handle, but this will still be
+capped at 2 GB.
 </p>
 <p>
-If you need to download the full <a href="https://data.europa.eu/data/datasets/emodnet_bathymetry?locale=en" class="external-link">EMODnet Digital Bathymetry (DTM)</a>, you will have to download it tile by tile from <a href="https://portal.emodnet-bathymetry.eu/" class="external-link uri">https://portal.emodnet-bathymetry.eu/</a>
+If you need to download the full <a href="https://data.europa.eu/data/datasets/emodnet_bathymetry?locale=en" class="external-link">EMODnet
+Digital Bathymetry (DTM)</a>, you will have to download it tile by tile
+from <a href="https://portal.emodnet-bathymetry.eu/" class="external-link uri">https://portal.emodnet-bathymetry.eu/</a>
 </p>
 </div>
-<p>So let’s also create a subsetting <code>bbox</code> of an area of interest, the southern North Sea.</p>
-<p>We can first check the bounding box of the full coverage to ensure the subset bounding box lies within.</p>
+<p>So let’s also create a subsetting <code>bbox</code> of an area of
+interest, the southern North Sea.</p>
+<p>We can first check the bounding box of the full coverage to ensure
+the subset bounding box lies within.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cov_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/emdn_get_coverage_summaries.html">emdn_get_coverage_summaries</a></span><span class="op">(</span></span>
 <span>    <span class="va">wcs</span>,</span>
@@ -149,21 +167,23 @@ If you need to download the full <a href="https://data.europa.eu/data/datasets/e
 <span><span class="co">#&gt; Linking to GEOS 3.10.2, GDAL 3.4.2, PROJ 8.2.1; sf_use_s2() is TRUE</span></span>
 <span><span class="co">#&gt;   xmin   ymin   xmax   ymax </span></span>
 <span><span class="co">#&gt; -75.05  34.95  20.05  75.05</span></span></code></pre></div>
-<p>We can then create a bounding ensuring it lies within the coverage’s bounding box.</p>
+<p>We can then create a bounding ensuring it lies within the coverage’s
+bounding box.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bbox</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fl">1.5</span>, </span>
 <span>          ymin <span class="op">=</span> <span class="fl">53</span>,</span>
 <span>          xmax <span class="op">=</span> <span class="fl">6.5</span>, </span>
 <span>          ymax <span class="op">=</span> <span class="fl">58</span><span class="op">)</span></span></code></pre></div>
-<p>Now we are ready to download the coverage and provide the bounding box we created to the <code>bbox</code> argument.</p>
+<p>Now we are ready to download the coverage and provide the bounding
+box we created to the <code>bbox</code> argument.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cov_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/emdn_get_coverage.html">emdn_get_coverage</a></span><span class="op">(</span><span class="va">wcs</span>,</span>
 <span>                  coverage_id <span class="op">=</span> <span class="va">coverage_id</span>,</span>
 <span>                  bbox <span class="op">=</span> <span class="va">bbox</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ── Downloading coverage <span style="color: #0000BB;">"Emodnetbio__cal_fin_19582016_L1_err"</span> ──────────────────</span></span>
-<span><span class="co">#&gt; &lt;GMLEnvelope&gt;</span></span>
-<span><span class="co">#&gt; ....|-- lowerCorner: 53 1.5 "1958-02-16T00:00:00"</span></span>
-<span><span class="co">#&gt; ....|-- upperCorner: 58 6.5 "2016-11-16T00:00:00"</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBBBB;">&lt;</span><span style="color: #BBBBBB; text-decoration: underline;">GMLEnvelope</span><span style="color: #BBBBBB;">&gt;</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">lowerCorner</span>: <span style="background-color: #BBBBBB;">53 1.5 "1958-02-16T00:00:00"</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">upperCorner</span>: <span style="background-color: #BBBBBB;">58 6.5 "2016-11-16T00:00:00"</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Coverage <span style="color: #0000BB;">"Emodnetbio__cal_fin_19582016_L1_err"</span> downloaded succesfully as a</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">terra</span> <span style="color: #0000BB;">&lt;SpatRaster&gt;</span></span></span>
@@ -174,7 +194,7 @@ If you need to download the full <a href="https://data.europa.eu/data/datasets/e
 <span><span class="co">#&gt; resolution  : 0.1, 0.1  (x, y)</span></span>
 <span><span class="co">#&gt; extent      : 1.55, 6.45, 53.05, 58.05  (xmin, xmax, ymin, ymax)</span></span>
 <span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
-<span><span class="co">#&gt; source      : Emodnetbio__cal_fin_19582016_L1_err_2016-11-16T00_00_00.000Z_53,1.5,58,6.5.tif </span></span>
+<span><span class="co">#&gt; source      : Emodnetbio__cal_fin_19582016_L1_err_2016-11-16T00_00_00_53,1.5,58,6.5.tif </span></span>
 <span><span class="co">#&gt; names       : Emodnetbio__cal~53,1.5,58,6.5_1, Emodnetbio__cal~53,1.5,58,6.5_2</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cov_1</span><span class="op">)</span></span>
@@ -184,122 +204,160 @@ If you need to download the full <a href="https://data.europa.eu/data/datasets/e
 <span><span class="co">#&gt; Warning in .get_breaks(Z, length(out$cols), "eqint", out$range): probable</span></span>
 <span><span class="co">#&gt; complete loss of accuracy in modulus</span></span></code></pre></div>
 <p><img src="coverages_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p>The raster returned from the server includes the nil value (which
+technically encodes <code>NA</code>) as a number.</p>
+<p>You can access nil values for each band from a <code>summary</code>
+object using <code><a href="../reference/emdn_get_bbox.html">emdn_get_band_nil_values()</a></code></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/emdn_get_bbox.html">emdn_get_band_nil_values</a></span><span class="op">(</span><span class="va">cov_summary</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Relative abundance     Relative error </span></span>
+<span><span class="co">#&gt;        9.96921e+36        9.96921e+36</span></span></code></pre></div>
+<p>If you wish to encode nil values as <code>NA</code> during coverage
+download, you can use argument <code>nil_values_as_na</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cov_nil_to_na</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/emdn_get_coverage.html">emdn_get_coverage</a></span><span class="op">(</span><span class="va">wcs</span>,</span>
+<span>                  coverage_id <span class="op">=</span> <span class="va">coverage_id</span>,</span>
+<span>                  bbox <span class="op">=</span> <span class="va">bbox</span>,</span>
+<span>                  nil_values_as_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ── Downloading coverage <span style="color: #0000BB;">"Emodnetbio__cal_fin_19582016_L1_err"</span> ──────────────────</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBBBB;">&lt;</span><span style="color: #BBBBBB; text-decoration: underline;">GMLEnvelope</span><span style="color: #BBBBBB;">&gt;</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">lowerCorner</span>: <span style="background-color: #BBBBBB;">53 1.5 "1958-02-16T00:00:00"</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">upperCorner</span>: <span style="background-color: #BBBBBB;">58 6.5 "2016-11-16T00:00:00"</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Coverage <span style="color: #0000BB;">"Emodnetbio__cal_fin_19582016_L1_err"</span> downloaded succesfully as a</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">terra</span> <span style="color: #0000BB;">&lt;SpatRaster&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> nil values <span style="color: #0000BB;">9.96920996838687e+36</span> converted to <span style="color: #00BB00;">NA</span> on all bands.</span></span>
+<span></span>
+<span><span class="va">cov_nil_to_na</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 50, 49, 2  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 0.1, 0.1  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : 1.55, 6.45, 53.05, 58.05  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">#&gt; source      : memory </span></span>
+<span><span class="co">#&gt; names       : Emodnetbio__cal~53,1.5,58,6.5_1, Emodnetbio__cal~53,1.5,58,6.5_2 </span></span>
+<span><span class="co">#&gt; min values  :                      -0.0473766,                    0.0004004543 </span></span>
+<span><span class="co">#&gt; max values  :                       0.6265208,                    0.0039839428</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cov_nil_to_na</span><span class="op">)</span></span></code></pre></div>
+<p><img src="coverages_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<p>Now, nil values are encode as <code>NA</code> and plotting is much
+more informative as the range of values within the raster is now
+constrained to valid values of interest.</p>
 </div>
 <div class="section level2">
 <h2 id="subset-using-a-bounding-box-and-specific-timepoints">Subset using a bounding box and specific timepoints<a class="anchor" aria-label="anchor" href="#subset-using-a-bounding-box-and-specific-timepoints"></a>
 </h2>
-<p>If a coverage has additional dimensions to the two geographic ones (x/long &amp; y/lat) then the last point on that dimension is always returned if none are specified through the request.</p>
-<p>Coverage Emodnetbio__cal_fin_19582016_L1_err indeed has a temporal extent:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p>If a coverage has additional dimensions to the two geographic ones
+(x/long &amp; y/lat) then the last point on that dimension is always
+returned if none are specified through the request.</p>
+<p>Coverage Emodnetbio__cal_fin_19582016_L1_err indeed has a temporal
+extent:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/emdn_get_bbox.html">emdn_get_dimension_types</a></span><span class="op">(</span><span class="va">cov_summary</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "geographic" "geographic" "temporal"</span></span></code></pre></div>
-<p>so our previous request returned only the last timepoint of the coverage:</p>
-<p>However we can request specific timepoints. First, let’s get a list of all available timepoints.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p>so our previous request returned only the last timepoint of the
+coverage:</p>
+<p>However we can request specific timepoints. First, let’s get a list
+of all available timepoints.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">temp_coefs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/emdn_get_coverage_summaries.html">emdn_get_coverage_dim_coefs</a></span><span class="op">(</span></span>
 <span>    wcs <span class="op">=</span> <span class="va">wcs</span>,</span>
 <span>    coverage_ids <span class="op">=</span> <span class="va">coverage_id</span>,</span>
 <span>    type <span class="op">=</span> <span class="st">"temporal"</span><span class="op">)</span></span></code></pre></div>
 <p>Next, let’s select the first 3 available timepoints.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">timepoints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">temp_coefs</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">timepoints</span></span>
-<span><span class="co">#&gt; [1] "1958-02-16T00:00:00.000Z" "1958-05-16T00:00:00.000Z"</span></span>
-<span><span class="co">#&gt; [3] "1958-08-16T00:00:00.000Z"</span></span></code></pre></div>
-<p>We can request the specific timepoints by supplying our vector of timepoints to the <code>time</code> argument.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt; [1] "1958-02-16T00:00:00" "1958-05-16T00:00:00" "1958-08-16T00:00:00"</span></span></code></pre></div>
+<p>We can request the specific timepoints by supplying our vector of
+timepoints to the <code>time</code> argument.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cov_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/emdn_get_coverage.html">emdn_get_coverage</a></span><span class="op">(</span><span class="va">wcs</span>,</span>
 <span>                  coverage_id <span class="op">=</span> <span class="va">coverage_id</span>,</span>
 <span>                  bbox <span class="op">=</span> <span class="va">bbox</span>,</span>
-<span>                  time <span class="op">=</span> <span class="va">timepoints</span><span class="op">)</span></span>
+<span>                  time <span class="op">=</span> <span class="va">timepoints</span>,</span>
+<span>                  nil_values_as_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ── Downloading coverage <span style="color: #0000BB;">"Emodnetbio__cal_fin_19582016_L1_err"</span> ──────────────────</span></span>
-<span><span class="co">#&gt; &lt;GMLEnvelope&gt;</span></span>
-<span><span class="co">#&gt; ....|-- lowerCorner: 53 1.5 "1958-02-16T00:00:00"</span></span>
-<span><span class="co">#&gt; ....|-- upperCorner: 58 6.5 "2016-11-16T00:00:00"&lt;GMLEnvelope&gt;</span></span>
-<span><span class="co">#&gt; ....|-- lowerCorner: 53 1.5 "1958-02-16T00:00:00"</span></span>
-<span><span class="co">#&gt; ....|-- upperCorner: 58 6.5 "2016-11-16T00:00:00"&lt;GMLEnvelope&gt;</span></span>
-<span><span class="co">#&gt; ....|-- lowerCorner: 53 1.5 "1958-02-16T00:00:00"</span></span>
-<span><span class="co">#&gt; ....|-- upperCorner: 58 6.5 "2016-11-16T00:00:00"</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBBBB;">&lt;</span><span style="color: #BBBBBB; text-decoration: underline;">GMLEnvelope</span><span style="color: #BBBBBB;">&gt;</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">lowerCorner</span>: <span style="background-color: #BBBBBB;">53 1.5 "1958-02-16T00:00:00"</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">upperCorner</span>: <span style="background-color: #BBBBBB;">58 6.5 "2016-11-16T00:00:00"</span><span style="color: #BBBBBB;">&lt;</span><span style="color: #BBBBBB; text-decoration: underline;">GMLEnvelope</span><span style="color: #BBBBBB;">&gt;</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">lowerCorner</span>: <span style="background-color: #BBBBBB;">53 1.5 "1958-02-16T00:00:00"</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">upperCorner</span>: <span style="background-color: #BBBBBB;">58 6.5 "2016-11-16T00:00:00"</span><span style="color: #BBBBBB;">&lt;</span><span style="color: #BBBBBB; text-decoration: underline;">GMLEnvelope</span><span style="color: #BBBBBB;">&gt;</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">lowerCorner</span>: <span style="background-color: #BBBBBB;">53 1.5 "1958-02-16T00:00:00"</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">upperCorner</span>: <span style="background-color: #BBBBBB;">58 6.5 "2016-11-16T00:00:00"</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Coverage <span style="color: #0000BB;">"Emodnetbio__cal_fin_19582016_L1_err"</span> downloaded succesfully as a</span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">terra</span> <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> Stack</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt; <span style="color: #0000BB;">terra</span> <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> Stack</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> nil values <span style="color: #0000BB;">9.96920996838687e+36</span> converted to <span style="color: #00BB00;">NA</span> on all bands.</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cov_2</span></span>
 <span><span class="co">#&gt; class       : SpatRaster </span></span>
 <span><span class="co">#&gt; dimensions  : 50, 49, 6  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">#&gt; resolution  : 0.1, 0.1  (x, y)</span></span>
 <span><span class="co">#&gt; extent      : 1.55, 6.45, 53.05, 58.05  (xmin, xmax, ymin, ymax)</span></span>
 <span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
-<span><span class="co">#&gt; sources     : Emodnetbio__cal_fin_19582016_L1_err_1958-02-16T00_00_00.000Z_53,1.5,58,6.5.tif  (2 layers) </span></span>
-<span><span class="co">#&gt;               Emodnetbio__cal_fin_19582016_L1_err_1958-05-16T00_00_00.000Z_53,1.5,58,6.5.tif  (2 layers) </span></span>
-<span><span class="co">#&gt;               Emodnetbio__cal_fin_19582016_L1_err_1958-08-16T00_00_00.000Z_53,1.5,58,6.5.tif  (2 layers) </span></span>
-<span><span class="co">#&gt; names       : Emodn~6.5_1, Emodn~6.5_2, Emodn~6.5_1, Emodn~6.5_2, Emodn~6.5_1, Emodn~6.5_2</span></span></code></pre></div>
-<p>Note that this returns a <code>&lt;SpatRaster&gt;</code> Stack instead of a single <code>&lt;SpatRaster&gt;</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cov_2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in .get_breaks(Z, length(out$cols), "eqint", out$range): probable</span></span>
-<span><span class="co">#&gt; complete loss of accuracy in modulus</span></span>
-<span></span>
-<span><span class="co">#&gt; Warning in .get_breaks(Z, length(out$cols), "eqint", out$range): probable</span></span>
-<span><span class="co">#&gt; complete loss of accuracy in modulus</span></span>
-<span></span>
-<span><span class="co">#&gt; Warning in .get_breaks(Z, length(out$cols), "eqint", out$range): probable</span></span>
-<span><span class="co">#&gt; complete loss of accuracy in modulus</span></span>
-<span></span>
-<span><span class="co">#&gt; Warning in .get_breaks(Z, length(out$cols), "eqint", out$range): probable</span></span>
-<span><span class="co">#&gt; complete loss of accuracy in modulus</span></span>
-<span></span>
-<span><span class="co">#&gt; Warning in .get_breaks(Z, length(out$cols), "eqint", out$range): probable</span></span>
-<span><span class="co">#&gt; complete loss of accuracy in modulus</span></span>
-<span></span>
-<span><span class="co">#&gt; Warning in .get_breaks(Z, length(out$cols), "eqint", out$range): probable</span></span>
-<span><span class="co">#&gt; complete loss of accuracy in modulus</span></span></code></pre></div>
-<p><img src="coverages_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<p>A similar approach is used for specifying points in the vertical dimension, using argument <code>elevation</code> where appropriate.</p>
+<span><span class="co">#&gt; source      : memory </span></span>
+<span><span class="co">#&gt; names       : Emodn~6.5_1,  Emodn~6.5_2, Emodn~6.5_1,  Emodn~6.5_2, Emodn~6.5_1,  Emodn~6.5_2 </span></span>
+<span><span class="co">#&gt; min values  :  0.03297495, 0.0007284791,  -0.4147479, 0.0003826013, -0.08314963, 5.374558e-05 </span></span>
+<span><span class="co">#&gt; max values  :  2.14260626, 0.0124995606,   2.8409283, 0.0090929186,  1.95963264, 9.205581e-03</span></span></code></pre></div>
+<p>Note that this returns a <code>&lt;SpatRaster&gt;</code> Stack
+instead of a single <code>&lt;SpatRaster&gt;</code>.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cov_2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="coverages_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
+<p>A similar approach is used for specifying points in the vertical
+dimension, using argument <code>elevation</code> where appropriate.</p>
 </div>
 <div class="section level2">
 <h2 id="subset-a-specific-band">Subset a specific band<a class="anchor" aria-label="anchor" href="#subset-a-specific-band"></a>
 </h2>
 <p>We can also request specific bands from a coverage.</p>
 <p>First let’s check the available bands in our coverage.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/emdn_get_bbox.html">emdn_get_band_descriptions</a></span><span class="op">(</span><span class="va">cov_summary</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Relative abundance" "Relative error"    </span></span>
 <span><span class="co">#&gt; attr(,"uom")</span></span>
 <span><span class="co">#&gt; [1] "W.m-2.Sr-1" "W.m-2.Sr-1"</span></span></code></pre></div>
-<p>To download a specifc band we use the argument <code>rangesubset</code>:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<p>To download a specifc band we use the argument
+<code>rangesubset</code>:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/emdn_get_coverage.html">emdn_get_coverage</a></span><span class="op">(</span><span class="va">wcs</span>, </span>
 <span>                  coverage_id <span class="op">=</span> <span class="va">coverage_id</span>,</span>
 <span>                  bbox <span class="op">=</span> <span class="va">bbox</span>,</span>
-<span>                  rangesubset <span class="op">=</span> <span class="st">"Relative error"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>                  rangesubset <span class="op">=</span> <span class="st">"Relative error"</span>,</span>
+<span>                  nil_values_as_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ── Downloading coverage <span style="color: #0000BB;">"Emodnetbio__cal_fin_19582016_L1_err"</span> ──────────────────</span></span>
-<span><span class="co">#&gt; &lt;GMLEnvelope&gt;</span></span>
-<span><span class="co">#&gt; ....|-- lowerCorner: 53 1.5 "1958-02-16T00:00:00"</span></span>
-<span><span class="co">#&gt; ....|-- upperCorner: 58 6.5 "2016-11-16T00:00:00"</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBBBB;">&lt;</span><span style="color: #BBBBBB; text-decoration: underline;">GMLEnvelope</span><span style="color: #BBBBBB;">&gt;</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">lowerCorner</span>: <span style="background-color: #BBBBBB;">53 1.5 "1958-02-16T00:00:00"</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">upperCorner</span>: <span style="background-color: #BBBBBB;">58 6.5 "2016-11-16T00:00:00"</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Coverage <span style="color: #0000BB;">"Emodnetbio__cal_fin_19582016_L1_err"</span> downloaded succesfully as a</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">terra</span> <span style="color: #0000BB;">&lt;SpatRaster&gt;</span></span></span>
-<span><span class="co">#&gt; Warning in .get_breaks(Z, length(out$cols), "eqint", out$range): probable</span></span>
-<span><span class="co">#&gt; complete loss of accuracy in modulus</span></span></code></pre></div>
-<p><img src="coverages_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> nil values <span style="color: #0000BB;">9.96920996838687e+36</span> converted to <span style="color: #00BB00;">NA</span> on all bands.</span></span></code></pre></div>
+<p><img src="coverages_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="specify-an-output-filename">Specify an output filename<a class="anchor" aria-label="anchor" href="#specify-an-output-filename"></a>
 </h2>
-<p>When downloading data, underlying package <code>ows4R</code> uses the in-built <a href="https://eblondel.github.io/ows4R/reference/WCSCoverageFilenameHandler.html" class="external-link"><code>WCSCoverageFilenameHandler()</code></a> function for generating appropriate filenames from the parameters supplied to the request.</p>
-<p>However, it is possible to override this as well as the location the file is written to by supplying a file path to argument <code>filename</code>.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<p>When downloading data, underlying package <code>ows4R</code> uses the
+in-built <a href="https://eblondel.github.io/ows4R/reference/WCSCoverageFilenameHandler.html" class="external-link"><code>WCSCoverageFilenameHandler()</code></a>
+function for generating appropriate filenames from the parameters
+supplied to the request.</p>
+<p>However, it is possible to override this as well as the location the
+file is written to by supplying a file path to argument
+<code>filename</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/emdn_get_coverage.html">emdn_get_coverage</a></span><span class="op">(</span><span class="va">wcs</span>, </span>
 <span>                  coverage_id <span class="op">=</span> <span class="va">coverage_id</span>,</span>
 <span>                  bbox <span class="op">=</span> <span class="va">bbox</span>,</span>
 <span>                  rangesubset <span class="op">=</span> <span class="st">"Relative error"</span>,</span>
 <span>                  filename <span class="op">=</span> <span class="st">"cal-fin_rel-error.tif"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ── Downloading coverage <span style="color: #0000BB;">"Emodnetbio__cal_fin_19582016_L1_err"</span> ──────────────────</span></span>
-<span><span class="co">#&gt; &lt;GMLEnvelope&gt;</span></span>
-<span><span class="co">#&gt; ....|-- lowerCorner: 53 1.5 "1958-02-16T00:00:00"</span></span>
-<span><span class="co">#&gt; ....|-- upperCorner: 58 6.5 "2016-11-16T00:00:00"</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBBBB;">&lt;</span><span style="color: #BBBBBB; text-decoration: underline;">GMLEnvelope</span><span style="color: #BBBBBB;">&gt;</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">lowerCorner</span>: <span style="background-color: #BBBBBB;">53 1.5 "1958-02-16T00:00:00"</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">upperCorner</span>: <span style="background-color: #BBBBBB;">58 6.5 "2016-11-16T00:00:00"</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Coverage <span style="color: #0000BB;">"Emodnetbio__cal_fin_19582016_L1_err"</span> downloaded succesfully as a</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">terra</span> <span style="color: #0000BB;">&lt;SpatRaster&gt;</span></span></span>

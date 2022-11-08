@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">EMODnetWCS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9012</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -248,7 +248,7 @@ range (in tibble format).</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># get the extent of the temporal dimension</span></span></span>
 <span class="r-in"><span><span class="fu">emdn_get_temporal_extent</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1958-02-16T00:00:00.000Z" "2016-11-16T00:00:00.000Z"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1958-02-16T00:00:00" "2016-11-16T00:00:00"</span>
 <span class="r-in"><span><span class="co"># get the extent of the vertical dimension</span></span></span>
 <span class="r-in"><span><span class="fu">emdn_get_vertical_extent</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
@@ -291,11 +291,11 @@ range (in tibble format).</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">emdn_get_dimensions_info</span><span class="op">(</span><span class="va">summary</span>, format <span class="op">=</span> <span class="st">"tibble"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   dimension label uom   type       range                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         1 lat   deg   geographic <span style="color: #BB0000;">NA</span>                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         2 long  deg   geographic <span style="color: #BB0000;">NA</span>                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         3 time  s     temporal   1958-02-16T00:00:00.000Z - 2016-11-16T00:00:…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dimension label uom   type       range                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         1 lat   deg   geographic <span style="color: #BB0000;">NA</span>                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         2 long  deg   geographic <span style="color: #BB0000;">NA</span>                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         3 time  s     temporal   1958-02-16T00:00:00 - 2016-11-16T00:00:00</span>
 <span class="r-in"><span><span class="co"># get dimension names</span></span></span>
 <span class="r-in"><span><span class="fu">emdn_get_dimensions_names</span><span class="op">(</span><span class="va">summary</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Lat (Deg), Long (Deg), time (s)"</span>

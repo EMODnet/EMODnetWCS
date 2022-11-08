@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">EMODnetWCS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9012</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,36 +88,59 @@
 <div class="section level2">
 <h2 id="wcs-basics">WCS Basics<a class="anchor" aria-label="anchor" href="#wcs-basics"></a>
 </h2>
-<p>The <a href="https://www.ogc.org/standards/wcs" class="external-link">Web Coverage Service (WCS)</a> is a standard issued by the Open Geospatial Consortium (OGC). It is designed to simplify remote access to coverages, commonly known as raster maps in GIS. WCS functions over the HTTP protocol, setting out how to obtain data and meta-data using the requests available in the protocol. In practice it allows metadata and raster maps to be obtained from a web browser or from any other programme that uses the protocol.</p>
-<p>An important distinction must be made between WCS and Web Map Service (WMS). They are similar, and can return similar formats, but a WCS is able to return more information, including valuable metadata and more formats. It additionally allows more precise queries, potentially against multi-dimensional backend formats.</p>
-<p>The WCS standard is composed by three core requests, each with a particular purpose:</p>
+<p>The <a href="https://www.ogc.org/standards/wcs" class="external-link">Web Coverage Service
+(WCS)</a> is a standard issued by the Open Geospatial Consortium (OGC).
+It is designed to simplify remote access to coverages, commonly known as
+raster maps in GIS. WCS functions over the HTTP protocol, setting out
+how to obtain data and meta-data using the requests available in the
+protocol. In practice it allows metadata and raster maps to be obtained
+from a web browser or from any other programme that uses the
+protocol.</p>
+<p>An important distinction must be made between WCS and Web Map Service
+(WMS). They are similar, and can return similar formats, but a WCS is
+able to return more information, including valuable metadata and more
+formats. It additionally allows more precise queries, potentially
+against multi-dimensional backend formats.</p>
+<p>The WCS standard is composed by three core requests, each with a
+particular purpose:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>GetCapabilities</code>: This request provides information on a particular service.</li>
+<code>GetCapabilities</code>: This request provides information on a
+particular service.</li>
 <li>
-<code>DescribeCoverage</code>: This request To provides more detailed information about a particular coverage.</li>
+<code>DescribeCoverage</code>: This request To provides more
+detailed information about a particular coverage.</li>
 <li>
-<code>GetCoverage</code>: This request that actually obtains coverage data.</li>
+<code>GetCoverage</code>: This request that actually obtains
+coverage data.</li>
 </ol>
-<p>WCS requests are handled in <code>EMODnetWCS</code> through package <a href="https://eblondel.github.io/ows4R/" class="external-link"><code>ows4R</code></a>. <code>ows4R</code> uses <a href="https://r6.r-lib.org/articles/Introduction.html" class="external-link"><code>R6</code> classes</a> and implements an encapsulated object-oriented programming paradigm which may be unfamiliar to some R users. <code>EMODnetWCS</code> wraps <code>ows4R</code> and aims to provide more familiar workflows and return more familiar, usable and easy to review outputs. It also provides checks and validations to ensure smooth and easy interaction with EMODnet WCS services. You can however use <code>ows4R</code> with any of the EMODnet WCS endpoints if you prefer.</p>
+<p>WCS requests are handled in <code>EMODnetWCS</code> through package
+<a href="https://eblondel.github.io/ows4R/" class="external-link"><code>ows4R</code></a>.
+<code>ows4R</code> uses <a href="https://r6.r-lib.org/articles/Introduction.html" class="external-link"><code>R6</code>
+classes</a> and implements an encapsulated object-oriented programming
+paradigm which may be unfamiliar to some R users.
+<code>EMODnetWCS</code> wraps <code>ows4R</code> and aims to provide
+more familiar workflows and return more familiar, usable and easy to
+review outputs. It also provides checks and validations to ensure smooth
+and easy interaction with EMODnet WCS services. You can however use
+<code>ows4R</code> with any of the EMODnet WCS endpoints if you
+prefer.</p>
 </div>
 <div class="section level2">
 <h2 id="emodnet-wcs-services">EMODnet WCS Services<a class="anchor" aria-label="anchor" href="#emodnet-wcs-services"></a>
 </h2>
-<p>The EMODnet portals provide a number of Web Coverage Services (WCS) to support requests for coverage data (rasters) or gridded data products.</p>
+<p>The EMODnet portals provide a number of Web Coverage Services (WCS)
+to support requests for coverage data (rasters) or gridded data
+products.</p>
 <div class="section level3">
 <h3 id="available-services">Available services<a class="anchor" aria-label="anchor" href="#available-services"></a>
 </h3>
-<p>To view the available services and their endpoints, you can use <code><a href="../reference/emdn_wcs.html">emdn_wcs()</a></code></p>
+<p>To view the available services and their endpoints, you can use
+<code><a href="../reference/emdn_wcs.html">emdn_wcs()</a></code></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EMODnet/EMODnetWCS" class="external-link">EMODnetWCS</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: ows4R</span></span>
-<span><span class="co">#&gt; Loading required package: geometa</span></span>
 <span><span class="co">#&gt; Loading ISO 19139 XML schemas...</span></span>
-<span><span class="co">#&gt; Loading ISO 19115 codelists...</span></span>
-<span><span class="co">#&gt; Loading IANA mime types...</span></span>
-<span><span class="co">#&gt; IANA website not reachable, skipping IANA mime types loading...</span></span>
-<span><span class="co">#&gt; Loading required package: keyring</span></span></code></pre></div>
+<span><span class="co">#&gt; Loading ISO 19115 codelists...</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/emdn_wcs.html">emdn_wcs</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 2</span></span></span>
@@ -128,19 +151,26 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> human_activities https://ows.emodnet-humanactivities.eu/wcs                   </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> physics          https://geoserver.emodnet-physics.eu/geoserver/wcs           </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> seabed_habitats  https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open…</span></span></code></pre></div>
-<p>The <code>service_name</code> column contains the service names that can be used to establish connections and make requests to EMODnet WCS services.</p>
+<p>The <code>service_name</code> column contains the service names that
+can be used to establish connections and make requests to EMODnet WCS
+services.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="connecting-to-emodnet-wcs-services">Connecting to EMODnet WCS Services<a class="anchor" aria-label="anchor" href="#connecting-to-emodnet-wcs-services"></a>
 </h2>
-<p>Before we can make requests to any of the services, we first need to create new WCS Client. We specify the service we want to connect to using the <code>service</code> argument.</p>
+<p>Before we can make requests to any of the services, we first need to
+create new WCS Client. We specify the service we want to connect to
+using the <code>service</code> argument.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">wcs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/emdn_init_wcs_client.html">emdn_init_wcs_client</a></span><span class="op">(</span><span class="st">"biology"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> WCS client created succesfully</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Service: <span style="color: #0000BB; font-style: italic;">&lt;https://geo.vliz.be/geoserver/Emodnetbio/wcs&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Service: <span style="color: #0000BB;">"2.0.1"</span></span></span></code></pre></div>
-<p>There are options for logging additional messages arising from <code>ows4R</code> and the underlying <code>libculrl</code>/<code>curl</code> library through argument <code>logger</code>. These can be useful in trouble shooting issues.</p>
+<p>There are options for logging additional messages arising from
+<code>ows4R</code> and the underlying
+<code>libculrl</code>/<code>curl</code> library through argument
+<code>logger</code>. These can be useful in trouble shooting issues.</p>
 <p>There are 3 levels of potential logging:</p>
 <ul>
 <li>
@@ -148,7 +178,8 @@
 <li>
 <code>'INFO'</code> includes <code>ows4R</code> logs.</li>
 <li>
-<code>'DEBUG'</code> for all internal logs (such as as Curl details)</li>
+<code>'DEBUG'</code> for all internal logs (such as as Curl
+details)</li>
 </ul>
 <p>The following example sets the logger to <code>"DEBUG"</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -157,7 +188,8 @@
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> WCS client created succesfully</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Service: <span style="color: #0000BB; font-style: italic;">&lt;https://geo.vliz.be/geoserver/Emodnetbio/wcs&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Service: <span style="color: #0000BB;">"2.0.1"</span></span></span></code></pre></div>
-<p>The <code><a href="../reference/emdn_init_wcs_client.html">emdn_init_wcs_client()</a></code> functions returns an R6 object of class <a href="https://eblondel.github.io/ows4R/reference/WCSClient.html" class="external-link"><code>&lt;WCSClient&gt;</code></a>.</p>
+<p>The <code><a href="../reference/emdn_init_wcs_client.html">emdn_init_wcs_client()</a></code> functions returns an R6
+object of class <a href="https://eblondel.github.io/ows4R/reference/WCSClient.html" class="external-link"><code>&lt;WCSClient&gt;</code></a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">wcs</span></span>
 <span><span class="co">#&gt; &lt;WCSClient&gt;</span></span>
@@ -211,20 +243,27 @@
 <span><span class="co">#&gt;     xmlExtraNamespaces: NULL</span></span>
 <span><span class="co">#&gt;     xmlNamespacePrefix: OWS</span></span>
 <span><span class="co">#&gt;     xmlNodeToCharacter: function (x, ..., indent = "", tagSeparator = "\n")</span></span></code></pre></div>
-<p>You can use any of the methods provided within the class should you wish (see <a href="https://eblondel.github.io/ows4R/articles/wcs.html" class="external-link"><code>ows4R</code> documentation</a> for details).</p>
+<p>You can use any of the methods provided within the class should you
+wish (see <a href="https://eblondel.github.io/ows4R/articles/wcs.html" class="external-link"><code>ows4R</code>
+documentation</a> for details).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">wcs</span><span class="op">$</span><span class="fu">getUrl</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "https://geo.vliz.be/geoserver/Emodnetbio/wcs"</span></span>
 <span></span>
 <span><span class="va">wcs</span><span class="op">$</span><span class="va">loggerType</span></span>
 <span><span class="co">#&gt; [1] "DEBUG"</span></span></code></pre></div>
-<p>However <code>EMODnetWCS</code> provides a host of functions for extracting/compiling useful metadata in a variety of forms as well downloading raster data from EMODnetWCS service which you will likely find easier to work with.</p>
-<p>Here are some examples of functionality provided by <code>EMODnetWCS</code>. For more details see the relevant vignette.</p>
+<p>However <code>EMODnetWCS</code> provides a host of functions for
+extracting/compiling useful metadata in a variety of forms as well
+downloading raster data from EMODnetWCS service which you will likely
+find easier to work with.</p>
+<p>Here are some examples of functionality provided by
+<code>EMODnetWCS</code>. For more details see the relevant vignette.</p>
 </div>
 <div class="section level2">
 <h2 id="getting-metadata">Getting Metadata<a class="anchor" aria-label="anchor" href="#getting-metadata"></a>
 </h2>
-<p>Get service level and a subset of coverage level metadata, compiled for easy review.</p>
+<p>Get service level and a subset of coverage level metadata, compiled
+for easy review.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/emdn_get_wcs_info.html">emdn_get_wcs_info</a></span><span class="op">(</span>wcs <span class="op">=</span> <span class="va">wcs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: sf</span></span>
@@ -287,7 +326,8 @@
 <span><span class="co">#&gt; <span style="color: #949494;">#   fn_start_point &lt;chr&gt;, fn_axis_order &lt;chr&gt;, and abbreviated variable names</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   ¹​data_source, ²​service_name, ³​service_url, ⁴​coverage_id, ⁵​band_description,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   ⁶​band_uom, ⁷​constraint, ⁸​nil_value, ⁹​dim_names</span></span></span></code></pre></div>
-<p>The package offers a number of functions for extracting individual metadata in more usable forms. e.g.</p>
+<p>The package offers a number of functions for extracting individual
+metadata in more usable forms. e.g.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/emdn_get_coverage_summaries.html">emdn_get_coverage_ids</a></span><span class="op">(</span><span class="va">wcs</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "Emodnetbio__ratio_large_to_small_19582016_L1_err"</span></span>
@@ -300,28 +340,34 @@
 <span><span class="co">#&gt;  [8] "Emodnetbio__chli_19582016_L1_err"                </span></span>
 <span><span class="co">#&gt;  [9] "Emodnetbio__tot_lar_19582016_L1_err"             </span></span>
 <span><span class="co">#&gt; [10] "Emodnetbio__tot_sma_19582016_L1_err"</span></span></code></pre></div>
-<p>For more details, please refer to the <a href="https://emodnet.github.io/EMODnetWCS/articles/metadata.html">Getting metadata about Services &amp; Coverages</a> article in the <code>EMODnetWCS</code> online documentation.</p>
+<p>For more details, please refer to the <a href="https://emodnet.github.io/EMODnetWCS/articles/metadata.html">Getting
+metadata about Services &amp; Coverages</a> article in the
+<code>EMODnetWCS</code> online documentation.</p>
 </div>
 <div class="section level2">
 <h2 id="downloading-coverages">Downloading Coverages<a class="anchor" aria-label="anchor" href="#downloading-coverages"></a>
 </h2>
-<p>The package also provides a function to download full or subsets of coverages from EMODnetWCS services.</p>
-<p>The following example downloads a spatial subset of a coverage using a bounding box.</p>
+<p>The package also provides a function to download full or subsets of
+coverages from EMODnetWCS services.</p>
+<p>The following example downloads a spatial subset of a coverage using
+a bounding box.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cov</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/emdn_get_coverage.html">emdn_get_coverage</a></span><span class="op">(</span><span class="va">wcs</span>, </span>
 <span>                  coverage_id <span class="op">=</span> <span class="st">"Emodnetbio__cal_fin_19582016_L1_err"</span>,</span>
 <span>                  bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fl">0</span>, </span>
 <span>                           ymin <span class="op">=</span> <span class="fl">40</span>, </span>
 <span>                           xmax <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>                           ymax <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span>
+<span>                           ymax <span class="op">=</span> <span class="fl">45</span><span class="op">)</span>,</span>
+<span>                  nil_values_as_na <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>                  <span class="op">)</span></span>
 <span><span class="co">#&gt; ── Downloading coverage <span style="color: #0000BB;">"Emodnetbio__cal_fin_19582016_L1_err"</span> ──────────────────</span></span>
-<span><span class="co">#&gt; &lt;GMLEnvelope&gt;</span></span>
-<span><span class="co">#&gt; ....|-- lowerCorner: 40 0 "1958-02-16T00:00:00"</span></span>
-<span><span class="co">#&gt; ....|-- upperCorner: 45 5 "2016-11-16T00:00:00"</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBBBB;">&lt;</span><span style="color: #BBBBBB; text-decoration: underline;">GMLEnvelope</span><span style="color: #BBBBBB;">&gt;</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">lowerCorner</span>: <span style="background-color: #BBBBBB;">40 0 "1958-02-16T00:00:00"</span></span></span>
+<span><span class="co">#&gt; ....|-- <span style="font-style: italic;">upperCorner</span>: <span style="background-color: #BBBBBB;">45 5 "2016-11-16T00:00:00"</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Coverage <span style="color: #0000BB;">"Emodnetbio__cal_fin_19582016_L1_err"</span> downloaded succesfully as a</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">terra</span> <span style="color: #0000BB;">&lt;SpatRaster&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> nil values <span style="color: #0000BB;">9.96920996838687e+36</span> converted to <span style="color: #00BB00;">NA</span> on all bands.</span></span>
 <span></span>
 <span><span class="va">cov</span></span>
 <span><span class="co">#&gt; class       : SpatRaster </span></span>
@@ -329,16 +375,16 @@
 <span><span class="co">#&gt; resolution  : 0.1, 0.1  (x, y)</span></span>
 <span><span class="co">#&gt; extent      : 0.05, 4.95, 40.05, 45.05  (xmin, xmax, ymin, ymax)</span></span>
 <span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
-<span><span class="co">#&gt; source      : Emodnetbio__cal_fin_19582016_L1_err_2016-11-16T00_00_00.000Z_40,0,45,5.tif </span></span>
-<span><span class="co">#&gt; names       : Emodnetbio__cal~00Z_40,0,45,5_1, Emodnetbio__cal~00Z_40,0,45,5_2</span></span></code></pre></div>
+<span><span class="co">#&gt; source      : memory </span></span>
+<span><span class="co">#&gt; names       : Emodnetbio__cal~_00_40,0,45,5_1, Emodnetbio__cal~_00_40,0,45,5_2 </span></span>
+<span><span class="co">#&gt; min values  :                             NaN,                       0.9999981 </span></span>
+<span><span class="co">#&gt; max values  :                             NaN,                       0.9999999</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cov</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in .as.raster.classes(out, x): NAs introduced by coercion to integer</span></span>
-<span><span class="co">#&gt; range</span></span>
-<span><span class="co">#&gt; Warning in .get_breaks(Z, length(out$cols), "eqint", out$range): probable</span></span>
-<span><span class="co">#&gt; complete loss of accuracy in modulus</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cov</span><span class="op">)</span></span></code></pre></div>
 <p><img src="EMODnetWCS_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<p>For more details on downloading coverages, please refer to the <a href="https://emodnet.github.io/EMODnetWCS/articles/coverages.html">Download Coverages</a> article in the <code>EMODnetWCS</code> online documentation.</p>
+<p>For more details on downloading coverages, please refer to the <a href="https://emodnet.github.io/EMODnetWCS/articles/coverages.html">Download
+Coverages</a> article in the <code>EMODnetWCS</code> online
+documentation.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
