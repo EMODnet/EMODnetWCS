@@ -79,7 +79,8 @@ emdn_get_coverage <- function(wcs = NULL, service = NULL,
                               format = NULL,
                               rangesubset = NULL,
                               filename = NULL,
-                              nil_values_as_na = FALSE) {
+                              nil_values_as_na = FALSE,
+                              check = TRUE) {
   if (is.null(wcs) & is.null(service)) {
     cli::cli_abort(c(
       "x" =
@@ -125,7 +126,7 @@ emdn_get_coverage <- function(wcs = NULL, service = NULL,
       subset = elevation
     )
   }
-  check_cov_contains_bbox(summary, bbox, crs)
+  if (check) check_cov_contains_bbox(summary, bbox, crs)
 
   cli::cli_rule(left = "Downloading coverage {.val {coverage_id}}")
 
