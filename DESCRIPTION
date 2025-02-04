@@ -7,7 +7,7 @@ Authors@R: c(
     person("Salvador", "Fernández-Bejarano", , "salvador.fernandez@vliz.be", role = "cre",
            comment = c(ORCID = "0000-0003-0535-7677")),
     person("European Marine Observation Data Network (EMODnet) Biology project", "European Commission's Directorate - General for Maritime Affairs and Fisheries (DG MARE)", , "bio@emodnet.eu", role = "cph"),
-    person("VLIZ (VLAAMS INSTITUUT VOOR DE ZEE)", , , "info@vliz.be", role = "fnd")
+    person("VLIZ (VLAAMS INSTITUUT VOOR DE ZEE)", , , "info@vliz.be", role = "fnd", comment = c(ROR = "0496vr396"))
   )
 Description: Access and interrogate EMODnet Web Coverage Service data
     through R.
