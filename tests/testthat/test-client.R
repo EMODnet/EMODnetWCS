@@ -5,19 +5,20 @@ test_that("Default connection works", {
 })
 
 test_that("Error when wrong service", {
-  expect_snapshot_error(emdn_init_wcs_client("blop"))
+  expect_snapshot(emdn_init_wcs_client("blop"), error = TRUE)
 })
 
 
 test_that("Error when wrong service version", {
-  expect_snapshot_error(emdn_init_wcs_client(
+  expect_snapshot(emdn_init_wcs_client(
     service = "human_activities",
     service_version = "2.2.2"
-  ))
+  ), error = TRUE)
 })
 
 test_that("Warning when unsupported service version", {
-  expect_snapshot_warning(emdn_init_wcs_client(
+  skip_if_offline()
+  expect_snapshot(emdn_init_wcs_client(
     service = "human_activities",
     service_version = "1.1.1"
   ))
@@ -34,15 +35,14 @@ test_that("Services down handled", {
     webmockr::to_return(status = 200)
 
   req_fail <- httr::GET(test_url)
-  req_success <- httr::GET(test_url)
-
-  # Test requests
   expect_true(httr::http_error(req_fail))
+
+  req_success <- httr::GET(test_url)
   expect_false(httr::http_error(req_success))
 
   # Test check_service behavior
-  expect_snapshot_error(check_service(req_fail))
-  expect_snapshot_error(check_service(req_success))
+  expect_snapshot(check_service(req_fail), error = TRUE)
+  expect_snapshot(check_service(req_success), error = TRUE)
 
   webmockr::disable()
 })
@@ -52,8 +52,8 @@ test_that("No internet challenge", {
 
   test_url <- "https://demo.geo-solutions.it/geoserver/ows?"
 
-  req_no_internet <- perform_http_request(test_url)
-
-  expect_null(req_no_internet)
-  expect_snapshot_error(check_service(req_no_internet))
+  expect_snapshot(
+      (req_no_internet <- perform_http_request(test_url))
+  )
+  expect_snapshot(check_service(req_no_internet), error = TRUE)
 })
