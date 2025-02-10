@@ -7,13 +7,6 @@ test_that("coverages downloaded correctly", {
     xmax = 2,
     ymax = 42
   )
-  # coefs <- emdn_get_coverage_dim_coefs(
-  #     wcs = wcs,
-  #     coverage_ids = coverage_id,
-  #     type = "temporal"
-  # )
-  #
-  # time <- coefs[[coverage_id]][24:25]
 
   with_mock_dir("biology-coverage", {
     cov_raster <- emdn_get_coverage(
