@@ -1,12 +1,18 @@
 test_that("service urls & names crossreference correctly", {
-  expect_equal(get_service_url("bathymetry"), "https://ows.emodnet-bathymetry.eu/wcs")
-  expect_equal(get_service_name("https://ows.emodnet-bathymetry.eu/wcs"), "bathymetry")
+  expect_equal(
+    get_service_url("bathymetry"),
+    "https://ows.emodnet-bathymetry.eu/wcs"
+  )
+  expect_equal(
+    get_service_name("https://ows.emodnet-bathymetry.eu/wcs"),
+    "bathymetry"
+  )
 })
 
 
 test_that("extent & crs processed correctly", {
-  summary <- create_physics_summary()[[1]]
-  with_mock_dir("physics-info", {
+  summary <- create_biology_summary()[[1]]
+  with_mock_dir("bio-info", {
     bbox <- emdn_get_bbox(summary)
     expect_equal(conc_bbox(bbox), "-180, -90, 180, 90")
     expect_equal(extr_bbox_crs(summary)$input, "EPSG:4326")
@@ -34,7 +40,8 @@ test_that("dimensions processed correctly", {
     )
     expect_equal(
       emdn_get_dimensions_info(summary),
-      structure("lat(deg):geographic; long(deg):geographic; time(s):temporal",
+      structure(
+        "lat(deg):geographic; long(deg):geographic; time(s):temporal",
         class = c("glue", "character")
       )
     )
@@ -72,9 +79,7 @@ test_that("rangeType processed correctly", {
     )
     expect_equal(
       emdn_get_band_descriptions(summary),
-      structure("relative_abundance",
-        uom = "W.m-2.Sr-1"
-      )
+      structure("relative_abundance", uom = "W.m-2.Sr-1")
     )
     expect_equal(
       emdn_get_band_uom(summary),

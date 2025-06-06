@@ -34,8 +34,8 @@ An important distinction must be made between WCS and Web Map Service (WMS). The
 You can install the development version of emodnet.wcs from GitHub with:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("EMODnet/emodnet.wcs")
+# install.packages("pak")
+pak::pak("EMODnet/emodnet.wcs")
 ```
 Load the library 
 ```{r load-lib}
@@ -52,7 +52,7 @@ All available services are contained in the tibble returned by `emdn_wcs()`.
 knitr::kable(emdn_wcs())
 ```
 
-To explore available services in Rstudio use:
+To explore available services in your R session use:
 
 ```r
 View(emdn_wcs())
@@ -87,7 +87,7 @@ Get more detailed coverage metadata about specific coverage.
 ```{r wcs-info-coverage}
 emdn_get_coverage_info(
   wcs,
-  coverage_ids = "Emodnetbio__cal_fin_19582016_L1_err"
+  coverage_ids = "Emodnetbio__aca_spp_19582016_L1"
 )
 ```
 
@@ -115,7 +115,7 @@ The following example downloads a spatial subset of a coverage using a bounding 
 ```{r}
 cov <- emdn_get_coverage(
   wcs,
-  coverage_id = "Emodnetbio__cal_fin_19582016_L1_err",
+  coverage_id = "Emodnetbio__aca_spp_19582016_L1",
   bbox = c(xmin = 0, ymin = 40, xmax = 5, ymax = 45),
   nil_values_as_na = TRUE
 )
