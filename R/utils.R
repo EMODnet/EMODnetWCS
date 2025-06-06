@@ -41,7 +41,6 @@
 #' }
 emdn_get_coverage_summaries <- function(wcs, coverage_ids) {
   check_coverages(wcs, coverage_ids)
-
   coverage_ids %>%
     purrr::map(
       ~ get_capabilities(wcs)$findCoverageSummaryById(.x, exact = TRUE)
@@ -52,7 +51,7 @@ emdn_get_coverage_summaries <- function(wcs, coverage_ids) {
 #' coverages from a service.
 #' @export
 emdn_get_coverage_summaries_all <- function(wcs) {
-  get_capabilities(wcs)$Summaries()
+  get_capabilities(wcs)$getCoverageSummaries()
 }
 
 #' @describeIn emdn_get_coverage_summaries Get coverage IDs for all available
