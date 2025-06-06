@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><wcs:CoverageDescriptions xmlns:wcs="http://www.opengis.net/wcs/2.0" xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gmlcov="http://www.opengis.net/gmlcov/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:wcsgs="http://www.geoserver.org/wcsgs/2.0" xsi:schemaLocation=" http://www.opengis.net/wcs/2.0 http://schemas.opengis.net/wcs/2.0/wcsDescribeCoverage.xsd http://www.geoserver.org/wcsgs/2.0 https://ows.emodnet-seabedhabitats.eu/geoserver/schemas/wcs/2.0/wcsgs.xsd">
+  <wcs:CoverageDescription gml:id="emodnet_open_maplibrary__GB300017_model">
+    <gml:description>Generated from GeoTIFF</gml:description>
+    <gml:name>[GB300017] Global habitat suitability for Holaxonia cold water octocoral</gml:name>
+    <gml:boundedBy>
+      <gml:Envelope srsName="http://www.opengis.net/def/crs/EPSG/0/4326" axisLabels="Lat Long" uomLabels="Deg Deg" srsDimension="2">
+        <gml:lowerCorner>-72.0 -180.0</gml:lowerCorner>
+        <gml:upperCorner>70.0 180.0</gml:upperCorner>
+      </gml:Envelope>
+    </gml:boundedBy>
+    <wcs:CoverageId>emodnet_open_maplibrary__GB300017_model</wcs:CoverageId>
+    <gml:coverageFunction>
+      <gml:GridFunction>
+        <gml:sequenceRule axisOrder="+2 +1">Linear</gml:sequenceRule>
+        <gml:startPoint>0 0</gml:startPoint>
+      </gml:GridFunction>
+    </gml:coverageFunction>
+    <gmlcov:metadata>
+      <gmlcov:Extension>
+        <ows:Keywords>
+          <ows:Keyword>GB300017</ows:Keyword>
+          <ows:Keyword>WCS</ows:Keyword>
+          <ows:Keyword>GeoTIFF</ows:Keyword>
+          <ows:Keyword>Habitats - seabed habitats (including coastal wetlands) - collection of models</ows:Keyword>
+          <ows:Keyword>External</ows:Keyword>
+          <ows:Keyword>2188</ows:Keyword>
+        </ows:Keywords>
+        <ows:Metadata xlink:type="simple" xlink:href="http://gis.ices.dk/geonetwork/emodnet-seabedhabitats/eng/catalog.search#/metadata/8BB6CD2E-AAFF-492C-A7C5-0E91F759B6D6"/>
+        <ows:Metadata xlink:type="simple" xlink:href="http://gis.ices.dk/geonetwork/emodnet-seabedhabitats/api/records/8BB6CD2E-AAFF-492C-A7C5-0E91F759B6D6/formatters/xml"/>
+      </gmlcov:Extension>
+    </gmlcov:metadata>
+    <gml:domainSet>
+      <gml:RectifiedGrid gml:id="grid00__emodnet_open_maplibrary__GB300017_model" dimension="2">
+        <gml:limits>
+          <gml:GridEnvelope>
+            <gml:low>0 0</gml:low>
+            <gml:high>2159 851</gml:high>
+          </gml:GridEnvelope>
+        </gml:limits>
+        <gml:axisLabels>i j</gml:axisLabels>
+        <gml:origin>
+          <gml:Point gml:id="p00_emodnet_open_maplibrary__GB300017_model" srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+            <gml:pos>69.91666666666667 -179.91666666666666</gml:pos>
+          </gml:Point>
+        </gml:origin>
+        <gml:offsetVector srsName="http://www.opengis.net/def/crs/EPSG/0/4326">0.0 0.16666666666666666</gml:offsetVector>
+        <gml:offsetVector srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-0.16666666666666666 0.0</gml:offsetVector>
+      </gml:RectifiedGrid>
+    </gml:domainSet>
+    <gmlcov:rangeType>
+      <swe:DataRecord xmlns:swe="http://www.opengis.net/swe/2.0">
+        <swe:field name="Probability">
+          <swe:Quantity>
+            <swe:description>Probability</swe:description>
+            <swe:nilValues>
+              <swe:NilValues>
+                <swe:nilValue reason="http://www.opengis.net/def/nil/OGC/0/unknown">-3.4E38</swe:nilValue>
+              </swe:NilValues>
+            </swe:nilValues>
+            <swe:uom code="W.m-2.Sr-1"/>
+            <swe:constraint>
+              <swe:AllowedValues>
+                <swe:interval>-3.4028235E38 3.4028235E38</swe:interval>
+              </swe:AllowedValues>
+            </swe:constraint>
+          </swe:Quantity>
+        </swe:field>
+      </swe:DataRecord>
+    </gmlcov:rangeType>
+    <wcs:ServiceParameters>
+      <wcs:CoverageSubtype>RectifiedGridCoverage</wcs:CoverageSubtype>
+      <wcs:nativeFormat>image/tiff</wcs:nativeFormat>
+    </wcs:ServiceParameters>
+  </wcs:CoverageDescription>
+</wcs:CoverageDescriptions>

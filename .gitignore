@@ -7,3 +7,5 @@ attic/*
 *.tif
 docs
 inst/doc
+
+/.quarto/
