@@ -43,16 +43,16 @@ emdn_get_coverage_summaries <- function(wcs, coverage_ids) {
   check_coverages(wcs, coverage_ids)
 
   coverage_ids %>%
-    purrr::map(~ get_capabilities(wcs)$findCoverageSummaryById(.x,
-      exact = TRUE
-    ))
+    purrr::map(
+      ~ get_capabilities(wcs)$findCoverageSummaryById(.x, exact = TRUE)
+    )
 }
 
 #' @describeIn emdn_get_coverage_summaries Get summaries for all available
 #' coverages from a service.
 #' @export
 emdn_get_coverage_summaries_all <- function(wcs) {
-  get_capabilities(wcs)$getCoverageSummaries()
+  get_capabilities(wcs)$Summaries()
 }
 
 #' @describeIn emdn_get_coverage_summaries Get coverage IDs for all available
@@ -66,8 +66,11 @@ emdn_get_coverage_ids <- function(wcs) {
 #' @describeIn emdn_get_coverage_summaries check whether a coverage has a
 #' temporal or vertical dimension.
 #' @export
-emdn_has_dimension <- function(wcs, coverage_ids,
-                               type = c("temporal", "vertical")) {
+emdn_has_dimension <- function(
+  wcs,
+  coverage_ids,
+  type = c("temporal", "vertical")
+) {
   check_coverages(wcs, coverage_ids)
   type <- match.arg(type)
 
@@ -84,15 +87,16 @@ emdn_has_dimension <- function(wcs, coverage_ids,
 #' @describeIn emdn_get_coverage_summaries Get temporal or
 #' vertical coefficients for a coverage.
 #' @export
-emdn_get_coverage_dim_coefs <- function(wcs,
-                                        coverage_ids,
-                                        type = c(
-                                          "temporal",
-                                          "vertical"
-                                        )) {
+emdn_get_coverage_dim_coefs <- function(
+  wcs,
+  coverage_ids,
+  type = c(
+    "temporal",
+    "vertical"
+  )
+) {
   type <- match.arg(type)
   check_coverages(wcs, coverage_ids)
-
 
   get_cov_coefs <- function(coverage_id, wcs, type) {
     check_extent_type <- emdn_has_dimension(
@@ -137,10 +141,7 @@ emdn_get_coverage_dim_coefs <- function(wcs,
 
   purrr::map(
     coverage_ids,
-    ~ get_cov_coefs(.x,
-      wcs = wcs,
-      type = type
-    )
+    ~ get_cov_coefs(.x, wcs = wcs, type = type)
   ) %>%
     stats::setNames(coverage_ids)
 }
@@ -241,13 +242,14 @@ emdn_get_bbox <- function(summary) {
   upper <- unlist(c(boundaries$upperCorner))
   lower <- unlist(c(boundaries$lowerCorner))
 
-  sf::st_bbox(c(
-    xmin = lower[2],
-    xmax = upper[2],
-    ymin = lower[1],
-    ymax = upper[1]
-  ),
-  crs = extr_bbox_crs(summary)
+  sf::st_bbox(
+    c(
+      xmin = lower[2],
+      xmax = upper[2],
+      ymin = lower[1],
+      ymax = upper[1]
+    ),
+    crs = extr_bbox_crs(summary)
   )
 }
 
@@ -376,7 +378,9 @@ emdn_get_resolution <- function(summary) {
 
   if (sum(is_x_axis) != 1L) {
     cli::cli_warn(
-      c("!" = "Unable to detecting axis order. Defaulting to {.val x}, {.val y}")
+      c(
+        "!" = "Unable to detecting axis order. Defaulting to {.val x}, {.val y}"
+      )
     )
     names(resolution) <- c("x", "y")
   } else {
@@ -445,12 +449,15 @@ emdn_get_vertical_extent <- function(summary) {
 #' various formats. Information includes dimension label, type, unit and
 #' range (in tibble format).
 #' @export
-emdn_get_dimensions_info <- function(summary, format = c(
-                                       "character",
-                                       "list",
-                                       "tibble"
-                                     ),
-                                     include_coeffs = FALSE) {
+emdn_get_dimensions_info <- function(
+  summary,
+  format = c(
+    "character",
+    "list",
+    "tibble"
+  ),
+  include_coeffs = FALSE
+) {
   format <- match.arg(format)
   dimensions <- summary$getDimensions()
 
@@ -486,8 +493,11 @@ emdn_get_dimensions_info <- function(summary, format = c(
         tolower(),
       type = purrr::map_chr(x, ~ purrr::pluck(.x, "type")) %>%
         tolower(),
-      range = purrr::map(x, ~ purrr::pluck(.x, "coefficients") %>%
-        unlist()) %>%
+      range = purrr::map(
+        x,
+        ~ purrr::pluck(.x, "coefficients") %>%
+          unlist()
+      ) %>%
         purrr::map_if(
           function(x) {
             !is.null(x)
@@ -502,11 +512,10 @@ emdn_get_dimensions_info <- function(summary, format = c(
     )
   }
 
-  switch(format,
+  switch(
+    format,
     "character" = process_character(dimensions),
-    "list" = process_list(dimensions,
-      include_coeffs = include_coeffs
-    ),
+    "list" = process_list(dimensions, include_coeffs = include_coeffs),
     "tibble" = process_tibble(dimensions)
   )
 }
