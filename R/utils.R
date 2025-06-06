@@ -554,6 +554,8 @@ extr_bbox_crs <- function(summary) {
     if (length(crs_parts) == 2) {
       srid <- as.integer(crs_parts[2])
       if (!is.na(srid)) bbox_crs <- sf::st_crs(srid)
+    } else if (startsWith(crs_parts[1], "http://www.opengis.net/def/crs/EPSG/0/")) {
+      bbox_crs <- sf::st_crs(as.integer(gsub("^?.*/", "", crs_parts[1])))
     } else {
       bbox_crs <- sf::st_crs(4326)
     }
