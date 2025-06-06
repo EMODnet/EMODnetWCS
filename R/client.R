@@ -16,17 +16,22 @@
 #' \dontrun{
 #' wcs <- emdn_init_wcs_client(service = "bathymetry")
 #' }
-emdn_init_wcs_client <- function(service, service_version = c(
-                                   "2.0.1", "2.1.0", "2.0.0",
-                                   "1.1.1", "1.1.0"
-                                 ),
-                                 logger = c("NONE", "INFO", "DEBUG")) {
+emdn_init_wcs_client <- function(
+  service,
+  service_version = c(
+    "2.0.1",
+    "2.1.0",
+    "2.0.0",
+    "1.1.1",
+    "1.1.0"
+  ),
+  logger = c("NONE", "INFO", "DEBUG")
+) {
   check_service_name(service)
   service_version <- match.arg(service_version)
   logger <- match.arg(logger)
   if (logger == "NONE") logger <- NULL
   service_url <- get_service_url(service)
-
 
   create_client <- function() {
     config <- httr::config()
@@ -34,7 +39,9 @@ emdn_init_wcs_client <- function(service, service_version = c(
     wcs <- suppressWarnings(ows4R::WCSClient$new(
       service_url,
       serviceVersion = service_version,
-      headers = c("User-Agent" = "EMODnetWCS R package https://github.com/EMODnet/EMODnetWCS"),
+      headers = c(
+        "User-Agent" = "emodnet.wcs R package https://github.com/EMODnet/emodnet.wcs"
+      ),
       config = config,
       logger = logger
     ))

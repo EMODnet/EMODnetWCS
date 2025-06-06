@@ -1,20 +1,20 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# EMODnetWCS
+# emodnet.wcs
 
 <!-- badges: start -->
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
-status](https://www.r-pkg.org/badges/version/EMODnetWCS)](https://CRAN.R-project.org/package=EMODnetWCS)
-[![R-CMD-check](https://github.com/EMODnet/EMODnetWCS/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EMODnet/EMODnetWCS/actions/workflows/R-CMD-check.yaml)
+status](https://www.r-pkg.org/badges/version/emodnet.wcs)](https://CRAN.R-project.org/package=emodnet.wcs)
+[![R-CMD-check](https://github.com/EMODnet/emodnet.wcs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EMODnet/emodnet.wcs/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/EMODnet/EMODnetWCS/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EMODnet/EMODnetWCS?branch=master)
+coverage](https://codecov.io/gh/EMODnet/emodnet.wcs/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EMODnet/emodnet.wcs?branch=master)
 <!-- badges: end -->
 
-The goal of EMODnetWCS is to allow interrogation of and access to
+The goal of emodnet.wcs is to allow interrogation of and access to
 EMODnet geographic raster data in R though the [EMODnet Web Coverage
 Services](https://github.com/EMODnet/Web-Service-Documentation#web-coverage-service-wcs).
 See below for available Services. This package was developed by
@@ -35,17 +35,17 @@ against multi-dimensional backend formats.
 
 ## Installation
 
-You can install the development version of EMODnetWCS from GitHub with:
+You can install the development version of emodnet.wcs from GitHub with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("EMODnet/EMODnetWCS")
+remotes::install_github("EMODnet/emodnet.wcs")
 ```
 
 Load the library
 
 ``` r
-library(EMODnetWCS)
+library(emodnet.wcs)
 #> Loading ISO 19139 XML schemas...
 #> Loading ISO 19115 codelists...
 ```
@@ -223,13 +223,13 @@ emdn_get_coverage_ids(wcs)
 ```
 
 For more details, please refer to the [Getting metadata about Services &
-Coverages](https://emodnet.github.io/EMODnetWCS/articles/metadata.html)
-article in the `EMODnetWCS` online documentation.
+Coverages](https://emodnet.github.io/emodnet.wcs/articles/metadata.html)
+article in the `emodnet.wcs` online documentation.
 
 ## Downloading Coverages
 
 The package also provides a function to download full or subsets of
-coverages from EMODnetWCS services.
+coverages from emodnet.wcs services.
 
 The following example downloads a spatial subset of a coverage using a
 bounding box.
@@ -271,41 +271,41 @@ terra::plot(cov)
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 For more details on downloading coverages, please refer to the [Download
-Coverages](https://emodnet.github.io/EMODnetWCS/articles/coverages.html)
-article in the `EMODnetWCS` online documentation.
+Coverages](https://emodnet.github.io/emodnet.wcs/articles/coverages.html)
+article in the `emodnet.wcs` online documentation.
 
 ## Citation
 
-To cite EMODnetWCS, please use the output from
-`citation(package = "EMODnetWCS")`.
+To cite emodnet.wcs, please use the output from
+`citation(package = "emodnet.wcs")`.
 
 ``` r
-citation(package = "EMODnetWCS")
+citation(package = "emodnet.wcs")
 #> 
-#> To cite package 'EMODnetWCS' in publications use:
+#> To cite package 'emodnet.wcs' in publications use:
 #> 
-#>   Krystalli A (2022). _EMODnetWCS: Access EMODnet Web Coverage Service
+#>   Krystalli A (2022). _emodnet.wcs: Access EMODnet Web Coverage Service
 #>   data through R_. R package version 0.0.0.9012. Integrated data
 #>   products created under the European Marine Observation Data Network
 #>   (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013),
 #>   funded by the European Union under Regulation (EU) No 508/2014 of the
 #>   European Parliament and of the Council of 15 May 2014 on the European
-#>   Maritime and Fisheries Fund, <https://github.com/EMODnet/EMODnetWCS>.
+#>   Maritime and Fisheries Fund, <https://github.com/EMODnet/emodnet.wcs>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
-#>     title = {{EMODnetWCS}: Access EMODnet Web Coverage Service data through R},
+#>     title = {{emodnet.wcs}: Access EMODnet Web Coverage Service data through R},
 #>     author = {Anna Krystalli},
 #>     year = {2022},
 #>     note = {R package version 0.0.0.9012. Integrated data products created under the European Marine Observation Data Network (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the European Union under Regulation (EU) No 508/2014 of the European Parliament and of the Council of 15 May 2014 on the European Maritime and Fisheries Fund},
-#>     url = {https://github.com/EMODnet/EMODnetWCS},
+#>     url = {https://github.com/EMODnet/emodnet.wcs},
 #>   }
 ```
 
 ## Code of Conduct
 
-Please note that the EMODnetWCS project is released with a [Contributor
+Please note that the emodnet.wcs project is released with a [Contributor
 Code of
-Conduct](https://emodnet.github.io/EMODnetWCS/CODE_OF_CONDUCT.html). By
+Conduct](https://emodnet.github.io/emodnet.wcs/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.

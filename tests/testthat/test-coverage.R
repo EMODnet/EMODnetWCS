@@ -21,8 +21,8 @@ test_that("coverages downloaded correctly", {
       coverage_id = coverage_id,
       bbox = bbox,
       time = c(
-        "1963-11-16T00:00:00",
-        "1964-02-16T00:00:00"
+        "1963-11-16T01:00:00",
+        "1964-02-16T01:00:00"
       ),
       rangesubset = "Relative error"
     )

@@ -1,4 +1,3 @@
-
 test_that("get wcs info works", {
   wcs <- create_physics_wcs()
   with_mock_dir("physics-info", {

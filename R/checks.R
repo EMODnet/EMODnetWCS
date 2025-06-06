@@ -11,17 +11,19 @@ check_wcs <- function(wcs) {
 }
 
 check_wcs_version <- function(wcs) {
-  if (get_service_name(wcs$getUrl()) == "human_activities" &&
-    wcs$getVersion() != "2.0.1") {
-    cli::cli_warn(c("!" = "Service version {.val {wcs$getVersion()}}
+  if (
+    get_service_name(wcs$getUrl()) == "human_activities" &&
+      wcs$getVersion() != "2.0.1"
+  ) {
+    cli::cli_warn(c(
+      "!" = "Service version {.val {wcs$getVersion()}}
                         can result in unexpected  behaviour on the
                         {.val human activities} server.
                             We strongly recommend reconnecting using {.var service_version}
-                      {.val 2.0.1}."))
+                      {.val 2.0.1}."
+    ))
   } else {
-    supported_versions <- wcs$getCapabilities()$
-      getServiceIdentification()$
-      getServiceTypeVersion()
+    supported_versions <- wcs$getCapabilities()$getServiceIdentification()$getServiceTypeVersion()
 
     version <- wcs$getVersion()
 
@@ -66,10 +68,15 @@ check_service <- function(request) {
   }
 
   if (httr::http_error(request)) {
-    cli::cli_alert_info("HTTP Status: {cli::col_red(httr::http_status(request)$message)}")
+    cli::cli_alert_info(
+      "HTTP Status: {cli::col_red(httr::http_status(request)$message)}"
+    )
     cli::cli_text("")
 
-    is_monitor_up <- !is.null(curl::nslookup("monitor.emodnet.eu", error = FALSE))
+    is_monitor_up <- !is.null(curl::nslookup(
+      "monitor.emodnet.eu",
+      error = FALSE
+    ))
     if (interactive() && is_monitor_up) {
       cli::cli_ul(c(
         "Browse the EMODnet OGC monitor for more info on
@@ -82,10 +89,14 @@ check_service <- function(request) {
 
     # If no HTTP status, something else is wrong
   } else if (!httr::http_error(request)) {
-    cli::cli_alert_info("HTTP Status: {cli::col_green(httr::http_status(request)$message)}")
+    cli::cli_alert_info(
+      "HTTP Status: {cli::col_green(httr::http_status(request)$message)}"
+    )
     cli::cli_abort(
-      c("x" = "An exception has occurred. Please raise an
-          issue in {.url {packageDescription('EMODnetWCS')$BugReports}}")
+      c(
+        "x" = "An exception has occurred. Please raise an
+          issue in {.url {packageDescription('emodnet.wcs')$BugReports}}"
+      )
     )
   }
 }
@@ -96,8 +107,10 @@ check_coverages <- function(wcs, coverages) {
 
   if (!all(test_coverages)) {
     bad_coverages <- coverages[!test_coverages]
-    cli::cli_abort(c("x" = "{.val {bad_coverages}} not valid coverage{?s}
-                         for service {.url {wcs$getUrl()}}"))
+    cli::cli_abort(c(
+      "x" = "{.val {bad_coverages}} not valid coverage{?s}
+                         for service {.url {wcs$getUrl()}}"
+    ))
   }
 }
 
@@ -108,9 +121,7 @@ check_cov_contains_bbox <- function(summary, bbox, crs = NULL) {
   cov_bbox <- emdn_get_bbox(summary)
 
   if (!is.null(crs)) {
-    bbox <- sf::st_bbox(bbox,
-      crs = sf::st_crs(crs)
-    )
+    bbox <- sf::st_bbox(bbox, crs = sf::st_crs(crs))
 
     if (sf::st_crs(cov_bbox) != sf::st_crs(bbox)) {
       bbox <- bbox %>%
@@ -131,9 +142,10 @@ check_cov_contains_bbox <- function(summary, bbox, crs = NULL) {
     outlying_edges <- ""
   }
 
-  if (all(test_bbox) ||
-    all(outlying_edges %in% c("ymax", "ymin")) ||
-    all(outlying_edges %in% c("xmax", "xmin"))
+  if (
+    all(test_bbox) ||
+      all(outlying_edges %in% c("ymax", "ymin")) ||
+      all(outlying_edges %in% c("xmax", "xmin"))
   ) {
     cli::cli_abort(
       "{.var bbox} boundaries {.val {names(test_bbox)[test_bbox]}} lie
@@ -157,12 +169,14 @@ validate_bbox <- function(bbox) {
   if (is.null(bbox)) {
     return(bbox)
   } else {
-    checkmate::assert_numeric(bbox,
+    checkmate::assert_numeric(
+      bbox,
       len = 4,
       any.missing = FALSE,
       names = "named"
     )
-    checkmate::assert_subset(names(bbox),
+    checkmate::assert_subset(
+      names(bbox),
       choices = c(
         "xmin",
         "xmax",
@@ -195,13 +209,15 @@ validate_rangesubset <- function(summary, rangesubset) {
   )
 }
 
-validate_dimension_subset <- function(wcs,
-                                      coverage_id,
-                                      type = c(
-                                        "temporal",
-                                        "vertical"
-                                      ),
-                                      subset) {
+validate_dimension_subset <- function(
+  wcs,
+  coverage_id,
+  type = c(
+    "temporal",
+    "vertical"
+  ),
+  subset
+) {
   type <- match.arg(type)
   coefs <- emdn_get_coverage_dim_coefs(
     wcs,
@@ -209,7 +225,8 @@ validate_dimension_subset <- function(wcs,
     type
   )[[1]]
 
-  switch(type,
+  switch(
+    type,
     temporal = {
       purrr::walk(
         subset,
@@ -235,9 +252,7 @@ validate_dimension_subset <- function(wcs,
 
 # ---- error-handling ----
 error_wrap <- function(expr) {
-  out <- tryCatch(expr,
-    error = function(e) NA
-  )
+  out <- tryCatch(expr, error = function(e) NA)
 
   if (is.null(out)) {
     cli::cli_alert_warning(

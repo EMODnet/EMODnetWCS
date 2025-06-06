@@ -50,7 +50,7 @@
       i HTTP Status: Success: (200) OK
     Condition
       Error in `check_service()`:
-      x An exception has occurred. Please raise an issue in <https://github.com/EMODnet/EMODnetWCS/issues>
+      x An exception has occurred. Please raise an issue in <https://github.com/EMODnet/emodnet.wcs/issues>
 
 # No internet challenge
 

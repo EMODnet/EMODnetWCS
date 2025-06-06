@@ -2,7 +2,7 @@
 title: "Getting metadata about Services & Coverages"
 ---
 
-`EMODnetWCS` offers a number of functions to download and extract metadata about EMODnet WCS services and available coverages.
+`emodnet.wcs` offers a number of functions to download and extract metadata about EMODnet WCS services and available coverages.
 
 Metadata include information about each service, the coverages served by the server and information about individual coverages including the geographic, temporal and elevation extents, grid sizes and resolution, coverage coordinate reference systems and how grid coordinates relate to geographic coordinates as well as the names, units and ranges of bands contained in a coverage.
 
@@ -23,7 +23,7 @@ start_vignette("article-info")
 First let's load the package and initiate a client to the `"biology"` EMODnet WCS server.
 
 ```{r setup}
-library(EMODnetWCS)
+library(emodnet.wcs)
 ```
 
 ```{r start-recording, include = FALSE}
@@ -63,10 +63,10 @@ Let's take a closer look at the metadata in `coverage_details`. For details on t
 ```{r coverage_details, echo=FALSE}
 library(huxtable)
 hux(wcs_info$coverage_details) %>%
-    style_cells(1, everywhere, bold = TRUE) %>%
-    style_cells(everywhere, 1, bold = TRUE) %>%
-    set_font_size(everywhere, everywhere, 10)
-    
+  style_cells(1, everywhere, bold = TRUE) %>%
+  style_cells(everywhere, 1, bold = TRUE) %>%
+  set_font_size(everywhere, everywhere, 10)
+
 ```
 
 You can get metadata for all EMODnet WCS services using `emdn_get_wcs_info_all()`. Note however that this can take a long time to execute.
@@ -81,10 +81,11 @@ emdn_get_wcs_info_all()
 You can get more detailed coverage metadata about specific coverage using function `emdn_get_coverage_info()` and supplying a character vector of `coverage_ids`. Again, you can get the same information by supplying a service name to argument `service` instead of a `<WCSClient>` object to argument `wcs`.
 
 ```{r cov-info}
-cov_info <- emdn_get_coverage_info(wcs, 
-                                   coverage_ids = c(
-      "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-      "Emodnetbio__cal_fin_19582016_L1_err" 
+cov_info <- emdn_get_coverage_info(
+  wcs,
+  coverage_ids = c(
+    "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+    "Emodnetbio__cal_fin_19582016_L1_err"
   )
 )
 
@@ -100,10 +101,10 @@ cov_info
 ```{r coverage_info-table, echo=FALSE}
 library(huxtable)
 hux(cov_info) %>%
-    style_cells(1, everywhere, bold = TRUE) %>%
-    style_cells(everywhere, 1, bold = TRUE) %>%
-    set_font_size(everywhere, everywhere, 10)
-    
+  style_cells(1, everywhere, bold = TRUE) %>%
+  style_cells(everywhere, 1, bold = TRUE) %>%
+  set_font_size(everywhere, everywhere, 10)
+
 ```
 
 
@@ -140,8 +141,8 @@ You can also check whether a coverage has a given type of dimension.
 emdn_has_dimension(
   wcs,
   coverage_ids = c(
-      "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-      "Emodnetbio__cal_fin_19582016_L1_err" 
+    "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+    "Emodnetbio__cal_fin_19582016_L1_err"
   ),
   type = "temporal"
 )
@@ -150,8 +151,8 @@ emdn_has_dimension(
 emdn_has_dimension(
   wcs,
   coverage_ids = c(
-      "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-      "Emodnetbio__cal_fin_19582016_L1_err" 
+    "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+    "Emodnetbio__cal_fin_19582016_L1_err"
   ),
   type = "vertical"
 )
@@ -159,12 +160,14 @@ emdn_has_dimension(
 
 Or get the coefficients (points in a given dimension) at which data are available for specific coverages.
 ```{r}
-emdn_get_coverage_dim_coefs(wcs,
-                            coverage_ids = c(
-      "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-      "Emodnetbio__cal_fin_19582016_L1_err" 
+emdn_get_coverage_dim_coefs(
+  wcs,
+  coverage_ids = c(
+    "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+    "Emodnetbio__cal_fin_19582016_L1_err"
   ),
-                            type = "temporal")
+  type = "temporal"
+)
 ```
 
 
@@ -173,10 +176,11 @@ More detailed metadata requires a further call to the server to a return an obje
 
 You can use `emdn_get_coverage_summaries()` to get `<WCSCoverageSummary>` objects for specific coverages.
 ```{r}
-summaries <- emdn_get_coverage_summaries(wcs,
-                                         coverage_ids = c(
-      "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-      "Emodnetbio__cal_fin_19582016_L1_err" 
+summaries <- emdn_get_coverage_summaries(
+  wcs,
+  coverage_ids = c(
+    "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+    "Emodnetbio__cal_fin_19582016_L1_err"
   )
 )
 

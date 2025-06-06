@@ -12,15 +12,15 @@ library(httptest)
 start_vignette("get-cov")
 ```
 
-EMODnetWCS provides functionalitly for downloading coverage data from EMODnet WCS services as `terra` [`<spatRaster>`](https://rspatial.github.io/terra/reference/SpatRaster-class.html) class objects. It also allows subsetting along coverage dimensions as well as requesting specific bands for download.
+emodnet.wcs provides functionalitly for downloading coverage data from EMODnet WCS services as `terra` [`<spatRaster>`](https://rspatial.github.io/terra/reference/SpatRaster-class.html) class objects. It also allows subsetting along coverage dimensions as well as requesting specific bands for download.
 
-For more details on extracting metadata to inform valid subsetting of coverages, please refer to the [Getting metadata about Services & Coverages](https://emodnet.github.io/EMODnetWCS/articles/metadata.html) article in the `EMODnetWCS` online documentation.
+For more details on extracting metadata to inform valid subsetting of coverages, please refer to the [Getting metadata about Services & Coverages](https://emodnet.github.io/emodnet.wcs/articles/metadata.html) article in the `emodnet.wcs` online documentation.
 
 
 The first step to downloading coverages is to initiate a connection with on of the EMODnet WCS servers.
 
 ```{r setup}
-library(EMODnetWCS)
+library(emodnet.wcs)
 ```
 
 
@@ -64,28 +64,23 @@ We can first check the bounding box of the full coverage to ensure the subset bo
 
 ```{r}
 cov_summary <- emdn_get_coverage_summaries(
-    wcs,
-    coverage_id
+  wcs,
+  coverage_id
 )[[1]]
-    
+
 emdn_get_bbox(cov_summary)
 ```
 
 We can then create a bounding ensuring it lies within the coverage's bounding box.
 ```{r}
-bbox <- c(xmin = 1.5, 
-          ymin = 53,
-          xmax = 6.5, 
-          ymax = 58)
+bbox <- c(xmin = 1.5, ymin = 53, xmax = 6.5, ymax = 58)
 ```
 
 
 Now we are ready to download the coverage and provide the bounding box we created to the `bbox` argument.
 
 ```{r}
-cov_1 <- emdn_get_coverage(wcs,
-                  coverage_id = coverage_id,
-                  bbox = bbox)
+cov_1 <- emdn_get_coverage(wcs, coverage_id = coverage_id, bbox = bbox)
 
 cov_1
 ```
@@ -105,10 +100,12 @@ emdn_get_band_nil_values(cov_summary)
 If you wish to encode nil values as `NA` during coverage download, you can use argument `nil_values_as_na`.
 
 ```{r}
-cov_nil_to_na <- emdn_get_coverage(wcs,
-                  coverage_id = coverage_id,
-                  bbox = bbox,
-                  nil_values_as_na = TRUE)
+cov_nil_to_na <- emdn_get_coverage(
+  wcs,
+  coverage_id = coverage_id,
+  bbox = bbox,
+  nil_values_as_na = TRUE
+)
 
 cov_nil_to_na
 ```
@@ -135,9 +132,10 @@ However we can request specific timepoints. First, let's get a list of all avail
 
 ```{r}
 temp_coefs <- emdn_get_coverage_dim_coefs(
-    wcs = wcs,
-    coverage_ids = coverage_id,
-    type = "temporal")
+  wcs = wcs,
+  coverage_ids = coverage_id,
+  type = "temporal"
+)
 ```
 
 Next, let's select the first 3 available timepoints.
@@ -148,11 +146,13 @@ timepoints
 
 We can request the specific timepoints by supplying our vector of timepoints to the `time` argument.
 ```{r}
-cov_2 <- emdn_get_coverage(wcs,
-                  coverage_id = coverage_id,
-                  bbox = bbox,
-                  time = timepoints,
-                  nil_values_as_na = TRUE)
+cov_2 <- emdn_get_coverage(
+  wcs,
+  coverage_id = coverage_id,
+  bbox = bbox,
+  time = timepoints,
+  nil_values_as_na = TRUE
+)
 ```
 
 ```{r}
@@ -179,12 +179,14 @@ emdn_get_band_descriptions(cov_summary)
 
 To download a specifc band we use the argument `rangesubset`:
 ```{r}
-emdn_get_coverage(wcs, 
-                  coverage_id = coverage_id,
-                  bbox = bbox,
-                  rangesubset = "Relative error",
-                  nil_values_as_na = TRUE) %>% 
-    terra::plot()
+emdn_get_coverage(
+  wcs,
+  coverage_id = coverage_id,
+  bbox = bbox,
+  rangesubset = "Relative error",
+  nil_values_as_na = TRUE
+) %>%
+  terra::plot()
 ```
 
 
@@ -196,17 +198,19 @@ When downloading data, underlying package `ows4R` uses the in-built [`WCSCoverag
 However, it is possible to override this as well as the location the file is written to by supplying a file path to argument `filename`.
 
 ```{r}
-emdn_get_coverage(wcs, 
-                  coverage_id = coverage_id,
-                  bbox = bbox,
-                  rangesubset = "Relative error",
-                  filename = "cal-fin_rel-error.tif")
+emdn_get_coverage(
+  wcs,
+  coverage_id = coverage_id,
+  bbox = bbox,
+  rangesubset = "Relative error",
+  filename = "cal-fin_rel-error.tif"
+)
 ```
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 fs::dir_ls(type = "file", glob = "*.tif") %>%
-    fs::file_delete()
+  fs::file_delete()
 ```
 
 

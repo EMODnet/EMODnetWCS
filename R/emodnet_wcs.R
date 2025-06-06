@@ -3,7 +3,7 @@
   utils::read.csv(
     system.file(
       "services.csv",
-      package = "EMODnetWCS"
+      package = "emodnet.wcs"
     )
   ) %>%
     tibble::as_tibble()
