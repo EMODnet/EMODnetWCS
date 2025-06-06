@@ -1,5 +1,5 @@
 ---
-title: "Get Started with EMODnetWCS"
+title: "Get Started with emodnet.wcs"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Getting Started}
@@ -30,7 +30,7 @@ The WCS standard is composed by three core requests, each with a particular purp
 2. `DescribeCoverage`: This request To provides more detailed information about a particular coverage.
 3. `GetCoverage`: This request that actually obtains coverage data.
 
-WCS requests are handled in `EMODnetWCS` through package [`ows4R`](https://eblondel.github.io/ows4R/). `ows4R` uses [`R6` classes](https://r6.r-lib.org/articles/Introduction.html) and implements an encapsulated object-oriented programming paradigm which may be unfamiliar to some R users. `EMODnetWCS` wraps `ows4R` and aims to provide more familiar workflows and return more familiar, usable and easy to review outputs. It also provides checks and validations to ensure smooth and easy interaction with EMODnet WCS services. You can however use `ows4R` with any of the EMODnet WCS endpoints if you prefer.
+WCS requests are handled in `emodnet.wcs` through package [`ows4R`](https://eblondel.github.io/ows4R/). `ows4R` uses [`R6` classes](https://r6.r-lib.org/articles/Introduction.html) and implements an encapsulated object-oriented programming paradigm which may be unfamiliar to some R users. `emodnet.wcs` wraps `ows4R` and aims to provide more familiar workflows and return more familiar, usable and easy to review outputs. It also provides checks and validations to ensure smooth and easy interaction with EMODnet WCS services. You can however use `ows4R` with any of the EMODnet WCS endpoints if you prefer.
 
 ## EMODnet WCS Services
 
@@ -41,7 +41,7 @@ The EMODnet portals provide a number of Web Coverage Services (WCS) to support r
 To view the available services and their endpoints, you can use `emdn_wcs()`
 
 ```{r setup}
-library(EMODnetWCS)
+library(emodnet.wcs)
 ```
 
 ```{r}
@@ -92,9 +92,9 @@ rm(wcs)
 wcs <- emdn_init_wcs_client("biology")
 ```
 
-However `EMODnetWCS` provides a host of functions for extracting/compiling useful metadata in a variety of forms as well downloading raster data from EMODnetWCS service which you will likely find easier to work with.
+However `emodnet.wcs` provides a host of functions for extracting/compiling useful metadata in a variety of forms as well downloading raster data from emodnet.wcs service which you will likely find easier to work with.
 
-Here are some examples of functionality provided by `EMODnetWCS`. For more details see the relevant vignette.
+Here are some examples of functionality provided by `emodnet.wcs`. For more details see the relevant vignette.
 
 ## Getting Metadata
 
@@ -107,9 +107,11 @@ emdn_get_wcs_info(wcs = wcs)
 Get more detailed coverage metadata about specific coverage. 
 
 ```{r}
-emdn_get_coverage_info(wcs, coverage_ids = c(
-      "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-      "Emodnetbio__cal_fin_19582016_L1_err" 
+emdn_get_coverage_info(
+  wcs,
+  coverage_ids = c(
+    "Emodnetbio__ratio_large_to_small_19582016_L1_err",
+    "Emodnetbio__cal_fin_19582016_L1_err"
   )
 )
 ```
@@ -120,24 +122,22 @@ The package offers a number of functions for extracting individual metadata in m
 emdn_get_coverage_ids(wcs)
 ```
 
-For more details, please refer to the [Getting metadata about Services & Coverages](https://emodnet.github.io/EMODnetWCS/articles/metadata.html) article in the `EMODnetWCS` online documentation.
+For more details, please refer to the [Getting metadata about Services & Coverages](https://emodnet.github.io/emodnet.wcs/articles/metadata.html) article in the `emodnet.wcs` online documentation.
 
 
 ## Downloading Coverages
 
-The package also provides a function to download full or subsets of coverages from EMODnetWCS services.
+The package also provides a function to download full or subsets of coverages from emodnet.wcs services.
 
 The following example downloads a spatial subset of a coverage using a bounding box.
 
 ```{r}
-cov <- emdn_get_coverage(wcs, 
-                  coverage_id = "Emodnetbio__cal_fin_19582016_L1_err",
-                  bbox = c(xmin = 0, 
-                           ymin = 40, 
-                           xmax = 5, 
-                           ymax = 45),
-                  nil_values_as_na = TRUE
-                  )
+cov <- emdn_get_coverage(
+  wcs,
+  coverage_id = "Emodnetbio__cal_fin_19582016_L1_err",
+  bbox = c(xmin = 0, ymin = 40, xmax = 5, ymax = 45),
+  nil_values_as_na = TRUE
+)
 
 cov
 ```
@@ -146,12 +146,12 @@ cov
 terra::plot(cov)
 ```
 
-For more details on downloading coverages, please refer to the [Download Coverages](https://emodnet.github.io/EMODnetWCS/articles/coverages.html) article in the `EMODnetWCS` online documentation.
+For more details on downloading coverages, please refer to the [Download Coverages](https://emodnet.github.io/emodnet.wcs/articles/coverages.html) article in the `emodnet.wcs` online documentation.
 
 
 ```{r, include=FALSE}
 fs::dir_ls(type = "file", glob = "*.tif") %>%
-   fs::file_delete()
+  fs::file_delete()
 ```
 
 

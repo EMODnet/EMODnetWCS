@@ -1,4 +1,4 @@
-url: https://emodnet.github.io/EMODnetWCS/
+url: https://emodnet.github.io/emodnet.wcs/
 template:
   bootstrap: 5
   bslib:

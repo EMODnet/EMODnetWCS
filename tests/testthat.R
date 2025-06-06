@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(EMODnetWCS)
+library(emodnet.wcs)
 
-test_check("EMODnetWCS")
+test_check("emodnet.wcs")
