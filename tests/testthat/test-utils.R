@@ -14,7 +14,7 @@ test_that("extent & crs processed correctly", {
   summary <- create_biology_summary()[[1]]
   with_mock_dir("bio-info", {
     bbox <- emdn_get_bbox(summary)
-    expect_equal(conc_bbox(bbox), "-180, -90, 180, 90")
+    expect_equal(conc_bbox(bbox), "-75.05, 34.95, 20.05, 75.05")
     expect_equal(extr_bbox_crs(summary)$input, "EPSG:4326")
   })
 })
@@ -104,46 +104,23 @@ test_that("rangeType processed correctly", {
     )
   })
 
-  summary <- create_physics_summary()[[1]]
+  summary <- create_biology_summary()[[1]]
   with_mock_dir("physics-info", {
     expect_equal(
       emdn_get_band_descriptions(summary),
-      structure(
-        c(
-          "RED_BAND",
-          "GREEN_BAND",
-          "BLUE_BAND"
-        ),
-        uom = c(
-          "W.m-2.Sr-1",
-          "W.m-2.Sr-1",
-          "W.m-2.Sr-1"
-        )
-      )
-    )
+      c("relative_abundance", uom = "W.m-2.Sr-1")
     expect_equal(
       emdn_get_band_uom(summary),
-      c(
-        RED_BAND = "W.m-2.Sr-1",
-        GREEN_BAND = "W.m-2.Sr-1",
-        BLUE_BAND = "W.m-2.Sr-1"
-      )
+      c(relative_abundance = "W.m-2.Sr-1")
     )
     expect_equal(
       emdn_get_band_nil_values(summary),
-      c(
-        RED_BAND = NA_real_,
-        GREEN_BAND = NA_real_,
-        BLUE_BAND = NA_real_
+      c(relative_abundance = 9.969209968386869e+36)LUE_BAND = NA_real_
       )
     )
     expect_equal(
       emdn_get_band_constraints(summary),
-      list(
-        RED_BAND = c(0, 255),
-        GREEN_BAND = c(0, 255),
-        BLUE_BAND = c(0, 255)
-      )
+      list(relative_abundance = c(-3.4028235e+38, 3.4028235e+38))
     )
   })
 })

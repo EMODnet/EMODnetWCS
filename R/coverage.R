@@ -115,6 +115,7 @@ emdn_get_coverage <- function(
     rangesubset_encoded <- NULL
     rangesubset <- emdn_get_band_descriptions(summary)
   }
+
   if (!is.null(time)) {
     validate_dimension_subset(
       wcs,
@@ -132,11 +133,10 @@ emdn_get_coverage <- function(
     )
   }
   check_cov_contains_bbox(summary, bbox, crs)
-
   cli::cli_rule(left = "Downloading coverage {.val {coverage_id}}")
 
   coverage_id <- validate_namespace(coverage_id)
-  browser()
+
   if (length(time) > 1 || length(elevation) > 1) {
     cov_raster <- summary$getCoverageStack(
       bbox = ows_bbox,
@@ -161,6 +161,7 @@ emdn_get_coverage <- function(
       rangesubset = rangesubset_encoded,
       filename = filename
     )
+
     cli::cli_text()
     cli::cli_alert_success(
       "\n Coverage {.val {coverage_id}} downloaded succesfully as a

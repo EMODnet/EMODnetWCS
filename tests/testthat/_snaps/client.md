@@ -4,7 +4,7 @@
       emdn_init_wcs_client("blop")
     Condition
       Error in `check_service_name()`:
-      ! Assertion on 'service' failed: Must be element of set {'bathymetry','biology','human_activities','physics','seabed_habitats'}, but is 'blop'.
+      ! Assertion on 'service' failed: Must be element of set {'bathymetry','biology','human_activities','seabed_habitats'}, but is 'blop'.
 
 # Error when wrong service version
 
