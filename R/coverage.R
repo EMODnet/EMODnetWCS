@@ -66,32 +66,36 @@
 #'   rangesubset = "Relative abundance"
 #' )
 #' }
-emdn_get_coverage <- function(wcs = NULL, service = NULL,
-                              coverage_id,
-                              service_version = c(
-                                "2.0.1", "2.1.0", "2.0.0",
-                                "1.1.1", "1.1.0"
-                              ),
-                              logger = c("NONE", "INFO", "DEBUG"),
-                              bbox = NULL, crs = NULL,
-                              time = NULL,
-                              elevation = NULL,
-                              format = NULL,
-                              rangesubset = NULL,
-                              filename = NULL,
-                              nil_values_as_na = FALSE) {
-  if (is.null(wcs) & is.null(service)) {
+emdn_get_coverage <- function(
+  wcs = NULL,
+  service = NULL,
+  coverage_id,
+  service_version = c(
+    "2.0.1",
+    "2.1.0",
+    "2.0.0",
+    "1.1.1",
+    "1.1.0"
+  ),
+  logger = c("NONE", "INFO", "DEBUG"),
+  bbox = NULL,
+  crs = NULL,
+  time = NULL,
+  elevation = NULL,
+  format = NULL,
+  rangesubset = NULL,
+  filename = NULL,
+  nil_values_as_na = FALSE
+) {
+  if (is.null(wcs) && is.null(service)) {
     cli::cli_abort(c(
-      "x" =
-        "Please provide a valid {.var service}
+      "x" = "Please provide a valid {.var service}
         name or {.cls WCSClient} object to {.var wcs}.
         Both cannot be {.val NULL}"
     ))
   }
 
-  if (is.null(wcs)) {
-    wcs <- emdn_init_wcs_client(service, service_version, logger)
-  }
+  wcs <- wcs %||% emdn_init_wcs_client(service, service_version, logger)
 
   check_wcs(wcs)
   check_wcs_version(wcs)
@@ -112,14 +116,16 @@ emdn_get_coverage <- function(wcs = NULL, service = NULL,
     rangesubset <- emdn_get_band_descriptions(summary)
   }
   if (!is.null(time)) {
-    validate_dimension_subset(wcs,
+    validate_dimension_subset(
+      wcs,
       coverage_id,
       type = "temporal",
       subset = time
     )
   }
   if (!is.null(elevation)) {
-    validate_dimension_subset(wcs,
+    validate_dimension_subset(
+      wcs,
       coverage_id,
       type = "vertical",
       subset = elevation
@@ -130,11 +136,8 @@ emdn_get_coverage <- function(wcs = NULL, service = NULL,
   cli::cli_rule(left = "Downloading coverage {.val {coverage_id}}")
 
   coverage_id <- validate_namespace(coverage_id)
-
+  browser()
   if (length(time) > 1 || length(elevation) > 1) {
-
-    # TODO - uncomment crs when https://github.com/eblondel/ows4R/issues/90
-    # is resolved
     cov_raster <- summary$getCoverageStack(
       bbox = ows_bbox,
       crs = crs,
@@ -164,7 +167,6 @@ emdn_get_coverage <- function(wcs = NULL, service = NULL,
         {.pkg terra} {.cls SpatRaster}"
     )
   }
-
 
   if (nil_values_as_na) {
     # convert nil_values to NA
@@ -204,9 +206,7 @@ conv_nil_to_na <- function(cov_raster, summary, rangesubset) {
 
   # If nil_values differ between bands, replace nil_values individually.
   n_bands <- terra::nlyr(cov_raster)
-  nil_values <- rep(nil_values,
-    times = n_bands / length(nil_values)
-  )
+  nil_values <- rep(nil_values, times = n_bands / length(nil_values))
 
   for (band_idx in 1:n_bands) {
     nil_value <- nil_values[[band_idx]]
