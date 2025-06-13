@@ -18,7 +18,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) [![CRAN status](https://www.r-pkg.org/badges/version/emodnet.wcs)](https://CRAN.R-project.org/package=emodnet.wcs) [![R-CMD-check](https://github.com/EMODnet/emodnet.wcs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EMODnet/emodnet.wcs/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/EMODnet/emodnet.wcs/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EMODnet/emodnet.wcs?branch=master)
-
+[![Codecov test coverage](https://codecov.io/gh/EMODnet/emodnet.wcs/graph/badge.svg)](https://app.codecov.io/gh/EMODnet/emodnet.wcs)
+[![R-CMD-check](https://github.com/EMODnet/emodnet.wcs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EMODnet/emodnet.wcs/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of emodnet.wcs is to allow interrogation of and access to EMODnet geographic raster data in R though the [EMODnet Web Coverage Services](https://github.com/EMODnet/Web-Service-Documentation#web-coverage-service-wcs).
