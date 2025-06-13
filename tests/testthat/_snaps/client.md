@@ -38,6 +38,8 @@
     Message
       i HTTP Status: Server error: (500) Internal Server Error
       
+      * Browse the EMODnet OGC monitor for more info on the status of the services by
+      visiting <https://monitor.emodnet.eu/resources?lang=en&resource_type=OGC:WCS>
     Condition
       Error in `check_service()`:
       ! Service creation failed
