@@ -12,6 +12,7 @@ status](https://www.r-pkg.org/badges/version/emodnet.wcs)](https://CRAN.R-projec
 [![R-CMD-check](https://github.com/EMODnet/emodnet.wcs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EMODnet/emodnet.wcs/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/EMODnet/emodnet.wcs/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EMODnet/emodnet.wcs?branch=master)
+
 <!-- badges: end -->
 
 The goal of emodnet.wcs is to allow interrogation of and access to
@@ -20,7 +21,7 @@ Services](https://github.com/EMODnet/Web-Service-Documentation#web-coverage-serv
 See below for available Services. This package was developed by
 Sheffield University as part of EMODnet Biology WP4.
 
-[Web Coverage services (WCS)](https://www.ogc.org/standards/wcs) is a
+[Web Coverage services (WCS)](https://www.ogc.org/standards/wcs)is a
 standard created by the OGC that refers to the receiving of geospatial
 information as ‘coverages’: digital geospatial information representing
 space-varying phenomena. One can think of it as Web Feature Service
@@ -71,7 +72,7 @@ View(emdn_wcs())
 
 ## Create Service Client
 
-Create new WCS Client. Specify the service using the `service` argument.
+Create new WCS Client. Specify the service using the`service` argument.
 
 ``` r
 wcs <- emdn_init_wcs_client(service = "biology")
@@ -260,7 +261,7 @@ cov <- emdn_get_coverage(
   bbox = c(xmin = 0, ymin = 40, xmax = 5, ymax = 45),
   nil_values_as_na = TRUE
 )
-#> ── Downloading coverage "Emodnetbio__aca_spp_19582016_L1" ───────────────────────────────────────────
+#> ── Downloading coverage "Emodnetbio__aca_spp_19582016_L1" ────────────────────────────────────────
 #> <GMLEnvelope>
 #> ....|-- lowerCorner: 40 0 "1958-02-16T01:00:00"
 #> ....|-- upperCorner: 45 5 "2016-11-16T01:00:00"
@@ -301,7 +302,7 @@ To cite emodnet.wcs, please use the output from
 citation(package = "emodnet.wcs")
 #> To cite package 'emodnet.wcs' in publications use:
 #> 
-#>   Krystalli A (2022). _emodnet.wcs: Access EMODnet Web Coverage Service
+#>   Krystalli A (????). _emodnet.wcs: Access EMODnet Web Coverage Service
 #>   data through R_. R package version 0.0.0.9012. Integrated data
 #>   products created under the European Marine Observation Data Network
 #>   (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013),
@@ -315,7 +316,6 @@ citation(package = "emodnet.wcs")
 #>   @Manual{,
 #>     title = {{emodnet.wcs}: Access EMODnet Web Coverage Service data through R},
 #>     author = {Anna Krystalli},
-#>     year = {2022},
 #>     note = {R package version 0.0.0.9012. Integrated data products created under the European Marine Observation Data Network (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013), funded by the European Union under Regulation (EU) No 508/2014 of the European Parliament and of the Council of 15 May 2014 on the European Maritime and Fisheries Fund},
 #>     url = {https://github.com/EMODnet/emodnet.wcs},
 #>   }

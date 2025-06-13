@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r setup, include = FALSE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -16,28 +16,34 @@ knitr::opts_chunk$set(
 # emodnet.wcs
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/emodnet.wcs)](https://CRAN.R-project.org/package=emodnet.wcs)
-[![R-CMD-check](https://github.com/EMODnet/emodnet.wcs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EMODnet/emodnet.wcs/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/EMODnet/emodnet.wcs/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EMODnet/emodnet.wcs?branch=master)
+
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) [![CRAN status](https://www.r-pkg.org/badges/version/emodnet.wcs)](https://CRAN.R-project.org/package=emodnet.wcs) [![R-CMD-check](https://github.com/EMODnet/emodnet.wcs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EMODnet/emodnet.wcs/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/EMODnet/emodnet.wcs/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EMODnet/emodnet.wcs?branch=master)
+
 <!-- badges: end -->
 
+The goal of emodnet.wcs is to allow interrogation of and access to EMODnet geographic raster data in R though the [EMODnet Web Coverage Services](https://github.com/EMODnet/Web-Service-Documentation#web-coverage-service-wcs).
+See below for available Services.
+This package was developed by Sheffield University as part of EMODnet Biology WP4.
 
-The goal of emodnet.wcs is to allow interrogation of and access to EMODnet geographic raster data in R though the [EMODnet Web Coverage Services](https://github.com/EMODnet/Web-Service-Documentation#web-coverage-service-wcs). See below for available Services. This package was developed by Sheffield University as part of EMODnet Biology WP4.
+[Web Coverage services (WCS)](https://www.ogc.org/standards/wcs)is a standard created by the OGC that refers to the receiving of geospatial information as 'coverages': digital geospatial information representing space-varying phenomena.
+One can think of it as Web Feature Service (WFS) for raster data.
+It gets the 'source code' of the map, but in this case it's not raw vectors but raw imagery.
 
-[Web Coverage services (WCS)](https://www.ogc.org/standards/wcs) is a standard created by the OGC that refers to the receiving of geospatial information as ‘coverages’: digital geospatial information representing space-varying phenomena. One can think of it as Web Feature Service (WFS) for raster data. It gets the ‘source code’ of the map, but in this case it's not raw vectors but raw imagery.
-
-An important distinction must be made between WCS and Web Map Service (WMS). They are similar, and can return similar formats, but a WCS is able to return more information, including valuable metadata and more formats. It additionally allows more precise queries, potentially against multi-dimensional backend formats.
+An important distinction must be made between WCS and Web Map Service (WMS).
+They are similar, and can return similar formats, but a WCS is able to return more information, including valuable metadata and more formats.
+It additionally allows more precise queries, potentially against multi-dimensional backend formats.
 
 ## Installation
 
 You can install the development version of emodnet.wcs from GitHub with:
 
-``` r
+```r
 # install.packages("pak")
 pak::pak("EMODnet/emodnet.wcs")
 ```
-Load the library 
+
+Load the library
+
 ```{r load-lib}
 library(emodnet.wcs)
 ```
@@ -45,7 +51,6 @@ library(emodnet.wcs)
 ## Available services
 
 All available services are contained in the tibble returned by `emdn_wcs()`.
-
 
 ```{r services, echo=FALSE}
 
@@ -58,15 +63,14 @@ To explore available services in your R session use:
 View(emdn_wcs())
 ```
 
-
 ## Create Service Client
 
-Create new WCS Client.  Specify the service using the `service` argument. 
+Create new WCS Client.
+Specify the service using the`service` argument.
 
 ```{r wcs-init}
 wcs <- emdn_init_wcs_client(service = "biology")
 ```
-
 
 ## Get metadata about a WCS service and available coverages
 
@@ -82,7 +86,7 @@ Info can also be extracted using a service name instead of a `WCSClient` object.
 emdn_get_wcs_info(service = "biology")
 ```
 
-Get more detailed coverage metadata about specific coverage. 
+Get more detailed coverage metadata about specific coverage.
 
 ```{r wcs-info-coverage}
 emdn_get_coverage_info(
@@ -91,9 +95,8 @@ emdn_get_coverage_info(
 )
 ```
 
-
-> **Note** 
->
+> **Note**
+> 
 > To minimize the number of requests sent to webservices, these functions use [`memoise`](https://memoise.r-lib.org/) to cache results inside the active R session.
 > To clear the cache, re-start R or run `memoise::forget(emdn_get_wcs_info)`/`memoise::forget(emdn_get_coverage_info)`
 
@@ -103,8 +106,7 @@ The package also offers a number of functions for extracting individual metadata
 emdn_get_coverage_ids(wcs)
 ```
 
-For more details, please refer to the [Getting metadata about Services & Coverages](https://emodnet.github.io/emodnet.wcs/articles/metadata.html) article in the `emodnet.wcs` online documentation.
-
+For more details, please refer to the [Getting metadata about Services \& Coverages](https://emodnet.github.io/emodnet.wcs/articles/metadata.html) article in the `emodnet.wcs` online documentation.
 
 ## Downloading Coverages
 
@@ -129,12 +131,10 @@ terra::plot(cov)
 
 For more details on downloading coverages, please refer to the [Download Coverages](https://emodnet.github.io/emodnet.wcs/articles/coverages.html) article in the `emodnet.wcs` online documentation.
 
-
 ```{r, include=FALSE}
 fs::dir_ls(type = "file", glob = "*.tif") %>%
   fs::file_delete()
 ```
-
 
 ## Citation
 
@@ -144,8 +144,9 @@ To cite emodnet.wcs, please use the output from `citation(package = "emodnet.wcs
 citation(package = "emodnet.wcs")
 ```
 
-
-
 ## Code of Conduct
 
-Please note that the emodnet.wcs project is released with a [Contributor Code of Conduct](https://emodnet.github.io/emodnet.wcs/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the emodnet.wcs project is released with a [Contributor Code of Conduct](https://emodnet.github.io/emodnet.wcs/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+
