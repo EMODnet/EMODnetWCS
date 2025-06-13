@@ -49,4 +49,3 @@ Depends:
     R (>= 3.3.0)
 LazyData: true
 VignetteBuilder: knitr
-Date: 2022-09-29
