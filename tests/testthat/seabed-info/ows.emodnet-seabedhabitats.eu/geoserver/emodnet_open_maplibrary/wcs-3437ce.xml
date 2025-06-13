@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><wcs:CoverageDescriptions xmlns:wcs="http://www.opengis.net/wcs/2.0" xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gmlcov="http://www.opengis.net/gmlcov/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:wcsgs="http://www.geoserver.org/wcsgs/2.0" xsi:schemaLocation=" http://www.opengis.net/wcs/2.0 http://schemas.opengis.net/wcs/2.0/wcsDescribeCoverage.xsd http://www.geoserver.org/wcsgs/2.0 https://ows.emodnet-seabedhabitats.eu/geoserver/schemas/wcs/2.0/wcsgs.xsd">
+  <wcs:CoverageDescription gml:id="emodnet_open_maplibrary__PT004005">
+    <gml:description>Generated from GeoTIFF</gml:description>
+    <gml:name>[PT004005] Persistence index of juveniles of Parapenaeus longirostris in the Portuguese continental coast</gml:name>
+    <gml:boundedBy>
+      <gml:Envelope srsName="http://www.opengis.net/def/crs/EPSG/0/4258" axisLabels="Lat Long" uomLabels="Deg Deg" srsDimension="2">
+        <gml:lowerCorner>36.745000001 -10.0283</gml:lowerCorner>
+        <gml:upperCorner>40.175000001 -7.4233</gml:upperCorner>
+      </gml:Envelope>
+    </gml:boundedBy>
+    <wcs:CoverageId>emodnet_open_maplibrary__PT004005</wcs:CoverageId>
+    <gml:coverageFunction>
+      <gml:GridFunction>
+        <gml:sequenceRule axisOrder="+2 +1">Linear</gml:sequenceRule>
+        <gml:startPoint>0 0</gml:startPoint>
+      </gml:GridFunction>
+    </gml:coverageFunction>
+    <gmlcov:metadata>
+      <gmlcov:Extension>
+        <ows:Keywords>
+          <ows:Keyword>PT004005</ows:Keyword>
+          <ows:Keyword>WCS</ows:Keyword>
+          <ows:Keyword>GeoTIFF</ows:Keyword>
+          <ows:Keyword>External</ows:Keyword>
+          <ows:Keyword>Habitats - essential fish habitats - collection of models</ows:Keyword>
+        </ows:Keywords>
+        <ows:Metadata xlink:type="simple" xlink:href="http://gis.ices.dk/geonetwork/emodnet-seabedhabitats/eng/catalog.search#/metadata/662837d1-967a-485e-93b3-b71a7b16968b"/>
+        <ows:Metadata xlink:type="simple" xlink:href="http://gis.ices.dk/geonetwork/emodnet-seabedhabitats/api/records/662837d1-967a-485e-93b3-b71a7b16968b/formatters/xml"/>
+      </gmlcov:Extension>
+    </gmlcov:metadata>
+    <gml:domainSet>
+      <gml:RectifiedGrid gml:id="grid00__emodnet_open_maplibrary__PT004005" dimension="2">
+        <gml:limits>
+          <gml:GridEnvelope>
+            <gml:low>0 0</gml:low>
+            <gml:high>520 685</gml:high>
+          </gml:GridEnvelope>
+        </gml:limits>
+        <gml:axisLabels>i j</gml:axisLabels>
+        <gml:origin>
+          <gml:Point gml:id="p00_emodnet_open_maplibrary__PT004005" srsName="http://www.opengis.net/def/crs/EPSG/0/4258">
+            <gml:pos>40.172500001 -10.0258</gml:pos>
+          </gml:Point>
+        </gml:origin>
+        <gml:offsetVector srsName="http://www.opengis.net/def/crs/EPSG/0/4258">0.0 0.004999999999999999</gml:offsetVector>
+        <gml:offsetVector srsName="http://www.opengis.net/def/crs/EPSG/0/4258">-0.004999999999999999 0.0</gml:offsetVector>
+      </gml:RectifiedGrid>
+    </gml:domainSet>
+    <gmlcov:rangeType>
+      <swe:DataRecord xmlns:swe="http://www.opengis.net/swe/2.0">
+        <swe:field name="GRAY_INDEX">
+          <swe:Quantity>
+            <swe:description>GRAY_INDEX</swe:description>
+            <swe:nilValues>
+              <swe:NilValues>
+                <swe:nilValue reason="http://www.opengis.net/def/nil/OGC/0/unknown">-3.4028234663852886E38</swe:nilValue>
+              </swe:NilValues>
+            </swe:nilValues>
+            <swe:uom code="W.m-2.Sr-1"/>
+            <swe:constraint>
+              <swe:AllowedValues>
+                <swe:interval>-3.4028235E38 3.4028235E38</swe:interval>
+              </swe:AllowedValues>
+            </swe:constraint>
+          </swe:Quantity>
+        </swe:field>
+      </swe:DataRecord>
+    </gmlcov:rangeType>
+    <wcs:ServiceParameters>
+      <wcs:CoverageSubtype>RectifiedGridCoverage</wcs:CoverageSubtype>
+      <wcs:nativeFormat>image/tiff</wcs:nativeFormat>
+    </wcs:ServiceParameters>
+  </wcs:CoverageDescription>
+</wcs:CoverageDescriptions>
