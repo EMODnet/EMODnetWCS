@@ -38,8 +38,8 @@ against multi-dimensional backend formats.
 You can install the development version of emodnet.wcs from GitHub with:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("EMODnet/emodnet.wcs")
+# install.packages("pak")
+pak::pak("EMODnet/emodnet.wcs")
 ```
 
 Load the library
@@ -47,7 +47,8 @@ Load the library
 ``` r
 library(emodnet.wcs)
 #> Loading ISO 19139 XML schemas...
-#> Loading ISO 19115 codelists...
+#> Loading ISO 19115-3 XML schemas...
+#> Loading ISO 19139 codelists...
 ```
 
 ## Available services
@@ -60,10 +61,9 @@ All available services are contained in the tibble returned by
 | bathymetry       | <https://ows.emodnet-bathymetry.eu/wcs>                                       |
 | biology          | <https://geo.vliz.be/geoserver/Emodnetbio/wcs>                                |
 | human_activities | <https://ows.emodnet-humanactivities.eu/wcs>                                  |
-| physics          | <https://geoserver.emodnet-physics.eu/geoserver/wcs>                          |
 | seabed_habitats  | <https://ows.emodnet-seabedhabitats.eu/geoserver/emodnet_open_maplibrary/wcs> |
 
-To explore available services in Rstudio use:
+To explore available services in your R session use:
 
 ``` r
 View(emdn_wcs())
@@ -76,7 +76,7 @@ Create new WCS Client. Specify the service using the `service` argument.
 ``` r
 wcs <- emdn_init_wcs_client(service = "biology")
 #> ✔ WCS client created succesfully
-#> ℹ Service: <]8;;https://geo.vliz.be/geoserver/Emodnetbio/wcshttps://geo.vliz.be/geoserver/Emodnetbio/wcs]8;;>
+#> ℹ Service: <https://geo.vliz.be/geoserver/Emodnetbio/wcs>
 #> ℹ Service: "2.0.1"
 ```
 
@@ -88,7 +88,17 @@ easy review by supplying a `WCSClient` object to `emdn_get_wcs_info`.
 ``` r
 emdn_get_wcs_info(wcs)
 #> Loading required package: sf
-#> Linking to GEOS 3.10.2, GDAL 3.4.2, PROJ 8.2.1; sf_use_s2() is TRUE
+#> Linking to GEOS 3.12.2, GDAL 3.10.3, PROJ 9.4.1; sf_use_s2() is FALSE
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
 #> $data_source
 #> [1] "emodnet_wcs"
 #> 
@@ -115,20 +125,19 @@ emdn_get_wcs_info(wcs)
 #> 
 #> $coverage_details
 #> # A tibble: 10 × 9
-#>    coverage_id        dim_n dim_n…¹ extent crs   wgs84…² tempo…³ verti…⁴ subtype
-#>    <chr>              <int> <chr>   <chr>  <chr> <chr>   <chr>   <chr>   <chr>  
-#>  1 Emodnetbio__ratio…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  2 Emodnetbio__aca_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  3 Emodnetbio__cal_f…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  4 Emodnetbio__cal_h…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  5 Emodnetbio__met_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  6 Emodnetbio__oit_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  7 Emodnetbio__tem_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  8 Emodnetbio__chli_…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  9 Emodnetbio__tot_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#> 10 Emodnetbio__tot_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#> # … with abbreviated variable names ¹​dim_names, ²​wgs84_bbox, ³​temporal_extent,
-#> #   ⁴​vertical_extent
+#>    coverage_id           dim_n dim_names extent crs   wgs84_bbox temporal_extent
+#>    <chr>                 <int> <chr>     <chr>  <chr> <chr>      <chr>          
+#>  1 Emodnetbio__ratio_la…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  2 Emodnetbio__aca_spp_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  3 Emodnetbio__cal_fin_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  4 Emodnetbio__cal_hel_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  5 Emodnetbio__met_luc_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  6 Emodnetbio__oit_spp_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  7 Emodnetbio__tem_lon_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  8 Emodnetbio__chli_195…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  9 Emodnetbio__tot_lar_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#> 10 Emodnetbio__tot_sma_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#> # ℹ 2 more variables: vertical_extent <chr>, subtype <chr>
 ```
 
 Info can also be extracted using a service name instead of a `WCSClient`
@@ -137,8 +146,18 @@ object.
 ``` r
 emdn_get_wcs_info(service = "biology")
 #> ✔ WCS client created succesfully
-#> ℹ Service: <]8;;https://geo.vliz.be/geoserver/Emodnetbio/wcshttps://geo.vliz.be/geoserver/Emodnetbio/wcs]8;;>
+#> ℹ Service: <https://geo.vliz.be/geoserver/Emodnetbio/wcs>
 #> ℹ Service: "2.0.1"
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
 #> $data_source
 #> [1] "emodnet_wcs"
 #> 
@@ -165,37 +184,37 @@ emdn_get_wcs_info(service = "biology")
 #> 
 #> $coverage_details
 #> # A tibble: 10 × 9
-#>    coverage_id        dim_n dim_n…¹ extent crs   wgs84…² tempo…³ verti…⁴ subtype
-#>    <chr>              <int> <chr>   <chr>  <chr> <chr>   <chr>   <chr>   <chr>  
-#>  1 Emodnetbio__ratio…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  2 Emodnetbio__aca_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  3 Emodnetbio__cal_f…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  4 Emodnetbio__cal_h…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  5 Emodnetbio__met_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  6 Emodnetbio__oit_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  7 Emodnetbio__tem_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  8 Emodnetbio__chli_…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#>  9 Emodnetbio__tot_l…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#> 10 Emodnetbio__tot_s…     3 lat(de… -75.0… EPSG… -75.05… 1958-0… NA      Rectif…
-#> # … with abbreviated variable names ¹​dim_names, ²​wgs84_bbox, ³​temporal_extent,
-#> #   ⁴​vertical_extent
+#>    coverage_id           dim_n dim_names extent crs   wgs84_bbox temporal_extent
+#>    <chr>                 <int> <chr>     <chr>  <chr> <chr>      <chr>          
+#>  1 Emodnetbio__ratio_la…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  2 Emodnetbio__aca_spp_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  3 Emodnetbio__cal_fin_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  4 Emodnetbio__cal_hel_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  5 Emodnetbio__met_luc_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  6 Emodnetbio__oit_spp_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  7 Emodnetbio__tem_lon_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  8 Emodnetbio__chli_195…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#>  9 Emodnetbio__tot_lar_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#> 10 Emodnetbio__tot_sma_…     3 lat(deg)… -75.0… EPSG… -75.05, 3… 1958-02-16T01:…
+#> # ℹ 2 more variables: vertical_extent <chr>, subtype <chr>
 ```
 
 Get more detailed coverage metadata about specific coverage.
 
 ``` r
-emdn_get_coverage_info(wcs, 
-                       coverage_ids = "Emodnetbio__cal_fin_19582016_L1_err")
+emdn_get_coverage_info(
+  wcs,
+  coverage_ids = "Emodnetbio__aca_spp_19582016_L1"
+)
 #> # A tibble: 1 × 21
-#>   data_s…¹ servi…² servi…³ cover…⁴ band_…⁵ band_…⁶ const…⁷ nil_v…⁸ dim_n dim_n…⁹
-#>   <chr>    <chr>   <chr>   <chr>   <chr>   <chr>   <chr>     <dbl> <int> <chr>  
-#> 1 emodnet… https:… biology Emodne… Relati… W.m-2.… -3.402… 9.97e36     3 lat(de…
-#> # … with 11 more variables: grid_size <chr>, resolution <chr>, extent <chr>,
+#>   data_source service_name     service_url coverage_id band_description band_uom
+#>   <chr>       <chr>            <chr>       <chr>       <chr>            <chr>   
+#> 1 emodnet_wcs https://geo.vli… biology     Emodnetbio… relative_abunda… W.m-2.S…
+#> # ℹ 15 more variables: constraint <chr>, nil_value <dbl>, dim_n <int>,
+#> #   dim_names <chr>, grid_size <chr>, resolution <chr>, extent <chr>,
 #> #   crs <chr>, wgs84_extent <chr>, temporal_extent <chr>,
 #> #   vertical_extent <chr>, subtype <chr>, fn_seq_rule <chr>,
-#> #   fn_start_point <chr>, fn_axis_order <chr>, and abbreviated variable names
-#> #   ¹​data_source, ²​service_name, ³​service_url, ⁴​coverage_id, ⁵​band_description,
-#> #   ⁶​band_uom, ⁷​constraint, ⁸​nil_value, ⁹​dim_names
+#> #   fn_start_point <chr>, fn_axis_order <chr>
 ```
 
 > **Note**
@@ -235,33 +254,32 @@ The following example downloads a spatial subset of a coverage using a
 bounding box.
 
 ``` r
-cov <- emdn_get_coverage(wcs, 
-                  coverage_id = "Emodnetbio__cal_fin_19582016_L1_err",
-                  bbox = c(xmin = 0, 
-                           ymin = 40, 
-                           xmax = 5, 
-                           ymax = 45),
-                  nil_values_as_na = TRUE
-                  )
-#> ── Downloading coverage "Emodnetbio__cal_fin_19582016_L1_err" ──────────────────
+cov <- emdn_get_coverage(
+  wcs,
+  coverage_id = "Emodnetbio__aca_spp_19582016_L1",
+  bbox = c(xmin = 0, ymin = 40, xmax = 5, ymax = 45),
+  nil_values_as_na = TRUE
+)
+#> ── Downloading coverage "Emodnetbio__aca_spp_19582016_L1" ───────────────────────────────────────────
 #> <GMLEnvelope>
-#> ....|-- lowerCorner: 40 0 "1958-02-16T00:00:00"
-#> ....|-- upperCorner: 45 5 "2016-11-16T00:00:00"
+#> ....|-- lowerCorner: 40 0 "1958-02-16T01:00:00"
+#> ....|-- upperCorner: 45 5 "2016-11-16T01:00:00"
 #> 
-#> ✔ Coverage "Emodnetbio__cal_fin_19582016_L1_err" downloaded succesfully as a
-#> terra <SpatRaster>
+#> ✔ Coverage "Emodnetbio__aca_spp_19582016_L1" downloaded succesfully as a
+#>        terra <SpatRaster>
 #> ✔ nil values 9.96920996838687e+36 converted to NA on all bands.
 
 cov
 #> class       : SpatRaster 
-#> dimensions  : 50, 49, 2  (nrow, ncol, nlyr)
+#> size        : 50, 50, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
-#> extent      : 0.05, 4.95, 40.05, 45.05  (xmin, xmax, ymin, ymax)
+#> extent      : 0.05, 5.05, 39.95, 44.95  (xmin, xmax, ymin, ymax)
 #> coord. ref. : lon/lat WGS 84 (EPSG:4326) 
-#> source      : memory 
-#> names       : Emodnetbio__cal~_00_40,0,45,5_1, Emodnetbio__cal~_00_40,0,45,5_2 
-#> min values  :                             NaN,                       0.9999981 
-#> max values  :                             NaN,                       0.9999999
+#> source(s)   : memory
+#> varname     : Emodnetbio__aca_spp_19582016_L1_2016-11-16T01_00_00_40,0,45,5 
+#> name        : Emodnetbio__aca_spp_19582016_L1_2016-11-16T01_00_00_40,0,45,5 
+#> min value   :                                                           NaN 
+#> max value   :                                                           NaN
 ```
 
 ``` r
@@ -281,7 +299,6 @@ To cite emodnet.wcs, please use the output from
 
 ``` r
 citation(package = "emodnet.wcs")
-#> 
 #> To cite package 'emodnet.wcs' in publications use:
 #> 
 #>   Krystalli A (2022). _emodnet.wcs: Access EMODnet Web Coverage Service
@@ -290,7 +307,8 @@ citation(package = "emodnet.wcs")
 #>   (EMODnet) Biology project (EASME/EMFF/2017/1.3.1.2/02/SI2.789013),
 #>   funded by the European Union under Regulation (EU) No 508/2014 of the
 #>   European Parliament and of the Council of 15 May 2014 on the European
-#>   Maritime and Fisheries Fund, <https://github.com/EMODnet/emodnet.wcs>.
+#>   Maritime and Fisheries Fund,
+#>   <https://github.com/EMODnet/emodnet.wcs>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
