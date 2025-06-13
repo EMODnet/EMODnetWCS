@@ -188,7 +188,7 @@ emdn_get_band_descriptions(cov_summary)
 ```
 
 To download a specifc band we use the argument `rangesubset`:
-```{r}
+```{r, eval=FALSE}
 #| cassette: get-subset
 emdn_get_coverage(
   wcs,
