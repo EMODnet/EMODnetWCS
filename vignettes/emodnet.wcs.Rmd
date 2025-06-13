@@ -12,9 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-
-library(httptest)
-start_vignette("get-started")
+vcr::setup_knitr()
 ```
 
 ## WCS Basics
@@ -34,7 +32,8 @@ The WCS standard is composed by three core requests, each with a particular purp
 2. `DescribeCoverage`: This request To provides more detailed information about a particular coverage.
 3. `GetCoverage`: This request that actually obtains coverage data.
 
-WCS requests are handled in `emodnet.wcs` through package [`ows4R`](https://eblondel.github.io/ows4R/). `ows4R` uses [`R6` classes](https://r6.r-lib.org/articles/Introduction.html) and implements an encapsulated object-oriented programming paradigm which may be unfamiliar to some R users. `emodnet.wcs` wraps `ows4R`and aims to provide more familiar workflows and return more familiar, usable and easy to review outputs.
+WCS requests are handled in `emodnet.wcs` through package [`ows4R`](https://eblondel.github.io/ows4R/). 
+`ows4R` uses [`R6` classes](https://r6.r-lib.org/articles/Introduction.html) and implements an encapsulated object-oriented programming paradigm which may be unfamiliar to some R users. `emodnet.wcs` wraps `ows4R`and aims to provide more familiar workflows and return more familiar, usable and easy to review outputs.
 It also provides checks and validations to ensure smooth and easy interaction with EMODnet WCS services.
 You can however use`ows4R` with any of the EMODnet WCS endpoints if you prefer.
 
@@ -51,6 +50,7 @@ library(emodnet.wcs)
 ```
 
 ```{r}
+#| cassette: info
 emdn_wcs()
 ```
 
@@ -62,6 +62,7 @@ Before we can make requests to any of the services, we first need to create new 
 We specify the service we want to connect to using the`service` argument.
 
 ```{r}
+#| cassette: bio
 wcs <- emdn_init_wcs_client("biology")
 ```
 
@@ -77,6 +78,7 @@ There are 3 levels of potential logging:
 The following example sets the logger to `"DEBUG"`.
 
 ```{r}
+#| cassette: bio-debug
 wcs <- emdn_init_wcs_client("biology", logger = "DEBUG")
 ```
 
@@ -95,7 +97,7 @@ wcs$loggerType
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-rm(wcs)
+#| cassette: bio
 wcs <- emdn_init_wcs_client("biology")
 ```
 
@@ -109,24 +111,24 @@ For more details see the relevant vignette.
 Get service level and a subset of coverage level metadata, compiled for easy review.
 
 ```{r}
+#| cassette: bio-info
 emdn_get_wcs_info(wcs = wcs)
 ```
 
 Get more detailed coverage metadata about specific coverage.
 
 ```{r}
+#| cassette: coverage-info
 emdn_get_coverage_info(
   wcs,
-  coverage_ids = c(
-    "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-    "Emodnetbio__cal_fin_19582016_L1_err"
-  )
+  coverage_ids = "Emodnetbio__cal_fin_19582016_L1_err"
 )
 ```
 
 The package offers a number of functions for extracting individual metadata in more usable forms. e.g.
 
 ```{r}
+#| cassette: coverage-ids
 emdn_get_coverage_ids(wcs)
 ```
 
@@ -139,11 +141,17 @@ The package also provides a function to download full or subsets of coverages fr
 The following example downloads a spatial subset of a coverage using a bounding box.
 
 ```{r}
+#| cassette: name
+coverage_id <- "Emodnetbio__cal_fin_19582016_L1_err"
 cov <- emdn_get_coverage(
   wcs,
-  coverage_id = "Emodnetbio__cal_fin_19582016_L1_err",
-  bbox = c(xmin = 0, ymin = 40, xmax = 5, ymax = 45),
-  nil_values_as_na = TRUE
+  coverage_id = coverage_id,
+  bbox = c(
+    xmin = 0,
+    ymin = 40,
+    xmax = 5,
+    ymax = 45
+  )
 )
 
 cov
@@ -160,8 +168,5 @@ fs::dir_ls(type = "file", glob = "*.tif") %>%
   fs::file_delete()
 ```
 
-```{r gs-stop-recording, include=FALSE}
-end_vignette()
-```
 
 
