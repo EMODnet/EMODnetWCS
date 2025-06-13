@@ -12,10 +12,8 @@
 #' @export
 #'
 #' @seealso `WCSClient` in package `ows4R`.
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' wcs <- emdn_init_wcs_client(service = "bathymetry")
-#' }
 emdn_init_wcs_client <- function(
   service,
   service_version = c(
@@ -30,7 +28,9 @@ emdn_init_wcs_client <- function(
   check_service_name(service)
   service_version <- match.arg(service_version)
   logger <- match.arg(logger)
-  if (logger == "NONE") logger <- NULL
+  if (logger == "NONE") {
+    logger <- NULL
+  }
   service_url <- get_service_url(service)
 
   create_client <- function() {
