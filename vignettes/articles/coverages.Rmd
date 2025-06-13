@@ -8,8 +8,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library(httptest)
-start_vignette("get-cov")
+vcr::setup_knitr()
 ```
 
 emodnet.wcs provides functionalitly for downloading coverage data from EMODnet WCS services as `terra` [`<spatRaster>`](https://rspatial.github.io/terra/reference/SpatRaster-class.html) class objects. It also allows subsetting along coverage dimensions as well as requesting specific bands for download.
@@ -25,6 +24,7 @@ library(emodnet.wcs)
 
 
 ```{r}
+#| cassette: bio
 wcs <- emdn_init_wcs_client(service = "biology")
 
 ```
@@ -32,12 +32,14 @@ wcs <- emdn_init_wcs_client(service = "biology")
 You can get a list of available coverages from the service with `emdn_get_coverage_ids()`
 
 ```{r}
+#| cassette: coverage-ids
 coverage_ids <- emdn_get_coverage_ids(wcs)
 coverage_ids
 ```
 
 Let's focus on the _Calanus finmarchicus_
 ```{r}
+#| cassette: cov3
 coverage_id <- coverage_ids[3]
 coverage_id
 
@@ -63,6 +65,7 @@ So let's also create a subsetting `bbox` of an area of interest, the southern No
 We can first check the bounding box of the full coverage to ensure the subset bounding box lies within.
 
 ```{r}
+#| cassette: summary
 cov_summary <- emdn_get_coverage_summaries(
   wcs,
   coverage_id
@@ -80,6 +83,7 @@ bbox <- c(xmin = 1.5, ymin = 53, xmax = 6.5, ymax = 58)
 Now we are ready to download the coverage and provide the bounding box we created to the `bbox` argument.
 
 ```{r}
+#| cassette: get-cov1
 cov_1 <- emdn_get_coverage(wcs, coverage_id = coverage_id, bbox = bbox)
 
 cov_1
@@ -94,12 +98,14 @@ The raster returned from the server includes the nil value (which technically en
 You can access nil values for each band from a `summary` object using `emdn_get_band_nil_values()`
 
 ```{r}
+#| cassette: get-nil
 emdn_get_band_nil_values(cov_summary)
 ```
 
 If you wish to encode nil values as `NA` during coverage download, you can use argument `nil_values_as_na`.
 
 ```{r}
+#| cassette: get-cov-nil
 cov_nil_to_na <- emdn_get_coverage(
   wcs,
   coverage_id = coverage_id,
@@ -123,6 +129,7 @@ If a coverage has additional dimensions to the two geographic ones (x/long & y/l
 Coverage `r coverage_id` indeed has a temporal extent:
 
 ```{r}
+#| cassette: dim-types
 emdn_get_dimension_types(cov_summary)
 ```
 
@@ -131,6 +138,7 @@ so our previous request returned only the last timepoint of the coverage:
 However we can request specific timepoints. First, let's get a list of all available timepoints.
 
 ```{r}
+#| cassette: get-temp
 temp_coefs <- emdn_get_coverage_dim_coefs(
   wcs = wcs,
   coverage_ids = coverage_id,
@@ -146,6 +154,7 @@ timepoints
 
 We can request the specific timepoints by supplying our vector of timepoints to the `time` argument.
 ```{r}
+#| cassette: get-cov2
 cov_2 <- emdn_get_coverage(
   wcs,
   coverage_id = coverage_id,
@@ -174,11 +183,13 @@ We can also request specific bands from a coverage.
 First let's check the available bands in our coverage.
 
 ```{r}
+#| cassette: get-band-desc
 emdn_get_band_descriptions(cov_summary)
 ```
 
 To download a specifc band we use the argument `rangesubset`:
 ```{r}
+#| cassette: get-subset
 emdn_get_coverage(
   wcs,
   coverage_id = coverage_id,
@@ -198,6 +209,7 @@ When downloading data, underlying package `ows4R` uses the in-built [`WCSCoverag
 However, it is possible to override this as well as the location the file is written to by supplying a file path to argument `filename`.
 
 ```{r}
+#| cassette: tif
 emdn_get_coverage(
   wcs,
   coverage_id = coverage_id,
@@ -213,8 +225,3 @@ fs::dir_ls(type = "file", glob = "*.tif") %>%
   fs::file_delete()
 ```
 
-
-
-```{r cov-stop-recording, include=FALSE}
-end_vignette()
-```

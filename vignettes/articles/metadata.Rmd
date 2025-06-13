@@ -16,18 +16,13 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-library(httptest)
-start_vignette("article-info")
+vcr::setup_knitr()
 ```
 
 First let's load the package and initiate a client to the `"biology"` EMODnet WCS server.
 
 ```{r setup}
 library(emodnet.wcs)
-```
-
-```{r start-recording, include = FALSE}
-#httptest::start_vignette("article-info")
 ```
 
 ```{r init}
@@ -42,6 +37,7 @@ To get service level and a subset of coverage level compiled metadata, we can us
 We can supply a [`<WCSClient>`](https://eblondel.github.io/ows4R/reference/WCSClient.html) object through argument `wcs` to get compiled metadata from the server.
 
 ```{r wcs-info}
+#| cassette: wcs-info
 wcs_info <- emdn_get_wcs_info(wcs = wcs)
 
 wcs_info
@@ -51,16 +47,18 @@ wcs_info
 You can get the same information by supplying a service name to argument `service` instead of a `<WCSClient>` object to argument `wcs`.
 
 ```{r wcs-info-name}
+#| cassette: wcs-info-bio
 emdn_get_wcs_info(service = "biology")
 ```
 
 
 The function returns a list of service level metadata which includes a tibble of summaries of coverage level metadata in the `coverage_details` element.
 
-Let's take a closer look at the metadata in `coverage_details`. For details on these metadata, have a look at the `emdn_get_wcs_info()` help page (or use `?emdn_get_wcs_info` in R or Rstudio). 
+Let's take a closer look at the metadata in `coverage_details`. For details on these metadata, have a look at the `emdn_get_wcs_info()` help page (or use `?emdn_get_wcs_info` in R). 
 
 
 ```{r coverage_details, echo=FALSE}
+#| cassette: coverage-details
 library(huxtable)
 hux(wcs_info$coverage_details) %>%
   style_cells(1, everywhere, bold = TRUE) %>%
@@ -73,6 +71,7 @@ You can get metadata for all EMODnet WCS services using `emdn_get_wcs_info_all()
 
 
 ```{r all-info, eval=FALSE}
+#| cassette: all-info
 emdn_get_wcs_info_all()
 ```
 
@@ -81,12 +80,10 @@ emdn_get_wcs_info_all()
 You can get more detailed coverage metadata about specific coverage using function `emdn_get_coverage_info()` and supplying a character vector of `coverage_ids`. Again, you can get the same information by supplying a service name to argument `service` instead of a `<WCSClient>` object to argument `wcs`.
 
 ```{r cov-info}
+#| cassette: cov-info
 cov_info <- emdn_get_coverage_info(
   wcs,
-  coverage_ids = c(
-    "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-    "Emodnetbio__cal_fin_19582016_L1_err"
-  )
+  coverage_ids = "Emodnetbio__cal_fin_19582016_L1_err"
 )
 
 ```
@@ -132,40 +129,34 @@ Some metadata can be retrieved directly from a `<WCSClient>` object.
 You can extract a character vector of available coverage IDs from a service with function `emdn_get_coverage_ids()`
 
 ```{r}
+#| cassette: coverage-ids
 emdn_get_coverage_ids(wcs)
 ```
 
 You can also check whether a coverage has a given type of dimension.
 ```{r}
+#| cassette: coverage-dim
 # Check for temporal dimension
 emdn_has_dimension(
   wcs,
-  coverage_ids = c(
-    "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-    "Emodnetbio__cal_fin_19582016_L1_err"
-  ),
+  coverage_ids = "Emodnetbio__cal_fin_19582016_L1_err",
   type = "temporal"
 )
 
 # Check for vertical dimension
 emdn_has_dimension(
   wcs,
-  coverage_ids = c(
-    "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-    "Emodnetbio__cal_fin_19582016_L1_err"
-  ),
+  coverage_ids = "Emodnetbio__cal_fin_19582016_L1_err",
   type = "vertical"
 )
 ```
 
 Or get the coefficients (points in a given dimension) at which data are available for specific coverages.
 ```{r}
+#| cassette: coverage-dim-coefs
 emdn_get_coverage_dim_coefs(
   wcs,
-  coverage_ids = c(
-    "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-    "Emodnetbio__cal_fin_19582016_L1_err"
-  ),
+  coverage_ids = "Emodnetbio__cal_fin_19582016_L1_err",
   type = "temporal"
 )
 ```
@@ -176,12 +167,10 @@ More detailed metadata requires a further call to the server to a return an obje
 
 You can use `emdn_get_coverage_summaries()` to get `<WCSCoverageSummary>` objects for specific coverages.
 ```{r}
+#| cassette: coverage-summaries
 summaries <- emdn_get_coverage_summaries(
   wcs,
-  coverage_ids = c(
-    "Emodnetbio__ratio_large_to_small_19582016_L1_err",
-    "Emodnetbio__cal_fin_19582016_L1_err"
-  )
+  coverage_ids = "Emodnetbio__cal_fin_19582016_L1_err"
 )
 
 summaries
@@ -331,7 +320,3 @@ emdn_get_dimension_types(summary)
 ```
 
 
-
-```{r stop-recording, include=FALSE}
-end_vignette()
-```
