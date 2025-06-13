@@ -16,10 +16,10 @@ check_wcs_version <- function(wcs) {
   ) {
     cli::cli_warn(c(
       "!" = "Service version {.val {wcs$getVersion()}}
-                        can result in unexpected  behaviour on the
-                        {.val human activities} server.
-                            We strongly recommend reconnecting using {.var service_version}
-                      {.val 2.0.1}."
+            can result in unexpected  behaviour on the
+            {.val human activities} server.
+            We strongly recommend reconnecting using {.var service_version}
+            {.val 2.0.1}."
     ))
   } else {
     supported_versions <- wcs$getCapabilities()$getServiceIdentification()$getServiceTypeVersion()
@@ -92,10 +92,8 @@ check_service <- function(request) {
       "HTTP Status: {cli::col_green(httr::http_status(request)$message)}"
     )
     cli::cli_abort(
-      c(
-        "x" = "An exception has occurred. Please raise an
-          issue in {.url {packageDescription('emodnet.wcs')$BugReports}}"
-      )
+      "An exception has occurred. 
+    Please raise an issue in {.url {packageDescription('emodnet.wcs')$BugReports}}"
     )
   }
 }
@@ -106,10 +104,10 @@ check_coverages <- function(wcs, coverages) {
 
   if (!all(test_coverages)) {
     bad_coverages <- coverages[!test_coverages]
-    cli::cli_abort(c(
-      "x" = "{.val {bad_coverages}} not valid coverage{?s}
-                         for service {.url {wcs$getUrl()}}"
-    ))
+    cli::cli_abort(
+      "{.val {bad_coverages}} not valid coverage{?s}
+      for service {.url {wcs$getUrl()}}"
+    )
   }
 }
 
