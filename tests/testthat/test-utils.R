@@ -11,7 +11,6 @@ test_that("service urls & names crossreference correctly", {
 
 
 test_that("extent & crs processed correctly", {
-  skip()
   summary <- create_biology_summary()[[1]]
   with_mock_dir("bio-info", {
     bbox <- emdn_get_bbox(summary)
@@ -22,10 +21,10 @@ test_that("extent & crs processed correctly", {
 
 
 test_that("dimensions processed correctly", {
-  skip()
-  wcs <- create_biology_wcs()
-  summary <- create_biology_summary()[[1]]
   with_mock_dir("biology-description", {
+    wcs <- emdn_init_wcs_client(service = "biology")
+    summaries <- emdn_get_coverage_summaries_all(wcs)
+    summary <- summaries[[1]]
     expect_equal(
       emdn_get_grid_size(summary),
       c(ncol = 951, nrow = 401)

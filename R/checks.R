@@ -1,4 +1,3 @@
-# ---- checks ----
 check_service_name <- function(service) {
   checkmate::assert_choice(service, emdn_wcs()$service_name)
 }
